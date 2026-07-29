@@ -17,7 +17,7 @@ const navHTML = `
 
     <div class="logo">
       <a href="${BASE}/index.html">
-        <img src="${BASE}/Image/YTC-Long-Logo.png"
+        <img src="${BASE}/Image/YTC_Long_Logo.png"
              alt="YTC - CLB Đào tạo Kỹ năng trẻ"
              class="responsive-img">
       </a>
