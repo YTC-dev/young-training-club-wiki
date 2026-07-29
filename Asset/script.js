@@ -11,18 +11,18 @@ const navHTML = `
 
     <!-- LOGO ẢNH -->
     <div class="logo">
-      <a href="/index.html">
-        <img src="/Image/YTC-Long-Logo.png" alt="YTC - CLB Đào tạo Kỹ năng trẻ" class="responsive-img">
+      <a href="../index.html">
+        <img src="../Image/YTC-Long-Logo.png" alt="YTC - CLB Đào tạo Kỹ năng trẻ" class="responsive-img">
       </a>
     </div>
 
     <ul class="nav-links">
-      <li><a href="/index.html">Trang chủ</a></li>
-      <li><a href="/about.html">Giới thiệu</a></li>
-      <li><a href="/contest_event.html">Cuộc thi</a></li>
-      <li><a href="/news.html">Hoạt động</a></li>
-      <li><a href="/member.html">Thành viên</a></li>
-      <li><a href="/joinus.html"><b>Tham gia</b></a></li>
+      <li><a href="../index.html">Trang chủ</a></li>
+      <li><a href="../about.html">Giới thiệu</a></li>
+      <li><a href="../contest_event.html">Cuộc thi</a></li>
+      <li><a href="../news.html">Hoạt động</a></li>
+      <li><a href="../member.html">Thành viên</a></li>
+      <li><a href="../joinus.html"><b>Tham gia</b></a></li>
     </ul>
 
     <div class="hamburger">
