@@ -1,0 +1,689 @@
+/* =========================
+   GLOBAL THEME VARIABLES
+========================= */
+:root {
+  /* Dark colors */
+  --blue-dark: #04006b;
+  --blue-main: #2c3b90;
+  --blue-accent: #0983fe;
+  --blue-soft: #51c2f2;
+
+  /* Light colors */
+  --light-bg: #ffffff;
+  --light-soft: #d1e2fc;
+  --light-blue: #a1e3ff;
+
+  /* Text */
+  --text-main: #0f172a;
+  --text-light: #ffffff;
+  --text-muted: #64748b;
+
+  /* UI */
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+
+  --shadow-soft: 0 8px 24px rgba(44, 59, 144, 0.15);
+  --shadow-hover: 0 12px 30px rgba(9, 198, 254, 0.35);
+
+  --transition-fast: 0.25s ease;
+  --transition-slow: 0.4s ease;
+}
+
+img {
+  pointer-events: none;
+  -webkit-user-drag: none;
+  user-select: none;
+}
+
+/* =========================
+   RESET + BASE
+========================= */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}
+
+/* =========================
+   NAVBAR
+========================= */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 9999;
+  background: #b0e7ff;
+  box-shadow: var(--shadow-soft);
+  height: 60px; /* Giảm chiều cao cho mobile */
+  display: flex;
+  align-items: center;
+  transition: transform 0.35s ease;
+}
+
+.navbar.scrolled {
+  transform: none;
+}
+
+.nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px; /* Thêm padding cho mobile */
+  width: 100%;
+}
+
+.logo {
+  flex: 1;
+}
+
+.logo a {
+  display: block;
+}
+
+.logo img {
+  max-height: 100px; /* Điều chỉnh kích thước logo cho mobile */
+  width: auto;
+}
+
+/* LINKS */
+.nav-links {
+  list-style: none;
+  display: none; /* Ẩn menu desktop trên mobile */
+  gap: 30px;
+  position: relative;
+  margin: 0;
+}
+
+.nav-links a {
+  color: #005fe3;
+  font-weight: 500;
+  position: relative;
+  padding: 6px 0;
+  transition: color 0.25s ease;
+}
+
+/* underline animation */
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 0;
+  height: 2px;
+  background: #0072ed;
+  transition: var(--transition-fast);
+}
+
+.nav-links a:hover::after {
+  width: 100%;
+}
+
+.nav-links a:hover {
+  color: #003ea8;
+}
+
+/* CTA */
+.nav-btn {
+  background: #ffffff;
+  color: var(--blue-main);
+  display: none; /* Ẩn trên mobile ban đầu, hiển thị trong menu */
+}
+
+.nav-btn:hover {
+  color: #ffffff;
+  background: var(--blue-accent);
+}
+
+.nav-indicator {
+  position: absolute;
+  bottom: -6px;
+  left: 0;
+  width: 0;
+  height: 3px;
+  background: #0072ed;
+  transition: 0.3s ease;
+}
+
+/* Hamburger Menu for Mobile */
+.hamburger {
+  display: none; /* Ẩn trên desktop */
+  flex-direction: column;
+  cursor: pointer;
+  gap: 4px;
+  z-index: 10000;
+}
+
+.hamburger span {
+  width: 24px;
+  height: 3px;
+  background: #005fe3;
+  transition: 0.3s;
+  border-radius: 2px;
+}
+
+.hamburger.active span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(7px, -6px);
+}
+
+.nav-links.active {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 60px;
+  left: 0;
+  width: 100%;
+  background: #b0e7ff;
+  padding: 16px;
+  gap: 16px;
+  align-items: center;
+  box-shadow: var(--shadow-soft);
+}
+
+.nav-links.active .nav-btn {
+  display: inline-block;
+  margin-top: 8px;
+}
+
+/* =========================
+   BODY
+========================= */
+body {
+  font-family: 'Inter', 'Segoe UI', Roboto, sans-serif;
+  background: var(--light-soft);
+  color: var(--text-main);
+  line-height: 1.6;
+  text-align: center;
+  font-size: 16px; /* Giảm font size cho mobile */
+  padding-top: 90px;
+}
+
+/* =========================
+   LAYOUT
+========================= */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: auto;
+  padding: 10px; /* Giảm padding cho mobile */
+}
+
+/* =========================
+   HEADER / FOOTER
+========================= */
+header {
+  background: linear-gradient(135deg, var(--blue-dark) 0%, var(--blue-main) 50%, var(--blue-accent) 100%);
+  color: var(--text-light);
+  padding: 48px 20px 36px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+header::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 70% 50%, rgba(81,194,242,0.18) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+header h1 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+  position: relative;
+}
+
+header p {
+  font-size: 1rem;
+  opacity: 0.85;
+  position: relative;
+}
+
+footer {
+  background: linear-gradient(135deg, var(--blue-main), var(--blue-accent));
+  color: var(--text-light);
+  padding: 10px 14px;
+}
+
+footer a {
+  color: var(--light-blue);
+}
+
+footer a:hover {
+  color: var(--blue-soft);
+}
+
+footer img {
+  width: 100%;
+  max-width: 20px;
+}
+
+h2 {
+  position: relative;
+  display: inline-block;
+  font-weight: 600;
+  padding-bottom: 10px; /* Giảm padding */
+  font-size: 1.5rem; /* Giảm kích thước */
+}
+
+h2::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  width: 48px;
+  height: 3px;
+  background: currentColor;
+  border-radius: 2px;
+  transition: width 0.4s ease;
+}
+
+h2:hover::after {
+  width: 80px;
+}
+
+/* =========================
+   CARD / BOX
+========================= */
+.box {
+  background: var(--light-bg);
+  border-radius: var(--radius-md);
+  padding: 10px;
+  box-shadow: var(--shadow-soft);
+  transition: var(--transition-fast);
+  position: relative;
+}
+
+.card {
+  background: var(--light-bg);
+  border-radius: var(--radius-md);
+  padding: 16px; /* Giảm padding cho mobile */
+  box-shadow: var(--shadow-soft);
+  transition: var(--transition-fast);
+  position: relative;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-hover);
+}
+
+/* =========================
+   ROLE SECTION
+========================= */
+.role {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: center;
+  margin-top: 16px;
+}
+
+.role.role-4 > .role-box {
+  flex: 1 1 calc(25% - 16px);
+  max-width: calc(25% - 16px);
+}
+
+.role-box {
+  flex: 1 1 calc(33.333% - 16px);
+  max-width: calc(33.333% - 16px);
+  background: linear-gradient(
+    135deg,
+    var(--light-bg),
+    var(--light-soft)
+  );
+  border-radius: var(--radius-md);
+  padding: 16px; /* Giảm padding */
+  box-shadow: var(--shadow-soft);
+  transition: var(--transition-fast);
+  position: relative;
+  overflow: hidden;
+}
+
+.role-box img {
+  max-width: 300px;
+  width: 100%;
+}
+
+.role-box:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-hover);
+}
+
+/* Decorative border */
+.role-box::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  border: 2px solid transparent;
+  background: linear-gradient(
+    135deg,
+    var(--blue-accent),
+    var(--blue-soft)
+  ) border-box;
+  -webkit-mask:
+    linear-gradient(#fff 0 0) padding-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0.4;
+}
+
+.role-box::after,
+.card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.role-box .section-title {
+  font-size: 18px; /* Giảm font */
+  color: var(--blue-main);
+  margin-bottom: 6px;
+  letter-spacing: 0.5px;
+}
+
+.role-box p {
+  font-weight: 500;
+  color: #4b525d;
+}
+
+.role-box img {
+  width: 100%;
+  height: auto;
+  margin: 8px auto 6px;
+  display: block;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-soft);
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.role-box:hover img {
+  transform: scale(1.03);
+  box-shadow: 0 16px 36px rgba(44, 59, 144, 0.25);
+}
+
+.role-box.highlight {
+  flex: 0 1 calc(33.333% - 16px);
+  max-width: 380px;
+}
+
+/* =========================
+   BUTTON
+========================= */
+.btn {
+  display: inline-block;
+  padding: 8px 16px; /* Giảm padding cho mobile */
+  border-radius: var(--radius-sm);
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+  background: linear-gradient(
+    135deg,
+    var(--blue-accent),
+    var(--blue-soft)
+  );
+  color: #ffffff;
+  transition: var(--transition-fast);
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-hover);
+}
+
+.btn:active {
+  transform: translateY(0);
+  box-shadow: 0 6px 14px rgba(9, 131, 254, 0.35);
+}
+
+/* =========================
+   LINK
+========================= */
+a {
+  color: var(--blue-accent);
+  text-decoration: none;
+  transition: var(--transition-fast);
+}
+
+a:hover {
+  color: var(--blue-main);
+}
+
+/* =========================
+   FORM
+========================= */
+input,
+textarea,
+select {
+  width: 100%;
+  padding: 8px 10px; /* Giảm padding */
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--blue-soft);
+  background: var(--light-bg);
+  transition: var(--transition-fast);
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: var(--blue-accent);
+  box-shadow: 0 0 0 2px rgba(9, 198, 254, 0.25);
+}
+
+/* =========================
+   BADGE
+========================= */
+.badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: var(--radius-lg);
+  background: var(--blue-soft);
+  color: var(--blue-main);
+  font-size: 0.8rem;
+}
+
+/* =========================
+   ANIMATION
+========================= */
+.fade-in {
+  animation: fadeIn 0.6s ease forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =========================
+   GLOBAL ENHANCEMENT
+========================= */
+html {
+  scroll-behavior: smooth;
+}
+
+.box,
+.card,
+.role-box,
+.btn {
+  will-change: transform;
+}
+
+/* Glass navbar */
+.navbar {
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  background: rgba(176, 231, 255, 0.85);
+}
+
+/* Responsive Images */
+.responsive-img {
+  width: 100%;
+  height: auto;
+  max-width: 300px;
+}
+
+/* Media Queries for Mobile */
+@media (max-width: 768px) {
+  body {
+    font-size: 14px;
+  }
+
+  .container {
+    padding: 8px;
+  }
+
+  .navbar {
+    height: 50px;
+  }
+
+  .nav-inner {
+    padding: 0 12px;
+  }
+
+  .logo img {
+    max-height: 40px;
+  }
+
+  .hamburger {
+    display: flex;
+  }
+
+  .nav-links {
+    display: none;
+  }
+
+  .nav-links.active {
+    display: flex;
+  }
+
+  .header--marquee {
+    font-size: 12px;
+    scrollamount: 5; /* Giảm tốc độ marquee cho mobile */
+  }
+
+  h1 {
+    font-size: 1.8rem;
+  }
+
+  h2 {
+    font-size: 1.3rem;
+  }
+
+  h3.section-title {
+    font-size: 1.2rem;
+  }
+
+  .card {
+    padding: 12px;
+  }
+
+  .role {
+    flex-direction: column;
+  }
+
+  .role-box,
+  .role-box.highlight,
+  .role.role-4 > .role-box {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
+
+  .btn {
+    padding: 8px 14px;
+  }
+
+  footer {
+    padding: 8px 12px;
+  }
+
+  .social-icon {
+    width: 24px; /* Tăng kích thước icon cho dễ chạm trên mobile */
+  }
+
+  .social-links p {
+    font-size: 0.9rem;
+  }
+
+  /* Ẩn marquee nếu cần (tùy chọn, vì marquee không thân thiện mobile) */
+  /* .header--marquee { display: none; } */
+}
+
+/* Desktop adjustments */
+@media (min-width: 769px) {
+  .hamburger {
+    display: none;
+  }
+
+  .nav-links {
+    display: flex;
+  }
+
+  .nav-btn {
+    display: inline-block;
+  }
+
+  .navbar {
+    height: 80px;
+  }
+
+  .logo img {
+    max-height: 60px;
+  }
+}
+
+/* FOOTER */
+.footer-container {
+  background: linear-gradient(135deg, var(--blue-main), var(--blue-accent));
+  color: var(--text-light);
+  padding: 24px 0 16px;
+  text-align: center;
+  font-size: 15px;
+}
+
+.footer-container p {
+  margin-bottom: 8px;
+}
+
+.footer-container a {
+  color: var(--light-blue);
+  text-decoration: underline;
+}
+
+.footer-container a:hover {
+  color: #fff;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .footer-container {
+    padding: 20px 0 12px;
+    font-size: 14px;
+  }
+}
