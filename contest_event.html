@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Cuộc thi - CLB Đào tạo Kỹ năng Trẻ</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Link CSS hệ thống -->
+  <link rel="stylesheet" href="/style.css">
+  <link rel="icon" type="image/png" href="Image/YTC-Favicon.png">
+</head>
+<style>
+:root {
+    /* Rank / Podium colors */
+    --rank-gold:         #f5c518;
+    --rank-gold-soft:    rgba(245, 197, 24, 0.15);
+    --rank-silver:       #b0bec5;
+    --rank-silver-soft:  rgba(176, 190, 197, 0.15);
+    --rank-bronze:       #cd7f32;
+    --rank-bronze-soft:  rgba(205, 127, 50, 0.15);
+    --rank-favorite-soft: rgba(179, 55, 90, 0.10);
+
+    /* Display font */
+    --font-display: 'Inter', 'Segoe UI', sans-serif;
+}
+
+    /* ---------- Header subtitle ---------- */
+header p.subtitle {
+  font-size: 1rem;
+  opacity: 0.85;
+  margin-top: 4px;
+}
+ 
+/* ---------- Module = one contest category ---------- */
+.contest-module {
+  margin: 0 auto 48px;
+  max-width: 880px;
+  text-align: left;
+}
+ 
+.contest-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: var(--light-blue);
+  color: var(--blue-dark);
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+ 
+.contest-title {
+  font-family: var(--font-display);
+  font-size: 1.9rem;
+  font-weight: 700;
+  color: var(--blue-dark);
+  letter-spacing: -0.5px;
+  margin-bottom: 18px;
+  text-align: left;
+  display: block;
+}
+ 
+/* Override the global centered/underlined h2 just within this module */
+.contest-module h2.contest-title {
+  display: block;
+}
+.contest-module h2.contest-title::after {
+  content: none;
+}
+ 
+.contest-intro {
+  background: var(--light-bg);
+  border-left: 4px solid var(--blue-accent);
+  border-radius: var(--radius-md);
+  padding: 18px 22px;
+  text-align: left;
+  box-shadow: var(--shadow-soft);
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+ 
+.list-label {
+  display: block;
+  text-align: left;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--blue-main);
+  margin: 28px 0 14px;
+  padding-left: 14px;
+  border-left: 3px solid var(--blue-accent);
+}
+ 
+.contest-divider {
+  width: 60%;
+  max-width: 320px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--blue-soft), transparent);
+  margin: 8px auto 48px;
+  border: none;
+}
+ 
+/* ---------- Result card = one specific contest ---------- */
+.result-card {
+  background: var(--light-bg);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-soft);
+  margin-bottom: 28px;
+  transition: var(--transition-fast);
+  text-align: center;
+}
+ 
+.result-card:hover {
+  box-shadow: var(--shadow-hover);
+}
+ 
+.result-cover {
+  width: 100%;
+  display: block;
+  max-height: 500px;
+  object-fit: cover;
+}
+ 
+.result-body {
+  padding: 26px 22px;
+}
+ 
+.result-name {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--blue-main);
+  margin-bottom: 22px;
+  letter-spacing: 0.2px;
+}
+ 
+/* ---------- Podium ---------- */
+.podium {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 14px;
+  margin: 8px 0 28px;
+  flex-wrap: wrap;
+}
+ 
+.podium-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1 1 150px;
+  max-width: 190px;
+  padding: 18px 14px 16px;
+  border-radius: var(--radius-md) var(--radius-md) 4px 4px;
+  opacity: 0;
+  animation: fadeIn 0.6s ease forwards;
+}
+ 
+.podium-step:nth-child(1) { animation-delay: 0.05s; }
+.podium-step:nth-child(2) { animation-delay: 0.15s; }
+.podium-step:nth-child(3) { animation-delay: 0.25s; }
+ 
+.podium-step .medal {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.05rem;
+  color: #fff;
+  margin-bottom: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+ 
+.podium-step .rank-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 4px;
+  opacity: 0.7;
+}
+ 
+.podium-step .winner-name {
+  font-weight: 700;
+  font-size: 0.98rem;
+  color: var(--text-main);
+  line-height: 1.3;
+  display: block;
+}
+ 
+.podium-step .winner-name + .winner-name {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px dashed rgba(15, 23, 42, 0.15);
+}
+ 
+.podium-step .winner-meta {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-top: 2px;
+  display: block;
+}
+ 
+.podium-step.gold {
+  order: 2;
+  background: linear-gradient(180deg, var(--rank-gold-soft), transparent);
+  transform: translateY(-14px);
+}
+.podium-step.gold .medal { background: linear-gradient(135deg, var(--rank-gold), #d99a1f); }
+ 
+.podium-step.silver {
+  order: 1;
+  background: linear-gradient(180deg, var(--rank-silver-soft), transparent);
+}
+.podium-step.silver .medal { background: linear-gradient(135deg, var(--rank-silver), #8a9aa6); }
+ 
+.podium-step.bronze {
+  order: 3;
+  background: linear-gradient(180deg, var(--rank-bronze-soft), transparent);
+}
+.podium-step.bronze .medal { background: linear-gradient(135deg, var(--rank-bronze), #a8662f); }
+ 
+/* ---------- Special / audience-choice award ---------- */
+.special-award {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--rank-favorite-soft);
+  color: #b3375a;
+  padding: 10px 18px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin: 4px 0 22px;
+}
+ 
+/* ---------- CTA link ---------- */
+.result-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 600;
+  color: var(--blue-accent);
+  border: 1.5px solid var(--blue-accent);
+  padding: 9px 18px;
+  border-radius: var(--radius-sm);
+  transition: var(--transition-fast);
+}
+.result-link:hover {
+  background: var(--blue-accent);
+  color: #fff;
+  transform: translateY(-2px);
+}
+.result-link:focus-visible {
+  outline: 3px solid var(--blue-accent);
+  outline-offset: 3px;
+}
+ 
+/* ---------- Mobile ---------- */
+@media (max-width: 640px) {
+  .podium {
+    flex-direction: column;
+    align-items: center;
+  }
+  .podium-step {
+    width: 100%;
+    max-width: 280px;
+    transform: none !important;
+    border-radius: var(--radius-md);
+  }
+  .podium-step.gold   { order: 1 !important; }
+  .podium-step.silver { order: 2 !important; }
+  .podium-step.bronze { order: 3 !important; }
+ 
+  .contest-title { font-size: 1.5rem; }
+}
+ 
+/* ---------- Reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .podium-step {
+    animation: none !important;
+    opacity: 1 !important;
+  }
+}
+</style>
+<body>
+<div id="nav-placeholder"></div>
+
+  <!-- HEADER -->
+  <header>
+    <div class="container">
+      <h1>Cuộc thi</h1>
+      <p class="subtitle">Sân khấu cho những câu chuyện, giọng nói và ý tưởng trẻ</p>
+    </div>
+  </header>
+<br>
+  <main class="container">
+
+    <!-- PODCAST - PHIM -->
+    <section class="contest-module fade-in">
+      <h2 class="contest-title">Cuộc thi nhóm Podcast - Phim</h2>
+      <p class="contest-intro">Với chuỗi cuộc thi thiết kế phim và sản xuất podcast về kỹ năng sống và các xu hướng thực tế, YTC không chỉ tạo ra sân chơi sáng tạo mà còn mở ra không gian để chia sẻ góc nhìn, cảm xúc và trách nhiệm xã hội. Mỗi tác phẩm là một câu chuyện nâng cao nhận thức, khơi gợi tinh thần chủ động và ý thức trách nhiệm của mỗi người trên hành trình khám phá bản thân và bước vào chặng đường mới của cuộc sống.</p>
+
+      <p class="list-label">Danh sách cuộc thi</p>
+
+      <div class="result-card">
+        <img src="Contest/Podcast/Image/OneTakeResult.jpg" alt="Công bố giải One - Take" class="result-cover">
+        <div class="result-body">
+          <h3 class="result-name">Cuộc thi ONE - TAKE</h3>
+            <p>Dành cho thành viên thử thách Gen 14.2</p>
+            <p><b>Thời gian: </b>17/03/2026 - 28/03/2026</p>
+          <div class="podium">
+            <div class="podium-step silver">
+              <span class="rank-label">Giải nhì</span>
+              <span class="medal">2</span>
+              <span class="winner-name">Nhóm OneTeam</span>
+            </div>
+            <div class="podium-step gold">
+              <span class="rank-label">Giải nhất</span>
+              <span class="medal">1</span>
+              <span class="winner-name">Nhóm Donald Trump</span>
+            </div>
+            <div class="podium-step bronze">
+              <span class="rank-label">Giải ba</span>
+              <span class="medal">3</span>
+              <span class="winner-name">Nhóm ShineOn</span>
+            </div>
+          </div>
+
+          <a href="Contest/OneTake.html" class="result-link">Xem series tại đây →</a>
+        </div>
+      </div>
+
+      <div class="result-card">
+        <img src="Contest/Podcast/Image/RewriteDestinyResult.jpg" alt="Công bố giải Rewrite Destiny" class="result-cover">
+        <div class="result-body">
+          <h3 class="result-name">Cuộc thi Rewrite Destiny</h3>
+          <p>Dành cho thành viên thử thách Gen 14.1</p>
+          <p><b>Thời gian: </b>18/10/2025 - 06/11/2025</p>
+          <div class="podium">
+            <div class="podium-step silver">
+              <span class="rank-label">Giải nhì</span>
+              <span class="medal">2</span>
+              <span class="winner-name">Nhóm The Light</span>
+              <span class="winner-name">Nhóm Ẩm thực trùng sinh</span>
+            </div>
+            <div class="podium-step gold">
+              <span class="rank-label">Giải nhất</span>
+              <span class="medal">1</span>
+              <span class="winner-name">Nhóm Good Vibes Tribe</span>
+            </div>
+            <div class="podium-step bronze">
+              <span class="rank-label">Giải ba</span>
+              <span class="medal">3</span>
+              <span class="winner-name">Nhóm INFINITY</span>
+              <span class="winner-name">Nhóm Dreamten</span>
+              <span class="winner-name">Nhóm The Last Victory Hunters</span>
+            </div>
+          </div>
+
+          <a href="Contest/RewriteDestiny.html" class="result-link">Xem series tại đây →</a>
+        </div>
+      </div>
+
+      <div class="result-card">
+        <img src="Contest/Podcast/Image/VoiceYourMindResult.jpg" alt="Công bố giải Voice Your Mind" class="result-cover">
+        <div class="result-body">
+          <h3 class="result-name">Cuộc thi Voice Your Mind</h3>
+          <p>Dành cho thành viên thử thách Gen 13.2</p>
+          <p><b>Thời gian: </b>10/03/2025 - 02/04/2025</p>
+          <div class="podium">
+            <div class="podium-step silver">
+              <span class="rank-label">Giải nhì</span>
+              <span class="medal">2</span>
+              <span class="winner-name">Nhóm Biệt Đội Xanh</span>
+            </div>
+            <div class="podium-step gold">
+              <span class="rank-label">Giải nhất</span>
+              <span class="medal">1</span>
+              <span class="winner-name">Nhóm Together we rise</span>
+            </div>
+            <div class="podium-step bronze">
+              <span class="rank-label">Giải ba</span>
+              <span class="medal">3</span>
+              <span class="winner-name">Nhóm Crew 1718</span>
+            </div>
+          </div>
+
+          <a href="Contest/VoiceYourMind.html" class="result-link">Xem series tại đây →</a>
+        </div>
+      </div>
+
+      <div class="result-card">
+        <img src="Contest/Podcast/Image/YTCPodcastChallengeResult.jpg" alt="Công bố giải YTC Podcast Challenge" class="result-cover">
+        <div class="result-body">
+          <h3 class="result-name">Cuộc thi YTC Podcast Challenge</h3>
+          <p>Dành cho thành viên thử thách Gen 13</p>
+          <p><b>Thời gian: </b>18/10/2025 - 11/04/2025</p>
+          <div class="podium">
+            <div class="podium-step silver">
+              <span class="rank-label">Giải nhì</span>
+              <span class="medal">2</span>
+              <span class="winner-name">Nhóm Hơn Thua</span>
+            </div>
+            <div class="podium-step gold">
+              <span class="rank-label">Giải nhất</span>
+              <span class="medal">1</span>
+              <span class="winner-name">Nhóm THE INNOVATORS</span>
+            </div>
+            <div class="podium-step bronze">
+              <span class="rank-label">Giải ba</span>
+              <span class="medal">3</span>
+              <span class="winner-name">Nhóm 8 Musketeers</span>
+            </div>
+          </div>
+          <div class="special-award">❤️ Yêu thích nhất: Nhóm Bom Nổ Chậm</div><br>
+
+          <a href="Contest/VoiceYourMind.html" class="result-link">Xem series tại đây →</a>
+        </div>
+      </div>
+      <!-- Thêm .result-card mới ở đây khi có cuộc thi tiếp theo trong chuỗi Podcast - Phim -->
+    </section>
+
+    <hr class="contest-divider">
+
+    <!-- MC - GIỌNG NÓI -->
+    <section class="contest-module fade-in">
+      <h2 class="contest-title">Cuộc thi MC - Giọng nói</h2>
+      <p class="contest-intro">Chuỗi cuộc thi MC – Giọng nói dành cho toàn thể sinh viên UNETI không chỉ là sân chơi để mỗi cá nhân thể hiện bản thân, mà còn là cơ hội lan tỏa tài năng, sự năng động và tinh thần sáng tạo. Thông qua nhiều chủ đề và tình huống đa dạng, cuộc thi giúp sinh viên rèn luyện kỹ năng giao tiếp, bản lĩnh sân khấu và khả năng ứng biến, từ đó tự tin hơn trong học tập, hoạt động tập thể và hành trình phát triển bản thân.</p>
+
+      <p class="list-label">Danh sách cuộc thi</p>
+
+      <div class="result-card">
+        <img src="Contest/RisingVoice2025/Image/QuanQuan.jpg" alt="Quán quân Rising Voice 2025" class="result-cover">
+        <div class="result-body">
+          <h3 class="result-name">RISING VOICE 2025 - THE MC TALENT HUNT</h3>
+
+          <div class="podium">
+            <div class="podium-step silver">
+              <span class="rank-label">Á quân 1</span>
+              <span class="medal">2</span>
+              <span class="winner-name">Nguyễn Thị Thanh Hoa</span>
+              <span class="winner-meta">SBD: 11</span>
+            </div>
+            <div class="podium-step gold">
+              <span class="rank-label">Quán quân</span>
+              <span class="medal">1</span>
+              <span class="winner-name">Tô Thu Trang</span>
+              <span class="winner-meta">SBD: 13</span>
+            </div>
+            <div class="podium-step bronze">
+              <span class="rank-label">Á quân 2</span>
+              <span class="medal">3</span>
+              <span class="winner-name">Nguyễn Ngọc Như Quỳnh</span>
+              <span class="winner-meta">SBD: 54</span>
+              <span class="winner-name">Nguyễn Minh Ánh</span>
+              <span class="winner-meta">SBD: 02</span>
+            </div>
+          </div>
+
+          <div class="special-award">❤️ Yêu thích nhất: Ngô Hạnh Nguyên (SBD: 31)</div>
+          <br>
+          <a href="Contest/RisingVoice2025/RisingVoice2025.html" class="result-link">Xem series tại đây →</a>
+        </div>
+      </div>
+      <!-- Thêm .result-card mới ở đây khi có cuộc thi tiếp theo trong chuỗi MC - Giọng nói -->
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div id="footer-placeholder"></div>
+  </footer>
+
+</body>
+<script src="/script.js"></script>
+</html>

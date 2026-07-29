@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Hoạt động - CLB Đào tạo Kỹ năng Trẻ</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/png" href="Image/YTC-Favicon.png">
+  <style>
+    /* ===== EVENT PAGE ENHANCEMENTS ===== */
+
+    /* ===== SECTION TITLE ===== */
+    .section-title-wrap {
+      text-align: center;
+      padding: 32px 16px 8px;
+    }
+
+    /* ===== EVENT GRID ===== */
+    .events-grid {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 12px 16px 40px;
+      display: grid;
+      gap: 24px;
+    }
+
+    /* ===== EVENT CARD ===== */
+    .event-card {
+      background: var(--light-bg);
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(44,59,144,0.10);
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      overflow: hidden;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      border: 1px solid rgba(161,227,255,0.35);
+    }
+    .event-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 32px rgba(9,131,254,0.18);
+    }
+    .event-card__img {
+      width: 240px;
+      height: 100%;
+      min-height: 180px;
+      object-fit: cover;
+      display: block;
+      background: var(--light-soft);
+    }
+    .event-card__img-placeholder {
+      width: 240px;
+      min-height: 180px;
+      background: linear-gradient(135deg, var(--light-soft), var(--light-blue));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+      color: var(--blue-accent);
+    }
+    .event-card__body {
+      padding: 20px 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      text-align: left;
+    }
+    .event-card__title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--blue-dark);
+      line-height: 1.5;
+      margin-bottom: 10px;
+    }
+    .event-card__date {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      font-weight: 500;
+      background: var(--light-soft);
+      padding: 4px 10px;
+      border-radius: 20px;
+      margin-bottom: 14px;
+      width: fit-content;
+    }
+    .event-card__link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--blue-accent);
+      border: 1.5px solid var(--blue-accent);
+      padding: 7px 16px;
+      border-radius: 8px;
+      transition: background 0.2s, color 0.2s;
+      width: fit-content;
+    }
+    .event-card__link:hover {
+      background: var(--blue-accent);
+      color: #fff;
+    }
+    .event-card__links {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      width: 100%;
+      flex-wrap: wrap;
+    }
+    .event-card__links .event-card__link {
+      flex: 1;
+      justify-content: center;
+      text-align: center;
+    }
+
+    /* ===== MOBILE ===== */
+    @media (max-width: 640px) {
+      .event-card {
+        grid-template-columns: 1fr;
+      }
+      .event-card__img,
+      .event-card__img-placeholder {
+        width: 100%;
+        height: 200px;
+      }
+      .event-card__body {
+        padding: 16px;
+      }
+      .page-header h1 {
+        font-size: 1.6rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+<div id="nav-placeholder"></div>
+
+<!-- HEADER -->
+<header>
+  <div class="container">
+    <h1>Hoạt động</h1>
+    <p>Các hoạt động liên quan đến CLB YTC và Đoàn TNCS HCM - Hội sinh viên UNETI</p>
+  </div>
+</header>
+
+<!-- SECTION TITLE -->
+<div class="section-title-wrap">
+  <h2>Sự kiện gần đây</h2>
+</div>
+
+<!-- EVENTS -->
+<div class="events-grid">
+
+  <div class="event-card fade-in">
+    <img src="Event/Image/SinhNhatAnhNguLepoca10Tuoi.jpg" alt="SINH NHẬT LEPOCA 10 NĂM" class="event-card__img"
+         onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+    <div class="event-card__img-placeholder" style="display:none">🎓</div>
+    <div class="event-card__body">
+      <div>
+        <div class="event-card__date">📅 13/07/2026</div>
+        <div class="event-card__title">🎉 CHÚC MỪNG SINH NHẬT 10 TUỔI ANH NGỮ LEPOCA – 10 NĂM KIẾN TẠO, 10 NĂM DẪN LỐI 🌟</div>
+      </div>
+      <a href="https://www.facebook.com/share/p/18CTkcgLVG/" target="_blank" class="event-card__link">
+        ↗ Xem chi tiết
+      </a>
+    </div>
+  </div>
+
+  <div class="event-card fade-in">
+    <img src="Event/Image/DaNgoai2026.jpg" alt="DÃ NGOẠI 2026" class="event-card__img"
+        onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+    <div class="event-card__img-placeholder" style="display:none">⛺</div>
+    <div class="event-card__body">
+      <div>
+        <div class="event-card__date">📅 30/06 - 01/07/2026</div>
+        <div class="event-card__title">⛺ [RECAP] DÃ NGOẠI YTC: CHÁY HẾT MÌNH, TRỌN VẸN GẮN KẾT!🧺</div>
+      </div>
+      <div class="event-card__links">
+        <a href="https://www.facebook.com/share/p/1EdX9dBXqo/" target="_blank" class="event-card__link">
+          ↗ Xem chi tiết
+        </a>
+        <a href="https://www.facebook.com/share/v/1PYihXh9a1/" target="_blank" class="event-card__link">
+          🎬 MV Recap
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="event-card fade-in">
+    <img src="Event/Image/LeBeGiangVaTraoBangTotNghiepK16.jpg" alt="LỄ BẾ GIẢNG & TRAO BẰNG TỐT NGHIỆP K16" class="event-card__img"
+         onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+    <div class="event-card__img-placeholder" style="display:none">🎓</div>
+    <div class="event-card__body">
+      <div>
+        <div class="event-card__date">📅 22/06/2026</div>
+        <div class="event-card__title">🎓 RECAP | YTC ĐỒNG HÀNH CÙNG LỄ BẾ GIẢNG & TRAO BẰNG TỐT NGHIỆP K16 UNETI 🎓</div>
+      </div>
+      <a href="https://www.facebook.com/share/p/1Ck45aTTSr/" target="_blank" class="event-card__link">
+        ↗ Xem chi tiết
+      </a>
+    </div>
+  </div>
+
+  <div class="event-card fade-in">
+    <img src="Event/Image/HoTroQuaLuuNiem70NamUNETIDot1.jpg" alt="HỖ TRỢ TRAO QUÀ LƯU NIỆM" class="event-card__img"
+         onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+    <div class="event-card__img-placeholder" style="display:none">✨</div>
+    <div class="event-card__body">
+      <div>
+        <div class="event-card__date">📅 17/06/2026</div>
+        <div class="event-card__title">🎉 RECAP | HỖ TRỢ TRAO QUÀ LƯU NIỆM UNETI ĐỢT 1 – CHÀO MỪNG KỶ NIỆM 70 NĂM THÀNH LẬP TRƯỜNG🎉</div>
+      </div>
+      <a href="https://www.facebook.com/share/p/1GqGpMarN1/" target="_blank" class="event-card__link">
+        ↗ Xem chi tiết
+      </a>
+    </div>
+  </div>
+
+  <div class="event-card fade-in">
+    <img src="Event/Image/TiepSucMuaThi2026.jpg" alt="Tiếp Sức Mùa Thi 2026" class="event-card__img"
+         onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+    <div class="event-card__img-placeholder" style="display:none">🎓</div>
+    <div class="event-card__body">
+      <div>
+        <div class="event-card__date">📅 11–12/06/2026</div>
+        <div class="event-card__title">🎓 YTC ĐỒNG HÀNH CÙNG CHƯƠNG TRÌNH "TIẾP SỨC MÙA THI" THPT 2026</div>
+      </div>
+      <a href="https://www.facebook.com/share/p/18YQ5fGT1P/" target="_blank" class="event-card__link">
+        ↗ Xem chi tiết
+      </a>
+    </div>
+  </div>
+
+  <div class="event-card fade-in">
+    <img src="Event/Image/BanTin1.jpg" alt="Bản tin số 1" class="event-card__img"
+         onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+    <div class="event-card__img-placeholder" style="display:none">📢</div>
+    <div class="event-card__body">
+      <div>
+        <div class="event-card__date">📅 09/06/2026</div>
+        <div class="event-card__title">📢 BẢN TIN SỐ SỰ KIỆN CLB ĐÀO TẠO KỸ NĂNG TRẺ YTC — Chủ đề: "Hành trình tự hào – Ký ức UNETI toả sáng"</div>
+      </div>
+      <a href="https://www.tiktok.com/@ytc.uneti/video/7648869721130929428?is_from_webapp=1&sender_device=pc&web_id=7603783941741430279" target="_blank" class="event-card__link">
+        ↗ Xem chi tiết
+      </a>
+    </div>
+  </div>
+
+  <div class="event-card fade-in">
+    <img src="Event/Image/LeRaQuanTiepSucMuaThi2026.jpg" alt="Lễ Ra Quân Tiếp Sức Mùa Thi" class="event-card__img"
+         onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+    <div class="event-card__img-placeholder" style="display:none">📣</div>
+    <div class="event-card__body">
+      <div>
+        <div class="event-card__date">📅 09/06/2026</div>
+        <div class="event-card__title">📣 [RECAP] HỖ TRỢ LỄ RA QUÂN TIẾP SỨC MÙA THI UNETI 2026</div>
+      </div>
+      <a href="https://www.facebook.com/YoungTrainingClub/posts/pfbid023fDncakcbUFATRrbFeJPwvj3QyzmJBa1dMSRqsjDnv7SxufC4zpBE5ZzcnJDfRoJl" target="_blank" class="event-card__link">
+        ↗ Xem chi tiết
+      </a>
+    </div>
+  </div>
+
+  <div class="event-card fade-in">
+    <img src="Event/Image/HoiThaoKhoaHocQuocGia2026.jpg" alt="Hội Thảo Khoa Học Quốc Gia NSA 2026" class="event-card__img"
+         onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+    <div class="event-card__img-placeholder" style="display:none">🔬</div>
+    <div class="event-card__body">
+      <div>
+        <div class="event-card__date">📅 07/06/2026</div>
+        <div class="event-card__title">[RECAP] ĐỒNG HÀNH HỖ TRỢ HỘI THẢO KHOA HỌC QUỐC GIA NSA 2026</div>
+      </div>
+      <a href="https://www.facebook.com/share/p/1MN4KgEmws/" target="_blank" class="event-card__link">
+        ↗ Xem chi tiết
+      </a>
+    </div>
+  </div>
+
+  <div class="event-card fade-in">
+    <img src="Event/Image/HoiThaoDoanTNUNETIBoCongThuong2026.jpg" alt="Hội Thảo Đoàn TN UNETI x Bộ Công Thương" class="event-card__img"
+         onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+    <div class="event-card__img-placeholder" style="display:none">✨</div>
+    <div class="event-card__body">
+      <div>
+        <div class="event-card__date">📅 21/05/2026</div>
+        <div class="event-card__title">✨ [RECAP] YTC ĐỒNG HÀNH TẠI HỘI THẢO ĐOÀN THANH NIÊN UNETI × ĐOÀN THANH NIÊN BỘ CÔNG THƯƠNG</div>
+      </div>
+      <a href="https://www.facebook.com/share/p/1DNBD47neN/" target="_blank" class="event-card__link">
+        ↗ Xem chi tiết
+      </a>
+    </div>
+  </div>
+
+  <div class="event-card fade-in">
+    <img src="Event/Image/SinhNhatBacHo2026.jpg" alt="Viếng Lăng Bác 2026" class="event-card__img"
+         onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+    <div class="event-card__img-placeholder" style="display:none">🎉</div>
+    <div class="event-card__body">
+      <div>
+        <div class="event-card__date">📅 19/05/2026</div>
+        <div class="event-card__title">🎉 [RECAP] CHUYẾN ĐI LĂNG VIẾNG THĂM CHỦ TỊCH HỒ CHÍ MINH, THĂM QUAN PHỦ CHỦ TỊCH & NHÀ QUỐC HỘI — Nhân dịp kỷ niệm 136 năm ngày sinh của Người</div>
+      </div>
+      <a href="https://www.facebook.com/share/p/1EJVLVHAPM/" target="_blank" class="event-card__link">
+        ↗ Xem chi tiết
+      </a>
+    </div>
+  </div>
+
+  <div class="event-card fade-in">
+    <img src="Event/Image/BuoiGapMatThanhTichCao2026.jpg" alt="Vinh Danh Thành Tích Cao 2026" class="event-card__img"
+         onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+    <div class="event-card__img-placeholder" style="display:none">🏆</div>
+    <div class="event-card__body">
+      <div>
+        <div class="event-card__date">📅 18/05/2026</div>
+        <div class="event-card__title">🏆 RECAP | BUỔI GẶP MẶT, VINH DANH CÁC ĐỘI THI CÓ THÀNH TÍCH CAO NĂM 2026</div>
+      </div>
+      <a href="https://www.facebook.com/share/p/18ZHWrZ6dM/" target="_blank" class="event-card__link">
+        ↗ Xem chi tiết
+      </a>
+    </div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div id="footer-placeholder"></div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
