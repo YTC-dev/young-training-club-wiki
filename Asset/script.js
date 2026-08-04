@@ -122,6 +122,3 @@ if (navPlaceholder) {
 if (footerPlaceholder) {
   footerPlaceholder.innerHTML = footerHTML;
 }
-
-// ----- Disable Right Click -----
-document.addEventListener("contextmenu", e => e.preventDefault());
