@@ -265,6 +265,110 @@ header p.subtitle {
   outline: 3px solid var(--blue-accent);
   outline-offset: 3px;
 }
+
+/* ---------- Entry list (thành viên tham gia, không xếp hạng) ---------- */
+.entry-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin: 8px 0 4px;
+}
+
+.entry-card {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  text-align: left;
+  background: #fff;
+  border-left: 4px solid var(--blue-accent);
+  border-radius: 4px var(--radius-md) var(--radius-md) 4px;
+  padding: 16px 20px;
+  box-shadow: var(--shadow-soft);
+  transition: var(--transition-fast);
+}
+
+.entry-card:hover {
+  box-shadow: var(--shadow-hover);
+  transform: translateX(2px);
+}
+
+.entry-top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px;
+  justify-content: space-between;
+}
+
+.entry-name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.02rem;
+  color: var(--blue-main);
+}
+
+.entry-class {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  background: var(--light-blue);
+  padding: 2px 10px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.entry-team {
+  font-size: 0.92rem;
+  color: var(--text-main);
+  line-height: 1.4;
+}
+
+.entry-team .team-label {
+  font-weight: 600;
+  color: var(--blue-dark);
+}
+
+.entry-title {
+  font-size: 0.92rem;
+  color: var(--text-main);
+  line-height: 1.4;
+}
+
+.entry-title .title-label {
+  font-weight: 600;
+  color: var(--blue-accent);
+}
+
+.entry-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  width: fit-content;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  margin-top: 2px;
+}
+
+.entry-status.stage-final {
+  background: var(--rank-gold-soft);
+  color: #a67c0a;
+}
+
+.entry-status.stage-progress {
+  background: var(--light-blue);
+  color: var(--blue-dark);
+}
+
+@media (max-width: 640px) {
+  .entry-top {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+}
  
 /* ---------- Mobile ---------- */
 @media (max-width: 640px) {
@@ -474,6 +578,76 @@ header p.subtitle {
         </div>
       </div>
       <!-- Thêm .result-card mới ở đây khi có cuộc thi tiếp theo trong chuỗi MC - Giọng nói -->
+    </section>
+
+    <hr class="contest-divider">
+
+    <!-- CUỘC THI KHÁC -->
+    <section class="contest-module fade-in">
+      <h2 class="contest-title">Cuộc thi khác</h2>
+      <p class="contest-intro">Các cuộc thi do Đoàn TNCS UNETI, nhà trường và ngoài nhà trường tổ chức có sự góp mặt của thành viên CLB YTC!</p>
+
+      <p class="list-label">Danh sách cuộc thi</p>
+
+      <div class="result-card">
+        <img src="Contest/YTSTKN/Image/YTSTKN_2026_Chung_Ket.jpg" alt="Ý TƯỞNG SÁNG TẠO KHỞI NGHIỆP SINH VIÊN UNETI NĂM HỌC 2025 - 2026" class="result-cover">
+        <div class="result-body">
+          <h3 class="result-name">Ý TƯỞNG SÁNG TẠO KHỞI NGHIỆP SINH VIÊN UNETI NĂM HỌC 2025 - 2026</h3>
+
+          <p class="list-label" style="margin-top:0;">Thành viên góp mặt</p>
+          <div class="entry-grid">
+
+            <div class="entry-card">
+              <div class="entry-top">
+                <span class="entry-name">Lương Thị Thu Trang</span>
+                <span class="entry-class">DHQT16A5HN</span>
+              </div>
+              <p class="entry-team"><span class="team-label">Đội thi:</span> UNETI 43 - YoungBoost - Mũ bảo hiểm thông minh</p>
+              <span class="entry-status stage-progress">Vòng phát triển dự án</span>
+            </div>
+
+            <div class="entry-card">
+              <div class="entry-top">
+                <a class="entry-name" href="../Member/TranDangBinhMinh_DHTI18A1CL.html">Trần Đặng Bình Minh</a>
+                <span class="entry-class">DHTI18A1CL</span>
+              </div>
+              <p class="entry-team"><span class="team-label">Đội thi:</span> UNETI 28 - FinFin Mind - Phát triển tư duy phản biện dành cho bé</p>
+              <span class="entry-status stage-final">Giải tiềm năng · Vòng chung kết</span>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <!-- Thêm .result-card mới ở đây khi có cuộc thi tiếp theo trong mục "Cuộc thi khác" -->
+
+      <div class="result-card">
+        <img src="Contest/Others/Image/KyUcUNETI_70NamToaSang.jpg" alt="SÁNG TẠO CLIP - VIDEO: KÝ ỨC UNETI - 70 NĂM TOẢ SÁNG" class="result-cover">
+        <div class="result-body">
+          <h3 class="result-name">SÁNG TẠO CLIP - VIDEO: KÝ ỨC UNETI - 70 NĂM TOẢ SÁNG</h3>
+
+          <p class="list-label" style="margin-top:0;">Thành viên góp mặt</p>
+          <div class="entry-grid">
+
+            <div class="entry-card">
+              <div class="entry-top">
+                <span class="entry-name">Phạm Thị Ngọc Ánh</span>
+                <span class="entry-class">DHDT19A1HN</span>
+              </div>
+              <p class="entry-title"><span class="title-label">Tên tác phẩm: </span>Tin vào lựa chọn bản thân</p>
+            </div>
+
+            <div class="entry-card">
+              <div class="entry-top">
+                <a class="entry-name" href="../Member/PhungThuHa_DHDL19A1HN.html">Phùng Thu Hà</a>
+                <span class="entry-class">DHDL19A1HN</span>
+              </div>
+              <p class="entry-title"><span class="title-label">Tên tác phẩm: </span>70 Năm - Một Chặng Đường, Triệu Ước Mơ</p>
+              <span class="entry-status stage-final">Giải khuyến khích</span>
+            </div>
+
+          </div>
+        </div>
+      </div>
     </section>
 
   </main>
