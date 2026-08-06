@@ -80,7 +80,7 @@ header p.subtitle {
   padding: 18px 22px;
   text-align: left;
   box-shadow: var(--shadow-soft);
-  color: var(--text-muted);
+  color: var(--text-main);
   margin-bottom: 8px;
 }
  
@@ -396,6 +396,156 @@ header p.subtitle {
     opacity: 1 !important;
   }
 }
+
+/* =====================================================
+   COMPACT MODE — chỉ áp dụng cho .compact-contest
+   (khối Podcast - Phim và MC - Giọng nói)
+   ===================================================== */
+.compact-contest .contest-intro {
+  padding: 12px 16px;
+  font-size: 0.92rem;
+}
+
+.compact-contest .result-card {
+  margin-bottom: 18px;
+}
+
+.compact-contest .result-cover {
+  max-height: 300px;
+}
+
+.compact-contest .result-body {
+  padding: 14px 14px;
+}
+
+.compact-contest .result-name {
+  font-size: 0.98rem;
+  margin-bottom: 10px;
+}
+
+.compact-contest .result-body p {
+  font-size: 0.8rem;
+  margin: 2px 0;
+}
+
+.compact-contest .podium {
+  gap: 6px;
+  margin: 4px 0 14px;
+}
+
+.compact-contest .podium-step {
+  flex: 1 1 90px;
+  max-width: 110px;
+  padding: 8px 6px 6px;
+}
+
+/* ---------- Grid: tối đa 2 box mỗi dòng ---------- */
+.compact-contest .result-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+  align-items: start;
+}
+
+.compact-contest .result-grid .result-card {
+  margin-bottom: 0;
+}
+
+@media (max-width: 640px) {
+  .compact-contest .result-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.compact-contest .podium-step.gold {
+  transform: translateY(-8px);
+}
+
+.compact-contest .podium-step .medal {
+  width: 28px;
+  height: 28px;
+  font-size: 0.75rem;
+  margin-bottom: 5px;
+}
+
+.compact-contest .podium-step .rank-label {
+  font-size: 0.56rem;
+  margin-bottom: 2px;
+}
+
+.compact-contest .podium-step .winner-name {
+  font-size: 0.76rem;
+}
+
+.compact-contest .podium-step .winner-name + .winner-name {
+  margin-top: 5px;
+  padding-top: 5px;
+}
+
+.compact-contest .podium-step .winner-meta {
+  font-size: 0.66rem;
+}
+
+.compact-contest .special-award {
+  padding: 6px 12px;
+  font-size: 0.78rem;
+  margin: 2px 0 14px;
+}
+
+.compact-contest .result-link {
+  padding: 6px 14px;
+  font-size: 0.85rem;
+}
+
+@media (max-width: 640px) {
+  .compact-contest .result-cover {
+    max-height: 180px;
+  }
+}
+
+/* =====================================================
+   COMPACT-LITE — khối "Cuộc thi khác": chỉ giảm ảnh/khoảng
+   trắng, GIỮ NGUYÊN cỡ chữ để dễ đọc
+   ===================================================== */
+.compact-contest-lite .result-cover {
+  max-height: 220px;
+}
+
+.compact-contest-lite .result-body {
+  padding: 14px 16px;
+}
+
+.compact-contest-lite .result-card {
+  margin-bottom: 0;
+}
+
+.compact-contest-lite .result-name {
+  margin-bottom: 12px;
+}
+
+.compact-contest-lite .entry-grid {
+  gap: 10px;
+}
+
+.compact-contest-lite .entry-card {
+  padding: 12px 16px;
+}
+
+.compact-contest-lite .result-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+  align-items: start;
+}
+
+@media (max-width: 640px) {
+  .compact-contest-lite .result-grid {
+    grid-template-columns: 1fr;
+  }
+  .compact-contest-lite .result-cover {
+    max-height: 180px;
+  }
+}
 </style>
 <body>
 <div id="nav-placeholder"></div>
@@ -411,11 +561,13 @@ header p.subtitle {
   <main class="container">
 
     <!-- PODCAST - PHIM -->
-    <section class="contest-module fade-in">
+    <section class="contest-module compact-contest fade-in">
       <h2 class="contest-title">Cuộc thi nhóm Podcast - Phim</h2>
       <p class="contest-intro">Với chuỗi cuộc thi thiết kế phim và sản xuất podcast về kỹ năng sống và các xu hướng thực tế, YTC không chỉ tạo ra sân chơi sáng tạo mà còn mở ra không gian để chia sẻ góc nhìn, cảm xúc và trách nhiệm xã hội. Mỗi tác phẩm là một câu chuyện nâng cao nhận thức, khơi gợi tinh thần chủ động và ý thức trách nhiệm của mỗi người trên hành trình khám phá bản thân và bước vào chặng đường mới của cuộc sống.</p>
 
       <p class="list-label">Danh sách cuộc thi</p>
+
+      <div class="result-grid">
 
       <div class="result-card">
         <img src="Contest/Podcast/Image/OneTakeResult.jpg" alt="Công bố giải One - Take" class="result-cover">
@@ -532,17 +684,21 @@ header p.subtitle {
           <a href="Contest/VoiceYourMind.html" class="result-link">Xem series tại đây →</a>
         </div>
       </div>
-      <!-- Thêm .result-card mới ở đây khi có cuộc thi tiếp theo trong chuỗi Podcast - Phim -->
+
+      </div><!-- /.result-grid -->
+      <!-- Thêm .result-card mới ở đây (bên trong .result-grid) khi có cuộc thi tiếp theo trong chuỗi Podcast - Phim -->
     </section>
 
     <hr class="contest-divider">
 
     <!-- MC - GIỌNG NÓI -->
-    <section class="contest-module fade-in">
+    <section class="contest-module compact-contest fade-in">
       <h2 class="contest-title">Cuộc thi MC - Giọng nói</h2>
       <p class="contest-intro">Chuỗi cuộc thi MC – Giọng nói dành cho toàn thể sinh viên UNETI không chỉ là sân chơi để mỗi cá nhân thể hiện bản thân, mà còn là cơ hội lan tỏa tài năng, sự năng động và tinh thần sáng tạo. Thông qua nhiều chủ đề và tình huống đa dạng, cuộc thi giúp sinh viên rèn luyện kỹ năng giao tiếp, bản lĩnh sân khấu và khả năng ứng biến, từ đó tự tin hơn trong học tập, hoạt động tập thể và hành trình phát triển bản thân.</p>
 
       <p class="list-label">Danh sách cuộc thi</p>
+
+      <div class="result-grid">
 
       <div class="result-card">
         <img src="Contest/RisingVoice2025/Image/QuanQuan.jpg" alt="Quán quân Rising Voice 2025" class="result-cover">
@@ -577,17 +733,21 @@ header p.subtitle {
           <a href="Contest/RisingVoice2025/RisingVoice2025.html" class="result-link">Xem series tại đây →</a>
         </div>
       </div>
-      <!-- Thêm .result-card mới ở đây khi có cuộc thi tiếp theo trong chuỗi MC - Giọng nói -->
+
+      </div><!-- /.result-grid -->
+      <!-- Thêm .result-card mới ở đây (bên trong .result-grid) khi có cuộc thi tiếp theo trong chuỗi MC - Giọng nói -->
     </section>
 
     <hr class="contest-divider">
 
     <!-- CUỘC THI KHÁC -->
-    <section class="contest-module fade-in">
+    <section class="contest-module compact-contest-lite fade-in">
       <h2 class="contest-title">Cuộc thi khác</h2>
       <p class="contest-intro">Các cuộc thi do Đoàn TNCS UNETI, nhà trường và ngoài nhà trường tổ chức có sự góp mặt của thành viên CLB YTC!</p>
 
       <p class="list-label">Danh sách cuộc thi</p>
+
+      <div class="result-grid">
 
       <div class="result-card">
         <img src="Contest/YTSTKN/Image/YTSTKN_2026_Chung_Ket.jpg" alt="Ý TƯỞNG SÁNG TẠO KHỞI NGHIỆP SINH VIÊN UNETI NĂM HỌC 2025 - 2026" class="result-cover">
@@ -634,6 +794,7 @@ header p.subtitle {
                 <span class="entry-class">DHDT19A1HN</span>
               </div>
               <p class="entry-title"><span class="title-label">Tên tác phẩm: </span>Tin vào lựa chọn bản thân</p>
+              <a href="https://www.facebook.com/reel/1511394070647760" target="_blank" class="result-link">Xem tác phẩm →</a>
             </div>
 
             <div class="entry-card">
@@ -643,11 +804,37 @@ header p.subtitle {
               </div>
               <p class="entry-title"><span class="title-label">Tên tác phẩm: </span>70 Năm - Một Chặng Đường, Triệu Ước Mơ</p>
               <span class="entry-status stage-final">Giải khuyến khích</span>
+              <a href="https://www.facebook.com/reel/1655797519008759" target="_blank" class="result-link">Xem tác phẩm →</a>
+
             </div>
 
           </div>
         </div>
       </div>
+
+      <div class="result-card">
+        <img src="Contest/Others/Image/UNETI_GOT_TALENT_2026_ChungKet.jpg" alt="UNETI GOT TALENT 2026" class="result-cover">
+        <div class="result-body">
+          <h3 class="result-name">UNETI GOT TALENT 2026</h3>
+
+          <p class="list-label" style="margin-top:0;">Thành viên góp mặt</p>
+          <div class="entry-grid">
+
+            <div class="entry-card">
+              <div class="entry-top">
+                <span class="entry-name">Tô Thu Trang</span>
+                <span class="entry-class">DHTN19A3HN</span>
+              </div>
+              <span class="entry-status stage-final">Top 20</span>
+              <a href="https://www.facebook.com/share/v/1HCzJBGUrQ/" target="_blank" class="result-link">Video bình chọn →</a>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      </div><!-- /.result-grid -->
+      <!-- Thêm .result-card mới ở đây (bên trong .result-grid) khi có cuộc thi tiếp theo trong mục "Cuộc thi khác" -->
     </section>
 
   </main>
