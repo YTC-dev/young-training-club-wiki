@@ -35,9 +35,40 @@
       transition: transform 0.25s ease, box-shadow 0.25s ease;
       border: 1px solid rgba(161,227,255,0.35);
     }
+    .event-card-special {
+      background: #feffe4;
+      border-radius: 16px;
+      border: 1px solid rgba(247, 255, 161, 0.35);
+
+      box-shadow:
+        0 0 0 3px #f8ff79,
+        0 4px 20px rgba(198, 213, 64, 0.15);
+
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      overflow: hidden;
+    }
+    .event-card-special::before {
+      content: "";
+      position: absolute;
+      inset: -3px;
+      border-radius: 19px;
+      background: linear-gradient(
+        90deg,
+        #fcffb9,
+        #ffffff,
+        #fbffa8
+      );
+      z-index: -1;
+      box-shadow: 0 0 12px rgba(242, 255, 0, 0.6);
+    }
     .event-card:hover {
       transform: translateY(-4px);
       box-shadow: 0 10px 32px rgba(9,131,254,0.18);
+    }
+    .event-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 32px rgba(180, 254, 9, 0.18);
     }
     .event-card__img {
       width: 240px;
@@ -322,6 +353,29 @@
       </a>
     </div>
   </div>
+
+  <div class="event-card-special fade-in">
+    <img src="Event/Image/ChuyenTauThoiGian2026_1.jpg" alt="DÃ NGOẠI 2026" class="event-card__img"
+        onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+    <div class="event-card__img-placeholder" style="display:none">⛺</div>
+    <div class="event-card__body">
+      <div>
+        <div class="event-card__date">📅 15/05/2026</div>
+        <div class="event-card__title">🌟 [RECAP] “CHUYẾN TÀU THỜI GIAN” - ĐÊM SINH NHẬT LẦN THỨ 14 CLB ĐÀO TẠO KỸ NĂNG TRẺ 🌟</div>
+      </div>
+      <div class="event-card__links">
+        <a href="https://www.facebook.com/share/p/1JEfJXnAwH/" target="_blank" class="event-card__link">
+          ↗ Xem chi tiết
+        </a>
+        <a href="https://www.facebook.com/reel/28007781745477090" target="_blank" class="event-card__link">
+          🎬 MV Recap
+        </a>
+        <a href="https://www.facebook.com/reel/1244660794163868" target="_blank" class="event-card__link">
+          🎬 MV Trạm tri ân
+        </a>
+      </div>
+    </div>
+  </div>  
 
 </div>
 
