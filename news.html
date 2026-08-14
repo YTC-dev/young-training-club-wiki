@@ -2,1514 +2,391 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <title>Trang chủ - CLB Đào tạo Kỹ năng Trẻ</title>
+  <title>Hoạt động - CLB Đào tạo Kỹ năng Trẻ</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <!-- Link CSS hệ thống -->
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="Asset/style.css">
   <link rel="icon" type="image/png" href="Image/YTC-Favicon.png">
-</head>
   <style>
-    /* ==========================================
-       FLOATING BUTTON - NÚT TRÒN GÓC DƯỚI
-    ========================================== */
-    .floating-btn {
-      position: fixed;
-      bottom: 30px;
-      right: 30px;
-      width: 70px;
-      height: 70px;
-      background: linear-gradient(135deg, #00d4ff, #0099ff);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      box-shadow: 
-        0 8px 24px rgba(0, 212, 255, 0.4),
-        0 0 0 0 rgba(0, 212, 255, 0.6);
-      transition: all 0.3s cubic-bezier(0.34, 1.4, 0.64, 1);
-      z-index: 9998;
-      border: 3px solid #ffffff;
-      animation: pulse-ring 2s infinite;
-    }
+    /* ===== EVENT PAGE ENHANCEMENTS ===== */
 
-    .floating-btn:hover {
-      transform: scale(1.1) rotate(15deg);
-      box-shadow: 
-        0 12px 32px rgba(0, 212, 255, 0.6),
-        0 0 0 8px rgba(0, 212, 255, 0.2);
-    }
-
-    .floating-btn:active {
-      transform: scale(0.95);
-    }
-
-    /* Icon trong nút */
-    .floating-btn svg {
-      width: 32px;
-      height: 32px;
-      fill: #ffffff;
-      transition: transform 0.3s ease;
-    }
-
-    .floating-btn:hover svg {
-      transform: scale(1.1);
-    }
-
-    /* Animation pulse ring */
-    @keyframes pulse-ring {
-      0% {
-        box-shadow: 
-          0 8px 24px rgba(0, 212, 255, 0.4),
-          0 0 0 0 rgba(0, 212, 255, 0.6);
-      }
-      50% {
-        box-shadow: 
-          0 8px 24px rgba(0, 212, 255, 0.4),
-          0 0 0 12px rgba(0, 212, 255, 0);
-      }
-      100% {
-        box-shadow: 
-          0 8px 24px rgba(0, 212, 255, 0.4),
-          0 0 0 0 rgba(0, 212, 255, 0);
-      }
-    }
-
-    /* ==========================================
-       RECAP BOX POPUP - DỰA THEO GỢI Ý CỦA BẠN
-    ========================================== */
-    .recap-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.75);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 9999;
-      opacity: 0;
-      visibility: hidden;
-      transition: all 0.3s ease;
-    }
-
-    .recap-overlay.active {
-      opacity: 1;
-      visibility: visible;
-    }
-
-    .recap-overlay.active #recapBox {
-      transform: scale(1) translateY(0);
-      opacity: 1;
-    }
-
-    #recapBox {
-      position: relative;
-      z-index: 1;
-      width: min(860px, 92vw);
-      max-height: 85vh;
-      overflow-y: auto;
-      background: linear-gradient(160deg, #0a2540 0%, #1a4a8a 60%, #0d3360 100%);
-      border: 1.5px solid #7ed6ff;
-      border-radius: 18px;
-      overflow-x: hidden;
-      box-shadow: 
-        0 0 60px rgba(0, 183, 255, 0.35), 
-        0 24px 64px rgba(0, 0, 0, 0.65);
-      transform: scale(0.92) translateY(16px);
-      opacity: 0;
-      transition: all 0.32s cubic-bezier(0.34, 1.4, 0.64, 1);
-      padding: 40px;
-      color: #ffffff;
-    }
-
-    /* Close button */
-    .close-btn {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      width: 40px;
-      height: 40px;
-      background: rgba(255, 255, 255, 0.1);
-      border: 1.5px solid #7ed6ff;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      z-index: 10;
-    }
-
-    .close-btn:hover {
-      background: rgba(255, 255, 255, 0.2);
-      transform: rotate(90deg);
-    }
-
-    .close-btn::before,
-    .close-btn::after {
-      content: '';
-      position: absolute;
-      width: 20px;
-      height: 2px;
-      background: #7ed6ff;
-    }
-
-    .close-btn::before {
-      transform: rotate(45deg);
-    }
-
-    .close-btn::after {
-      transform: rotate(-45deg);
-    }
-
-    /* Content styling */
-    #recapBox h2 {
-      color: #7ed6ff;
-      margin-bottom: 20px;
-      font-size: 2rem;
+    /* ===== SECTION TITLE ===== */
+    .section-title-wrap {
       text-align: center;
-      text-shadow: 0 0 20px rgba(126, 214, 255, 0.5);
+      padding: 32px 16px 8px;
     }
 
-    #recapBox h3 {
-      color: #a8e6ff;
-      margin-top: 30px;
-      margin-bottom: 15px;
-      font-size: 1.4rem;
-      border-bottom: 2px solid rgba(126, 214, 255, 0.3);
-      padding-bottom: 10px;
-    }
-
-    #recapBox p {
-      line-height: 1.8;
-      margin-bottom: 15px;
-      color: #e0f4ff;
-    }
-
-    #recapBox .event-item {
-      background: rgba(255, 255, 255, 0.05);
-      border-left: 4px solid #7ed6ff;
-      padding: 20px;
-      margin: 20px 0;
-      border-radius: 8px;
-      transition: all 0.3s ease;
-    }
-
-    #recapBox .event-item:hover {
-      background: rgba(255, 255, 255, 0.1);
-      transform: translateX(8px);
-    }
-
-    #recapBox .event-item img {
-      width: 100%;
-      max-width: 500px;
-      border-radius: 12px;
-      margin: 15px 0;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
-    }
-
-    #recapBox a {
-      color: #7ed6ff;
-      text-decoration: none;
-      border-bottom: 1px solid transparent;
-      transition: all 0.3s ease;
-    }
-
-    #recapBox a:hover {
-      border-bottom-color: #7ed6ff;
-      color: #a8e6ff;
-    }
-
-    /* Scrollbar styling */
-    #recapBox::-webkit-scrollbar {
-      width: 8px;
-    }
-
-    #recapBox::-webkit-scrollbar-track {
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: 10px;
-    }
-
-    #recapBox::-webkit-scrollbar-thumb {
-      background: #7ed6ff;
-      border-radius: 10px;
-    }
-
-    #recapBox::-webkit-scrollbar-thumb:hover {
-      background: #a8e6ff;
-    }
-
-    /* Mobile responsive */
-    @media (max-width: 768px) {
-      .floating-btn,.star-floating-btn {
-        width: 60px;
-        height: 60px;
-        bottom: 20px;
-        right: 20px;
-      }
-
-      .floating-btn svg,.star-floating-btn svg {
-        width: 28px;
-        height: 28px;
-      }
-
-      #recapBox {
-        width: 95vw;
-        padding: 25px 20px;
-        max-height: 90vh;
-      }
-
-      #recapBox h2 {
-        font-size: 1.5rem;
-      }
-
-      #recapBox h3 {
-        font-size: 1.2rem;
-      }
-
-      .close-btn {
-        top: 15px;
-        right: 15px;
-        width: 35px;
-        height: 35px;
-      }
-    }
-
-    /* Badge style */
-    .time-badge {
-      display: inline-block;
-      background: rgba(126, 214, 255, 0.2);
-      color: #7ed6ff;
-      padding: 6px 14px;
-      border-radius: 20px;
-      font-size: 0.9rem;
-      margin: 10px 0;
-      border: 1px solid rgba(126, 214, 255, 0.3);
-    }
-
-    /* ==========================================
-       LAYOUT 3 CỘT: SIDEBAR TRÁI + MAIN + SIDEBAR PHẢI
-    ========================================== */
-    .page-layout {
-      display: flex;
-      align-items: flex-start;
-      gap: 20px;
-      max-width: 1400px;
+    /* ===== EVENT GRID ===== */
+    .events-grid {
+      max-width: 960px;
       margin: 0 auto;
-      padding: 16px 16px 0;
-    }
-
-    /* SIDEBAR CHUNG */
-    .sidebar {
-      width: 240px;
-      flex-shrink: 0;
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-      position: sticky;
-      top: 96px;
-      max-height: calc(100vh - 110px);
-      overflow-y: auto;
-      scrollbar-width: none;
-    }
-
-    .sidebar::-webkit-scrollbar { display: none; }
-
-    .sidebar-left { order: 1; }
-    .main-content { order: 2; flex: 1; min-width: 0; padding: 0; }
-    .sidebar-right { order: 3; }
-
-    /* Sections inside main-content: remove extra horizontal padding */
-    .main-content .container {
-      padding-left: 0;
-      padding-right: 0;
-      max-width: 100%;
-    }
-
-    /* WIDGET BOX */
-    .widget {
-      background: #ffffff;
-      border-radius: 14px;
-      padding: 16px;
-      box-shadow: 0 6px 20px rgba(44, 59, 144, 0.12);
-      text-align: left;
-      border-top: 3px solid var(--blue-accent);
-      transition: box-shadow 0.25s ease;
-    }
-
-    .widget:hover {
-      box-shadow: 0 10px 28px rgba(9, 131, 254, 0.2);
-    }
-
-    .widget-title {
-      font-size: 0.85rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.8px;
-      color: var(--blue-main);
-      margin-bottom: 10px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    /* BIRTHDAY WIDGET */
-    .birthday-widget {
-      border-top-color: #ff69b4;
-      background: linear-gradient(135deg, #fff0f8, #fff8fc);
-    }
-
-    .birthday-widget .widget-title {
-      color: #c0185a;
-    }
-
-    .birthday-list {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .birthday-item {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 0.88rem;
-      padding: 8px 10px;
-      background: rgba(255, 105, 180, 0.08);
-      border-radius: 8px;
-      border-left: 3px solid #ff69b4;
-      transition: background 0.2s ease;
-    }
-
-    .birthday-item:hover {
-      background: rgba(255, 105, 180, 0.15);
-    }
-
-    .birthday-avatar {
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #ff69b4, #ffb3d9);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1rem;
-      flex-shrink: 0;
-    }
-
-    .birthday-info {
-      flex: 1;
-    }
-
-    .birthday-name {
-      font-weight: 600;
-      color: #333;
-      font-size: 0.85rem;
-      display: block;
-    }
-
-    .birthday-date {
-      font-size: 0.78rem;
-      color: #888;
-    }
-
-    .birthday-note {
-      font-size: 0.78rem;
-      color: #c0185a;
-      text-align: center;
-      margin-top: 10px;
-      font-style: italic;
-      padding-top: 8px;
-      border-top: 1px dashed #ffb3d9;
-    }
-
-    .birthday-placeholder {
-      font-size: 0.82rem;
-      color: #aaa;
-      text-align: center;
-      padding: 12px 0;
-      font-style: italic;
-    }
-
-    /* ==========================================
-      HONOR WIDGET (SIDEBAR)
-    ========================================== */
-    .widget.honor-widget {
-      border-top-color: #ffdd1f;
-      background: linear-gradient(135deg, #fff9e6, #fffdf5);
-    }
-
-    .honor-widget .widget-title {
-      color: #b8860b;
-    }
-
-    .honor-widget-list {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .honor-widget-item {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 10px 12px;
-      background: rgba(255, 215, 0, 0.08);
-      border-radius: 10px;
-      border-left: 3px solid #ffd700;
-      transition: all 0.25s ease;
-      text-decoration: none;
-    }
-
-    .honor-widget-item:hover {
-      background: rgba(255, 215, 0, 0.15);
-      transform: translateX(4px);
-    }
-
-    .honor-widget-star {
-      font-size: 1.1rem;
-      flex-shrink: 0;
-    }
-
-    .honor-widget-name {
-      display: block;
-      font-size: 0.86rem;
-      font-weight: 700;
-      color: #5f4300;
-      line-height: 1.3;
-    }
-
-    .honor-widget-role {
-      display: block;
-      font-size: 0.75rem;
-      color: #8c6a00;
-      margin-top: 2px;
-    }
-
-    .honor-widget-item:last-child {
-      background: linear-gradient(
-        135deg,
-        rgba(255, 215, 0, 0.15),
-        rgba(255, 245, 180, 0.25)
-      );
-      border-left-width: 4px;
-    }
-
-    /* Mobile */
-    @media (max-width: 860px) {
-      .honor-widget-name {
-        font-size: 0.82rem;
-      }
-
-      .honor-widget-role {
-        font-size: 0.72rem;
-      }
-    }
-
-    /* QUICK LINKS WIDGET */
-    .quick-links {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    .quick-links li a {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 0.88rem;
-      color: var(--blue-main);
-      padding: 7px 10px;
-      border-radius: 8px;
-      background: rgba(44, 59, 144, 0.05);
-      transition: background 0.2s, color 0.2s;
-      font-weight: 500;
-    }
-
-    .quick-links li a:hover {
-      background: rgba(9, 131, 254, 0.12);
-      color: var(--blue-accent);
-    }
-
-    /* THỐNG KÊ WIDGET */
-    .stat-grid {
+      padding: 12px 16px 40px;
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px;
+      gap: 24px;
     }
 
-    .stat-item {
-      text-align: center;
-      background: linear-gradient(135deg, var(--light-soft), #e8f4ff);
-      border-radius: 10px;
-      padding: 10px 6px;
+    /* ===== EVENT CARD ===== */
+    .event-card {
+      background: var(--light-bg);
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(44,59,144,0.10);
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      overflow: hidden;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      border: 1px solid rgba(161,227,255,0.35);
     }
+    .event-card-special {
+      position: relative;         /* thêm dòng này để ::before neo đúng vào card */
+      background: #feffe4;
+      border-radius: 16px;
+      border: 1px solid rgba(247, 255, 161, 0.35);
 
-    .stat-number {
-      font-size: 1.4rem;
-      font-weight: 800;
-      color: var(--blue-accent);
+      box-shadow:
+        0 0 0 3px #f8ff79,
+        0 4px 20px rgba(198, 213, 64, 0.15);
+
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      overflow: hidden;            /* thêm dòng này để bo góc ảnh đúng chuẩn */
+      transition: transform 0.25s ease, box-shadow 0.25s ease; /* để hover mượt như card thường */
+    }
+    .event-card-special::before {
+      content: "";
+      position: absolute;
+      inset: -3px;
+      border-radius: 19px;
+      background: linear-gradient(
+        90deg,
+        #fcffb9,
+        #ffffff,
+        #fbffa8
+      );
+      z-index: -1;
+      box-shadow: 0 0 12px rgba(242, 255, 0, 0.6);
+    }
+    .event-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 32px rgba(9,131,254,0.18);
+    }
+    .event-card-special:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 32px rgba(180, 254, 9, 0.18);
+    }
+    .event-card__img {
+      width: 240px;
+      height: 100%;
+      min-height: 180px;
+      object-fit: cover;
       display: block;
+      background: var(--light-soft);
     }
-
-    .stat-label {
-      font-size: 0.72rem;
-      color: var(--text-muted);
-      font-weight: 500;
+    .event-card__img-placeholder {
+      width: 240px;
+      min-height: 180px;
+      background: linear-gradient(135deg, var(--light-soft), var(--light-blue));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+      color: var(--blue-accent);
     }
-
-    /* THÔNG BÁO / TIN TỨC NHANH */
-    .notice-list {
-      list-style: none;
-      padding: 0;
-      margin: 0;
+    .event-card__body {
+      padding: 20px 24px;
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      justify-content: space-between;
+      text-align: left;
     }
-
-    .notice-item {
-      font-size: 0.83rem;
-      color: #333;
-      padding: 8px 10px;
-      background: rgba(9, 131, 254, 0.05);
-      border-radius: 8px;
-      border-left: 3px solid var(--blue-accent);
+    .event-card__title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--blue-dark);
       line-height: 1.5;
-    }
-
-    .notice-item .notice-tag {
-      display: inline-block;
-      background: var(--blue-accent);
-      color: white;
-      font-size: 0.68rem;
-      padding: 1px 7px;
-      border-radius: 10px;
-      margin-bottom: 4px;
-      font-weight: 600;
-    }
-
-    /* CLOCK WIDGET */
-    .clock-widget {
-      text-align: center;
-      padding: 14px 12px;
-      border-top-color: #2c3b90;
-      background: linear-gradient(135deg, #f0f4ff, #e8f0fe);
-    }
-
-    .clock-display {
-      font-size: 1.8rem;
-      font-weight: 800;
-      color: var(--blue-main);
-      letter-spacing: 2px;
-      font-variant-numeric: tabular-nums;
-    }
-
-    .clock-date {
-      font-size: 0.78rem;
-      color: var(--text-muted);
-      margin-top: 2px;
-    }
-
-    /* ẨN SIDEBAR TRÊN MOBILE / TABLET */
-    @media (max-width: 1100px) {
-      .sidebar-left {
-        display: none;
-      }
-    }
-
-    @media (max-width: 860px) {
-      .sidebar-right {
-        display: none;
-      }
-      .page-layout {
-        padding: 12px 10px 0;
-      }
-    }
-
-    @media (max-width: 1280px) {
-      .sidebar {
-        width: 210px;
-      }
-    }
-
-    /* SCROLL TO TOP BTN */
-    .scroll-top-btn {
-      position: fixed;
-      bottom: 110px;
-      left: 24px;
-      width: 44px;
-      height: 44px;
-      background: var(--blue-main);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      box-shadow: 0 4px 14px rgba(44, 59, 144, 0.4);
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s, transform 0.3s;
-      z-index: 997;
-    }
-
-    .scroll-top-btn.visible {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    .scroll-top-btn:hover {
-      transform: translateY(-3px);
-    }
-
-    .scroll-top-btn svg {
-      width: 20px;
-      height: 20px;
-      fill: white;
-    }
-
-    /* SECTION TITLE GỌN HƠN */
-    .section-header {
-      text-align: center;
-      margin: 28px 0 4px;
-    }
-
-    /* ==========================================
-       SLIDESHOW ẢNH GIỚI THIỆU (trượt ngang, tự chạy)
-       -> Muốn thêm ảnh: copy 1 thẻ .intro-slide và đổi src
-    ========================================== */
-    .intro-slideshow {
-      position: relative;
-      width: 100%;
-      max-width: 650px;
-      margin: 0 auto;
-      overflow: hidden;
-      border-radius: var(--radius-md);
-      box-shadow: var(--shadow-soft);
-    }
-
-    .intro-slideshow-track {
-      display: flex;
-      transition: transform 0.6s cubic-bezier(.4,0,.2,1);
-    }
-
-    .intro-slide {
-      flex: 0 0 100%;
-      width: 100%;
-      aspect-ratio: 16 / 9;
-    }
-
-    .intro-slide img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-
-    .intro-slideshow-dots {
-      display: flex;
-      justify-content: center;
-      gap: 6px;
-      margin-top: 10px;
       margin-bottom: 10px;
     }
-
-    .intro-slideshow-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
+    .event-card__date {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      font-weight: 500;
       background: var(--light-soft);
-      border: 1px solid #c0c8dd;
-      cursor: pointer;
-      transition: var(--transition-fast);
+      padding: 4px 10px;
+      border-radius: 20px;
+      margin-bottom: 14px;
+      width: fit-content;
     }
-
-    .intro-slideshow-dot.active {
-      background: var(--blue-accent);
-      border-color: var(--blue-accent);
-      width: 20px;
-      border-radius: 4px;
-    }
-
-    /* ==========================================
-      BEST STUDENT POPUP - GƯƠNG MẶT SINH VIÊN TIÊU BIỂU
-    ========================================== */
-    .star-floating-btn {
-      position: fixed;
-      bottom: 30px;
-      right: 110px; /* đặt cạnh nút recap, đổi nếu cần */
-      width: 70px;
-      height: 70px;
-      background: linear-gradient(135deg, #ffd700, #ffb800);
-      border-radius: 50%;
-      display: flex;
+    .event-card__link {
+      display: inline-flex;
       align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      box-shadow:
-        0 8px 24px rgba(255, 215, 0, 0.4),
-        0 0 0 0 rgba(255, 215, 0, 0.6);
-      transition: all 0.3s cubic-bezier(0.34, 1.4, 0.64, 1);
-      z-index: 9998;
-      border: 3px solid #ffffff;
-      animation: pulse-ring-gold 2s infinite;
-    }
-
-    .star-floating-btn:hover {
-      transform: scale(1.1) rotate(15deg);
-      box-shadow:
-        0 12px 32px rgba(255, 215, 0, 0.6),
-        0 0 0 8px rgba(255, 215, 0, 0.2);
-    }
-
-    .star-floating-btn:active {
-      transform: scale(0.95);
-    }
-
-    .star-floating-btn svg {
-      width: 32px;
-      height: 32px;
-      fill: #ffffff;
-      transition: transform 0.3s ease;
-    }
-
-    .star-floating-btn:hover svg {
-      transform: scale(1.1);
-    }
-
-    @keyframes pulse-ring-gold {
-      0% {
-        box-shadow:
-          0 8px 24px rgba(255, 215, 0, 0.4),
-          0 0 0 0 rgba(255, 215, 0, 0.6);
-      }
-      50% {
-        box-shadow:
-          0 8px 24px rgba(255, 215, 0, 0.4),
-          0 0 0 12px rgba(255, 215, 0, 0);
-      }
-      100% {
-        box-shadow:
-          0 8px 24px rgba(255, 215, 0, 0.4),
-          0 0 0 0 rgba(255, 215, 0, 0);
-      }
-    }
-
-    /* Overlay */
-    .star-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.75);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 9999;
-      opacity: 0;
-      visibility: hidden;
-      transition: all 0.3s ease;
-    }
-
-    .star-overlay.active {
-      opacity: 1;
-      visibility: visible;
-    }
-
-    .star-overlay.active #starBox {
-      transform: scale(1) translateY(0);
-      opacity: 1;
-    }
-
-    #starBox {
-      position: relative;
-      z-index: 1;
-      width: min(860px, 92vw);
-      max-height: 85vh;
-      overflow-y: auto;
-      overflow-x: hidden;
-      background: linear-gradient(160deg, #402a0a 0%, #8a5c1a 60%, #603c0d 100%);
-      border: 1.5px solid #ffe27a;
-      border-radius: 18px;
-      box-shadow:
-        0 0 60px rgba(255, 215, 0, 0.35),
-        0 24px 64px rgba(0, 0, 0, 0.65);
-      transform: scale(0.92) translateY(16px);
-      opacity: 0;
-      transition: all 0.32s cubic-bezier(0.34, 1.4, 0.64, 1);
-      padding: 40px;
-      color: #ffffff;
-    }
-
-    #starBox .close-btn {
-      border-color: #ffe27a;
-    }
-
-    #starBox .close-btn::before,
-    #starBox .close-btn::after {
-      background: #ffe27a;
-    }
-
-    #starBox h2 {
-      color: #ffe27a;
-      margin-bottom: 20px;
-      font-size: 2rem;
-      text-align: center;
-      text-shadow: 0 0 20px rgba(255, 226, 122, 0.5);
-    }
-
-    #starBox h3 {
-      color: #ffefb0;
-      margin-top: 30px;
-      margin-bottom: 15px;
-      font-size: 1.4rem;
-      border-bottom: 2px solid rgba(255, 226, 122, 0.3);
-      padding-bottom: 10px;
-    }
-
-    #starBox p {
-      line-height: 1.8;
-      margin-bottom: 15px;
-      color: #fff6dd;
-    }
-
-    #starBox .student-item {
-      display: flex;
-      gap: 16px;
-      align-items: center;
-      background: rgba(255, 255, 255, 0.05);
-      border-left: 4px solid #ffe27a;
-      padding: 16px 20px;
-      margin: 16px 0;
+      gap: 6px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--blue-accent);
+      border: 1.5px solid var(--blue-accent);
+      padding: 7px 16px;
       border-radius: 8px;
-      transition: all 0.3s ease;
+      transition: background 0.2s, color 0.2s;
+      width: fit-content;
+    }
+    .event-card__link:hover {
+      background: var(--blue-accent);
+      color: #fff;
+    }
+    .event-card__links {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      width: 100%;
+      flex-wrap: wrap;
+    }
+    .event-card__links .event-card__link {
+      flex: 1;
+      justify-content: center;
+      text-align: center;
     }
 
-    #starBox .student-item:hover {
-      background: rgba(255, 255, 255, 0.1);
-      transform: translateX(8px);
-    }
-
-    #starBox .student-item img {
-      width: 90px;
-      height: 90px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 2px solid #ffe27a;
-      flex-shrink: 0;
-    }
-
-    #starBox .student-info b {
-      display: block;
-      font-size: 1.05rem;
-      color: #ffe27a;
-    }
-
-    #starBox a {
-      color: #ffe27a;
-      text-decoration: none;
-      border-bottom: 1px solid transparent;
-      transition: all 0.3s ease;
-    }
-
-    #starBox a:hover {
-      border-bottom-color: #ffe27a;
-      color: #ffefb0;
-    }
-
-    #starBox::-webkit-scrollbar { width: 8px; }
-    #starBox::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); border-radius: 10px; }
-    #starBox::-webkit-scrollbar-thumb { background: #ffe27a; border-radius: 10px; }
-    #starBox::-webkit-scrollbar-thumb:hover { background: #ffefb0; }
-
-    @media (max-width: 768px) {
-      #starBox {
-        width: 95vw;
-        padding: 25px 20px;
-        max-height: 90vh;
+    /* ===== MOBILE ===== */
+    @media (max-width: 640px) {
+      .event-card,
+      .event-card-special {
+        grid-template-columns: 1fr;
       }
-      #starBox h2 { font-size: 1.5rem; }
-      #starBox h3 { font-size: 1.2rem; }
-      .star-floating-btn { right: 20px; bottom: 100px; }
+      .event-card__img,
+      .event-card__img-placeholder {
+        width: 100%;
+        height: 200px;
+      }
+      .event-card__body {
+        padding: 16px;
+      }
+      .page-header h1 {
+        font-size: 1.6rem;
+      }
     }
-
   </style>
+</head>
+
 <body>
 <div id="nav-placeholder"></div>
 
-    <div class="header--marquee">
-      <marquee scrollamount="8" direction="left" align="center" style="font-weight: bold; padding: 3px; color: red;">
-        🎉 CHÀO MỪNG TÂN SINH VIÊN UNETI K20 🎉&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🎉 CHÀO MỪNG 70 NĂM THÀNH LẬP TRƯỜNG ĐẠI HỌC KINH TẾ - KỸ THUẬT CÔNG NGHIỆP 🎉&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHÍNH THỨC RA MẮT BAN CHỦ NHIỆM & BAN CHUYÊN MÔN GEN 14 - NHỮNG NGƯỜI TIẾP LỬA YTC 
-</marquee>
-    </div>
-  <!-- HEADER -->
-  <header>
-    <div class="container">
-      <p>Chào mừng đến với website wiki chính thức của</p><h1>CLB Đào Tạo Kỹ Năng Trẻ - Young Training Club</h1>
-    </div>
-  </header>
+<!-- HEADER -->
+<header>
+  <div class="container">
+    <h1>Hoạt động</h1>
+    <p>Các hoạt động liên quan đến CLB YTC và Đoàn TNCS HCM - Hội sinh viên UNETI</p>
+  </div>
+</header>
 
-<!-- ===== PAGE LAYOUT 3 CỘT ===== -->
-<div class="page-layout">
+<!-- SECTION TITLE -->
+<div class="section-title-wrap">
+  <h2>Sự kiện gần đây</h2>
+</div>
 
-  <!-- SIDEBAR TRÁI -->
-  <aside class="sidebar sidebar-left">
+<!-- EVENTS -->
+<div class="events-grid">
 
-    <!-- Đồng hồ -->
-    <div class="widget clock-widget">
-      <div class="widget-title">🕐 Thời gian</div>
-      <div class="clock-display" id="liveClock">--:--:--</div>
-      <div class="clock-date" id="liveDate">...</div>
-        </div>
-
-    <!-- Thống kê CLB -->
-    <div class="widget">
-      <div class="widget-title">📊 Thống kê CLB</div>
-      <div class="stat-grid">
-        <div class="stat-item">
-          <span class="stat-number">14</span>
-          <span class="stat-label">Thế hệ</span>
-        </div>
-        <div class="stat-item">
-          <span class="stat-number">2012</span>
-          <span class="stat-label">Thành lập</span>
-        </div>
-        <div class="stat-item">
-          <span class="stat-number">200+</span>
-          <span class="stat-label">Thành viên</span>
-        </div>
-        <div class="stat-item">
-          <span class="stat-number">30+</span>
-          <span class="stat-label">Sự kiện/năm</span>
-        </div>
+  <div class="event-card fade-in">
+    <img src="Event/Image/SinhNhatAnhNguLepoca10Tuoi.jpg" alt="SINH NHẬT LEPOCA 10 NĂM" class="event-card__img"
+         onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+    <div class="event-card__img-placeholder" style="display:none">🎓</div>
+    <div class="event-card__body">
+      <div>
+        <div class="event-card__date">📅 13/07/2026</div>
+        <div class="event-card__title">🎉 CHÚC MỪNG SINH NHẬT 10 TUỔI ANH NGỮ LEPOCA – 10 NĂM KIẾN TẠO, 10 NĂM DẪN LỐI 🌟</div>
       </div>
+      <a href="https://www.facebook.com/share/p/18CTkcgLVG/" target="_blank" class="event-card__link">
+        ↗ Xem chi tiết
+      </a>
     </div>
+  </div>
 
-    <!-- Thông báo nhanh -->
-    <div class="widget">
-      <div class="widget-title">📢 Tin tức</div>
-      <ul class="notice-list">
-        <li class="notice-item">
-          <span class="notice-tag">GÓC VINH DANH</span><br>
-          <b>GƯƠNG MẶT SINH VIÊN TIÊU BIỂU UNETI - Nguyễn Thanh Lan (DHLQ17A1HN)</b>: Gương mặt tiêu biểu của tuổi trẻ nhiệt huyết và khát vọng vươn xa.
-        </li>
-        <li class="notice-item">
-          <span class="notice-tag">MỚI</span><br>
-          🎉 CHÚC MỪNG SINH NHẬT 10 TUỔI ANH NGỮ LEPOCA – 10 NĂM KIẾN TẠO, 10 NĂM DẪN LỐI 🌟
-        </li>
-        <li class="notice-item">
-          <span class="notice-tag">CLB</span><br>
-          🏆 VINH DANH CÁC ANH CHỊ K16 YTC ĐẠT THÀNH TÍCH XUẤT SẮC TRONG RÈN LUYỆN & PHONG TRÀO NIÊN KHÓA 2022 - 2026 🏆 
-        </li>
-      </ul>
-    </div>
-
-  </aside>
-
-  <!-- NỘI DUNG CHÍNH -->
-  <main class="main-content">
-
-  <!-- GIỚI THIỆU -->
-  <section class="container fade-in">
-    <div class="card">
-      <div class="intro-slideshow" id="introSlideshow">
-        <div class="intro-slideshow-track" id="introSlideTrack">
-
-          <div class="intro-slide">
-            <img src="Image/YTC_Da_ngoai_2026.jpg" alt="YTC 2026">
-          </div>
-
-          <div class="intro-slide">
-            <img src="Image/YTC_ChuyenTauThoiGian_1.jpg" alt="YTC 2026">
-          </div>
-
-          <div class="intro-slide">
-            <img src="Image/YTC_2026_1.jpg" alt="YTC 2026">
-          </div>
-
-          <div class="intro-slide">
-            <img src="Image/YTC_K19_The_Odyssey.jpg" alt="YTC 2026">
-          </div>
-
-          <div class="intro-slide">
-            <img src="Image/YTC_Hoi_Thao_Khoa_Hoc_QG_2026.jpg" alt="YTC 2026">
-          </div>
-
-          <!-- Thêm ảnh mới: copy đúng 1 khối div.intro-slide ở trên và đổi src, slideshow sẽ tự nhận và chạy -->
-        </div>
-        <div class="intro-slideshow-dots" id="introSlideDots"></div>
+  <div class="event-card fade-in">
+    <img src="Event/Image/DaNgoai2026.jpg" alt="DÃ NGOẠI 2026" class="event-card__img"
+        onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+    <div class="event-card__img-placeholder" style="display:none">⛺</div>
+    <div class="event-card__body">
+      <div>
+        <div class="event-card__date">📅 30/06 - 01/07/2026</div>
+        <div class="event-card__title">⛺ [RECAP] DÃ NGOẠI YTC: CHÁY HẾT MÌNH, TRỌN VẸN GẮN KẾT!🧺</div>
       </div>
-      <p>
-        <strong>CLB Đào Tạo Kỹ Năng Trẻ - Young Training Club (YTC)</strong> được thành lập ngày 23/04/2012 trực thuộc Đoàn TNCS Hồ Chí Minh của Trường Đại học Kinh tế - Kỹ thuật Công Nghiệp. <b>YTC</b> là nơi sinh viên có cơ hội học tập rèn luyện kỹ năng mềm, tư duy sáng tạo và khả năng làm việc nhóm thông qua các cuộc thi, hoạt động hỗ trợ và học hỏi thực tế.<br>
-        <b>Slogan:</b> Ý tưởng lớn - Tài năng trẻ - Chung niềm tin
-      </p>
-    </div>
-  </section>
-<br>
-  <!-- HOẠT ĐỘNG -->
-   <h2 class="section-title"><b>Hoạt động chính</b></h2>
-   <br>
-  <section class="container fade-in">
-    <div class="card">
-      <h3 class="section-title">Cuộc thi nhóm Podcast - Phim</h3>
-    </div>
-  </section>
-
-  <section class="container fade-in">
-    <div class="card">
-      <h3 class="section-title">Cuộc thi MC - Giọng nói</h3>
-    </div>
-  </section>
-
-  <section class="container fade-in">
-    <div class="card">
-      <h3 class="section-title">Hỗ trợ và tham gia hoạt động phong trào</h3>
-    </div>
-  </section>
-
-  <section class="container fade-in">
-    <div class="card">
-      <h3 class="section-title">Các buổi giao lưu ngoại khoá</h3>
-    </div>
-  </section>
-<br>
-<h2 class="section-title"><b>Kết quả cuộc thi gần đây</b></h2><br>
- <a href="contest_event.html"><i>[Xem tại đây]</i></a>
-  <section class="container fade-in">
-    <div class="card">
-      <p>
-        <h3 class="section-title">Cuộc thi ONE - TAKE (Gen 14.2)</h3>
-        <img src="Contest/Podcast/Image/OneTakeResult.jpg" alt="Công bố giải One - take" class="responsive-img"><br>
-        <b>Giải nhất: </b> Nhóm Donald Trump<br>
-        <b>Giải nhì: </b> Nhóm OneTeam<br>
-        <b>Giải ba: </b> Nhóm ShineOn<br> 
-        <a href="Contest/OneTake.html"><i>[Đang cập nhật!]</i></a>
-      </p>
-    </div>
-  </section>
-  <section class="container fade-in">
-    <div class="card">
-      <p>
-        <h3 class="section-title">Cuộc thi RISING VOICE 2025 - THE MC TALENT HUNT</h3>
-        <img src="Contest/RisingVoice2025/Image/QuanQuan.jpg" alt="Quán quân Rising Voice 2025" class="responsive-img"><br>
-        <b>Quán quân: </b>Tô Thu Trang (SBD: 13)<br>
-        <b>Á quân 1: </b>Nguyễn Thị Thanh Hoa (SBD: 11)<br>
-        <b>Á quân 2: </b>Nguyễn Ngọc Như Quỳnh (SBD: 54)<br>
-        <b>Á quân 2: </b>Nguyễn Minh Ánh (SBD: 02)<br>
-        <b>Yêu thích nhất: </b> Ngô Hạnh Nguyên (SBD: 31)<br>
-        <a href="Contest/RisingVoice2025/RisingVoice2025.html"><i>[Xem series tại đây]</i></a>
-      </p>
-    </div>
-  </section>
-<br>
-<h2 class="section-title"><b>Sự kiện gần đây</b></h2><br>
- <a href="event.html"><i>[Xem tại đây]</i></a>
-  <section class="container fade-in">
-    <div class="card">
-      <p>
-        <h3 class="section-title">🎉 CHÚC MỪNG SINH NHẬT 10 TUỔI ANH NGỮ LEPOCA – 10 NĂM KIẾN TẠO, 10 NĂM DẪN LỐI 🌟</h3>
-        <img src="Event/Image/SinhNhatAnhNguLepoca10Tuoi.jpg" alt="" class="responsive-img"><br>
-        <b>Thời gian: </b>Ngày 13/07/2026<br>
-        <a href="https://www.facebook.com/share/p/18CTkcgLVG/" target="_blank"><i>[Xem tại đây]</i></a>
-      </p>
-    </div>
-  </section>
-  <section class="container fade-in">
-    <div class="card">
-      <p>
-        <h3 class="section-title">🎓 RECAP | YTC ĐỒNG HÀNH CÙNG LỄ BẾ GIẢNG & TRAO BẰNG TỐT NGHIỆP K16 UNETI 🎓</h3>
-        <img src="Event/Image/LeBeGiangVaTraoBangTotNghiepK16.jpg" alt="" class="responsive-img"><br>
-        <b>Thời gian: </b>Ngày 22/06/2026<br>
-        <a href="https://www.facebook.com/share/p/1Ck45aTTSr/" target="_blank"><i>[Xem tại đây]</i></a>
-      </p>
-    </div>
-  </section>
-  <section class="container fade-in">
-    <div class="card">
-      <p>
-        <h3 class="section-title">🎉 RECAP | HỖ TRỢ TRAO QUÀ LƯU NIỆM UNETI ĐỢT 1 – CHÀO MỪNG KỶ NIỆM 70 NĂM THÀNH LẬP TRƯỜNG🎉</h3>
-        <img src="Event/Image/HoTroQuaLuuNiem70NamUNETIDot1.jpg" alt="" class="responsive-img"><br>
-        <b>Thời gian: </b>Ngày 17/06/2026<br>
-        <a href="https://www.facebook.com/share/p/1GqGpMarN1/" target="_blank"><i>[Xem tại đây]</i></a>
-      </p>
-    </div>
-  </section>
-  <section class="container fade-in">
-    <div class="card">
-      <p>
-        <h3 class="section-title">🎓 YTC ĐỒNG HÀNH CÙNG CHƯƠNG TRÌNH “TIẾP SỨC MÙA THI” THPT 2026</h3>
-        <img src="Event/Image/TiepSucMuaThi2026.jpg" alt="" class="responsive-img"><br>
-        <b>Thời gian: </b>Ngày 11-12/06/2026<br>
-        <a href="https://www.facebook.com/share/p/18YQ5fGT1P/" target="_blank"><i>[Xem tại đây]</i></a>
-      </p>
-    </div>
-  </section>
-  <section class="container fade-in">
-    <div class="card">
-      <p>
-        <h3 class="section-title">📢BẢN TIN SỐ SỰ KIỆN CLB ĐÀO TẠO KỸ NĂNG TRẺ YTC - Chủ đề: "Hành trình tự hào - Ký ức UNETI toả sáng"</h3>
-        <img src="Event/Image/BanTin1.jpg" alt="" class="responsive-img"><br>
-        <b>Thời gian: </b>Ngày 09/06/2026<br>
-        <a href="https://www.tiktok.com/@ytc.uneti/video/7648869721130929428?is_from_webapp=1&sender_device=pc&web_id=7603783941741430279" target="_blank"><i>[Xem tại đây]</i></a>
-      </p>
-    </div>
-  </section>
-  <section class="container fade-in">
-    <div class="card">
-      <p>
-        <h3 class="section-title">📣 [RECAP] HỖ TRỢ LỄ RA QUÂN TIẾP SỨC MÙA THI UNETI 2026🎤✨</h3>
-        <img src="Event/Image/LeRaQuanTiepSucMuaThi2026.jpg" alt="" class="responsive-img"><br>
-        <b>Thời gian: </b>Ngày 09/06/2026<br>
-        <a href="https://www.facebook.com/YoungTrainingClub/posts/pfbid023fDncakcbUFATRrbFeJPwvj3QyzmJBa1dMSRqsjDnv7SxufC4zpBE5ZzcnJDfRoJl" target="_blank"><i>[Xem tại đây]</i></a>
-      </p>
-    </div>
-  </section>
-  <section class="container fade-in">
-    <div class="card">
-      <p>
-        <h3 class="section-title">[RECAP] ĐỒNG HÀNH HỖ TRỢ HỘI THẢO KHOA HỌC QUỐC GIA NSA 2026</h3>
-        <img src="Event/Image/HoiThaoKhoaHocQuocGia2026.jpg" alt="" class="responsive-img"><br>
-        <b>Thời gian: </b>Ngày 07/06/2026<br>
-        <a href="https://www.facebook.com/share/p/1MN4KgEmws/" target="_blank"><i>[Xem tại đây]</i></a>
-      </p>
-    </div>
-  </section>
-<br>
-
-  </main>
-  <!-- /NỘI DUNG CHÍNH -->
-
-  <!-- SIDEBAR PHẢI -->
-  <aside class="sidebar sidebar-right">
-
-    <!-- 🎂 SINH NHẬT THÁNG -->
-    <div class="widget birthday-widget">
-      <div class="widget-title">🎂 Sinh nhật tháng 8/2026</div>
-      <ul class="birthday-list" id="birthdayList">
-          <li class="birthday-item">
-          <div class="birthday-info">
-            <span class="birthday-name">Nguyễn Ngọc Bình Minh</span>
-            <span class="birthday-date">01/08 · Ban Truyền thông</span>
-          </div>
-          </li> 
-          <li class="birthday-item">
-          <div class="birthday-info">
-            <span class="birthday-name">Lê Ánh Dương</span>
-            <span class="birthday-date">02/08 · Ban MC - Lễ tân</span>
-          </div>
-          </li>                  
-          <li class="birthday-item">
-          <div class="birthday-info">
-            <span class="birthday-name">Phạm Thị Yến Nhi</span>
-            <span class="birthday-date">05/08 · Ban Nhân sự - Hậu cần</span>
-          </div>
-          </li>        
-          <li class="birthday-item">
-          <div class="birthday-info">
-            <span class="birthday-name">Nguyễn Minh Vũ</span>
-            <span class="birthday-date">10/08 · Ban Kỹ thuật - Vận hành</span>
-          </div>
-          </li>          
-          <li class="birthday-item">
-          <div class="birthday-info">
-            <span class="birthday-name">Phạm Quốc Hải Đăng</span>
-            <span class="birthday-date">11/08 · Ban Kỹ thuật - Vận hành</span>
-          </div>
-          </li>
-          <li class="birthday-item">
-          <div class="birthday-info">
-            <span class="birthday-name">Nguyễn Thị Quỳnh Như</span>
-            <span class="birthday-date">13/08 · Ban Nhân sự - Hậu cần</span>
-          </div>
-          </li>
-          <li class="birthday-item">
-          <div class="birthday-info">
-            <span class="birthday-name">Đinh Thế Quyền</span>
-            <span class="birthday-date">13/08 · Ban Nhân sự - Hậu cần</span>
-          </div>
-          </li>          
-          <li class="birthday-item">
-          <div class="birthday-info">
-            <span class="birthday-name">Vũ Thị Vân Anh</span>
-            <span class="birthday-date">20/08 · Ban Nhân sự - Hậu cần</span>
-          </div>
-          </li>           
-          <li class="birthday-item">
-          <div class="birthday-info">
-            <span class="birthday-name">Vũ Thị Thuý Liên</span>
-            <span class="birthday-date">20/08 · Ban Nhân sự - Hậu cần</span>
-          </div>
-          </li>
-          <li class="birthday-item">
-          <div class="birthday-info">
-            <span class="birthday-name">Lại Mạnh Tú</span>
-            <span class="birthday-date">26/08 · Ban Nhân sự - Hậu cần</span>
-          </div>
-          </li>            
-          <li class="birthday-item">
-          <div class="birthday-info">
-            <span class="birthday-name">Mè Ngọc Minh Châu</span>
-            <span class="birthday-date">28/08 · Ban Kỹ thuật - Vận hành</span>
-          </div>
-          </li>
-          <!-- <li class="birthday-item">
-          <div class="birthday-info">
-            <span class="birthday-name">Lê Huyền Đoan Trang</span>
-            <span class="birthday-date">20/06 · Phó Chủ Nhiệm</span>
-          </div>
-          </li> -->
-      </ul>
-      <p class="birthday-note">🥳 Chúc mừng sinh nhật tất cả YTC-er tháng 8!</p>
-    </div>
-
-    <!-- ⭐ VINH DANH THÀNH VIÊN -->
-    <div class="widget honor-widget">
-      <div class="widget-title">⭐ Vinh danh tháng 5/2026</div>
-      <div class="honor-widget-list">
-        <div class="honor-widget-item">
-          <span class="honor-widget-star">⭐</span>
-          <div>
-            <span class="honor-widget-name">Vũ Ngọc Huyền</span>
-            <span class="honor-widget-role">MC - Lễ tân</span>
-          </div>
-        </div>
-        <div class="honor-widget-item">
-          <span class="honor-widget-star">⭐</span>
-          <div>
-            <span class="honor-widget-name">Lưu Vũ Quỳnh Anh</span>
-            <span class="honor-widget-role">MC - Lễ tân</span>
-          </div>
-        </div>
-        <div class="honor-widget-item">
-          <span class="honor-widget-star">⭐</span>
-          <div>
-            <span class="honor-widget-name">Nguyễn Thị Thu Hồng</span>
-            <span class="honor-widget-role">Truyền thông</span>
-          </div>
-        </div>
-        <div class="honor-widget-item">
-          <span class="honor-widget-star">⭐</span>
-          <div>
-            <span class="honor-widget-name">Lê Hữu Tuấn Anh</span>
-            <span class="honor-widget-role">Truyền thông</span>
-          </div>
-        </div>
-        <div class="honor-widget-item">
-          <span class="honor-widget-star">⭐</span>
-          <div>
-            <span class="honor-widget-name">Đỗ Đức Lương</span>
-            <span class="honor-widget-role">Nhân sự - Hậu cần</span>
-          </div>
-        </div>
-        <div class="honor-widget-item">
-          <span class="honor-widget-star">⭐</span>
-          <div>
-            <span class="honor-widget-name">Vũ Thị Thảo</span>
-            <span class="honor-widget-role">Nhân sự - Hậu cần</span>
-          </div>
-        </div>
-        <a class="honor-widget-item" href="Member/TranDangBinhMinh_DHTI18A1CL.html" target="_blank" style="text-decoration:none;">
-          <span class="honor-widget-star">⭐</span>
-          <div>
-            <span class="honor-widget-name">Trần Đặng Bình Minh</span>
-            <span class="honor-widget-role">Kỹ thuật - Vận hành</span>
-          </div>
+      <div class="event-card__links">
+        <a href="https://www.facebook.com/share/p/1EdX9dBXqo/" target="_blank" class="event-card__link">
+          ↗ Xem chi tiết
+        </a>
+        <a href="https://www.facebook.com/share/v/1PYihXh9a1/" target="_blank" class="event-card__link">
+          🎬 MV Recap
         </a>
       </div>
     </div>
-
-    <!-- Liên hệ nhanh -->
-    <div class="widget">
-      <div class="widget-title">✉️ Liên hệ</div>
-      <div style="font-size:0.83rem; line-height:2; color:#444;">
-        <div>📧 <b onclick="navigator.clipboard.writeText('genz.ytc@gmail.com'); this.style.color='green'; setTimeout(()=>this.style.color='',1500)" style="cursor:pointer; color: var(--blue-accent);" title="Nhấn để copy">genz.ytc@gmail.com</b></div>
-        <div>📘 <a href="https://www.facebook.com/YoungTrainingClub" target="_blank" style="font-size:0.83rem;">Facebook CLB</a></div>
-        <div>🎵 <a href="https://www.tiktok.com/@ytc.uneti" target="_blank" style="font-size:0.83rem;">TikTok CLB</a></div>
-        <div>🌐 <a href="https://uneti.edu.vn" target="_blank" style="font-size:0.83rem;">Website Trường</a></div>
-      </div>
-    </div>
-
-  </aside>
-  <!-- /SIDEBAR PHẢI -->
-
-</div>
-<!-- /PAGE LAYOUT -->
-
-<!-- NÚT CUỘN LÊN ĐẦU -->
-<div class="scroll-top-btn" id="scrollTopBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Lên đầu trang">
-  <svg viewBox="0 0 24 24"><path d="M12 4l-8 8h5v8h6v-8h5z"/></svg>
-</div>
-
-  <!-- RECAP POPUP OVERLAY -->
-  <div class="floating-btn" onclick="openRecapBox()">
-      <svg viewBox="0 0 24 24">
-
-        <circle cx="12" cy="12" r="10" fill="none" stroke="#ffffff" stroke-width="2"/>
-
-        <line x1="12" y1="12" x2="12" y2="7" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>
-
-        <line x1="12" y1="12" x2="16" y2="12" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"/>
-
-        <circle cx="12" cy="12" r="1.2" fill="#ffffff"/>
-      </svg>
-    </div>
-
-  <div class="recap-overlay" id="recapOverlay" onclick="closeRecapBox(event)">
-    <div id="recapBox" onclick="event.stopPropagation()">
-      <div class="close-btn" onclick="closeRecapBox()"></div>
-      
-      <h2>⛺ DÃ NGOẠI YTC: CHÁY HẾT MÌNH, TRỌN VẸN GẮN KẾT! 🧺<br>ĐỒNG ĐÒ - HÀ NỘI 2026</h2>
-        <img src="Event/Image/DaNgoai2026.jpg" alt="" style="width: 100%; max-width: 500px;">
-        <p><a href="https://www.facebook.com/share/p/1EdX9dBXqo/" target="_blank">→ Xem chi tiết tại đây</a><br>
-        <a href="https://www.facebook.com/share/v/1PYihXh9a1/" target="_blank">→ MV Recap</a></p>
-  </div>
   </div>
 
-  <!-- STAR / BEST STUDENT POPUP -->
-    <div class="star-floating-btn" onclick="openStarBox()">
-      <svg viewBox="0 0 24 24">
-        <path d="M12 2l2.9 6.26L22 9.27l-5 4.87L18.18 22 12 18.27 5.82 22 7 14.14l-5-4.87 7.1-1.01z"/>
-      </svg>
+  <div class="event-card fade-in">
+    <img src="Event/Image/LeBeGiangVaTraoBangTotNghiepK16.jpg" alt="LỄ BẾ GIẢNG & TRAO BẰNG TỐT NGHIỆP K16" class="event-card__img"
+         onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+    <div class="event-card__img-placeholder" style="display:none">🎓</div>
+    <div class="event-card__body">
+      <div>
+        <div class="event-card__date">📅 22/06/2026</div>
+        <div class="event-card__title">🎓 RECAP | YTC ĐỒNG HÀNH CÙNG LỄ BẾ GIẢNG & TRAO BẰNG TỐT NGHIỆP K16 UNETI 🎓</div>
+      </div>
+      <a href="https://www.facebook.com/share/p/1Ck45aTTSr/" target="_blank" class="event-card__link">
+        ↗ Xem chi tiết
+      </a>
     </div>
+  </div>
 
-    <div class="star-overlay" id="starOverlay" onclick="closeStarBox(event)">
-      <div id="starBox" onclick="event.stopPropagation()">
-        <div class="close-btn" onclick="closeStarBox()"></div>
+  <div class="event-card fade-in">
+    <img src="Event/Image/HoTroQuaLuuNiem70NamUNETIDot1.jpg" alt="HỖ TRỢ TRAO QUÀ LƯU NIỆM" class="event-card__img"
+         onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+    <div class="event-card__img-placeholder" style="display:none">✨</div>
+    <div class="event-card__body">
+      <div>
+        <div class="event-card__date">📅 17/06/2026</div>
+        <div class="event-card__title">🎉 RECAP | HỖ TRỢ TRAO QUÀ LƯU NIỆM UNETI ĐỢT 1 – CHÀO MỪNG KỶ NIỆM 70 NĂM THÀNH LẬP TRƯỜNG🎉</div>
+      </div>
+      <a href="https://www.facebook.com/share/p/1GqGpMarN1/" target="_blank" class="event-card__link">
+        ↗ Xem chi tiết
+      </a>
+    </div>
+  </div>
 
-        <h2>⭐ GƯƠNG MẶT SINH VIÊN TIÊU BIỂU UNETI ⭐</h2>
+  <div class="event-card fade-in">
+    <img src="Event/Image/TiepSucMuaThi2026.jpg" alt="Tiếp Sức Mùa Thi 2026" class="event-card__img"
+         onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+    <div class="event-card__img-placeholder" style="display:none">🎓</div>
+    <div class="event-card__body">
+      <div>
+        <div class="event-card__date">📅 11–12/06/2026</div>
+        <div class="event-card__title">🎓 YTC ĐỒNG HÀNH CÙNG CHƯƠNG TRÌNH "TIẾP SỨC MÙA THI" THPT 2026</div>
+      </div>
+      <a href="https://www.facebook.com/share/p/18YQ5fGT1P/" target="_blank" class="event-card__link">
+        ↗ Xem chi tiết
+      </a>
+    </div>
+  </div>
 
-        <div class="student-item">
-          <img src="Image/VinhDanh_NguyenThanhLan.jpg" alt="Nguyễn Thanh Lan">
-          <div class="student-info">
-            <b>Nguyễn Thanh Lan</b>
-            <span>DHLQ17A1HN</span>
-            <p style="margin:6px 0 0;">Gương mặt tiêu biểu của tuổi trẻ nhiệt huyết và khát vọng vươn xa.</p>
-          </div>
-        </div>
+  <div class="event-card fade-in">
+    <img src="Event/Image/BanTin1.jpg" alt="Bản tin số 1" class="event-card__img"
+         onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+    <div class="event-card__img-placeholder" style="display:none">📢</div>
+    <div class="event-card__body">
+      <div>
+        <div class="event-card__date">📅 09/06/2026</div>
+        <div class="event-card__title">📢 BẢN TIN SỐ SỰ KIỆN CLB ĐÀO TẠO KỸ NĂNG TRẺ YTC — Chủ đề: "Hành trình tự hào – Ký ức UNETI toả sáng"</div>
+      </div>
+      <a href="https://www.tiktok.com/@ytc.uneti/video/7648869721130929428?is_from_webapp=1&sender_device=pc&web_id=7603783941741430279" target="_blank" class="event-card__link">
+        ↗ Xem chi tiết
+      </a>
+    </div>
+  </div>
 
-        <!-- Thêm sinh viên khác: copy 1 khối .student-item ở trên -->
+  <div class="event-card fade-in">
+    <img src="Event/Image/LeRaQuanTiepSucMuaThi2026.jpg" alt="Lễ Ra Quân Tiếp Sức Mùa Thi" class="event-card__img"
+         onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+    <div class="event-card__img-placeholder" style="display:none">📣</div>
+    <div class="event-card__body">
+      <div>
+        <div class="event-card__date">📅 09/06/2026</div>
+        <div class="event-card__title">📣 [RECAP] HỖ TRỢ LỄ RA QUÂN TIẾP SỨC MÙA THI UNETI 2026</div>
+      </div>
+      <a href="https://www.facebook.com/YoungTrainingClub/posts/pfbid023fDncakcbUFATRrbFeJPwvj3QyzmJBa1dMSRqsjDnv7SxufC4zpBE5ZzcnJDfRoJl" target="_blank" class="event-card__link">
+        ↗ Xem chi tiết
+      </a>
+    </div>
+  </div>
 
-        <p><a href="https://uneti.edu.vn/nguyen-thanh-lan-sinh-vien-lop-dhlq17a1hn-khoa-thuong-mai-guong-mat-tieu-bieu-cua-tuoi-tre-nhiet-huyet-va-khat-vong-vuon-xa/" target="_blank">→ Xem chi tiết tại đây</a></p>
+  <div class="event-card fade-in">
+    <img src="Event/Image/HoiThaoKhoaHocQuocGia2026.jpg" alt="Hội Thảo Khoa Học Quốc Gia NSA 2026" class="event-card__img"
+         onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+    <div class="event-card__img-placeholder" style="display:none">🔬</div>
+    <div class="event-card__body">
+      <div>
+        <div class="event-card__date">📅 07/06/2026</div>
+        <div class="event-card__title">[RECAP] ĐỒNG HÀNH HỖ TRỢ HỘI THẢO KHOA HỌC QUỐC GIA NSA 2026</div>
+      </div>
+      <a href="https://www.facebook.com/share/p/1MN4KgEmws/" target="_blank" class="event-card__link">
+        ↗ Xem chi tiết
+      </a>
+    </div>
+  </div>
+
+  <div class="event-card fade-in">
+    <img src="Event/Image/HoiThaoDoanTNUNETIBoCongThuong2026.jpg" alt="Hội Thảo Đoàn TN UNETI x Bộ Công Thương" class="event-card__img"
+         onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+    <div class="event-card__img-placeholder" style="display:none">✨</div>
+    <div class="event-card__body">
+      <div>
+        <div class="event-card__date">📅 21/05/2026</div>
+        <div class="event-card__title">✨ [RECAP] YTC ĐỒNG HÀNH TẠI HỘI THẢO ĐOÀN THANH NIÊN UNETI × ĐOÀN THANH NIÊN BỘ CÔNG THƯƠNG</div>
+      </div>
+      <a href="https://www.facebook.com/share/p/1DNBD47neN/" target="_blank" class="event-card__link">
+        ↗ Xem chi tiết
+      </a>
+    </div>
+  </div>
+
+  <div class="event-card fade-in">
+    <img src="Event/Image/SinhNhatBacHo2026.jpg" alt="Viếng Lăng Bác 2026" class="event-card__img"
+         onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+    <div class="event-card__img-placeholder" style="display:none">🎉</div>
+    <div class="event-card__body">
+      <div>
+        <div class="event-card__date">📅 19/05/2026</div>
+        <div class="event-card__title">🎉 [RECAP] CHUYẾN ĐI LĂNG VIẾNG THĂM CHỦ TỊCH HỒ CHÍ MINH, THĂM QUAN PHỦ CHỦ TỊCH & NHÀ QUỐC HỘI — Nhân dịp kỷ niệm 136 năm ngày sinh của Người</div>
+      </div>
+      <a href="https://www.facebook.com/share/p/1EJVLVHAPM/" target="_blank" class="event-card__link">
+        ↗ Xem chi tiết
+      </a>
+    </div>
+  </div>
+
+  <div class="event-card fade-in">
+    <img src="Event/Image/BuoiGapMatThanhTichCao2026.jpg" alt="Vinh Danh Thành Tích Cao 2026" class="event-card__img"
+         onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+    <div class="event-card__img-placeholder" style="display:none">🏆</div>
+    <div class="event-card__body">
+      <div>
+        <div class="event-card__date">📅 18/05/2026</div>
+        <div class="event-card__title">🏆 RECAP | BUỔI GẶP MẶT, VINH DANH CÁC ĐỘI THI CÓ THÀNH TÍCH CAO NĂM 2026</div>
+      </div>
+      <a href="https://www.facebook.com/share/p/18ZHWrZ6dM/" target="_blank" class="event-card__link">
+        ↗ Xem chi tiết
+      </a>
+    </div>
+  </div>
+
+  <div class="event-card-special fade-in">
+    <img src="Event/Image/ChuyenTauThoiGian2026_1.jpg" alt="DÃ NGOẠI 2026" class="event-card__img"
+        onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+    <div class="event-card__img-placeholder" style="display:none">⛺</div>
+    <div class="event-card__body">
+      <div>
+        <div class="event-card__date">📅 15/05/2026</div>
+        <div class="event-card__title">🌟 [RECAP] “CHUYẾN TÀU THỜI GIAN” - ĐÊM SINH NHẬT LẦN THỨ 14 CLB ĐÀO TẠO KỸ NĂNG TRẺ 🌟</div>
+      </div>
+      <div class="event-card__links">
+        <a href="https://www.facebook.com/share/p/1JEfJXnAwH/" target="_blank" class="event-card__link">
+          ↗ Xem chi tiết
+        </a>
+        <a href="https://www.facebook.com/reel/28007781745477090" target="_blank" class="event-card__link">
+          🎬 MV Recap
+        </a>
+        <a href="https://www.facebook.com/reel/1244660794163868" target="_blank" class="event-card__link">
+          🎬 MV Trạm tri ân
+        </a>
       </div>
     </div>
-  <!-- FOOTER -->
-  <footer>
-    <div id="footer-placeholder"></div>
-  </footer>
+  </div>  
 
-  <script>
-    function updateClock() {
-    const now = new Date();
+</div>
 
-    // Giờ
-    const h = String(now.getHours()).padStart(2, '0');
-    const m = String(now.getMinutes()).padStart(2, '0');
-    const s = String(now.getSeconds()).padStart(2, '0');
-    document.getElementById('liveClock').textContent = `${h}:${m}:${s}`;
+<!-- FOOTER -->
+<footer>
+  <div id="footer-placeholder"></div>
+</footer>
 
-    // Ngày
-    const days = ['CN', 'Thứ 2', 'Thứ 3', 'Thứ 4', 'Thứ 5', 'Thứ 6', 'Thứ 7'];
-    const d = now.getDate();
-    const mo = now.getMonth() + 1;
-    const y = now.getFullYear();
-    document.getElementById('liveDate').textContent =
-      `${days[now.getDay()]}, ${d}/${mo}/${y}`;
-  }
-
-  updateClock();
-  setInterval(updateClock, 1000); // Cập nhật mỗi giây
-
-    // Open Recap Box
-    function openRecapBox() {
-      document.getElementById('recapOverlay').classList.add('active');
-      document.body.style.overflow = 'hidden'; // Prevent scrolling
-    }
-
-    // Close Recap Box
-    function closeRecapBox(event) {
-      // Nếu click vào overlay hoặc nút close
-      if (!event || event.target.id === 'recapOverlay' || event.target.classList.contains('close-btn')) {
-        document.getElementById('recapOverlay').classList.remove('active');
-        document.body.style.overflow = 'auto'; // Enable scrolling
-      }
-    }
-
-    // Close with ESC key
-    document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape') {
-        closeRecapBox();
-      }
-    });
-
-    // ===== SLIDESHOW ẢNH GIỚI THIỆU (tự động trượt) =====
-    (function() {
-      const wrapper = document.getElementById('introSlideshow');
-      const track = document.getElementById('introSlideTrack');
-      const dotsContainer = document.getElementById('introSlideDots');
-      if (!wrapper || !track) return;
-
-      const slides = track.querySelectorAll('.intro-slide');
-      const total = slides.length;
-      let current = 0;
-
-      // Chỉ có 1 ảnh -> không cần dots/tự chạy, chờ khi nào thêm ảnh mới sẽ tự kích hoạt
-      if (total <= 1) return;
-
-      const dots = [];
-      for (let i = 0; i < total; i++) {
-        const d = document.createElement('div');
-        d.className = 'intro-slideshow-dot' + (i === 0 ? ' active' : '');
-        d.addEventListener('click', () => goTo(i));
-        dotsContainer.appendChild(d);
-        dots.push(d);
-      }
-
-      function goTo(idx) {
-        current = (idx + total) % total;
-        track.style.transform = `translateX(-${current * 100}%)`;
-        dots.forEach((d, i) => d.classList.toggle('active', i === current));
-      }
-
-      let introTimer = setInterval(() => goTo(current + 1), 4000);
-      wrapper.addEventListener('mouseenter', () => clearInterval(introTimer));
-      wrapper.addEventListener('mouseleave', () => {
-        introTimer = setInterval(() => goTo(current + 1), 4000);
-      });
-    })();
-
-    function openStarBox() {
-      document.getElementById('starOverlay').classList.add('active');
-      document.body.style.overflow = 'hidden';
-    }
-
-    function closeStarBox(event) {
-      if (!event || event.target.id === 'starOverlay' || event.target.classList.contains('close-btn')) {
-        document.getElementById('starOverlay').classList.remove('active');
-        document.body.style.overflow = 'auto';
-      }
-    }
-
-    document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape') {
-        closeStarBox();
-      }
-    });
-  </script>
-
-</body>
 <script src="Asset/script.js"></script>
+</body>
 </html>
