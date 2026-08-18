@@ -36,6 +36,7 @@
       border: 1px solid rgba(161,227,255,0.35);
     }
     .event-card-special {
+      position: relative;         /* thêm dòng này để ::before neo đúng vào card */
       background: #feffe4;
       border-radius: 16px;
       border: 1px solid rgba(247, 255, 161, 0.35);
@@ -46,7 +47,8 @@
 
       display: grid;
       grid-template-columns: 240px 1fr;
-      overflow: hidden;
+      overflow: hidden;            /* thêm dòng này để bo góc ảnh đúng chuẩn */
+      transition: transform 0.25s ease, box-shadow 0.25s ease; /* để hover mượt như card thường */
     }
     .event-card-special::before {
       content: "";
@@ -66,7 +68,7 @@
       transform: translateY(-4px);
       box-shadow: 0 10px 32px rgba(9,131,254,0.18);
     }
-    .event-card:hover {
+    .event-card-special:hover {
       transform: translateY(-4px);
       box-shadow: 0 10px 32px rgba(180, 254, 9, 0.18);
     }
@@ -147,7 +149,8 @@
 
     /* ===== MOBILE ===== */
     @media (max-width: 640px) {
-      .event-card {
+      .event-card,
+      .event-card-special {
         grid-template-columns: 1fr;
       }
       .event-card__img,

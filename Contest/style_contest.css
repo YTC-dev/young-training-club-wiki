@@ -576,6 +576,126 @@
   color: var(--blue-main);
 }
 
+/* =========================
+   TEAM CARDS (Đội thi)
+========================= */
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+.team-card {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(44, 59, 144, 0.12);
+  overflow: hidden;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  text-align: left;
+  border-top: 4px solid var(--blue-accent);
+}
+
+.team-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 36px rgba(44, 59, 144, 0.2);
+}
+
+.team-card-header {
+  padding: 10px 10px 10px 15px;
+  background: linear-gradient(135deg, var(--blue-main), var(--blue-accent));
+  color:#fff;
+}
+
+.team-card-header h3 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.team-slogan {
+  font-size: 0.85rem;
+  font-style: italic;
+  opacity: 0.9;
+}
+
+.team-card-body {
+  padding: 18px 22px 22px;
+}
+
+.team-block {
+  margin-bottom: 16px;
+}
+
+.team-block:last-child {
+  margin-bottom: 0;
+}
+
+.team-block h4 {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--blue-main);
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.team-members {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.team-members li {
+  font-size: 0.88rem;
+  color: #00087e;
+  padding-left: 18px;
+  position: relative;
+}
+
+.team-members li::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  color: var(--blue-accent);
+  font-weight: 700;
+}
+
+.team-block p {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+}
+
+.video-topic {
+  font-style: bold;
+  margin-bottom: 12px !important;
+}
+
+.team-message {
+  font-style: italic;
+  margin-bottom: 12px !important;
+}
+
+.team-video-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: linear-gradient(135deg, #0983fe, #51c2f2);
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 8px 18px;
+  border-radius: 20px;
+  box-shadow: 0 4px 14px rgba(9, 131, 254, 0.35);
+  transition: 0.25s ease;
+}
+
+.team-video-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(9, 131, 254, 0.45);
+  color: #fff;
+}
+
     /* ===== OPTIMIZATIONS ===== */
 
     /* Fade-in visibility */
