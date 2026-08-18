@@ -84,6 +84,8 @@ const footerHTML = `
       </div>
 
       <br>
+      
+      <div id="visit-counter" class="visit-counter"></div>
 
       <p>
         2026 © CLB Đào Tạo Kỹ Năng Trẻ YTC - Trường Đại học Kinh tế - Kỹ thuật Công nghiệp |
@@ -121,4 +123,39 @@ if (navPlaceholder) {
 
 if (footerPlaceholder) {
   footerPlaceholder.innerHTML = footerHTML;
+  initVisitCounter();
 }
+
+// ----- 4. Visit Counter (hits.sh - free, no signup) -----
+function initVisitCounter() {
+  const counterEl = document.getElementById("visit-counter");
+  if (!counterEl) return;
+
+  // Khi đang code/chỉnh giao diện ở local thì không gọi hits.sh,
+  // tránh badge bị vỡ do key không hợp lệ trên localhost
+  if (
+    window.location.hostname === "localhost" ||
+    window.location.hostname === "127.0.0.1"
+  ) {
+    counterEl.innerHTML =
+      '<span style="opacity:0.6;font-size:14px;">[Bộ đếm lượt truy cập – chỉ hiện khi deploy]</span>';
+    return;
+  }
+
+  const siteKey = `${window.location.hostname}${BASE}`;
+  const label = encodeURIComponent("Lượt truy cập");
+  const badgeUrl =
+    `https://hits.sh/${encodeURIComponent(siteKey)}.svg` +
+    `?style=flat-square&label=${label}&color=0e7490`;
+
+  const img = document.createElement("img");
+  img.src = badgeUrl;
+  img.alt = "Lượt truy cập website";
+  img.loading = "lazy";
+  img.style.height = "24px";
+
+  counterEl.appendChild(img);
+}
+
+// ----- Disable Right Click -----
+document.addEventListener("contextmenu", e => e.preventDefault());
