@@ -84,7 +84,7 @@ const footerHTML = `
       </div>
 
       <br>
-      
+
       <div id="visit-counter" class="visit-counter"></div>
 
       <p>
@@ -142,10 +142,14 @@ function initVisitCounter() {
     return;
   }
 
+  // Lưu ý: siteKey là một PATH (vd: "ytc-dev.github.io/young-training-club-wiki"),
+  // không phải 1 segment đơn lẻ, nên KHÔNG được encodeURIComponent() cả chuỗi này
+  // (nếu không dấu "/" sẽ bị đổi thành "%2F" khiến hits.sh không nhận đúng key
+  // -> badge lỗi/không hiện).
   const siteKey = `${window.location.hostname}${BASE}`;
   const label = encodeURIComponent("Lượt truy cập");
   const badgeUrl =
-    `https://hits.sh/${encodeURIComponent(siteKey)}.svg` +
+    `https://hits.sh/${siteKey}.svg` +
     `?style=flat-square&label=${label}&color=0e7490`;
 
   const img = document.createElement("img");
@@ -153,6 +157,15 @@ function initVisitCounter() {
   img.alt = "Lượt truy cập website";
   img.loading = "lazy";
   img.style.height = "24px";
+
+  // Nếu hits.sh lỗi mạng / bị trình chặn quảng cáo chặn thì vẫn hiện
+  // thông báo thay vì im lặng biến mất
+  img.onerror = () => {
+    counterEl.innerHTML =
+      '<span style="opacity:0.6;font-size:14px;">' +
+      "Không tải được bộ đếm lượt truy cập" +
+      "</span>";
+  };
 
   counterEl.appendChild(img);
 }
