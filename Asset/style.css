@@ -268,7 +268,11 @@ footer a:hover {
   color: var(--blue-soft);
 }
 
-footer img {
+/* Chỉ ép kích thước cho icon mạng xã hội (Facebook/TikTok...) trong footer,
+   KHÔNG áp dụng cho mọi <img> trong footer nữa - rule cũ "footer img"
+   vô tình bóp cả badge hits.sh (width max 20px trong khi height inline
+   là 24px) khiến badge bị méo thành 1 icon vuông nhỏ xíu. */
+footer .social-icon {
   width: 100%;
   max-width: 20px;
 }
@@ -678,6 +682,20 @@ html {
 
 .footer-container a:hover {
   color: #fff;
+}
+
+/* Đảm bảo badge visit-counter (hits.sh) không bị các rule ảnh khác trong
+   footer bóp méo kích thước */
+.visit-counter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.visit-counter img {
+  width: auto;
+  max-width: none;
+  height: 24px;
 }
 
 /* Mobile */
