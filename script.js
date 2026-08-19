@@ -85,6 +85,8 @@ const footerHTML = `
 
       <br>
 
+      <div id="visit-counter" class="visit-counter"></div>
+
       <p>
         2026 © CLB Đào Tạo Kỹ Năng Trẻ YTC - Trường Đại học Kinh tế - Kỹ thuật Công nghiệp |
         All rights reserved.
@@ -121,6 +123,51 @@ if (navPlaceholder) {
 
 if (footerPlaceholder) {
   footerPlaceholder.innerHTML = footerHTML;
+  initVisitCounter();
+}
+
+// ----- 4. Visit Counter (hits.sh - free, no signup) -----
+function initVisitCounter() {
+  const counterEl = document.getElementById("visit-counter");
+  if (!counterEl) return;
+
+  // Khi đang code/chỉnh giao diện ở local thì không gọi hits.sh,
+  // tránh badge bị vỡ do key không hợp lệ trên localhost
+  if (
+    window.location.hostname === "localhost" ||
+    window.location.hostname === "127.0.0.1"
+  ) {
+    counterEl.innerHTML =
+      '<span style="opacity:0.6;font-size:14px;">[Bộ đếm lượt truy cập – chỉ hiện khi deploy]</span>';
+    return;
+  }
+
+  // Lưu ý: siteKey là một PATH (vd: "ytc-dev.github.io/young-training-club-wiki"),
+  // không phải 1 segment đơn lẻ, nên KHÔNG được encodeURIComponent() cả chuỗi này
+  // (nếu không dấu "/" sẽ bị đổi thành "%2F" khiến hits.sh không nhận đúng key
+  // -> badge lỗi/không hiện).
+  const siteKey = `${window.location.hostname}${BASE}`;
+  const label = encodeURIComponent("Lượt truy cập");
+  const badgeUrl =
+    `https://hits.sh/${siteKey}.svg` +
+    `?style=flat-square&label=${label}&color=0e7490`;
+
+  const img = document.createElement("img");
+  img.src = badgeUrl;
+  img.alt = "Lượt truy cập website";
+  img.loading = "lazy";
+  img.style.height = "24px";
+
+  // Nếu hits.sh lỗi mạng / bị trình chặn quảng cáo chặn thì vẫn hiện
+  // thông báo thay vì im lặng biến mất
+  img.onerror = () => {
+    counterEl.innerHTML =
+      '<span style="opacity:0.6;font-size:14px;">' +
+      "Không tải được bộ đếm lượt truy cập" +
+      "</span>";
+  };
+
+  counterEl.appendChild(img);
 }
 
 // ----- Disable Right Click -----

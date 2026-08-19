@@ -147,6 +147,42 @@
       text-align: center;
     }
 
+    /* ===== XEM THÊM BUTTON ===== */
+    .is-hidden {
+      display: none;
+    }
+    .load-more-wrap {
+      display: flex;
+      justify-content: center;
+      padding: 8px 16px 40px;
+    }
+    .load-more-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #fff;
+      background: var(--blue-accent);
+      border: none;
+      padding: 12px 28px;
+      border-radius: 30px;
+      cursor: pointer;
+      box-shadow: 0 4px 16px rgba(9,131,254,0.25);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    }
+    .load-more-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 22px rgba(9,131,254,0.32);
+    }
+    .load-more-btn .arrow {
+      transition: transform 0.25s ease;
+      display: inline-block;
+    }
+    .load-more-btn.is-expanded .arrow {
+      transform: rotate(180deg);
+    }
+
     /* ===== MOBILE ===== */
     @media (max-width: 640px) {
       .event-card,
@@ -185,7 +221,22 @@
 </div>
 
 <!-- EVENTS -->
-<div class="events-grid">
+<div class="events-grid" id="events-grid">
+
+  <div class="event-card fade-in">
+    <img src="Event/Image/NgayThuongBinhLietSi2026.jpg" alt="KỶ NIỆM 79 NĂM NGÀY THƯƠNG BINH - LIỆT SĨ" class="event-card__img"
+         onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+    <div class="event-card__img-placeholder" style="display:none">🎓</div>
+    <div class="event-card__body">
+      <div>
+        <div class="event-card__date">📅 27/07/2026</div>
+        <div class="event-card__title">🇻🇳 KỶ NIỆM 79 NĂM NGÀY THƯƠNG BINH - LIỆT SĨ (27/7/1947 – 27/7/2026) | ĐỜI ĐỜI GHI NHỚ – MÃI MÃI TRI ÂN 🇻🇳</div>
+      </div>
+      <a href="https://www.facebook.com/share/p/1JD6GeJg9r/" target="_blank" class="event-card__link">
+        ↗ Xem chi tiết
+      </a>
+    </div>
+  </div>  
 
   <div class="event-card fade-in">
     <img src="Event/Image/SinhNhatAnhNguLepoca10Tuoi.jpg" alt="SINH NHẬT LEPOCA 10 NĂM" class="event-card__img"
@@ -266,6 +317,8 @@
       </a>
     </div>
   </div>
+
+  <!-- ===== Các sự kiện dưới đây mặc định ẩn, hiện khi bấm "Xem thêm" ===== -->
 
   <div class="event-card fade-in">
     <img src="Event/Image/BanTin1.jpg" alt="Bản tin số 1" class="event-card__img"
@@ -382,11 +435,69 @@
 
 </div>
 
+<!-- NÚT XEM THÊM -->
+<div class="load-more-wrap">
+  <button type="button" class="load-more-btn" id="load-more-btn" onclick="toggleEvents()">
+    <span id="load-more-text">Xem thêm</span>
+    <span class="arrow">▼</span>
+  </button>
+</div>
+
 <!-- FOOTER -->
 <footer>
   <div id="footer-placeholder"></div>
 </footer>
 
 <script src="Asset/script.js"></script>
+<script>
+  // Số lượng tin hiển thị mặc định (đổi số này nếu muốn hiện nhiều/ít hơn)
+  var VISIBLE_COUNT = 6;
+
+  function getAllCards() {
+    var grid = document.getElementById('events-grid');
+    return grid.querySelectorAll('.event-card, .event-card-special');
+  }
+
+  function applyDefaultVisibility() {
+    // Luôn dựa trên VỊ TRÍ hiện tại trong HTML, nên thêm/xoá/sắp xếp lại tin
+    // mới ở bất kỳ đâu trong #events-grid đều được tự động xử lý, không cần
+    // gắn class thủ công.
+    var allCards = getAllCards();
+    var btn = document.getElementById('load-more-btn');
+    var text = document.getElementById('load-more-text');
+
+    allCards.forEach(function (card, index) {
+      card.classList.toggle('is-hidden', index >= VISIBLE_COUNT);
+    });
+
+    // Nếu tổng số tin không vượt quá VISIBLE_COUNT thì ẩn luôn nút "Xem thêm"
+    if (btn) {
+      btn.style.display = allCards.length > VISIBLE_COUNT ? '' : 'none';
+    }
+    if (text) text.textContent = 'Xem thêm';
+    if (btn) btn.classList.remove('is-expanded');
+  }
+
+  function toggleEvents() {
+    var grid = document.getElementById('events-grid');
+    var btn = document.getElementById('load-more-btn');
+    var text = document.getElementById('load-more-text');
+    var expanded = btn.classList.contains('is-expanded');
+
+    if (!expanded) {
+      getAllCards().forEach(function (card) {
+        card.classList.remove('is-hidden');
+      });
+      text.textContent = 'Thu gọn';
+      btn.classList.add('is-expanded');
+    } else {
+      applyDefaultVisibility();
+      // Cuộn nhẹ về khu vực sự kiện để người dùng không bị mất vị trí
+      grid.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', applyDefaultVisibility);
+</script>
 </body>
 </html>
