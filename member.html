@@ -319,6 +319,41 @@
       justify-content: center;
       text-align: center;
     }
+    /* ===== XEM THÊM BUTTON ===== */
+    .is-hidden {
+      display: none;
+    }
+    .load-more-wrap {
+      display: flex;
+      justify-content: center;
+      padding: 8px 16px 40px;
+    }
+    .load-more-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #fff;
+      background: var(--blue-accent);
+      border: none;
+      padding: 12px 28px;
+      border-radius: 30px;
+      cursor: pointer;
+      box-shadow: 0 4px 16px rgba(9,131,254,0.25);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    }
+    .load-more-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 22px rgba(9,131,254,0.32);
+    }
+    .load-more-btn .arrow {
+      transition: transform 0.25s ease;
+      display: inline-block;
+    }
+    .load-more-btn.is-expanded .arrow {
+      transform: rotate(180deg);
+    }
 
     /* ===== MOBILE ===== */
     @media (max-width: 640px) {
@@ -328,7 +363,7 @@
       .event-card__img,
       .event-card__img-placeholder {
         width: 100%;
-        height: 200px;
+        height: 240px;
       }
       .event-card__body {
         padding: 16px;
@@ -378,10 +413,13 @@
   </div>
 </section>
 
-<h2 class="section-title"><b>Ban Chủ Nhiệm Gen 14 (2026-2027)</b></h2>
+<div id="bcn-generations">
 
-  <section class="container fade-in">
-    <div class="box">
+  <div class="gen-block">
+    <h2 class="section-title"><b>Ban Chủ Nhiệm Gen 14 (2026-2027)</b></h2>
+
+    <section class="container fade-in">
+      <div class="box">
 
   <section class="container fade-in">
   <div class="role">
@@ -520,8 +558,10 @@
 
 </div>
 </section>
+</div>
 
-<h2 class="section-title"><b>Ban Chủ Nhiệm Gen 13 (2025-2026)</b></h2>
+<div class="gen-block">
+  <h2 class="section-title"><b>Ban Chủ Nhiệm Gen 13 (2025-2026)</b></h2>
 
   <section class="container fade-in">
     <div class="box">
@@ -663,6 +703,128 @@
 
 </div>
 </section>
+</div>
+
+<div class="gen-block">
+  <h2 class="section-title"><b>Ban Chủ Nhiệm Gen 12 (2023-2025)</b></h2>
+
+  <section class="container fade-in">
+    <div class="box">
+
+  <section class="container fade-in">
+  <div class="role">
+
+    <a href="Member/TranThiThuHong_DHQT13A3HN.html" class="role-box" style="color: black;">
+    <h3 class="section-title"><strong>Chủ Nhiệm</strong></h3>
+    <strong>Chị Trần Thị Thu Hồng</strong><br>
+    <span class="text-muted">Cựu SV lớp DHQT13A3HN</span>
+    </a>
+
+    <div class="role-box">
+    <h3 class="section-title"><strong>Chủ Nhiệm</strong></h3>
+    <strong>Tạ Thị Huyền Trang</strong><br>
+    <span class="text-muted">DHTN15A3HN</span>
+    </div>
+
+    </div>
+  </section>
+
+  <section class="container fade-in">
+  <div class="role">
+
+    <div class="role-box">
+    <h3 class="section-title">Phó Chủ Nhiệm</h3>
+    <strong>Lê Thị Hạnh</strong><br>
+    <span class="text-muted">DHQT15A13HN</span>
+    </div>
+
+    <div class="role-box">
+    <h3 class="section-title">Phó Chủ Nhiệm</h3>
+    <strong>Nguyễn Đại Lâm</strong><br>
+    <span class="text-muted">DHCD14A2HN</span>
+    </div>
+
+    </div>
+  </section>
+
+  <section class="container fade-in">
+  <div class="role">
+
+    <div class="role-box">
+    <h3 class="section-title">Trưởng ban Nhân Sự - Hậu Cần</h3>
+    <strong>Trần Ngọc Duy</strong><br>
+    <span class="text-muted">DHDL16A1HN</span>
+    </div>
+
+  </div>
+</section>
+
+  <section class="container fade-in">
+  <div class="role">
+
+    <div class="role-box">
+    <h3 class="section-title">Trưởng ban MC - Lễ Tân</h3>
+    <strong>Trần Thị Tuyết</strong><br>
+    <span class="text-muted">DHQT16A1HN</span>
+    </div>
+
+    <div class="role-box">
+    <h3 class="section-title">Phó ban MC - Lễ Tân</h3>
+    <strong>Đinh Kiều Linh</strong><br>
+    <span class="text-muted">DHTM16A1CL</span>
+    </a>
+
+  </div>
+</section>
+
+  <section class="container fade-in">
+  <div class="role">
+
+    <div class="role-box">
+    <h3 class="section-title">Trưởng ban Kỹ Thuật - Vận Hành</h3>
+    <strong>Nguyễn Hà Thanh</strong><br>
+    <span class="text-muted">DHTN16A2HN</span>
+    </div>
+
+    <div class="role-box">
+    <h3 class="section-title">Phó ban Kỹ Thuật - Vận Hành</h3>
+    <strong>Nguyễn Thị Lan</strong><br>
+    <span class="text-muted">DHQT16A3HN</span>
+    </div>
+
+  </div>
+</section>
+
+  <section class="container fade-in">
+  <div class="role">
+
+    <div class="role-box">
+    <h3 class="section-title">Trưởng ban Truyền Thông</h3>
+    <strong>Nguyễn Tố Chinh</strong><br>
+    <span class="text-muted">DHQT16A4HN</span>
+    </div>
+
+    <div class="role-box">
+    <h3 class="section-title">Phó ban Truyền Thông</h3>
+    <strong>Tạ Kiều Anh</strong><br>
+    <span class="text-muted">DHKT16A2HN</span>
+    </div>
+
+  </div>
+</section>
+
+</div>
+</section>
+</div>
+
+</div>
+
+<div class="load-more-wrap">
+  <button type="button" class="load-more-btn" id="load-more-btn-bcn" onclick="toggleGenBlocks()">
+    <span id="load-more-text-bcn">Xem thêm</span>
+    <span class="arrow">▼</span>
+  </button>
+</div>
 
 <!-- SECTION TITLE -->
 <section> 
@@ -857,5 +1019,47 @@
         closeHonorBox();
       }
     });
+
+  var VISIBLE_GENS = 2; // số Gen hiển thị mặc định (Gen 14, Gen 13)
+
+  function getGenBlocks() {
+    return document.querySelectorAll('#bcn-generations > .gen-block');
+  }
+
+  function applyGenDefaultVisibility() {
+    var blocks = getGenBlocks();
+    var btn = document.getElementById('load-more-btn-bcn');
+    var text = document.getElementById('load-more-text-bcn');
+
+    blocks.forEach(function (block, index) {
+      block.classList.toggle('is-hidden', index >= VISIBLE_GENS);
+    });
+
+    if (btn) {
+      btn.style.display = blocks.length > VISIBLE_GENS ? '' : 'none';
+    }
+    if (text) text.textContent = 'Xem thêm';
+    if (btn) btn.classList.remove('is-expanded');
+  }
+
+  function toggleGenBlocks() {
+    var btn = document.getElementById('load-more-btn-bcn');
+    var text = document.getElementById('load-more-text-bcn');
+    var expanded = btn.classList.contains('is-expanded');
+
+    if (!expanded) {
+      getGenBlocks().forEach(function (block) {
+        block.classList.remove('is-hidden');
+      });
+      text.textContent = 'Thu gọn';
+      btn.classList.add('is-expanded');
+    } else {
+      applyGenDefaultVisibility();
+      document.getElementById('bcn-generations').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', applyGenDefaultVisibility);
+
 </script>
 </html>
