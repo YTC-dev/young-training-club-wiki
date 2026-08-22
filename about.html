@@ -6,22 +6,33 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- Link CSS hệ thống -->
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="Asset/style.css">
   <link rel="icon" type="image/png" href="Image/YTC-Favicon.png">
 </head>
 <style>
     .info-card {
-      background: linear-gradient(
-        135deg,
-        var(--light-bg),
-        var(--light-cyan)
-      );
+      background: linear-gradient(135deg, var(--light-bg), var(--light-cyan));
       border-radius: var(--radius-md);
-      padding: 16px; /* Giảm padding */
+      padding: 16px;
       box-shadow: var(--shadow-soft);
       transition: var(--transition-fast);
       position: relative;
       overflow: hidden;
+      color: var(--blue-dark, #1a2b5c); /* fallback nếu biến chưa định nghĩa */
+    }
+
+    .info-card strong,
+    .info-card b {
+      color: var(--blue-dark, #1a2b5c);
+    }
+
+    .info-card__img {
+      display: block;
+      max-width: 750px;
+      width: 100%;
+      height: auto;
+      margin: 0 auto 12px; /* căn giữa ngang + cách nội dung bên dưới */
+      border-radius: var(--radius-md);
     }
 
     /* ===== EVENT GRID ===== */
@@ -164,6 +175,10 @@
       .page-header h1 {
         font-size: 1.6rem;
       }
+
+      .achievement-card {
+        padding: 12px;
+      }
     }
 
     /* ===== LOGO GRID ===== */
@@ -214,12 +229,15 @@
         position: relative;
         color: #fff;        
     }
+    .achievement-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-hover);
+    }    
     @media (max-width: 640px) {
       .logo-grid {
         grid-template-columns: 1fr;
       }
     }
-
 
 </style>
 <body>
@@ -238,9 +256,9 @@
 <section class="container fade-in">
 
     <div class="info-card">
-      <img src="Image/YTC_ChuyenTauThoiGian_1.jpg" style="text-align: center; max-width: 750px;  width: 100%;"><br>
+      <img src="Image/YTC_ChuyenTauThoiGian_1.jpg" class="info-card__img" alt="YTC - Chuyến tàu thời gian">
       <strong>CLB Đào Tạo Kỹ Năng Trẻ - Young Training Club (YTC)</strong> được thành lập ngày 23/04/2012 trực thuộc Đoàn TNCS Hồ Chí Minh của Trường Đại học Kinh tế - Kỹ thuật Công Nghiệp. <b>YTC</b> là nơi sinh viên có cơ hội học tập rèn luyện kỹ năng mềm, tư duy sáng tạo và khả năng làm việc nhóm thông qua các cuộc thi, hoạt động hỗ trợ và học hỏi thực tế.<br>
-        <b>Slogan:</b> Ý tưởng lớn - Tài năng trẻ - Chung niềm tin
+      <b>Slogan:</b> Ý tưởng lớn - Tài năng trẻ - Chung niềm tin
     </div>
 
 </section>

@@ -69,9 +69,9 @@ const footerHTML = `
         </p>
 
         <p>
-          ✉️ Email YTC [Nhấn để copy]:
-          <b onclick="navigator.clipboard.writeText(this.innerText)">
-            genz.ytc@gmail.com
+          ✉️ Email YTC:
+          <b onclick="navigator.clipboard.writeText('genz.ytc@gmail.com'); this.style.color='#a6ed3a'; setTimeout(()=>this.style.color='',1500)" style="cursor:pointer;" title="Nhấn để copy">
+          genz.ytc@gmail.com
           </b>
         </p>
 
