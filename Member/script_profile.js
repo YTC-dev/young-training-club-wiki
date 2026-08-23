@@ -148,3 +148,59 @@
       if (Math.abs(diff) > 50) diff > 0 ? nextLightbox() : prevLightbox();
     });
   })();
+
+// =========================
+// BADGE SPARKLE EFFECT
+// =========================
+function initBadgeSparkle(selector = '.profile-hero .golden-badge') {
+  const badges = document.querySelectorAll(selector);
+
+  badges.forEach(badge => {
+    if (getComputedStyle(badge).position === 'static') {
+      badge.style.position = 'relative';
+    }
+    badge.style.overflow = 'visible';
+
+    function createSparkle() {
+      const sparkle = document.createElement('span');
+      sparkle.className = 'badge-sparkle';
+
+      const x = Math.random() * 100; // %
+      const y = Math.random() * 100; // %
+      const size = 3 + Math.random() * 3; // size
+
+      // Hướng toả ra ngẫu nhiên (để tia bay ra xa tâm 1 chút)
+      const angle = Math.random() * 360;
+      const distance = 8 + Math.random() * 5; // px toả ra xa bao nhiêu
+      const dx = Math.cos(angle * Math.PI / 180) * distance;
+      const dy = Math.sin(angle * Math.PI / 180) * distance;
+
+      const duration = 1200 + Math.random() * 800; // 1.2s - 2s
+
+      sparkle.style.cssText = `
+        position: absolute;
+        top: ${y}%;
+        left: ${x}%;
+        width: ${size}px;
+        height: ${size}px;
+        background: radial-gradient(circle, #fff8e1 0%, #ffcd4e 60%, transparent 100%);
+        border-radius: 50%;
+        pointer-events: none;
+        box-shadow: 0 0 6px rgba(255, 216, 73, 0.9);
+        --dx: ${dx}px;
+        --dy: ${dy}px;
+        animation: sparkle-drift ${duration}ms ease-out forwards;
+      `;
+
+      badge.appendChild(sparkle);
+      setTimeout(() => sparkle.remove(), duration);
+    }
+
+    setInterval(() => {
+      createSparkle();
+      if (Math.random() > 0.6) createSparkle();
+    }, 700);
+  });
+}
+
+initBadgeSparkle();

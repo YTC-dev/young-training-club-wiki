@@ -15,6 +15,36 @@
       margin-bottom: 16px;
     }
 
+    .profile-hero .badge,
+    .golden-badge {
+      margin-right: 8px;
+    }
+
+    .profile-hero .golden-badge {
+      background: linear-gradient(135deg, rgba(255, 213, 46, 0.599), rgba(255, 183, 0, 0.681));
+      color: #fff8e1;
+      border: 1px solid rgb(255, 200, 0);
+      font-size: 13px;
+      margin-bottom: 16px;
+      text-shadow: 0 0 6px rgba(255, 184, 0, 0.6);
+      box-shadow: 0 0 10px rgba(255, 184, 0, 0.35);
+    }
+
+    @keyframes sparkle-drift {
+      0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0);
+      }
+      20% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+      }
+      100% {
+        opacity: 0;
+        transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(0.4);
+      }
+    }
+
     .profile-avatar {
       width: 300px;
       height: 300px;
