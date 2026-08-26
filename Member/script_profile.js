@@ -204,3 +204,40 @@ function initBadgeSparkle(selector = '.profile-hero .golden-badge') {
 }
 
 initBadgeSparkle();
+
+function initBlueBadgeAnimation() {
+  document.querySelectorAll('.profile-hero .blue-badge').forEach((badge) => {
+    badge.tabIndex = 0;
+    badge.setAttribute('role', 'button');
+    badge.setAttribute('aria-pressed', 'false');
+    badge.setAttribute('aria-label', 'Tạm dừng hiệu ứng huy hiệu');
+
+    // Thêm cặp chấm sáng thứ 2 (lệch pha 1/4 và 3/4 chu kỳ so với cặp gốc)
+    if (!badge.querySelector('.badge-dot')) {
+      const dotC = document.createElement('span');
+      dotC.className = 'badge-dot badge-dot--c';
+      const dotD = document.createElement('span');
+      dotD.className = 'badge-dot badge-dot--d';
+      badge.appendChild(dotC);
+      badge.appendChild(dotD);
+    }
+
+    const toggleAnimation = () => {
+      const isPaused = badge.dataset.animationPaused !== 'true';
+      badge.dataset.animationPaused = String(isPaused);
+      badge.style.setProperty('--blue-badge-play-state', isPaused ? 'paused' : 'running');
+      badge.setAttribute('aria-pressed', String(isPaused));
+      badge.setAttribute(
+        'aria-label',
+        isPaused ? 'Tiếp tục hiệu ứng huy hiệu' : 'Tạm dừng hiệu ứng huy hiệu'
+      );
+    };
+
+    badge.addEventListener('click', toggleAnimation);
+    badge.addEventListener('keydown', (event) => {
+      if (event.key !== 'Enter' && event.key !== ' ') return;
+      event.preventDefault();
+      toggleAnimation();
+    });
+  });
+}

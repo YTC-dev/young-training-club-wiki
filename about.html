@@ -8,70 +8,269 @@
   <!-- Link CSS hệ thống -->
   <link rel="stylesheet" href="Asset/style.css">
   <link rel="icon" type="image/png" href="Image/YTC-Favicon.png">
-</head>
-<style>
-    .info-card {
-      background: linear-gradient(135deg, var(--light-bg), var(--light-cyan));
-      border-radius: var(--radius-md);
-      padding: 16px;
-      box-shadow: var(--shadow-soft);
-      transition: var(--transition-fast);
+
+  <style>
+    
+    /* Section Container Spacing */
+    .about-section {
+      padding: 32px 0;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+
+    .section-header .section-title {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--blue-dark);
+      position: relative;
+      display: inline-block;
+      margin-bottom: 8px;
+    }
+
+    .section-header .section-desc {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    /* Hero header */
+    .about-hero {
+      padding: 56px 20px 42px;
+      background: linear-gradient(135deg, #04006b 0%, #1a2a80 50%, #0983fe 100%);
+      color: #fff;
+      text-align: center;
       position: relative;
       overflow: hidden;
-      color: var(--blue-dark, #1a2b5c); /* fallback nếu biến chưa định nghĩa */
     }
 
-    .info-card strong,
-    .info-card b {
-      color: var(--blue-dark, #1a2b5c);
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 16px;
+      background: rgba(255, 255, 255, 0.16);
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border-radius: 30px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      margin-bottom: 14px;
+      color: #e0f2fe;
     }
 
-    .info-card__img {
-      display: block;
-      max-width: 750px;
-      width: 100%;
-      height: auto;
-      margin: 0 auto 12px; /* căn giữa ngang + cách nội dung bên dưới */
-      border-radius: var(--radius-md);
-    }
-
-    /* ===== EVENT GRID ===== */
-    .events-grid {
-      max-width: 960px;
+    .hero-subtitle {
+      font-size: 1.05rem;
+      color: #bae6fd;
+      font-weight: 400;
+      max-width: 720px;
       margin: 0 auto;
-      padding: 12px 16px 40px;
-      display: grid;
-      gap: 24px;
     }
 
-    /* ===== EVENT CARD ===== */
-    .event-card {
-      background: var(--light-bg);
-      border-radius: 16px;
-      box-shadow: 0 4px 20px rgba(44,59,144,0.10);
+    /* ===== INTRO SHOWCASE CARD ===== */
+    .intro-showcase {
+      background: #ffffff;
+      border: 1px solid rgba(161, 227, 255, 0.5);
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(44, 59, 144, 0.08);
+      overflow: hidden;
+      margin-bottom: 24px;
+      transition: box-shadow 0.3s ease, transform 0.3s ease;
+    }
+
+    .intro-showcase:hover {
+      box-shadow: 0 16px 36px rgba(9, 131, 254, 0.15);
+      transform: translateY(-2px);
+    }
+
+    .intro-showcase__img-box {
+      width: 100%;
+      background: #f0f7ff;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      max-height: 480px;
+    }
+
+    .intro-showcase__img {
+      width: 100%;
+      height: 100%;
+      max-height: 480px;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+
+    .intro-showcase:hover .intro-showcase__img {
+      transform: scale(1.02);
+    }
+
+    .intro-showcase__content {
+      padding: 28px 32px;
+      text-align: left;
+    }
+
+    .intro-lead-text {
+      font-size: 1.05rem;
+      line-height: 1.75;
+      color: var(--text-main);
+      margin-bottom: 24px;
+    }
+
+    .intro-lead-text strong {
+      color: var(--blue-dark);
+    }
+
+    /* Key Highlights Grid */
+    .intro-highlights {
       display: grid;
-      grid-template-columns: 360px 1fr;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+    }
+
+    .highlight-box {
+      background: linear-gradient(135deg, #f0f8ff, #e6f3ff);
+      border: 1px solid rgba(81, 194, 242, 0.25);
+      border-radius: 12px;
+      padding: 16px 18px;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      transition: background 0.25s ease, transform 0.25s ease;
+    }
+
+    .highlight-box:hover {
+      background: linear-gradient(135deg, #e3f2fd, #dbeafe);
+      transform: translateY(-2px);
+    }
+
+    .highlight-icon {
+      font-size: 1.6rem;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+
+    .highlight-info h4 {
+      font-size: 0.88rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--blue-main);
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .highlight-info p {
+      font-size: 0.94rem;
+      color: var(--text-main);
+      font-weight: 500;
+      line-height: 1.4;
+      margin: 0;
+    }
+
+    /* ===== ACTIVITIES GRID ===== */
+    .activity-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    .activity-card {
+      background: #ffffff;
+      border: 1px solid rgba(161, 227, 255, 0.45);
+      border-radius: 16px;
+      padding: 24px;
+      text-align: left;
+      box-shadow: 0 4px 20px rgba(44, 59, 144, 0.06);
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .activity-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 30px rgba(9, 131, 254, 0.16);
+      border-color: rgba(9, 131, 254, 0.4);
+    }
+
+    .activity-card__header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .activity-card__icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #e0f2fe, #bae6fd);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.35rem;
+      flex-shrink: 0;
+    }
+
+    .activity-card__title {
+      font-size: 1.12rem;
+      font-weight: 700;
+      color: var(--blue-dark);
+      margin: 0;
+      line-height: 1.4;
+    }
+
+    .activity-card__body {
+      font-size: 0.93rem;
+      color: #475569;
+      line-height: 1.65;
+      margin: 0;
+    }
+
+    /* ===== EVENT / TIMELINE GRID ===== */
+    .events-grid {
+      max-width: 1000px;
+      margin: 0 auto;
+      display: grid;
+      gap: 20px;
+    }
+
+    .event-card {
+      background: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(44, 59, 144, 0.08);
+      display: grid;
+      grid-template-columns: 320px 1fr;
       overflow: hidden;
       transition: transform 0.25s ease, box-shadow 0.25s ease;
-      border: 1px solid rgba(161,227,255,0.35);
+      border: 1px solid rgba(161, 227, 255, 0.4);
     }
+
     .event-card:hover {
       transform: translateY(-4px);
-      box-shadow: 0 10px 32px rgba(9,131,254,0.18);
+      box-shadow: 0 12px 32px rgba(9, 131, 254, 0.18);
     }
+
     .event-card__img {
-      width: 360px;
-      height: 240px;
+      width: 100%;
+      height: 100%;
+      min-height: 200px;
+      max-height: 230px;
       object-fit: cover;
       object-position: center;
       display: block;
       background: var(--light-soft);
     }
+
     .event-card__img-placeholder {
-      min-width: 240px;
-      max-width: 360px;
-      max-height: 240px;
-      min-height: 180px;
+      width: 100%;
+      height: 100%;
+      min-height: 200px;
       background: linear-gradient(135deg, var(--light-soft), var(--light-blue));
       display: flex;
       align-items: center;
@@ -79,607 +278,766 @@
       font-size: 2.5rem;
       color: var(--blue-accent);
     }
-    .event-card__img-placeholder-honor {
-      min-width: 240px;
-      max-width: 360px;
-      max-height: 240px;
-      min-height: 180px;
-      background: linear-gradient(135deg, #ffb800,#ff8c00);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 2.5rem;
-      color: var(--blue-accent);
-    }
+
     .event-card__body {
       padding: 20px 24px;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
+      justify-content: center;
       text-align: left;
     }
-    .event-card__title {
-      font-size: 1rem;
-      font-weight: 700;
-      color: var(--blue-dark);
-      line-height: 1.5;
-      margin-bottom: 10px;
-    }
-    .event-card__list {
-      font-size: 1rem;
-      font-weight: 700;
-      color: #ff6f00;
-      line-height: 1.5;
-      margin-bottom: 10px;
-    }
-    a.event-card__list:hover {
-      color: #ffb800;
-    }
+
     .event-card__category {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      font-size: 14px;
-      color: var(--text-muted);
-      font-weight: 500;
-      background: var(--light-soft);
-      padding: 4px 10px;
+      font-size: 0.84rem;
+      color: #0284c7;
+      font-weight: 700;
+      background: #e0f2fe;
+      padding: 5px 12px;
       border-radius: 20px;
-      margin-bottom: 14px;
+      margin-bottom: 10px;
       width: fit-content;
     }
-    .event-card__link {
+
+    .event-card__title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--blue-dark);
+      line-height: 1.5;
+      margin-bottom: 6px;
+    }
+
+    .event-card__slogan {
+      font-size: 0.92rem;
+      color: #ff6f00;
+      font-weight: 600;
+      margin-top: 4px;
+    }
+
+    /* ===== LOGO SHOWCASE GRID ===== */
+    .logo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .logo-card {
+      background: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(44, 59, 144, 0.08);
+      border: 1px solid rgba(161, 227, 255, 0.4);
+      padding: 24px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      text-align: center;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .logo-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 30px rgba(9, 131, 254, 0.18);
+    }
+
+    .logo-card__img-wrap {
+      width: 100%;
+      height: 150px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 14px;
+    }
+
+    .logo-card img {
+      max-width: 100%;
+      max-height: 140px;
+      object-fit: contain;
+    }
+
+    .logo-card__badge {
+      display: inline-block;
+      padding: 5px 12px;
+      border-radius: 20px;
+      background: #f1f5f9;
+      color: #334155;
+      font-size: 0.84rem;
+      font-weight: 600;
+    }
+
+    /* ===== ACHIEVEMENTS GRID ===== */
+    .achievement-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .achievement-card {
+      background: linear-gradient(135deg, #0b1a4a 0%, #153280 60%, #1e40af 100%);
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 6px 24px rgba(11, 26, 74, 0.18);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      color: #ffffff;
+      text-align: left;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .achievement-card::before {
+      content: "";
+      position: absolute;
+      top: -30px;
+      right: -30px;
+      width: 100px;
+      height: 100px;
+      background: radial-gradient(circle, rgba(255, 215, 0, 0.2) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .achievement-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 14px 34px rgba(9, 131, 254, 0.3);
+    }
+
+    .achievement-card__tag {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      font-size: 0.88rem;
-      font-weight: 600;
-      color: var(--blue-accent);
-      border: 1.5px solid var(--blue-accent);
-      padding: 7px 16px;
-      border-radius: 8px;
-      transition: background 0.2s, color 0.2s;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #fde047;
+      background: rgba(253, 224, 71, 0.14);
+      border: 1px solid rgba(253, 224, 71, 0.3);
+      padding: 4px 10px;
+      border-radius: 20px;
+      margin-bottom: 12px;
       width: fit-content;
     }
-    .event-card__link:hover {
-      background: var(--blue-accent);
-      color: #fff;
+
+    .achievement-card__title {
+      font-size: 1.08rem;
+      font-weight: 700;
+      color: #ffffff;
+      line-height: 1.45;
+      margin-bottom: 10px;
     }
-    .event-card__links {
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
+
+    .achievement-card__quote {
+      font-size: 0.92rem;
+      line-height: 1.6;
+      color: #e0f2fe;
+      font-style: italic;
+      margin-bottom: 16px;
+      border-left: 3px solid #38bdf8;
+      padding-left: 10px;
+    }
+
+    .achievement-card__date {
+      font-size: 0.82rem;
+      color: #93c5fd;
+      font-weight: 500;
+      margin: 0;
+    }
+
+    /* ===== LINK TABLE ===== */
+    .link-table-wrap {
+      max-width: 1000px;
+      margin: 0 auto;
+      overflow-x: auto;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(44, 59, 144, 0.08);
+      border: 1px solid rgba(161, 227, 255, 0.4);
+      background: #ffffff;
+    }
+
+    .link-table {
       width: 100%;
-      flex-wrap: wrap;
+      border-collapse: collapse;
+      text-align: left;
     }
-    .event-card__links .event-card__link {
-      flex: 1;
-      justify-content: center;
+
+    .link-table th, .link-table td {
+      padding: 14px 16px;
+      font-size: 0.92rem;
+      vertical-align: middle;
+      border-bottom: 1px solid #edf2f7;
+    }
+
+    .link-table thead th {
+      background: linear-gradient(135deg, #0983fe, #04006b);
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 0.88rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      white-space: nowrap;
+    }
+
+    .link-table tbody tr {
+      transition: background-color 0.2s ease;
+    }
+
+    .link-table tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    .link-table tbody tr:hover {
+      background-color: #f0f7ff;
+    }
+
+    .link-table td:first-child {
+      width: 76px;
       text-align: center;
     }
 
-    /* ===== MOBILE ===== */
+    .link-table__logo {
+      width: 52px;
+      height: 52px;
+      object-fit: contain;
+      border-radius: 8px;
+      background: #ffffff;
+      display: block;
+      margin: 0 auto;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+    }
+
+    .link-table__logo-placeholder {
+      width: 52px;
+      height: 52px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, var(--light-soft), var(--light-blue));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      color: var(--blue-accent);
+      margin: 0 auto;
+    }
+
+    .club-badge {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 0.86rem;
+      letter-spacing: 0.3px;
+      background: #f1f5f9;
+    }
+
+    .club-badge + .club-badge {
+      margin-top: 4px;
+    }
+
+    .affil-tag {
+      display: inline-block;
+      font-size: 0.82rem;
+      color: #475569;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-weight: 500;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 860px) {
+      .activity-grid,
+      .achievement-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
     @media (max-width: 640px) {
+      .about-hero {
+        padding: 40px 16px 32px;
+      }
+      .about-hero h1 {
+        font-size: 1.65rem;
+      }
+      .intro-showcase__content {
+        padding: 20px 16px;
+      }
       .event-card {
         grid-template-columns: 1fr;
       }
       .event-card__img,
       .event-card__img-placeholder {
-        width: 100%;
-        height: 200px;
-        object-fit: cover;
+        height: 180px;
+        min-height: 180px;
       }
       .event-card__body {
         padding: 16px;
       }
-      .page-header h1 {
-        font-size: 1.6rem;
+      .logo-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
       }
-
-      .achievement-card {
-        padding: 12px;
+      .logo-card {
+        padding: 16px 12px;
       }
-    }
-
-    /* ===== LOGO GRID ===== */
-    .logo-grid {
-      max-width: 960px;
-      margin: 0 auto;
-      padding: 12px 16px 40px;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
-    }
-    .logo-card {
-      background: var(--light-bg);
-      border-radius: 16px;
-      box-shadow: 0 4px 20px rgba(44,59,144,0.10);
-      border: 1px solid rgba(161,227,255,0.35);
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
-    }
-    .logo-card img {
-      max-width: 100%;
-      height: auto;
-      max-height: 160px;
-      object-fit: contain;
-      margin-bottom: 12px;
-    }
-    .logo-card p {
-      font-size: 0.9rem;
-      color: var(--text-muted);
-      font-weight: 500;
-      margin: 0;
-    }
-    .logo-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 10px 32px rgba(9,131,254,0.18);
-    }
-    .achievement-card {
-        background: linear-gradient(135deg, var(--blue-accent), var(--blue-dark));
-        border-radius: var(--radius-md);
-        padding: 16px; /* Giảm padding cho mobile */
-        box-shadow: var(--shadow-soft);
-        transition: var(--transition-fast);
-        position: relative;
-        color: #fff;        
-    }
-    .achievement-card:hover {
-      transform: translateY(-4px);
-      box-shadow: var(--shadow-hover);
-    }    
-    /* ===== LINK TABLE ===== */
-    .link-table-wrap {
-      max-width: 960px;
-      margin: 0 auto;
-      padding: 12px 16px 40px;
-      overflow-x: auto;
-    }
-    .link-table {
-      width: 100%;
-      border-collapse: separate;
-      border-spacing: 0;
-      background: var(--light-bg);
-      border-radius: 16px;
-      overflow: hidden;
-      box-shadow: 0 4px 20px rgba(44,59,144,0.10);
-      border: 1px solid rgba(161,227,255,0.35);
-    }
-    .link-table th, .link-table td {
-      padding: 14px 16px;
-      text-align: left;
-      font-size: 0.92rem;
-      vertical-align: middle;
-    }
-    .link-table thead th {
-      background: var(--blue-accent);
-      color: #fff;
-      font-weight: 700;
-      white-space: nowrap;
-    }
-    .link-table tbody tr:hover {
-      background: var(--light-soft);
-    }
-    .link-table td:first-child {
-      width: 90px;
-      text-align: center;
-    }
-    .link-table__logo {
-      width: 60px;
-      height: 60px;
-      object-fit: contain;
-      border-radius: 8px;
-      background: #fff;
-      display: block;
-      margin: 0 auto;
-    }
-    .link-table__logo-placeholder {
-      width: 60px;
-      height: 60px;
-      border-radius: 8px;
-      background: linear-gradient(135deg, var(--light-soft), var(--light-blue));
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.4rem;
-      color: var(--blue-accent);
-      margin: 0 auto;
-    }
-    .link-table td strong {
-      color: var(--blue-dark);
-    }
-    @media (max-width: 640px) {
+      .logo-card__img-wrap {
+        height: 100px;
+      }
+      .logo-card img {
+        max-height: 90px;
+      }
       .link-table th, .link-table td {
-        padding: 10px;
-        font-size: 0.85rem;
+        padding: 10px 8px;
+        font-size: 0.82rem;
       }
       .link-table__logo, .link-table__logo-placeholder {
-        width: 44px;
-        height: 44px;
-      }
-      .logo-grid {
-        grid-template-columns: 1fr;
+        width: 40px;
+        height: 40px;
       }
     }
-</style>
+  </style>
+</head>
 <body>
-<div id="nav-placeholder"></div>
+  <div id="nav-placeholder"></div>
 
-  <!-- HEADER -->
-  <header>
+  <!-- HERO HEADER -->
+  <header class="about-hero">
     <div class="container">
-      <h1>Về CLB Đào Tạo Kỹ Năng Trẻ</h1>
+      <h1>CLB Đào Tạo Kỹ Năng Trẻ</h1>
+      <p class="hero-subtitle">Young Training Club (YTC) • Trường Đại học Kinh tế - Kỹ thuật Công Nghiệp (UNETI)</p>
     </div>
   </header>
-<br>
-  <!-- BAN -->
-<h2 class="section-title"><b>Giới thiệu chung</b></h2>
 
-<section class="container fade-in">
+  <!-- 1. GIỚI THIỆU CHUNG -->
+  <section class="about-section">
+    <div class="container fade-in">
+      <div class="section-header">
+        <h2 class="section-title">Giới thiệu chung</h2>
+        <p class="section-desc">Tìm hiểu về sứ mệnh, tầm nhìn và giá trị cốt lõi của Young Training Club</p>
+      </div>
 
-    <div class="info-card">
-      <img src="Image/YTC_ChuyenTauThoiGian_1.jpg" class="info-card__img" alt="YTC - Chuyến tàu thời gian">
-      <strong>CLB Đào Tạo Kỹ Năng Trẻ - Young Training Club (YTC)</strong> được thành lập ngày 23/04/2012 trực thuộc Đoàn TNCS Hồ Chí Minh của Trường Đại học Kinh tế - Kỹ thuật Công Nghiệp. <b>YTC</b> là nơi sinh viên có cơ hội học tập rèn luyện kỹ năng mềm, tư duy sáng tạo và khả năng làm việc nhóm thông qua các cuộc thi, hoạt động hỗ trợ và học hỏi thực tế.<br>
-      <b>Slogan:</b> Ý tưởng lớn - Tài năng trẻ - Chung niềm tin
-    </div>
+      <div class="intro-showcase">
+        <div class="intro-showcase__img-box">
+          <img src="Image/YTC_ChuyenTauThoiGian_1.jpg" class="intro-showcase__img" alt="YTC - Chuyến tàu thời gian">
+        </div>
+        <div class="intro-showcase__content">
+          <p class="intro-lead-text">
+            <strong>CLB Đào Tạo Kỹ Năng Trẻ - Young Training Club (YTC)</strong> được thành lập ngày <strong>23/04/2012</strong> trực thuộc Đoàn TNCS Hồ Chí Minh của Trường Đại học Kinh tế - Kỹ thuật Công Nghiệp. <strong>YTC</strong> là môi trường năng động để sinh viên học tập, rèn luyện kỹ năng mềm, phát triển tư duy sáng tạo và khả năng làm việc nhóm thông qua các cuộc thi, sự kiện và hoạt động thực tế.
+          </p>
 
-</section>
+          <div class="intro-highlights">
+            <div class="highlight-box">
+              <div class="highlight-icon">🏛️</div>
+              <div class="highlight-info">
+                <h4>Trực thuộc</h4>
+                <p>Đoàn TNCS HCM - Trường ĐH Kinh tế - Kỹ thuật Công Nghiệp</p>
+              </div>
+            </div>
 
-<section class="container fade-in">
-   <h2 class="section-title"><b>Hoạt động nổi bật</b></h2>
-   <br>
-  <section class="container fade-in">
-    <div class="card">
-      <h3 class="section-title">Cuộc thi nhóm Podcast - Phim</h3>
-      <p>Với chuỗi cuộc thi thiết kế phim và sản xuất podcast về kỹ năng sống và các xu hướng thực tế, YTC không chỉ tạo ra sân chơi sáng tạo mà còn mở ra không gian để chia sẻ góc nhìn, cảm xúc và trách nhiệm xã hội. Mỗi tác phẩm là một câu chuyện nâng cao nhận thức, khơi gợi tinh thần chủ động và ý thức trách nhiệm của mỗi người trên hành trình khám phá bản thân và bước vào chặng đường mới của cuộc sống.</p>
+            <div class="highlight-box">
+              <div class="highlight-icon">🎂</div>
+              <div class="highlight-info">
+                <h4>Thành lập</h4>
+                <p>23/04/2012 (Hơn 14 năm hoạt động & phát triển)</p>
+              </div>
+            </div>
+
+            <div class="highlight-box">
+              <div class="highlight-icon">💡</div>
+              <div class="highlight-info">
+                <h4>Khẩu hiệu (Slogan)</h4>
+                <p>Ý tưởng lớn – Tài năng trẻ – Chung niềm tin</p>
+              </div>
+            </div>
+
+            <div class="highlight-box">
+              <div class="highlight-icon">🎯</div>
+              <div class="highlight-info">
+                <h4>Sứ mệnh</h4>
+                <p>Đào tạo kỹ năng mềm, kết nối & phát triển tài năng trẻ UNETI</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
-  <section class="container fade-in">
-    <div class="card">
-      <h3 class="section-title">Cuộc thi MC - Giọng nói</h3>
-      <p>Chuỗi cuộc thi MC – Giọng nói dành cho toàn thể sinh viên UNETI không chỉ là sân chơi để mỗi cá nhân thể hiện bản thân, mà còn là cơ hội lan tỏa tài năng, sự năng động và tinh thần sáng tạo. Thông qua nhiều chủ đề và tình huống đa dạng, cuộc thi giúp sinh viên rèn luyện kỹ năng giao tiếp, bản lĩnh sân khấu và khả năng ứng biến, từ đó tự tin hơn trong học tập, hoạt động tập thể và hành trình phát triển bản thân.</p>
+  <!-- 2. HOẠT ĐỘNG NỔI BẬT -->
+  <section class="about-section">
+    <div class="container fade-in">
+      <div class="section-header">
+        <h2 class="section-title">Hoạt động nổi bật</h2>
+        <p class="section-desc">Những chương trình, cuộc thi và sân chơi rèn luyện kỹ năng toàn diện</p>
+      </div>
+
+      <div class="activity-grid">
+        <div class="activity-card fade-in">
+          <div class="activity-card__header">
+            <div class="activity-card__icon">🎙️</div>
+            <h3 class="activity-card__title">Cuộc thi nhóm Podcast - Phim</h3>
+          </div>
+          <p class="activity-card__body">
+            Chuỗi cuộc thi thiết kế phim ngắn và sản xuất podcast về kỹ năng sống cùng các chủ đề thực tế. YTC mở ra không gian sáng tạo để chia sẻ góc nhìn, cảm xúc và trách nhiệm xã hội, giúp sinh viên nâng cao nhận thức và khơi gợi tinh thần chủ động trên hành trình phát triển bản thân.
+          </p>
+        </div>
+
+        <div class="activity-card fade-in">
+          <div class="activity-card__header">
+            <div class="activity-card__icon">🎤</div>
+            <h3 class="activity-card__title">Cuộc thi MC - Giọng nói</h3>
+          </div>
+          <p class="activity-card__body">
+            Sân chơi chuyên nghiệp dành cho toàn thể sinh viên UNETI thể hiện bản lĩnh sân khấu, tài năng dẫn chương trình và sự ứng biến linh hoạt. Cuộc thi giúp rèn luyện kỹ năng thuyết trình, làm chủ giọng nói và tự tin tỏa sáng trước đám đông.
+          </p>
+        </div>
+
+        <div class="activity-card fade-in">
+          <div class="activity-card__header">
+            <div class="activity-card__icon">🤝</div>
+            <h3 class="activity-card__title">Hỗ trợ & Hoạt động phong trào</h3>
+          </div>
+          <p class="activity-card__body">
+            YTC luôn tiên phong hỗ trợ công tác tổ chức các sự kiện, hội thảo lớn nhỏ của Nhà trường và Đoàn Thanh niên (chạy cánh, điều phối, MC, lễ tân...). Các thành viên tích cực tham gia các phong trào tình nguyện và hoạt động vì cộng đồng.
+          </p>
+        </div>
+
+        <div class="activity-card fade-in">
+          <div class="activity-card__header">
+            <div class="activity-card__icon">⛺</div>
+            <h3 class="activity-card__title">Giao lưu Ngoại khoá & Teambuilding</h3>
+          </div>
+          <p class="activity-card__body">
+            Thường xuyên tổ chức các buổi gặp gỡ, dã ngoại, sinh nhật, giao lưu văn nghệ và teambuilding gắn kết. Đây là nơi xây dựng tình bạn bền chặt, kỷ niệm đẹp và tinh thần đồng đội vững chắc giữa các thế hệ YTC-er.
+          </p>
+        </div>
+      </div>
     </div>
   </section>
 
-  <section class="container fade-in">
-    <div class="card">
-      <h3 class="section-title">Hỗ trợ và tham gia hoạt động phong trào</h3>
-      <p>Luôn là một trong những CLB năng động nhất, YTC-er luôn sẵn sàng tham gia hỗ trợ để mọi sự kiện và hội thảo của trường từ lớn đến nhỏ (chạy cánh, MC, lễ tân...), diễn ra thành công và tốt đẹp nhất. Ngoài ra, các thành viên còn tham gia các hoạt động, sự kiện của Đoàn TN, cộng đồng, cuộc thi... Góp phần khẳng định tinh thần nhiệt huyết và sức trẻ của Trường Đại học Kinh tế – Kỹ thuật Công Nghiệp.</p>
+  <!-- 3. LỊCH SỬ & DẤU MỐC PHÁT TRIỂN -->
+  <section class="about-section">
+    <div class="container fade-in">
+      <div class="section-header">
+        <h2 class="section-title">Lịch sử & Dấu mốc phát triển</h2>
+        <p class="section-desc">Hành trình hơn một thập kỷ trưởng thành và cống hiến của Young Training Club</p>
+      </div>
+
+      <div class="events-grid">
+        <div class="event-card fade-in">
+          <img src="Image/E.jpg" class="event-card__img" alt="Ra mắt CLB Yêu Tài Chính"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="event-card__img-placeholder" style="display:none">🎓</div>
+          <div class="event-card__body">
+            <div class="event-card__category">📅 23/04/2012</div>
+            <div class="event-card__title">Ra mắt CLB Yêu Tài Chính - Tiền thân của YTC</div>
+            <p style="font-size: 0.9rem; color: var(--text-muted); margin: 0;">Trực thuộc Liên chi Đoàn Khoa Tài Chính Ngân Hàng - Bảo Hiểm UNETI.</p>
+          </div>
+        </div>
+
+        <div class="event-card fade-in">
+          <img src="Image/YTC_2019.png" class="event-card__img" alt="Thành lập Young Training Club"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="event-card__img-placeholder" style="display:none">🎓</div>
+          <div class="event-card__body">
+            <div class="event-card__category">📅 22/03/2019</div>
+            <div class="event-card__title">Đoàn Thanh Niên UNETI quyết định thành lập "YOUNG TRAINING CLUB"</div>
+            <div class="event-card__slogan">Slogan: Yêu Học Hỏi – Tài Sáng Tạo – Chính Thành Công</div>
+          </div>
+        </div>  
+
+        <div class="event-card fade-in">
+          <img src="Image/YTC_10_BD.jpg" class="event-card__img" alt="Sinh nhật 10 tuổi YTC"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="event-card__img-placeholder" style="display:none">🎓</div>
+          <div class="event-card__body">
+            <div class="event-card__category">📅 25/04/2022</div>
+            <div class="event-card__title">Dấu mốc 10 tuổi: ⭐ Have a sweet birthday, YTC! ⭐</div>
+          </div>
+        </div>   
+
+        <div class="event-card fade-in">
+          <img src="Image/YTC_11_BD.jpg" class="event-card__img" alt="Sinh nhật 11 tuổi YTC"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="event-card__img-placeholder" style="display:none">🎓</div>
+          <div class="event-card__body">
+            <div class="event-card__category">📅 24/05/2023</div>
+            <div class="event-card__title">Dấu mốc 11 tuổi: 🎂 OUR DAY 11 – HAPPY 11TH BIRTHDAY 🎂</div>
+          </div>
+        </div>   
+
+        <div class="event-card fade-in">
+          <img src="Image/YTC_12_BD.jpg" class="event-card__img" alt="Sinh nhật 12 tuổi YTC"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="event-card__img-placeholder" style="display:none">🎓</div>
+          <div class="event-card__body">
+            <div class="event-card__category">📅 04/05/2024</div>
+            <div class="event-card__title">Dấu mốc 12 tuổi: HAPPY BIRTHDAY – STORY 12</div>
+          </div>
+        </div> 
+        
+        <div class="event-card fade-in">
+          <img src="Image/YTC_13_BD.jpg" class="event-card__img" alt="Sinh nhật 13 tuổi YTC"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="event-card__img-placeholder" style="display:none">🎓</div>
+          <div class="event-card__body">
+            <div class="event-card__category">📅 04/05/2025</div>
+            <div class="event-card__title">Dấu mốc 13 tuổi: SINH NHẬT 13 TUỔI</div>
+          </div>
+        </div>
+        
+        <div class="event-card fade-in">
+          <img src="Image/YTC_14_BD.jpg" class="event-card__img" alt="Sinh nhật 14 tuổi YTC"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="event-card__img-placeholder" style="display:none">🎓</div>
+          <div class="event-card__body">
+            <div class="event-card__category">📅 15/05/2026</div>
+            <div class="event-card__title">Dấu mốc 14 tuổi: CHUYẾN TÀU THỜI GIAN – TRẠM TRI ÂN</div>
+          </div>
+        </div>   
+      </div>
     </div>
   </section>
 
-  <section class="container fade-in">
-    <div class="card">
-      <h3 class="section-title">Các buổi giao lưu ngoại khoá</h3>
-      <p>Thường xuyên tổ chức các hoạt động giao lưu, văn nghệ, picnic... Và tham gia các sân chơi, hoạt động lớn trong và ngoài nhà trường để lại ấn tượng lớn cho nhiều thế hệ trẻ UNETI.</p>
-    </div>
-  </section>
-</section>
-
-<!-- SECTION TITLE -->
-<section> 
-<h2 class="section-title"><b>Lịch sử [Đang cập nhật]</b></h2>
-
-<!-- EVENTS -->
-<div class="events-grid">
-
-  <div class="event-card fade-in">
-    <img src="Image/E.jpg" class="event-card__img"
-         onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-    <div class="event-card__img-placeholder" style="display:none">🎓</div>
-    <div class="event-card__body">
-      <div>
-        <div class="event-card__category">23/04/2012</div>
-        <div class="event-card__title">Ra mắt CLB Yêu Tài Chính - trực thuộc Liên chi Đoàn Khoa Tài Chính Ngân Hàng - Bảo Hiểm</div>
+  <!-- 4. CÁC PHIÊN BẢN LOGO -->
+  <section class="about-section">
+    <div class="container fade-in">
+      <div class="section-header">
+        <h2 class="section-title">Các phiên bản Logo</h2>
+        <p class="section-desc">Hệ thống nhận diện thương hiệu của Câu lạc bộ qua các giai đoạn</p>
       </div>
-    </div>
-  </div>
 
-  <div class="event-card fade-in">
-    <img src="Image/YTC_2019.png" class="event-card__img"
-         onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-    <div class="event-card__img-placeholder" style="display:none">🎓</div>
-    <div class="event-card__body">
-      <div>
-        <div class="event-card__category">22/03/2019</div>
-        <div class="event-card__title">Đoàn Thanh Niên UNETI quyết định thành lập "YOUNG TRAINING CLUB - Câu Lạc Bộ Đào Tạo Kỹ Năng Trẻ", tiền thân của CLB Yêu Tài Chính</div>
-        <div class="event-card__title"><b>Slogan: </b>Yêu Học Hỏi - Tài Sáng Tạo - Chính Thành Công</div>
+      <div class="logo-grid">
+        <div class="logo-card fade-in">
+          <div class="logo-card__img-wrap">
+            <img src="Image/YTC_Logo_(1).png" alt="YTC Logo (2012-2019)">
+          </div>
+          <span class="logo-card__badge">04/2012 – 03/2019</span>
+        </div>
+
+        <div class="logo-card fade-in">
+          <div class="logo-card__img-wrap">
+            <img src="Image/YTC_Logo_(2).png" alt="YTC Logo (2019-2022)">
+          </div>
+          <span class="logo-card__badge">03/2019 – 04/2022</span>
+        </div>
+
+        <div class="logo-card fade-in">
+          <div class="logo-card__img-wrap">
+            <img src="Image/YTC_Logo.png" alt="YTC Logo (2022-nay)">
+          </div>
+          <span class="logo-card__badge" style="background: #e0f2fe; color: #0284c7; font-weight: 700;">04/2022 – Hiện tại</span>
+        </div>
+
+        <div class="logo-card fade-in">
+          <div class="logo-card__img-wrap">
+            <img src="Image/YTC_The_Virtual_World.jpg" alt="YTC The Virtual World">
+          </div>
+          <span class="logo-card__badge">The Virtual World Edition</span>
+        </div>
       </div>
-    </div>
-  </div>  
-
-  <div class="event-card fade-in">
-    <img src="Image/YTC_10_BD.jpg" class="event-card__img"
-         onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-    <div class="event-card__img-placeholder" style="display:none">🎓</div>
-    <div class="event-card__body">
-      <div>
-        <div class="event-card__category">25/04/2022</div>
-        <div class="event-card__title">Dấu mốc 10 tuổi: ⭐Have a sweet birthday, YTC!⭐</div>
-      </div>
-    </div>
-  </div>   
-
-  <div class="event-card fade-in">
-    <img src="Image/YTC_11_BD.jpg" class="event-card__img"
-         onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-    <div class="event-card__img-placeholder" style="display:none">🎓</div>
-    <div class="event-card__body">
-      <div>
-        <div class="event-card__category">24/05/2023</div>
-        <div class="event-card__title">Dấu mốc 11 tuổi: 🎂 OUR DAY 11 - HAPPY 11TH BIRTHDAY 🎂</div>
-      </div>
-    </div>
-  </div>   
-
-  <div class="event-card fade-in">
-    <img src="Image/YTC_12_BD.jpg" class="event-card__img"
-         onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-    <div class="event-card__img-placeholder" style="display:none">🎓</div>
-    <div class="event-card__body">
-      <div>
-        <div class="event-card__category">04/05/2024</div>
-        <div class="event-card__title">Dấu mốc 12 tuổi: HAPPY BIRTHDAY - STORY 12</div>
-      </div>
-    </div>
-  </div> 
-  
-  <div class="event-card fade-in">
-    <img src="Image/YTC_13_BD.jpg" class="event-card__img"
-         onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-    <div class="event-card__img-placeholder" style="display:none">🎓</div>
-    <div class="event-card__body">
-      <div>
-        <div class="event-card__category">04/05/2025</div>
-        <div class="event-card__title">Dấu mốc 13 tuổi: SINH NHẬT 13 TUỔI</div>
-      </div>
-    </div>
-  </div>
-  
-  <div class="event-card fade-in">
-    <img src="Image/YTC_14_BD.jpg" class="event-card__img"
-         onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-    <div class="event-card__img-placeholder" style="display:none">🎓</div>
-    <div class="event-card__body">
-      <div>
-        <div class="event-card__category">15/05/2026</div>
-        <div class="event-card__title">Dấu mốc 14 tuổi: CHUYẾN TÀU THỜI GIAN - TRẠM TRI ÂN</div>
-      </div>
-    </div>
-  </div>   
-</div>
-</section>
-
-<!-- LOGO -->
-
-<section> 
-<h2 class="section-title"><b>Các logo được dùng</b></h2>
-
-<div class="logo-grid">
-  <div class="logo-card fade-in">
-    <img src="Image/YTC_Logo_(1).png" alt="YTC Logo">
-    <p>Từ tháng 4/2012 đến tháng 3/2019</p>
-  </div>
-  <div class="logo-card fade-in">
-    <img src="Image/YTC_Logo_(2).png" alt="YTC Logo (2019-2022)">
-    <p>Từ tháng 3/2019 đến tháng 4/2022</p>
-  </div>
-  <div class="logo-card fade-in">
-    <img src="Image/YTC_Logo.png" alt="YTC Logo (2022-nay)">
-    <p>Từ tháng 4/2022 đến nay</p>
-  </div>
-</div>
-
-<div class="logo-grid">
-  <div class="logo-card fade-in">
-    <img src="Image/YTC_The_Virtual_World.jpg" alt="YTC The Virtual World">
-    <p>Phiên bản The Virtual World</p>
-  </div>
-</div>
-
-</section>
-
-<section class="container fade-in">
-   <h2 class="section-title"><b>Thành tựu CLB [Đang cập nhật]</b></h2>
-   <br>
-  <section class="container fade-in">
-    <div class="achievement-card">
-      <h3 class="section-title">Bằng khen của Ban Thường vụ Tỉnh đoàn Ninh Bình</h3>
-      <p><b>“Đã có thành tích xuất sắc trong công tác Đoàn và phong trào thanh niên trường học năm học 2025 - 2026”</b></p>
-      <p>Ngày 18/8/2026</p>
     </div>
   </section>
 
-  <section class="container fade-in">
-    <div class="achievement-card">
-      <h3 class="section-title">Khen tặng của Đoàn TNCS HCM & Hội Sinh Viên UNETI</h3>
-      <p><b>“Đội - Câu lạc bộ đạt thành tích xuất sắc trong phong trào Đoàn năm 2025”</b></p>
-      <p>Ngày 22/3/2026</p>
+  <!-- 5. THÀNH TỰU CLB -->
+  <section class="about-section">
+    <div class="container fade-in">
+      <div class="section-header">
+        <h2 class="section-title">Thành tựu tiêu biểu</h2>
+        <p class="section-desc">Ghi nhận những nỗ lực và đóng góp xuất sắc của tập thể YTC</p>
+      </div>
+
+      <div class="achievement-grid">
+        <div class="achievement-card fade-in">
+          <div>
+            <div class="achievement-card__tag">🏆 Bằng khen cấp Tỉnh</div>
+            <h3 class="achievement-card__title">Bằng khen của Ban Thường vụ Tỉnh đoàn Ninh Bình</h3>
+            <p class="achievement-card__quote">“Đã có thành tích xuất sắc trong công tác Đoàn và phong trào thanh niên trường học năm học 2025 – 2026”</p>
+          </div>
+          <p class="achievement-card__date">🗓️ Ngày khen thưởng: 18/08/2026</p>
+        </div>
+
+        <div class="achievement-card fade-in">
+          <div>
+            <div class="achievement-card__tag">🎖️ Khen thưởng cấp Trường</div>
+            <h3 class="achievement-card__title">Khen tặng của Đoàn TNCS HCM & Hội Sinh Viên UNETI</h3>
+            <p class="achievement-card__quote">“Đội – Câu lạc bộ đạt thành tích xuất sắc trong phong trào Đoàn năm 2025”</p>
+          </div>
+          <p class="achievement-card__date">🗓️ Ngày khen thưởng: 22/03/2026</p>
+        </div>
+
+        <div class="achievement-card fade-in">
+          <div>
+            <div class="achievement-card__tag">🎖️ Khen thưởng cấp Trường</div>
+            <h3 class="achievement-card__title">Khen tặng của Đoàn TNCS HCM & Hội Sinh Viên UNETI</h3>
+            <p class="achievement-card__quote">“Đội – Câu lạc bộ đạt thành tích xuất sắc trong phong trào Đoàn năm 2024”</p>
+          </div>
+          <p class="achievement-card__date">🗓️ Ngày khen thưởng: 23/03/2025</p>
+        </div>
+
+        <div class="achievement-card fade-in">
+          <div>
+            <div class="achievement-card__tag">✨ Sự kiện Quốc tế & Toàn quốc</div>
+            <h3 class="achievement-card__title">Góp mặt tham gia Lễ diễu hành GFSW 2025</h3>
+            <p class="achievement-card__quote">Lễ Công Bố Tuần Lễ Thời Trang Sinh Viên Toàn Cầu 2025 (Global Student Fashion Week – GFSW 2025)</p>
+          </div>
+          <p class="achievement-card__date">🗓️ Ngày diễn ra: 16/03/2025</p>
+        </div>   
+      </div>
     </div>
   </section>
 
-  <section class="container fade-in">
-    <div class="achievement-card">
-      <h3 class="section-title">Khen tặng của Đoàn TNCS HCM & Hội Sinh Viên UNETI</h3>
-      <p><b>“Đội - Câu lạc bộ đạt thành tích xuất sắc trong phong trào Đoàn năm 2024”</b></p>
-      <p>Ngày 23/3/2025</p>
+  <!-- 6. LIÊN KẾT TỔ ĐỘI / CLB KHÁC -->
+  <section class="about-section">
+    <div class="container fade-in">
+      <div class="section-header">
+        <h2 class="section-title">Liên kết Tổ Đội & CLB</h2>
+        <p class="section-desc">Mạng lưới hợp tác đồng hành cùng các tổ chức, câu lạc bộ trong và ngoài trường</p>
+      </div>
+
+      <div class="link-table-wrap fade-in">
+        <table class="link-table">
+          <thead>
+            <tr>
+              <th style="text-align: center;">Logo</th>
+              <th>Viết tắt</th>
+              <th>Tên đầy đủ</th>
+              <th>Trực thuộc</th>
+              <th>Nội dung liên kết</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <img src="Image/UV.png" class="link-table__logo"
+                     onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" alt="UV Logo">
+                <div class="link-table__logo-placeholder" style="display:none">🤝</div>
+              </td>
+              <td>
+                <span class="club-badge" style="color: #060070; background: #e0e7ff;">UVHN</span><br>
+                <span class="club-badge" style="color: #060070; background: #e0e7ff;">UVNB</span>
+              </td>
+              <td><strong>UNETI VOLUNTEER</strong> – Đội Sinh viên tình nguyện UNETI (Cơ sở Hà Nội & Cơ sở Ninh Bình)</td>
+              <td><span class="affil-tag">Đoàn TN – Hội SV UNETI</span></td>
+              <td>Hợp tác hỗ trợ nhân sự, hậu cần trong các sự kiện và phong trào tình nguyện...</td>
+            </tr>
+            <tr>
+              <td>
+                <img src="Image/UB.png" class="link-table__logo"
+                     onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" alt="UB Logo">
+                <div class="link-table__logo-placeholder" style="display:none">🤝</div>
+              </td>
+              <td><span class="club-badge" style="color: #dc2626; background: #fee2e2;">UB</span></td>
+              <td><strong>UNETI BLOOD</strong> – Đội Thanh niên vận động hiến máu UNETI</td>
+              <td><span class="affil-tag">Đoàn TN – Hội SV UNETI</span></td>
+              <td>Hợp tác hỗ trợ nhân sự, truyền thông hiến máu và hậu cần sự kiện...</td>
+            </tr>
+            <tr>
+              <td>
+                <img src="Image/SCC.png" class="link-table__logo"
+                     onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" alt="SCC Logo">
+                <div class="link-table__logo-placeholder" style="display:none">🤝</div>
+              </td>
+              <td><span class="club-badge" style="color: #b91c1c; background: #fef2f2;">SCC</span></td>
+              <td><strong>School Culture Club</strong> – CLB Tuyên truyền văn hóa học đường Sinh viên UNETI</td>
+              <td><span class="affil-tag">Đoàn TN – Hội SV UNETI</span></td>
+              <td>Hợp tác hỗ trợ nhân sự, hậu cần và tuyên truyền văn hoá học đường UNETI</td>
+            </tr>
+            <tr>
+              <td>
+                <img src="Image/Ballet.png" class="link-table__logo"
+                     onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" alt="Ballet Logo">
+                <div class="link-table__logo-placeholder" style="display:none">🤝</div>
+              </td>
+              <td><span class="club-badge" style="color: #db2777; background: #fdf2f8;">Ballet</span></td>
+              <td><strong>CLB Múa Ballet UNETI</strong></td>
+              <td><span class="affil-tag">Đoàn TN – Hội SV UNETI</span></td>
+              <td>Hỗ trợ biểu diễn văn nghệ và giao lưu nghệ thuật trong các sự kiện...</td>
+            </tr>
+            <tr>
+              <td>
+                <img src="Image/YM.png" class="link-table__logo"
+                     onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" alt="YM Logo">
+                <div class="link-table__logo-placeholder" style="display:none">🤝</div>
+              </td>
+              <td><span class="club-badge" style="color: #d97706; background: #fef3c7;">YM</span></td>
+              <td><strong>Young Music</strong> – CLB Âm nhạc trẻ UNETI</td>
+              <td><span class="affil-tag">Đoàn TN – Hội SV UNETI</span></td>
+              <td>Hỗ trợ biểu diễn âm nhạc, văn nghệ sân khấu trong các sự kiện...</td>
+            </tr>
+            <tr>
+              <td>
+                <img src="Image/TRS.png" class="link-table__logo"
+                     onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" alt="TRS Logo">
+                <div class="link-table__logo-placeholder" style="display:none">🤝</div>
+              </td>
+              <td><span class="club-badge" style="color: #ea580c; background: #ffedd5;">TRS</span></td>
+              <td><strong>The Rising Crew</strong> – CLB Nhảy UNETI</td>
+              <td><span class="affil-tag">Đoàn TN – Hội SV UNETI</span></td>
+              <td>Hỗ trợ các tiết mục nhảy hiện đại, khuấy động không khí sự kiện...</td>
+            </tr>
+            <tr>
+              <td>
+                <img src="Image/UGC.png" class="link-table__logo"
+                     onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" alt="UGC Logo">
+                <div class="link-table__logo-placeholder" style="display:none">🤝</div>
+              </td>
+              <td><span class="club-badge" style="color: #1e3a8a; background: #dbeafe;">UGC</span></td>
+              <td><strong>UNETI Guitar Club</strong> – CLB Guitar UNETI</td>
+              <td><span class="affil-tag">Đoàn TN – Hội SV UNETI</span></td>
+              <td>Hỗ trợ biểu diễn âm nhạc acoustic, giao lưu nghệ thuật...</td>
+            </tr>
+            <tr>
+              <td>
+                <img src="Image/Foto.png" class="link-table__logo"
+                     onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" alt="Foto Logo">
+                <div class="link-table__logo-placeholder" style="display:none">🤝</div>
+              </td>
+              <td><span class="club-badge" style="color: #7c3aed; background: #ede9fe;">Foto</span></td>
+              <td><strong>UNETI Foto</strong> – CLB Chụp ảnh UNETI</td>
+              <td><span class="affil-tag">Đoàn TN – Hội SV UNETI</span></td>
+              <td>Hỗ trợ ghi lại hình ảnh, quay phóng sự và media trong các sự kiện...</td>
+            </tr>
+            <tr>
+              <td>
+                <img src="Image/AC.png" class="link-table__logo"
+                     onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" alt="AC Logo">
+                <div class="link-table__logo-placeholder" style="display:none">🤝</div>
+              </td>
+              <td><span class="club-badge" style="color: #6d28d9; background: #f3e8ff;">AC</span></td>
+              <td><strong>AC UNETI</strong> – CLB Truyền thông UNETI</td>
+              <td><span class="affil-tag">Phòng Tuyển sinh, Truyền thông & ĐN</span></td>
+              <td>Phối hợp truyền thông sự kiện, chụp ảnh và lan tỏa hình ảnh...</td>
+            </tr>
+            <tr>
+              <td>
+                <img src="Image/UBC.png" class="link-table__logo"
+                     onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" alt="UBC Logo">
+                <div class="link-table__logo-placeholder" style="display:none">🤝</div>
+              </td>
+              <td><span class="club-badge" style="color: #991b1b; background: #fee2e2;">UBC</span></td>
+              <td><strong>UNETI Book Club</strong> – CLB Sách UNETI</td>
+              <td><span class="affil-tag">Trung tâm Thư viện UNETI</span></td>
+              <td>Hợp tác tổ chức văn hóa đọc, hỗ trợ nhân sự và hậu cần sự kiện...</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </section>
-
-  <section class="container fade-in">
-    <div class="achievement-card">
-      <h3 class="section-title">YTC chính thức góp mặt tham gia phần diễu hành</h3>
-      <p><b>Lễ Công Bố Tuần Lễ Thời Trang Sinh Viên Toàn Cầu 2025 (Global Student Fashion Week - GFSW 2025)</b></p>
-      <p>Ngày 16/3/2025</p>
-    </div>
-  </section>   
-  
-</section>
-
-<!-- LIÊN KẾT -->
-
-<section class="container fade-in">
-  <h2 class="section-title"><b>Liên kết với Tổ Đội/CLB khác</b></h2>
-  <br>
-  <div class="link-table-wrap fade-in">
-    <table class="link-table">
-      <thead>
-        <tr>
-          <th>Logo</th>
-          <th>Tên viết tắt</th>
-          <th>Tên đầy đủ</th>
-          <th>Trực thuộc</th>
-          <th>Nội dung liên kết</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>
-            <img src="Image/UV.png" class="link-table__logo"
-                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" alt="Logo">
-            <div class="link-table__logo-placeholder" style="display:none">🤝</div>
-          </td>
-          <td><strong><p style="color: #060070;">UVHN</p><p style="color: #060070;">UVNB</p></strong></td>
-          <td>UNETI VOLUNTEER - Đội Sinh viên tình nguyện UNETI (Cơ sở Hà Nội/Cơ sở Ninh Bình)</td>
-          <td>Đoàn Thanh niên - Hội Sinh viên UNETI</td>
-          <td>Hợp tác hỗ trợ nhân sự - hậu cầu trong các sự kiện...</td>
-        </tr>
-        <tr>
-          <td>
-            <img src="Image/UB.png" class="link-table__logo"
-                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" alt="Logo">
-            <div class="link-table__logo-placeholder" style="display:none">🤝</div>
-          </td>
-          <td><strong><p style="color: #ff4949;">UB</p></strong></td>
-          <td>UNETI BLOOD - Đội Thanh niên vận động hiến máu UNETI</td>
-          <td>Đoàn Thanh niên - Hội Sinh viên UNETI</td>
-          <td>Hợp tác hỗ trợ nhân sự - hậu cầu trong các sự kiện...</td>
-        </tr>
-        <tr>
-          <td>
-            <img src="Image/SCC.png" class="link-table__logo"
-                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" alt="Logo">
-            <div class="link-table__logo-placeholder" style="display:none">🤝</div>
-          </td>
-          <td><strong><p style="color: #ff0000;">SCC</p></strong></td>
-          <td>School Culture Club - CLB Tuyên truyền văn hóa học đường Sinh viên UNETI</td>
-          <td>Đoàn Thanh niên - Hội Sinh viên UNETI</td>
-          <td>Hợp tác hỗ trợ nhân sự - hậu cầu trong các sự kiện... Và tuyên truyền văn hoá học đường cho toàn trường</td>
-        </tr>
-        <tr>
-          <td>
-            <img src="Image/Ballet.png" class="link-table__logo"
-                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" alt="Logo">
-            <div class="link-table__logo-placeholder" style="display:none">🤝</div>
-          </td>
-          <td><strong><p style="color: #ee0d88;">Ballet</p></strong></td>
-          <td>CLB Múa Ballet UNETI</td>
-          <td>Đoàn Thanh niên - Hội Sinh viên UNETI</td>
-          <td>Hỗ trợ văn nghệ trong các sự kiện...</td>
-        </tr>
-        <tr>
-          <td>
-            <img src="Image/YM.png" class="link-table__logo"
-                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" alt="Logo">
-            <div class="link-table__logo-placeholder" style="display:none">🤝</div>
-          </td>
-          <td><strong><p style="color: #ffc803;">YM</p></strong></td>
-          <td>Young Music - CLB Âm nhạc trẻ</td>
-          <td>Đoàn Thanh niên - Hội Sinh viên UNETI</td>
-          <td>Hỗ trợ văn nghệ trong các sự kiện...</td>
-        </tr>
-        <tr>
-          <td>
-            <img src="Image/TRS.png" class="link-table__logo"
-                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" alt="Logo">
-            <div class="link-table__logo-placeholder" style="display:none">🤝</div>
-          </td>
-          <td><strong><p style="color: #ff8103;">TRS</p></strong></td>
-          <td>The Rising Crew - CLB Nhảy UNETI</td>
-          <td>Đoàn Thanh niên - Hội Sinh viên UNETI</td>
-          <td>Hỗ trợ văn nghệ trong các sự kiện...</td>
-        </tr>
-        <tr>
-          <td>
-            <img src="Image/UGC.png" class="link-table__logo"
-                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" alt="Logo">
-            <div class="link-table__logo-placeholder" style="display:none">🤝</div>
-          </td>
-          <td><strong><p style="color: #080048;">UGC</p></strong></td>
-          <td>UNETI Guitar Club - CLB Guitar UNETI</td>
-          <td>Đoàn Thanh niên - Hội Sinh viên UNETI</td>
-          <td>Hỗ trợ văn nghệ trong các sự kiện...</td>
-        </tr>
-        <tr>
-          <td>
-            <img src="Image/Foto.png" class="link-table__logo"
-                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" alt="Logo">
-            <div class="link-table__logo-placeholder" style="display:none">🤝</div>
-          </td>
-          <td><strong><p style="color: #aa3bff;">Foto</p></strong></td>
-          <td>UNETI Foto - CLB Chụp ảnh UNETI</td>
-          <td>Đoàn Thanh niên - Hội Sinh viên UNETI</td>
-          <td>Hỗ trợ chụp ảnh trong các sự kiện...</td>
-        </tr>
-        <tr>
-          <td>
-            <img src="Image/AC.png" class="link-table__logo"
-                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" alt="Logo">
-            <div class="link-table__logo-placeholder" style="display:none">🤝</div>
-          </td>
-          <td><strong><p style="color: #8000ff;">AC</p></strong></td>
-          <td>AC UNETI - CLB Truyền thông UNETI</td>
-          <td>Phòng Tuyển sinh, Truyền thông và Đối ngoại</td>
-          <td>Hỗ trợ chụp ảnh trong các sự kiện...</td>
-        </tr>
-        <tr>
-          <td>
-            <img src="Image/UBC.png" class="link-table__logo"
-                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" alt="Logo">
-            <div class="link-table__logo-placeholder" style="display:none">🤝</div>
-          </td>
-          <td><strong><p style="color: #940000;">UBC</p></strong></td>
-          <td>UNETI Book Club - CLB Sách UNETI</td>
-          <td>Trung tâm Thư viện</td>
-          <td>Hợp tác hỗ trợ nhân sự - hậu cầu trong các sự kiện...</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</section>
 
   <!-- FOOTER -->
   <footer>
     <div id="footer-placeholder"></div>
   </footer>
 
+  <script src="Asset/script.js"></script>
 </body>
-<script src="Asset/script.js"></script>
-<script>
-  // Honor Box
-    function openHonorBox() {
-      document.getElementById('honorOverlay').classList.add('active');
-      document.body.style.overflow = 'hidden';
-    }
-
-    function closeHonorBox(event) {
-      if (!event || event.target.id === 'honorOverlay' || event.target.classList.contains('honor-close-btn')) {
-        document.getElementById('honorOverlay').classList.remove('active');
-        document.body.style.overflow = 'auto';
-      }
-    }
-
-  // Close with ESC key
-    document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape') {
-        closeHonorBox();
-      }
-    });
-</script>
 </html>
