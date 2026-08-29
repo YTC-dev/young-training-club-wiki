@@ -947,17 +947,547 @@
       .star-floating-btn { right: 20px; bottom: 100px; }
     }
 
+    /* ==========================================
+       MÀN HÌNH CHÀO MỪNG - FULLSCREEN (GEN 15.1)
+    ========================================== */
+    #welcomeScreen {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      height: 100dvh;
+      z-index: 100000;
+      background: linear-gradient(160deg, #04006b 0%, #2c3b90 45%, #0983fe 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: #ffffff;
+      opacity: 1;
+      visibility: visible;
+      transition: opacity 0.4s ease, visibility 0.4s ease;
+      overflow-y: auto;
+      padding: 70px 24px 40px;
+    }
+
+    #welcomeScreen.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    #welcomeScreen::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 50% 30%, rgba(126, 214, 255, 0.25) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .welcome-close {
+      position: fixed;
+      top: 24px;
+      right: 24px;
+      width: 44px;
+      height: 44px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1.5px solid #7ed6ff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.3s ease;
+      z-index: 5;
+      opacity: 0;               /* ẩn ban đầu */
+      pointer-events: none;     /* không click được khi chưa hiện */
+    }
+
+    #welcomeScreen .welcome-close {
+      animation: welcomeCloseAppear 0.6s ease forwards;
+      animation-delay: 2s; /* xuất hiện sau khi mọi phần tử khác đã hiện xong (~1.85s) */
+    }
+
+    #welcomeScreen.hidden .welcome-close {
+      opacity: 0 !important;
+      animation: none !important;
+      transition: none !important;
+      pointer-events: none !important;
+    }
+
+    @keyframes welcomeCloseAppear {
+      from { opacity: 0; transform: scale(0.7) rotate(-90deg); pointer-events: none; }
+      to   { opacity: 1; transform: scale(1) rotate(0deg); pointer-events: auto; }
+    }
+
+    .welcome-close:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: rotate(90deg);
+    }
+
+    .welcome-close::before,
+    .welcome-close::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 2px;
+      background: #7ed6ff;
+    }
+
+    .welcome-close::before { transform: rotate(45deg); }
+    .welcome-close::after { transform: rotate(-45deg); }
+
+    .welcome-eyebrow {
+      position: relative;
+      font-size: 0.95rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #7ed6ff;
+      margin-bottom: 8px;
+    }
+
+    #welcomeScreen h1 {
+      position: relative;
+      font-size: 2.1rem;
+      line-height: 1.4;
+      max-width: 900px;
+      text-shadow: 0 0 24px rgba(126, 214, 255, 0.5);
+    }
+
+    #welcomeScreen h1 b {
+      color: #a8e6ff;
+    }
+
+    .welcome-tagline {
+      position: relative;
+      font-size: 1.25rem;
+      color: #e0f4ff;
+      opacity: 0.9;
+      margin-bottom: 24px;
+      font-style: italic;
+    }
+
+    .welcome-countdown {
+      position: relative;
+      margin: -12px 0 28px;
+      color: #e0f4ff;
+    }
+
+    .welcome-countdown-title {
+      margin-bottom: 10px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: #a8e6ff;
+    }
+
+    .welcome-countdown-grid {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .welcome-countdown-item {
+      min-width: 68px;
+      padding: 8px 10px;
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(126, 214, 255, 0.4);
+      border-radius: 10px;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+    }
+
+    .welcome-countdown-value {
+      display: block;
+      font-size: 1.45rem;
+      font-weight: 800;
+      line-height: 1.1;
+      color: #ffffff;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .welcome-countdown-label {
+      display: block;
+      margin-top: 4px;
+      font-size: 0.68rem;
+      color: #cfe9ff;
+    }
+
+    .welcome-countdown.expired .welcome-countdown-title {
+      color: #ffd700;
+    }
+
+    .welcome-media {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 28px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+
+    .welcome-poster {
+      flex: 1 1 420px;
+      max-width: 600px;
+      border-radius: 16px;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+      border: 1px solid rgba(126, 214, 255, 0.35);
+    }
+
+    .welcome-avatar-frame {
+      flex: 0 0 auto;
+      width: 240px;
+      height: 240px;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 4px solid #7ed6ff;
+      box-shadow: 0 0 30px rgba(126, 214, 255, 0.45);
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .welcome-avatar-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .welcome-actions {
+      position: relative;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      justify-content: center;
+      margin-bottom: 8px;
+    }
+
+    .welcome-actions .btn {
+      flex: 1 1 auto;
+      min-width: 190px;
+      padding: 14px 22px;
+      font-size: 1.05rem;
+      font-weight: 600;
+    }
+
+    .welcome-btn-primary {
+      background: linear-gradient(135deg, #ffd700, #ffb300);
+      color: #04006b;
+    }
+
+    .welcome-btn-secondary {
+      background: rgba(255, 255, 255, 0.12);
+      color: #ffffff;
+      border: 1.5px solid #7ed6ff;
+    }
+
+    .welcome-btn-secondary:hover {
+      background: rgba(126, 214, 255, 0.25);
+      color: #c3f5ff;
+    }
+
+    .welcome-check {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      font-size: 0.95rem;
+      color: #cfe9ff;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .welcome-check input {
+      width: 18px;
+      height: 18px;
+      accent-color: #7ed6ff;
+      cursor: pointer;
+    }
+
+    @media (max-width: 768px) {
+      #welcomeScreen {
+        padding: 450px 16px 30px; /* cách mép trên 50px */
+      }
+
+      #welcomeScreen h1 {
+        font-size: 1.4rem;
+      }
+
+      .welcome-tagline {
+        font-size: 1rem;
+      }
+
+      .welcome-countdown {
+        margin-bottom: 24px;
+      }
+
+      .welcome-countdown-grid {
+        gap: 6px;
+      }
+
+      .welcome-countdown-item {
+        min-width: 58px;
+        padding: 7px 6px;
+      }
+
+      .welcome-countdown-value {
+        font-size: 1.2rem;
+      }
+
+      .welcome-poster {
+        max-width: 100%;
+      }
+
+      .welcome-avatar-frame {
+        width: 100px;
+        height: 100px;
+      }
+
+      .welcome-actions .btn {
+        min-width: 100%;
+      }
+    }
+
+    /* ==========================================
+       HIỆU ỨNG ĐỘNG CHO MÀN HÌNH CHÀO MỪNG
+    ========================================== */
+
+    /* Glow nền nhấp nháy nhẹ nhàng */
+    #welcomeScreen::before {
+      animation: welcomeGlowPulse 4s ease-in-out infinite;
+    }
+
+    @keyframes welcomeGlowPulse {
+      0%, 100% { opacity: 0.7; }
+      50% { opacity: 1; }
+    }
+
+    /* Khi đóng: thu nhỏ nhẹ thay vì chỉ mất nét */
+    #welcomeScreen {
+      transition: opacity 1s ease, visibility 1s ease, transform 1s ease;
+    }
+
+    #welcomeScreen.hidden {
+      transform: scale(1.04);
+    }
+
+    /* Các phần tử xuất hiện lần lượt, trượt lên + mờ dần */
+    #welcomeScreen .welcome-eyebrow,
+    #welcomeScreen h1,
+    #welcomeScreen .welcome-tagline,
+    #welcomeScreen .welcome-countdown,
+    #welcomeScreen .welcome-actions,
+    #welcomeScreen .welcome-check {
+      opacity: 0;
+      animation: welcomeFadeUp 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+
+    #welcomeScreen .welcome-eyebrow  { animation-delay: 0.1s; }
+    #welcomeScreen h1                { animation-delay: 0.25s; }
+    #welcomeScreen .welcome-tagline  { animation-delay: 0.42s; }
+    #welcomeScreen .welcome-countdown { animation: welcomeFadeUp 1s cubic-bezier(0.22, 1, 0.36, 1) forwards; animation-delay: 0.58s; }
+    #welcomeScreen .welcome-actions  { animation-delay: 0.85s; }
+    #welcomeScreen .welcome-check    { animation-delay: 1.0s; }
+
+    @keyframes welcomeFadeUp {
+      from { opacity: 0; transform: translateY(26px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Poster trượt vào từ bên trái */
+    #welcomeScreen .welcome-poster {
+      opacity: 0;
+      animation: welcomeSlideInLeft 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+      animation-delay: 1s;
+    }
+
+    @keyframes welcomeSlideInLeft {
+      from { opacity: 0; transform: translateX(-40px) scale(0.96); }
+      to   { opacity: 1; transform: translateX(0) scale(1); }
+    }
+
+    /* Khung avatar xoay nhẹ + phóng to khi vào */
+    #welcomeScreen .welcome-avatar-frame {
+      opacity: 0;
+      animation: welcomeAvatarPop 1s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+      animation-delay: 1s;
+    }
+
+    @keyframes welcomeAvatarPop {
+      from { opacity: 0; transform: scale(0.5) rotate(-12deg); }
+      to   { opacity: 1; transform: scale(1) rotate(0deg); }
+    }
+
+    /* Nút chính có hiệu ứng nhấp nháy nhẹ để thu hút chú ý sau khi hiện xong */
+    #welcomeScreen .welcome-btn-primary {
+      animation: welcomeFadeUp 1s cubic-bezier(0.22, 1, 0.36, 1) forwards,
+                 welcomeBtnPulse 2s ease-in-out 1.8s infinite;
+    }
+
+    @keyframes welcomeBtnPulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.5); }
+      50% { box-shadow: 0 0 0 10px rgba(255, 215, 0, 0); }
+    }
+
+    /* Giảm bớt hiệu ứng trên mobile cho mượt hơn */
+    @media (max-width: 768px) {
+      #welcomeScreen .welcome-poster,
+      #welcomeScreen .welcome-avatar-frame {
+        animation-duration: 1s;
+      }
+    }
+
+    /* ==========================================
+       NÚT MỞ LẠI MÀN HÌNH CHÀO MỪNG (thay cho nút Recap)
+    ========================================== */
+    .mail-floating-btn {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 70px;
+      height: 70px;
+      background: linear-gradient(135deg, #00d4ff, #0099ff);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow:
+        0 8px 24px rgba(0, 212, 255, 0.4),
+        0 0 0 0 rgba(0, 212, 255, 0.6);
+      transition: all 0.3s cubic-bezier(0.34, 1.4, 0.64, 1);
+      z-index: 9998;
+      border: 3px solid #ffffff;
+      animation: pulse-ring 2s infinite;
+    }
+
+    .mail-floating-btn:hover {
+      transform: scale(1.1) rotate(15deg);
+      box-shadow:
+        0 12px 32px rgba(0, 212, 255, 0.6),
+        0 0 0 8px rgba(0, 212, 255, 0.2);
+    }
+
+    .mail-floating-btn:active {
+      transform: scale(0.95);
+    }
+
+    .mail-floating-btn svg {
+      width: 32px;
+      height: 32px;
+      transition: transform 0.3s ease;
+    }
+
+    .mail-floating-btn:hover svg {
+      transform: scale(1.1);
+    }
+
+    .mail-dot {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      width: 14px;
+      height: 14px;
+      background: #ff3b30;
+      border-radius: 50%;
+      border: 2px solid #ffffff;
+      box-shadow: 0 0 0 0 rgba(255, 59, 48, 0.6);
+      animation: mailDotPulse 2s infinite;
+    }
+
+    @keyframes mailDotPulse {
+      0% { box-shadow: 0 0 0 0 rgba(255, 59, 48, 0.6); }
+      70% { box-shadow: 0 0 0 8px rgba(255, 59, 48, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(255, 59, 48, 0); }
+    }
+
+    @media (max-width: 768px) {
+      .mail-floating-btn {
+        width: 60px;
+        height: 60px;
+        bottom: 20px;
+        right: 20px;
+      }
+      .mail-floating-btn svg {
+        width: 28px;
+        height: 28px;
+      }
+      .mail-dot {
+        width: 12px;
+        height: 12px;
+        top: 6px;
+        right: 6px;
+      }
+    }
   </style>
 <body>
+
+<!-- MÀN HÌNH CHÀO MỪNG FULLSCREEN (GEN 15.1) -->
+<div id="welcomeScreen">
+  <div class="welcome-close" onclick="closeWelcomeScreen()" title="Đóng (ESC)"></div>
+
+  <div class="welcome-eyebrow">Young Training Club - CLB ĐÀO TẠO KỸ NĂNG TRẺ</div>
+  <h1>CHÀO MỪNG BẠN ĐẾN VỚI <b>GEN 15.1</b></h1>
+  <p class="welcome-tagline">Nơi bạn kết nối và hoà nhập!</p>
+
+  <div class="welcome-countdown" id="welcomeCountdown" aria-live="polite">
+    <div class="welcome-countdown-title">⏳ Thời gian còn lại đến hết ngày 20/09/2026</div>
+    <div class="welcome-countdown-grid">
+      <div class="welcome-countdown-item">
+        <span class="welcome-countdown-value" id="welcomeCountdownDays">00</span>
+        <span class="welcome-countdown-label">Ngày</span>
+      </div>
+      <div class="welcome-countdown-item">
+        <span class="welcome-countdown-value" id="welcomeCountdownHours">00</span>
+        <span class="welcome-countdown-label">Giờ</span>
+      </div>
+      <div class="welcome-countdown-item">
+        <span class="welcome-countdown-value" id="welcomeCountdownMinutes">00</span>
+        <span class="welcome-countdown-label">Phút</span>
+      </div>
+      <div class="welcome-countdown-item">
+        <span class="welcome-countdown-value" id="welcomeCountdownSeconds">00</span>
+        <span class="welcome-countdown-label">Giây</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="welcome-media">
+    <img src="Image/Gen15_1.png" alt="Poster Gen 15.1" class="welcome-poster">
+    <div class="welcome-avatar-frame">
+      <img src="Image/Gen15_1_Avatar_Frame.png" alt="Khung avatar Gen 15.1">
+    </div>
+  </div>
+
+  <div class="welcome-actions">
+    <a href="https://forms.gle/m6vcaMUHypNsooZC6" target="_blank" class="btn welcome-btn-primary">
+      🚀 Đăng kí ngay!
+    </a>
+    <a href="joinus.html" class="btn welcome-btn-secondary">
+      🔍 Giới thiệu Gen 15.1
+    </a>
+    <a href="#" class="btn welcome-btn-secondary" onclick="alert('Tính năng tạo avatar sẽ sớm ra mắt!'); return false;">
+      🎨 Tạo avatar
+    </a>
+  </div>
+
+  <label class="welcome-check">
+    <input type="checkbox" id="welcomeHideCheckbox">
+    Không hiện lần sau
+  </label>
+</div>
+
 <div id="nav-placeholder"></div>
 
     <div class="header--marquee">
       <marquee scrollamount="8" direction="left" align="center" style="font-weight: bold; padding: 3px; color: red;">
-        🎉 CHÀO MỪNG TÂN SINH VIÊN UNETI K20 🎉&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🎉 CHÀO MỪNG 70 NĂM THÀNH LẬP TRƯỜNG ĐẠI HỌC KINH TẾ - KỸ THUẬT CÔNG NGHIỆP 🎉&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHÍNH THỨC RA MẮT BAN CHỦ NHIỆM & BAN CHUYÊN MÔN GEN 14 - NHỮNG NGƯỜI TIẾP LỬA YTC 
+        🔑 [YTC] CHÍNH THỨC MỜI BẠN MỞ CÁNH CỬA MỚI – MỞ ĐƠN TUYỂN THÀNH VIÊN GEN 15 🚪✨&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🎉 CHÀO MỪNG TÂN SINH VIÊN UNETI K20 🎉&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🎉 CHÀO MỪNG 70 NĂM THÀNH LẬP TRƯỜNG ĐẠI HỌC KINH TẾ - KỸ THUẬT CÔNG NGHIỆP 🎉&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHÍNH THỨC RA MẮT BAN CHỦ NHIỆM & BAN CHUYÊN MÔN GEN 14 - NHỮNG NGƯỜI TIẾP LỬA YTC 
 </marquee>
     </div>
   <!-- HEADER -->
-  <header>
+  <header class="hero">
     <div class="container">
       <p>Chào mừng đến với website wiki chính thức của</p><h1>CLB Đào Tạo Kỹ Năng Trẻ - Young Training Club</h1>
     </div>
@@ -1148,7 +1678,6 @@
       </p>
     </div>
   </section>
-
   <section class="container fade-in">
     <div class="card">
       <p>
@@ -1156,6 +1685,16 @@
         <img src="Event/Image/SinhNhatAnhNguLepoca10Tuoi.jpg" alt="" class="responsive-img"><br>
         <b>Thời gian: </b>Ngày 13/07/2026<br>
         <a href="https://www.facebook.com/share/p/18CTkcgLVG/" target="_blank"><i>[Xem tại đây]</i></a>
+      </p>
+    </div>
+  </section>
+  <section class="container fade-in">
+    <div class="card">
+      <p>
+        <h3 class="section-title">⛺ [RECAP] DÃ NGOẠI YTC: CHÁY HẾT MÌNH, TRỌN VẸN GẮN KẾT!🧺</h3>
+        <img src="Event/Image/DaNgoai2026.jpg" alt="" class="responsive-img"><br>
+        <b>Thời gian: </b>Ngày 30/06 - 01/07/2026<br>
+        <a href="https://www.facebook.com/share/p/1EdX9dBXqo/" target="_blank"><i>[Xem tại đây]</i></a> <a href="https://www.facebook.com/share/v/1PYihXh9a1/" target="_blank"><i>[MV Recap]</i></a>
       </p>
     </div>
   </section>
@@ -1176,16 +1715,6 @@
         <img src="Event/Image/HoTroQuaLuuNiem70NamUNETIDot1.jpg" alt="" class="responsive-img"><br>
         <b>Thời gian: </b>Ngày 17/06/2026<br>
         <a href="https://www.facebook.com/share/p/1GqGpMarN1/" target="_blank"><i>[Xem tại đây]</i></a>
-      </p>
-    </div>
-  </section>
-  <section class="container fade-in">
-    <div class="card">
-      <p>
-        <h3 class="section-title">🎓 YTC ĐỒNG HÀNH CÙNG CHƯƠNG TRÌNH “TIẾP SỨC MÙA THI” THPT 2026</h3>
-        <img src="Event/Image/TiepSucMuaThi2026.jpg" alt="" class="responsive-img"><br>
-        <b>Thời gian: </b>Ngày 11-12/06/2026<br>
-        <a href="https://www.facebook.com/share/p/18YQ5fGT1P/" target="_blank"><i>[Xem tại đây]</i></a>
       </p>
     </div>
   </section>
@@ -1361,7 +1890,11 @@
   <svg viewBox="0 0 24 24"><path d="M12 4l-8 8h5v8h6v-8h5z"/></svg>
 </div>
 
-  <!-- RECAP POPUP OVERLAY -->
+  <!--
+  ==========================================
+  RECAP POPUP OVERLAY - ĐÃ COMMENT (TẠM ẨN)
+  Thay bằng nút thư (mail-floating-btn) mở lại màn hình chào mừng
+  ==========================================
   <div class="floating-btn" onclick="openRecapBox()">
       <svg viewBox="0 0 24 24">
 
@@ -1384,6 +1917,16 @@
         <p><a href="https://www.facebook.com/share/p/1EdX9dBXqo/" target="_blank">→ Xem chi tiết tại đây</a><br>
         <a href="https://www.facebook.com/share/v/1PYihXh9a1/" target="_blank">→ MV Recap</a></p>
   </div>
+  </div>
+  -->
+
+  <!-- NÚT THƯ - MỞ LẠI MÀN HÌNH CHÀO MỪNG -->
+  <div class="mail-floating-btn" onclick="reopenWelcomeScreen()" title="Xem lại màn hình chào mừng">
+    <svg viewBox="0 0 24 24" fill="none">
+      <rect x="2" y="4" width="20" height="16" rx="2" stroke="#ffffff" stroke-width="2"/>
+      <path d="M2 6l10 7 10-7" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <span class="mail-dot"></span>
   </div>
 
   <!-- STAR / BEST STUDENT POPUP -->
@@ -1449,6 +1992,10 @@
   updateClock();
   setInterval(updateClock, 1000); // Cập nhật mỗi giây
 
+    /*
+    ==========================================
+    RECAP BOX - JS ĐÃ COMMENT (TẠM ẨN)
+    ==========================================
     // Open Recap Box
     function openRecapBox() {
       document.getElementById('recapOverlay').classList.add('active');
@@ -1470,6 +2017,16 @@
         closeRecapBox();
       }
     });
+    */
+
+    // Mở lại màn hình chào mừng (thay cho nút Recap)
+    function reopenWelcomeScreen() {
+      const screen = document.getElementById('welcomeScreen');
+      if (screen) {
+        screen.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+      }
+    }
 
     // ===== SLIDESHOW ẢNH GIỚI THIỆU (tự động trượt) =====
     (function() {
@@ -1507,6 +2064,42 @@
       });
     })();
 
+    // ===== COUNTDOWN ĐĂNG KÝ GEN 15.1 =====
+    (function() {
+      const countdown = document.getElementById('welcomeCountdown');
+      if (!countdown) return;
+
+      const targetDate = new Date(2026, 8, 21, 0, 0, 0);
+      const days = document.getElementById('welcomeCountdownDays');
+      const hours = document.getElementById('welcomeCountdownHours');
+      const minutes = document.getElementById('welcomeCountdownMinutes');
+      const seconds = document.getElementById('welcomeCountdownSeconds');
+      const title = countdown.querySelector('.welcome-countdown-title');
+
+      function updateWelcomeCountdown() {
+        const remaining = targetDate.getTime() - Date.now();
+
+        if (remaining <= 0) {
+          days.textContent = '00';
+          hours.textContent = '00';
+          minutes.textContent = '00';
+          seconds.textContent = '00';
+          title.textContent = '✅ Thời gian đăng ký đã kết thúc';
+          countdown.classList.add('expired');
+          return;
+        }
+
+        const totalSeconds = Math.floor(remaining / 1000);
+        days.textContent = String(Math.floor(totalSeconds / 86400)).padStart(2, '0');
+        hours.textContent = String(Math.floor((totalSeconds % 86400) / 3600)).padStart(2, '0');
+        minutes.textContent = String(Math.floor((totalSeconds % 3600) / 60)).padStart(2, '0');
+        seconds.textContent = String(totalSeconds % 60).padStart(2, '0');
+      }
+
+      updateWelcomeCountdown();
+      setInterval(updateWelcomeCountdown, 1000);
+    })();
+
     function openStarBox() {
       document.getElementById('starOverlay').classList.add('active');
       document.body.style.overflow = 'hidden';
@@ -1520,10 +2113,51 @@
     }
 
     document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape') {
+      if (e.key !== 'Escape') return;
+
+      const starOverlay = document.getElementById('starOverlay');
+      const welcomeScreen = document.getElementById('welcomeScreen');
+
+      if (starOverlay && starOverlay.classList.contains('active')) {
         closeStarBox();
+        return;
+      }
+
+      if (welcomeScreen && !welcomeScreen.classList.contains('hidden')) {
+        closeWelcomeScreen();
       }
     });
+
+    // ===== MÀN HÌNH CHÀO MỪNG FULLSCREEN (GEN 15.1) =====
+    const WELCOME_HIDE_KEY = 'ytc_welcome_hide_gen15_1';
+
+    function closeWelcomeScreen() {
+      const screen = document.getElementById('welcomeScreen');
+      if (screen) {
+        screen.classList.add('hidden');
+        document.body.style.overflow = 'auto';
+      }
+
+      const hideCheckbox = document.getElementById('welcomeHideCheckbox');
+      if (hideCheckbox && hideCheckbox.checked) {
+        localStorage.setItem(WELCOME_HIDE_KEY, '1');
+      }
+    }
+
+    // Chỉ hiện màn hình chào mừng khi URL KHÔNG có "index.html" 
+    // (tức là truy cập bằng domain gốc, VD: https://abc.com/ hoặc https://abc.com/YTC/)
+    // Nếu URL có "index.html" rõ ràng (bấm link từ joinus.html, member.html... trỏ thẳng tới index.html) -> ẩn
+    function shouldShowWelcome() {
+      const path = window.location.pathname.toLowerCase();
+      return !path.includes('index.html');
+    }
+
+    if (localStorage.getItem(WELCOME_HIDE_KEY) === '1' || !shouldShowWelcome()) {
+      const screen = document.getElementById('welcomeScreen');
+      if (screen) screen.classList.add('hidden');
+    } else {
+      document.body.style.overflow = 'hidden';
+    }
   </script>
 
 </body>

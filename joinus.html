@@ -2,125 +2,683 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <title>Tham gia cùng chúng mình! - CLB Đào tạo Kỹ năng Trẻ</title>
+  <title>Tuyển thành viên Gen 15.1 - CLB Đào tạo Kỹ năng Trẻ</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- Link CSS hệ thống -->
   <link rel="stylesheet" href="Asset/style.css">
   <link rel="icon" type="image/png" href="Image/YTC-Favicon.png">
+
+  <style>
+    /* ==========================================
+       JOINUS PAGE ENHANCED STYLING (GEN 15.1)
+    ========================================== */
+
+    .joinus-section {
+      padding: 32px 0;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+
+    .section-header .section-title {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--blue-dark);
+      position: relative;
+      display: inline-block;
+      margin-bottom: 8px;
+    }
+
+    .section-header .section-desc {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    /* ===== GEN 15.1 WELCOME SHOWCASE ===== */
+    .welcome-showcase {
+      background: linear-gradient(160deg, #04006b 0%, #1a3578 50%, #0983fe 100%);
+      border-radius: 20px;
+      padding: 40px 32px;
+      color: #ffffff;
+      text-align: center;
+      box-shadow: 0 14px 40px rgba(4, 0, 107, 0.22);
+      border: 1.5px solid rgba(126, 214, 255, 0.35);
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 30px;
+    }
+
+    .welcome-showcase::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 50% 25%, rgba(126, 214, 255, 0.25) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .welcome-showcase__eyebrow {
+      position: relative;
+      font-size: 0.95rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #7ed6ff;
+      margin-bottom: 10px;
+    }
+
+    .welcome-showcase h2 {
+      position: relative;
+      font-size: 2rem;
+      line-height: 1.35;
+      margin-bottom: 10px;
+      color: #ffffff;
+      text-shadow: 0 0 24px rgba(126, 214, 255, 0.45);
+    }
+
+    .welcome-showcase h2 b {
+      color: #a8e6ff;
+    }
+
+    .welcome-showcase__tagline {
+      position: relative;
+      font-size: 1.15rem;
+      color: #e0f4ff;
+      opacity: 0.95;
+      margin-bottom: 18px;
+      font-style: italic;
+    }
+
+    .welcome-countdown {
+      position: relative;
+      margin: 0 0 28px;
+      color: #e0f4ff;
+    }
+
+    .welcome-countdown-title {
+      margin-bottom: 10px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: #a8e6ff;
+    }
+
+    .welcome-countdown-grid {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .welcome-countdown-item {
+      min-width: 72px;
+      padding: 10px 10px 8px;
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(126, 214, 255, 0.4);
+      border-radius: 10px;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+    }
+
+    .welcome-countdown-value {
+      display: block;
+      font-size: 1.45rem;
+      font-weight: 800;
+      line-height: 1.1;
+      color: #ffffff;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .welcome-countdown-label {
+      display: block;
+      margin-top: 4px;
+      font-size: 0.68rem;
+      color: #cfe9ff;
+    }
+
+    .welcome-countdown.expired .welcome-countdown-title {
+      color: #ffd700;
+    }
+
+    .welcome-media {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 28px;
+      margin-bottom: 30px;
+      flex-wrap: wrap;
+    }
+
+    .welcome-poster {
+      flex: 1 1 380px;
+      max-width: 700px;
+      width: 100%;
+      border-radius: 16px;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
+      border: 1.5px solid rgba(126, 214, 255, 0.4);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .welcome-poster:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 48px rgba(0, 0, 0, 0.5);
+    }
+
+    .welcome-avatar-frame {
+      flex: 0 0 auto;
+      width: 240px;
+      height: 240px;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 4px solid #7ed6ff;
+      box-shadow: 0 0 25px rgba(126, 214, 255, 0.45);
+      background: rgba(255, 255, 255, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.3s ease;
+    }
+
+    .welcome-avatar-frame:hover {
+      transform: scale(1.05) rotate(2deg);
+    }
+
+    .welcome-avatar-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .welcome-actions {
+      position: relative;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      justify-content: center;
+      margin-top: 10px;
+    }
+
+    .welcome-actions .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 13px 26px;
+      font-size: 1.02rem;
+      font-weight: 700;
+      border-radius: 30px;
+      text-decoration: none;
+      transition: all 0.25s ease;
+      cursor: pointer;
+    }
+
+    .welcome-btn-primary {
+      background: linear-gradient(135deg, #ffd700, #ffb300);
+      color: #04006b !important;
+      box-shadow: 0 4px 18px rgba(255, 215, 0, 0.4);
+    }
+
+    .welcome-btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(255, 215, 0, 0.6);
+      background: linear-gradient(135deg, #ffe033, #ffc107);
+    }
+
+    .welcome-btn-secondary {
+      background: rgba(255, 255, 255, 0.12);
+      color: #ffffff !important;
+      border: 1.5px solid #7ed6ff;
+      backdrop-filter: blur(4px);
+    }
+
+    .welcome-btn-secondary:hover {
+      background: rgba(126, 214, 255, 0.25);
+      color: #c3f5ff !important;
+      transform: translateY(-3px);
+      border-color: #a8e6ff;
+    }
+
+    /* ===== DEPARTMENT / ROLES GRID ===== */
+    .role-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+
+    .department-card {
+      background: #ffffff;
+      border-radius: 18px;
+      border: 1px solid rgba(161, 227, 255, 0.45);
+      box-shadow: 0 6px 24px rgba(44, 59, 144, 0.08);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+      text-align: left;
+    }
+
+    .department-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 14px 34px rgba(9, 131, 254, 0.18);
+      border-color: rgba(9, 131, 254, 0.5);
+    }
+
+    .department-card__img-wrap {
+      width: 100%;
+      height: 600px;
+      background: #f0f7ff;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .department-card__img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+      transition: transform 0.35s ease;
+    }
+
+    .department-card:hover .department-card__img {
+      transform: scale(1.03);
+    }
+
+    .department-card__body {
+      padding: 22px 24px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      justify-content: space-between;
+    }
+
+    .department-card__badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 20px;
+      margin-bottom: 10px;
+      width: fit-content;
+    }
+
+    .badge-nshc {
+      background: #e0f2fe;
+      color: #0369a1;
+      border: 1px solid rgba(3, 105, 161, 0.2);
+    }
+
+    .badge-mclt {
+      background: #fce7f3;
+      color: #be185d;
+      border: 1px solid rgba(190, 24, 93, 0.2);
+    }
+
+    .badge-ktvh {
+      background: #ede9fe;
+      color: #6d28d9;
+      border: 1px solid rgba(109, 40, 217, 0.2);
+    }
+
+    .badge-tt {
+      background: #fef3c7;
+      color: #b45309;
+      border: 1px solid rgba(180, 83, 9, 0.2);
+    }
+
+    .department-card__title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--blue-dark);
+      margin-bottom: 8px;
+    }
+
+    .department-card__lead {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--blue-main);
+      margin-bottom: 12px;
+      line-height: 1.5;
+    }
+
+    .department-card__list {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 16px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .department-card__list li {
+      font-size: 0.92rem;
+      color: #334155;
+      line-height: 1.55;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .department-card__note {
+      font-size: 0.88rem;
+      color: #0f766e;
+      background: #f0fdfa;
+      border: 1px solid #ccfbf1;
+      border-radius: 10px;
+      padding: 10px 14px;
+      line-height: 1.5;
+      margin-top: auto;
+    }
+
+    /* ===== CTA REGISTRATION BOX ===== */
+    .register-card {
+      background: linear-gradient(135deg, #ffffff, #f0f7ff);
+      border: 1.5px solid rgba(9, 131, 254, 0.3);
+      border-radius: 20px;
+      padding: 36px 24px;
+      text-align: center;
+      box-shadow: 0 8px 30px rgba(44, 59, 144, 0.08);
+      margin-top: 10px;
+    }
+
+    .register-card h3 {
+      font-size: 1.65rem;
+      color: var(--blue-dark);
+      margin-bottom: 10px;
+      font-weight: 800;
+    }
+
+    .register-card p {
+      font-size: 1rem;
+      color: var(--text-muted);
+      max-width: 600px;
+      margin: 0 auto 20px;
+    }
+
+    /* Mobile Responsive */
+    @media (max-width: 860px) {
+      .role-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .hero {
+        padding: 40px 16px 32px;
+      }
+      .hero h1 {
+        font-size: 1.65rem;
+      }
+      .welcome-showcase {
+        padding: 26px 16px;
+      }
+      .welcome-showcase h2 {
+        font-size: 1.35rem;
+      }
+      .welcome-showcase__tagline {
+        font-size: 0.95rem;
+      }
+      .welcome-poster {
+        max-width: 100%;
+      }
+      .welcome-avatar-frame {
+        width: 110px;
+        height: 110px;
+      }
+      .welcome-actions {
+        flex-direction: column;
+      }
+      .welcome-actions .btn {
+        width: 100%;
+      }
+      .department-card__img-wrap {
+        height: 400px;
+      }
+      .department-card__body {
+        padding: 16px;
+      }
+    }
+  </style>
 </head>
 <body>
-<div id="nav-placeholder"></div>
+  <div id="nav-placeholder"></div>
 
-<!--  HEADER -->
-  <header>
+  <!-- HERO HEADER -->
+  <header class="hero">
     <div class="container">
-      <h1>COMING SOON!</h1>
+      <h1>Tham Gia Cùng Young Training Club</h1>
+      <p class="hero-subtitle">Nơi ươm mầm tài năng, phát triển kỹ năng mềm và gắn kết thanh xuân rực rỡ tại UNETI</p>
     </div>
   </header>
-<br>
-  <h3><b>Hãy chờ đón đợt đăng kí thành viên tiếp theo!</b></h3>
 
-  <!-- GIỚI THIỆU -->
-<br>
-<!-- <h2 class="section-title"><b>Mở đơn đăng kí Gen 14.2</b></h2>
+  <!-- 1. MÀN HÌNH / KHUNG CHÀO ĐÓN GEN 15.1 -->
+  <section class="joinus-section">
+    <div class="container fade-in">
+      <div class="welcome-showcase">
+        <h2>THE KEY IS YOU<br>CHÀO MỪNG BẠN ĐẾN VỚI <b>GEN 15.1</b></h2>
+        <p class="welcome-showcase__tagline">Nơi bạn kết nối và hoà nhập!</p>
 
-  <section class="container fade-in">
-    <div class="card">
-      <img src="Image/YTC_Gen_14_2.jpg" alt="YTC 14.2" style="width: 100%; max-width: 400px;">
+        <div class="welcome-countdown" id="welcomeCountdown" aria-live="polite">
+          <div class="welcome-countdown-title">⏳ Thời gian còn lại đến hết ngày 20/09/2026</div>
+          <div class="welcome-countdown-grid">
+            <div class="welcome-countdown-item">
+              <span class="welcome-countdown-value" id="welcomeCountdownDays">00</span>
+              <span class="welcome-countdown-label">Ngày</span>
+            </div>
+            <div class="welcome-countdown-item">
+              <span class="welcome-countdown-value" id="welcomeCountdownHours">00</span>
+              <span class="welcome-countdown-label">Giờ</span>
+            </div>
+            <div class="welcome-countdown-item">
+              <span class="welcome-countdown-value" id="welcomeCountdownMinutes">00</span>
+              <span class="welcome-countdown-label">Phút</span>
+            </div>
+            <div class="welcome-countdown-item">
+              <span class="welcome-countdown-value" id="welcomeCountdownSeconds">00</span>
+              <span class="welcome-countdown-label">Giây</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="welcome-media">
+          <img src="Image/Gen15_1.png" alt="Poster Gen 15.1" class="welcome-poster">
+          <div class="welcome-avatar-frame">
+            <img src="Image/Gen15_1_Avatar_Frame.png" alt="Khung avatar Gen 15.1">
+          </div>
+        </div>
+
+        <div class="welcome-actions">
+          <a href="https://forms.gle/m6vcaMUHypNsooZC6" target="_blank" class="btn welcome-btn-primary">
+            🚀 Đăng kí ngay!
+          </a>
+          <a href="#departments" class="btn welcome-btn-secondary">
+            🔍 Khám phá các ban
+          </a>
+          <a href="#" class="btn welcome-btn-secondary" onclick="alert('Tính năng tạo avatar sẽ sớm ra mắt!'); return false;">
+            🎨 Tạo avatar
+          </a>
+        </div>
+      </div>
     </div>
   </section>
 
-<br>
-<h2 class="section-title"><b>Thông báo phỏng vấn bù tuyển thành viên Gen 14.2</b></h2>
-<section class="container fade-in">
-  <div class="card">
-    <p><b>Thời gian:</b> 20h00 ngày 10/03/2026</p>
-    <p><b>Hình thức tham gia:</b> Online (Google Meet)</p>
-    </div>
-</section>
-<br>
-<h2 class="section-title"><b>Thông báo kết quả phỏng vấn Gen 14.2</b></h2>
-<section class="container fade-in">
-  <div class="card">
-    <p>Danh sách thành viên thử thách Gen 14.2</p>
-    
-    <p>Còn cơ hội để các bạn để trở thành viên chính thức của YTC nha!</p>
-    </div>
-</section>
-<br>
+  <!-- 2. GIỚI THIỆU CÁC BAN CHUYÊN MÔN -->
+  <section class="joinus-section" id="departments">
+    <div class="container fade-in">
+      <div class="section-header">
+        <h2 class="section-title">Giới thiệu các Ban Chuyên Môn</h2>
+        <p class="section-desc">Lựa chọn môi trường phù hợp với sở thích, thế mạnh và đam mê của bạn tại YTC</p>
+      </div>
 
-<h2 class="section-title"><b>Giới thiệu các ban</b></h2>
-<section class="container fade-in">
-  <div class="role">
+      <div class="role-grid">
 
-    <div class="role-box">
-      <h3 class="section-title">Ban Nhân Sự - Hậu Cần</h3>
-      <img src="Image/YTC_Gen_14_2_NSHC.jpg" alt="NSHC" style="width: 100%; max-width: 300px;"><br>
-      <p style="text-align: justify;">
-      Ban Nhân Sự – Hậu Cần là “hậu phương vững chắc” giúp các hoạt động của CLB diễn ra thuận lợi và suôn sẻ.<br>
-      🔹 Quản lý, phân công và gắn kết các thành viên trong CLB.<br>
-      🔹 Chuẩn bị hậu cần cho các chương trình: dụng cụ, tài liệu, kinh phí.<br>
-      🔹 Hỗ trợ các ban khác để sự kiện được tổ chức hiệu quả.<br>
-      ✨ Nếu bạn là người chỉn chu, trách nhiệm và thích làm việc nhóm, đây sẽ là môi trường rất phù hợp để bạn phát huy thế mạnh.
-      </p>
-    </div>
+        <!-- BAN NHÂN SỰ - HẬU CẦN -->
+        <div class="department-card fade-in">
+          <div class="department-card__img-wrap">
+            <img src="Image/YTC_Gen_14_2_NSHC.jpg" alt="Ban Nhân Sự - Hậu Cần" class="department-card__img"
+                 onerror="this.src='Image/YTC-Icon.png'; this.style.objectFit='contain'; this.style.padding='20px';">
+          </div>
+          <div class="department-card__body">
+            <div>
+              <span class="department-card__badge badge-nshc">👥 Quản trị & Hậu trường</span>
+              <h3 class="department-card__title">Ban Nhân Sự - Hậu Cần</h3>
+              <p class="department-card__lead">“Hậu phương vững chắc” giúp mọi hoạt động và sự kiện của CLB diễn ra thuận lợi, suôn sẻ nhất.</p>
+              
+              <ul class="department-card__list">
+                <li><span>🔹</span> Quản lý, phân công nhiệm vụ và gắn kết tinh thần đồng đội giữa các thành viên.</li>
+                <li><span>🔹</span> Chuẩn bị và điều phối hậu cần chu đáo: trang thiết bị, tài liệu, đạo cụ và kinh phí sự kiện.</li>
+                <li><span>🔹</span> Phối hợp hỗ trợ các ban chuyên môn khác để tổ chức sự kiện chuyên nghiệp và hiệu quả.</li>
+              </ul>
+            </div>
 
-    <div class="role-box">
-      <h3 class="section-title">Ban MC - Lễ Tân</h3>
-      <img src="Image/YTC_Gen_14_2_MCLT.jpg" alt="MCLT" style="width: 100%; max-width: 300px;"><br>
-      <p style="text-align: justify;">
-      Ban MC – Lễ Tân là những gương mặt đại diện của CLB trong các chương trình và sự kiện.<br>
-      🔹 Đảm nhận vai trò MC – Lễ tân trong các sự kiện lớn nhỏ trong và ngoài trường.<br>
-      🔹 Tham gia dẫn chương trình và hỗ trợ chuẩn bị hậu cần cho sự kiện.<br>
-      🔹 Giữ hình ảnh chuyên nghiệp, linh hoạt xử lý các tình huống trong chương trình.<br>
-      Nếu bạn tự tin, năng động và yêu thích việc giao tiếp trước đám đông, MC – Lễ Tân chắc chắn là một lựa chọn rất phù hợp!  
-      </p>
-    </div>
+            <div class="department-card__note">
+              ✨ <b>Phù hợp với bạn:</b> Nếu bạn là người chu đáo, cẩn thận, có tinh thần trách nhiệm cao và yêu thích kỹ năng quản lý, làm việc nhóm.
+            </div>
+          </div>
+        </div>
 
-    <div class="role-box">
-      <h3 class="section-title">Ban Kỹ Thuật - Vận Hành</h3>
-      <img src="Image/YTC_Gen_14_2_KTVH.jpg" alt="KTVH" style="width: 100%; max-width: 300px;"><br>
-      <p style="text-align: justify;">
-      Ban Kỹ Thuật – Vận Hành đảm nhiệm các công việc liên quan đến kỹ thuật và hình ảnh trong các chương trình của CLB.<br>
-      🔹 Chuẩn bị và vận hành âm thanh, ánh sáng, thiết bị cho sự kiện.<br>
-      🔹 Thực hiện thiết kế (Designer) phục vụ cho việc chạy chương trình.<br>
-      🔹 Thiết kế ấn phẩm, chụp ảnh, quay và biên tập video cho các hoạt động của CLB.<br>
-      ✨ Nếu bạn yêu thích kỹ thuật, thiết kế hoặc sáng tạo hình ảnh, ban Kỹ Thuật – Vận Hành sẽ là nơi để bạn phát huy khả năng của mình.
-      </p>
-    </div>
+        <!-- BAN MC - LỄ TÂN -->
+        <div class="department-card fade-in">
+          <div class="department-card__img-wrap">
+            <img src="Image/YTC_Gen_14_2_MCLT.jpg" alt="Ban MC - Lễ Tân" class="department-card__img"
+                 onerror="this.src='Image/YTC-Icon.png'; this.style.objectFit='contain'; this.style.padding='20px';">
+          </div>
+          <div class="department-card__body">
+            <div>
+              <span class="department-card__badge badge-mclt">🎤 Tự tin & Bản lĩnh sân khấu</span>
+              <h3 class="department-card__title">Ban MC - Lễ Tân</h3>
+              <p class="department-card__lead">Gương mặt đại diện duyên dáng, năng động và chuyên nghiệp của CLB trong mọi chương trình.</p>
+              
+              <ul class="department-card__list">
+                <li><span>🔹</span> Đảm nhận vai trò MC dẫn chương trình và lễ tân đón tiếp đại biểu trong các sự kiện lớn nhỏ.</li>
+                <li><span>🔹</span> Rèn luyện khả năng làm chủ giọng nói, ngôn ngữ hình thể và phong thái tự tin trước đám đông.</li>
+                <li><span>🔹</span> Linh hoạt xử lý các tình huống sân khấu, phối hợp nhịp nhàng với ban tổ chức sự kiện.</li>
+              </ul>
+            </div>
 
-    <div class="role-box">
-      <h3 class="section-title">Ban Truyền Thông</h3>
-      <img src="Image/YTC_Gen_14_2_TT.jpg" alt="TT" style="width: 100%; max-width: 300px;"><br>
-      <p style="text-align: justify;">
-        Ban Truyền Thông là cầu nối giúp lan tỏa hình ảnh và các hoạt động của CLB đến với cộng đồng.<br>
-      🔹 Lên kế hoạch truyền thông trước – trong – sau sự kiện.<br>
-      🔹 Quản lý các kênh mạng xã hội và quảng bá hình ảnh của CLB.<br>
-      ✨ Nếu bạn thích sáng tạo nội dung, truyền thông và xây dựng hình ảnh, ban Truyền Thông chắc chắn sẽ mang đến nhiều trải nghiệm thú vị!
-      </p>
-    </div>
+            <div class="department-card__note">
+              ✨ <b>Phù hợp với bạn:</b> Nếu bạn tự tin, năng động, yêu thích giao tiếp và mong muốn tỏa sáng với giọng nói truyền cảm.
+            </div>
+          </div>
+        </div>
 
-  </div>
-</section> -->
+        <!-- BAN KỸ THUẬT - VẬN HÀNH -->
+        <div class="department-card fade-in">
+          <div class="department-card__img-wrap">
+            <img src="Image/YTC_Gen_14_2_KTVH.jpg" alt="Ban Kỹ Thuật - Vận Hành" class="department-card__img"
+                 onerror="this.src='Image/YTC-Icon.png'; this.style.objectFit='contain'; this.style.padding='20px';">
+          </div>
+          <div class="department-card__body">
+            <div>
+              <span class="department-card__badge badge-ktvh">⚙️ Sáng tạo & nâng cao kỹ thuật</span>
+              <h3 class="department-card__title">Ban Kỹ Thuật - Vận Hành</h3>
+              <p class="department-card__lead">Trụ cột công nghệ, đảm nhiệm toàn bộ khâu âm thanh, ánh sáng, thiết kế và media sự kiện.</p>
+              
+              <ul class="department-card__list">
+                <li><span>🔹</span> Vận hành hệ thống âm thanh, ánh sáng, máy chiếu và thiết bị kỹ thuật trong các chương trình.</li>
+                <li><span>🔹</span> Thiết kế ấn phẩm đồ họa (banner, poster, backdrop, slide) phục vụ chương trình.</li>
+                <li><span>🔹</span> Chụp ảnh, quay phóng sự và biên tập video ghi lại những khoảnh khắc đáng nhớ của CLB.</li>
+              </ul>
+            </div>
 
-  <!-- LiNK -->
+            <div class="department-card__note">
+              ✨ <b>Phù hợp with bạn:</b> Nếu bạn đam mê công nghệ, kỹ thuật âm thanh ánh sáng, đồ họa thiết kế hoặc quay dựng video.
+            </div>
+          </div>
+        </div>
 
-  <!-- <section class="container fade-in">
-  <div class="card">
-   <h2><b>ĐĂNG KÍ NGAY!</b></h2><br>
-    <p>Form: <a href="https://forms.gle/m6vcaMUHypNsooZC6" target="_blank">https://forms.gle/m6vcaMUHypNsooZC6</a></p>
-    <p>Thời gian đăng kí: Ngày 3/3 - Ngày 8/3</p>
+        <!-- BAN TRUYỀN THÔNG -->
+        <div class="department-card fade-in">
+          <div class="department-card__img-wrap">
+            <img src="Image/YTC_Gen_14_2_TT.jpg" alt="Ban Truyền Thông" class="department-card__img"
+                 onerror="this.src='Image/YTC-Icon.png'; this.style.objectFit='contain'; this.style.padding='20px';">
+          </div>
+          <div class="department-card__body">
+            <div>
+              <span class="department-card__badge badge-tt">📢 Sáng tạo nội dung & Lan tỏa</span>
+              <h3 class="department-card__title">Ban Truyền Thông</h3>
+              <p class="department-card__lead">Cầu nối lan tỏa hình ảnh, thông điệp và câu chuyện ý nghĩa của YTC đến toàn thể cộng đồng sinh viên.</p>
+              
+              <ul class="department-card__list">
+                <li><span>🔹</span> Lên kế hoạch và triển khai các chiến dịch truyền thông trước, trong và sau sự kiện.</li>
+                <li><span>🔹</span> Sáng tạo nội dung bài viết (Content Creator), quản trị Fanpage và các kênh mạng xã hội.</li>
+                <li><span>🔹</span> Định hình phong cách và xây dựng thương hiệu Câu lạc bộ ngày càng lớn mạnh.</li>
+              </ul>
+            </div>
+
+            <div class="department-card__note">
+              ✨ <b>Phù hợp với bạn:</b> Nếu bạn thích sáng tạo nội dung, bắt trend, viết lách và mong muốn trải nghiệm truyền thông thực chiến.
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- CTA CARD -->
+      <div class="register-card fade-in">
+        <h3>Sẵn sàng trở thành một phần của YTC Gen 15.1?</h3>
+        <p>Đừng ngần ngại đăng ký ngay hôm nay để không bỏ lỡ cơ hội khám phá bản thân và cùng YTC tạo nên những kỷ niệm thời thanh xuân rực rỡ nhất!</p>
+        <a href="https://forms.gle/m6vcaMUHypNsooZC6" target="_blank" class="btn welcome-btn-primary">
+          🚀 Điền đơn ứng tuyển ngay
+        </a>
+      </div>
+
     </div>
   </section>
 
-
-<br>
   <!-- FOOTER -->
   <footer>
     <div id="footer-placeholder"></div>
   </footer>
 
+  <script>
+    (function() {
+      const countdown = document.getElementById('welcomeCountdown');
+      if (!countdown) return;
+
+      const targetDate = new Date(2026, 8, 21, 0, 0, 0);
+      const days = document.getElementById('welcomeCountdownDays');
+      const hours = document.getElementById('welcomeCountdownHours');
+      const minutes = document.getElementById('welcomeCountdownMinutes');
+      const seconds = document.getElementById('welcomeCountdownSeconds');
+      const title = countdown.querySelector('.welcome-countdown-title');
+
+      function updateWelcomeCountdown() {
+        const remaining = targetDate.getTime() - Date.now();
+
+        if (remaining <= 0) {
+          days.textContent = '00';
+          hours.textContent = '00';
+          minutes.textContent = '00';
+          seconds.textContent = '00';
+          title.textContent = '✅ Thời gian đăng ký đã kết thúc';
+          countdown.classList.add('expired');
+          return;
+        }
+
+        const totalSeconds = Math.floor(remaining / 1000);
+        days.textContent = String(Math.floor(totalSeconds / 86400)).padStart(2, '0');
+        hours.textContent = String(Math.floor((totalSeconds % 86400) / 3600)).padStart(2, '0');
+        minutes.textContent = String(Math.floor((totalSeconds % 3600) / 60)).padStart(2, '0');
+        seconds.textContent = String(totalSeconds % 60).padStart(2, '0');
+      }
+
+      updateWelcomeCountdown();
+      setInterval(updateWelcomeCountdown, 1000);
+    })();
+  </script>
+
+  <script src="Asset/script.js"></script>
 </body>
-<script src="Asset/script.js"></script>
 </html>

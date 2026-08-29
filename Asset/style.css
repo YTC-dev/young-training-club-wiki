@@ -255,6 +255,42 @@ header h1 {
   position: relative;
 }
 
+.hero {
+  padding: 56px 20px 42px;
+  background: linear-gradient(135deg, #04006b 0%, #1a2a80 50%, #0983fe 100%);
+  color: #fff;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 70% 50%, rgba(81, 194, 242, 0.18) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.hero h1 {
+  font-size: 2.3rem;
+  letter-spacing: -0.5px;
+  margin-bottom: 10px;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  position: relative;
+}
+
+.hero-subtitle {
+  font-size: 1.05rem;
+  color: #bae6fd;
+  font-weight: 400;
+  line-height: 1.6;
+  opacity: 1;
+  max-width: 760px;
+  margin: 0 auto;
+  position: relative;
+}
+
 header p {
   font-size: 1rem;
   opacity: 0.85;
@@ -656,6 +692,22 @@ html {
 
   .social-links p {
     font-size: 0.9rem;
+  }
+
+  .news-hero,
+  .about-hero,
+  .joinus-hero {
+    padding: 40px 16px 32px;
+  }
+
+  .news-hero h1,
+  .about-hero h1,
+  .joinus-hero h1 {
+    font-size: 1.65rem;
+  }
+
+  .hero-subtitle {
+    font-size: 0.95rem;
   }
 
   /* Ẩn marquee nếu cần (tùy chọn, vì marquee không thân thiện mobile) */
