@@ -1208,7 +1208,13 @@
 
     @media (max-width: 768px) {
       #welcomeScreen {
-        padding: 450px 16px 30px; /* cách mép trên 50px */
+        justify-content: flex-start;
+        padding: 88px 16px 30px;
+      }
+
+      .welcome-close {
+        top: max(16px, env(safe-area-inset-top));
+        right: max(16px, env(safe-area-inset-right));
       }
 
       #welcomeScreen h1 {
