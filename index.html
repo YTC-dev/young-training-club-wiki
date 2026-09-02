@@ -358,6 +358,117 @@
       gap: 6px;
     }
 
+    .registration-countdown-widget {
+      border-top-color: #3dd9ff;
+      background: linear-gradient(135deg, #1f4792 0%, #193366 45%, #122a5b 100%);
+      color: #eaf6ff;
+      box-shadow: 0 10px 24px rgba(12, 24, 40, 0.45), inset 0 1px 0 rgba(255,255,255,0.08);
+    }
+
+    .registration-countdown-widget .widget-title {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      text-align: center;
+      color: #dff8ff;
+      font-size: 20px;
+      text-shadow: 0 0 18px rgba(61, 217, 255, 0.6);
+    }
+
+    .registration-countdown {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .registration-countdown-title {
+      text-align: center;
+      font-size: 18px;
+      font-weight: 700;
+      line-height: 1.5;
+      color: #d3d9ff;
+    }
+
+    .registration-countdown-note {
+      text-align: center;
+      font-size: 15px;
+      font-weight: 700;
+      line-height: 1.5;
+      color: #bfeaff;
+    }
+
+    .registration-countdown-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .registration-countdown-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 8px 6px 7px;
+      border: 1px solid rgba(104, 170, 255, 0.42);
+      border-radius: 10px;
+      background: linear-gradient(180deg, rgba(24, 48, 85, 0.96), rgba(10, 19, 32, 0.9));
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.08), 0 0 0 1px rgba(122, 154, 255, 0.08);
+    }
+
+    .registration-countdown-value {
+      display: block;
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: #ffffff;
+      line-height: 1.1;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .registration-countdown-label {
+      display: block;
+      margin-top: 4px;
+      font-size: 0.64rem;
+      color: #8dd8ff;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .registration-countdown.expired .registration-countdown-note {
+      color: #cceeff;
+    }
+
+    .registration-countdown-link {
+      display: inline-block;
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #29b6f6, #1e88e5);
+      color: #f5fbff;
+      text-align: center;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 8px 18px rgba(30, 136, 229, 0.35);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+    }
+
+    .registration-countdown-link:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 20px rgba(41, 182, 246, 0.42);
+      filter: brightness(1.05);
+      color: #ffffff;
+    }
+
+    @media (max-width: 768px) {
+      .registration-countdown-grid {
+        gap: 6px;
+      }
+
+      .registration-countdown-value {
+        font-size: 1rem;
+      }
+    }
+
     /* BIRTHDAY WIDGET */
     .birthday-widget {
       border-top-color: #ff69b4;
@@ -1474,7 +1585,7 @@
     <a href="joinus.html" class="btn welcome-btn-secondary">
       🔍 Giới thiệu Gen 15.1
     </a>
-    <a href="#" class="btn welcome-btn-secondary" onclick="alert('Tính năng tạo avatar sẽ sớm ra mắt!'); return false;">
+    <a href="https://khunghinh.net/p/ytcgen15" class="btn welcome-btn-secondary" onclick="alert('Tính năng tạo avatar sẽ sớm ra mắt!'); return false;">
       🎨 Tạo avatar
     </a>
   </div>
@@ -1510,7 +1621,7 @@
       <div class="widget-title">🕐 Thời gian</div>
       <div class="clock-display" id="liveClock">--:--:--</div>
       <div class="clock-date" id="liveDate">...</div>
-        </div>
+    </div>
 
     <!-- Thống kê CLB -->
     <div class="widget">
@@ -1558,6 +1669,34 @@
 
   <!-- NỘI DUNG CHÍNH -->
   <main class="main-content">
+
+  <!-- Đăng ký thành viên -->
+  <div class="widget registration-countdown-widget">
+    <div class="widget-title">📝 Đăng ký thành viên Gen 15.1 📝</div>
+    <div class="registration-countdown" id="memberRegistrationCountdown" aria-live="polite">
+      <div class="registration-countdown-title">🔑 THE KEY IS YOU - MỘT DIỆN MẠO MỚI, MỘT HÀNH TRÌNH MỚI 🔑</div>
+      <div class="registration-countdown-note">Thời gian đăng kí: Đến hết ngày 21/09/2026</div>
+      <div class="registration-countdown-grid">
+        <div class="registration-countdown-item">
+          <span class="registration-countdown-value" id="memberCountdownDays">00</span>
+          <span class="registration-countdown-label">Ngày</span>
+        </div>
+        <div class="registration-countdown-item">
+          <span class="registration-countdown-value" id="memberCountdownHours">00</span>
+          <span class="registration-countdown-label">Giờ</span>
+        </div>
+        <div class="registration-countdown-item">
+          <span class="registration-countdown-value" id="memberCountdownMinutes">00</span>
+          <span class="registration-countdown-label">Phút</span>
+        </div>
+        <div class="registration-countdown-item">
+          <span class="registration-countdown-value" id="memberCountdownSeconds">00</span>
+          <span class="registration-countdown-label">Giây</span>
+        </div>
+      </div>
+      <a class="registration-countdown-link" href="https://docs.google.com/forms/d/e/1FAIpQLSeDCXfRFedVRbgOJlD2O6q66bzjH5wkkyDCxYJms-SKJn4j0Q/viewform" target="_blank" rel="noopener noreferrer">Đăng ký ngay</a>
+    </div>
+  </div>
 
   <!-- GIỚI THIỆU -->
   <section class="container fade-in">
@@ -2104,6 +2243,42 @@
 
       updateWelcomeCountdown();
       setInterval(updateWelcomeCountdown, 1000);
+    })();
+
+    // ===== COUNTDOWN ĐĂNG KÝ THÀNH VIÊN TRONG SIDEBAR =====
+    (function() {
+      const countdown = document.getElementById('memberRegistrationCountdown');
+      if (!countdown) return;
+
+      const targetDate = new Date(2026, 8, 22, 0, 0, 0);
+      const days = document.getElementById('memberCountdownDays');
+      const hours = document.getElementById('memberCountdownHours');
+      const minutes = document.getElementById('memberCountdownMinutes');
+      const seconds = document.getElementById('memberCountdownSeconds');
+      const title = countdown.querySelector('.registration-countdown-note');
+
+      function updateMemberRegistrationCountdown() {
+        const remaining = targetDate.getTime() - Date.now();
+
+        if (remaining <= 0) {
+          days.textContent = '00';
+          hours.textContent = '00';
+          minutes.textContent = '00';
+          seconds.textContent = '00';
+          title.textContent = '✅ Thời gian đăng ký đã kết thúc';
+          countdown.classList.add('expired');
+          return;
+        }
+
+        const totalSeconds = Math.floor(remaining / 1000);
+        days.textContent = String(Math.floor(totalSeconds / 86400)).padStart(2, '0');
+        hours.textContent = String(Math.floor((totalSeconds % 86400) / 3600)).padStart(2, '0');
+        minutes.textContent = String(Math.floor((totalSeconds % 3600) / 60)).padStart(2, '0');
+        seconds.textContent = String(totalSeconds % 60).padStart(2, '0');
+      }
+
+      updateMemberRegistrationCountdown();
+      setInterval(updateMemberRegistrationCountdown, 1000);
     })();
 
     function openStarBox() {

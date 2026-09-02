@@ -39,12 +39,12 @@
       overflow: hidden;
       background: linear-gradient(
         135deg,
-        #faf5ff 0%,
+        #d3c9ff 0%,
         #f3e8ff 45%,
-        #ddd6fe 100%
+        #d3c9ff 100%
       );
 
-      color: #6b21a8;
+      color: #490085;
       border: 1px solid rgba(109, 40, 217, 0.22);
 
       letter-spacing: 0.08em;
@@ -57,6 +57,8 @@
         0 0 0 1px rgba(255, 255, 255, 0.35) inset;
 
       margin-bottom: 16px;
+
+      animation: purple-badge-glow 2s ease-in-out infinite;
 
       transition:
         transform 0.35s ease,
@@ -82,6 +84,7 @@
 
       transform: skewX(-20deg);
       pointer-events: none;
+      z-index: 1;
 
       animation: purple-badge-shine 3s ease-in-out infinite;
     }
@@ -98,7 +101,24 @@
       100% {
         left: 150%;
       }
-}
+    }
+
+    @keyframes purple-badge-glow {
+      0%, 100% {
+        box-shadow:
+          0 4px 14px rgba(109, 40, 217, 0.12),
+          0 0 0 1px rgba(255, 255, 255, 0.35) inset,
+          0 0 0 0 rgba(109, 40, 217, 0.35);
+        border-color: rgba(109, 40, 217, 0.22);
+      }
+      50% {
+        box-shadow:
+          0 4px 18px rgba(109, 40, 217, 0.22),
+          0 0 0 1px rgba(255, 255, 255, 0.4) inset,
+          0 0 12px 3px rgba(109, 40, 217, 0.28);
+        border-color: rgba(109, 40, 217, 0.4);
+      }
+    }
 
     .profile-hero .badge,
     .golden-badge, .blue-badge, .purple-badge {
@@ -112,7 +132,7 @@
       position: relative;
       isolation: isolate;
       overflow: hidden;
-      background: linear-gradient(#ffd744d3, #ffcd58cc, #ff9f2ade);
+      background: linear-gradient(#ffd744, #ffcd58da, #ff9f2aeb);
       color: #ffffff;
       border: #ffea00 1px solid;
       letter-spacing: 0.025em;
@@ -220,7 +240,9 @@
       .golden-badge::before,
       .blue-badge::before,
       .blue-badge::after,
-      .blue-badge .badge-dot {
+      .blue-badge .badge-dot,
+      .purple-badge,
+      .purple-badge::after {
         animation: none;
       }
     }

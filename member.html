@@ -355,6 +355,21 @@
       transform: rotate(180deg);
     }
 
+    /* ===== ROLE LIST (VA Positions) ===== */
+    .role-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    .role-list .text-muted {
+      display: block;
+      font-size: 0.95rem;
+      line-height: 1.4;
+      word-break: break-word;
+    }
+
     /* ===== MOBILE ===== */
     @media (max-width: 640px) {
       .event-card {
@@ -370,6 +385,15 @@
       }
       .page-header h1 {
         font-size: 1.6rem;
+      }
+
+      .role-list {
+        gap: 4px;
+        margin-top: 6px;
+      }
+
+      .role-list .text-muted {
+        font-size: 0.9rem;
       }
     }
 
@@ -836,21 +860,34 @@
       <div class="role">
         <a href="Member/ThayGiapVanDuong.html" class="role-box highlight" style="color: black;">
         <img src="Member/Teacher/ThayGiapVanDuong.jpg">
-        <strong>Thầy Giáp Văn Dương</strong><br>
-        <span class="text-muted">- Đảng ủy Viên<br>- Bí thư Đoàn Thanh Niên<br>- Phó trưởng phòng, Phòng Chính trị và Công tác sinh viên<br>- Ủy viên Ban Chấp Hành Công Đoàn</span>
+        <strong>Thầy Giáp Văn Dương</strong>
+        <div class="role-list">
+          <span class="text-muted">- Đảng ủy Viên</span>
+          <span class="text-muted">- Bí thư Đoàn Thanh Niên</span>
+          <span class="text-muted">- Phó trưởng phòng, Phòng Chính trị và Công tác sinh viên</span>
+          <span class="text-muted">- Ủy viên Ban Chấp Hành Công Đoàn</span>
+        </div>
         </a>
 
         <a href="Member/ThayLeManhThang.html" class="role-box highlight" style="color: black;">
         <img src="Member/Teacher/ThayLeManhThang.jpg">
-        <strong>Thầy Lê Mạnh Thắng</strong><br>
-        <span class="text-muted">- Đảng ủy Viên<br>- Bí thư Chi bộ<br>- Trưởng phòng, Phòng Chính trị và Công tác sinh viên</span>
+        <strong>Thầy Lê Mạnh Thắng</strong>
+        <div class="role-list">
+          <span class="text-muted">- Đảng ủy Viên</span>
+          <span class="text-muted">- Bí thư Chi bộ</span>
+          <span class="text-muted">- Trưởng phòng, Phòng Chính trị và Công tác sinh viên</span>
+        </div>
         </a>
 
         <a href="Member/ThayPhamVanGiang.html" class="role-box highlight" style="color: black;">
         <img src="Member/Teacher/ThayPhamVanGiang.jpg">
-        <strong>Thầy Phạm Văn Giảng</strong><br>
-        <span class="text-muted">- Phó bí thư Đoàn Thanh Niên<br>- Chủ tịch Hội sinh viên<br>- Phụ trách CLB Young Training Club</span>
-        </a>
+           <strong>Thầy Phạm Văn Giảng</strong>
+           <div class="role-list">
+             <span class="text-muted">- Phó bí thư Đoàn Thanh Niên</span>
+             <span class="text-muted">- Chủ tịch Hội sinh viên</span>
+             <span class="text-muted">- Phụ trách CLB Young Training Club</span>
+           </div>
+           </a>
       </div>
     </section>
 
@@ -858,14 +895,20 @@
       <div class="role">
         <div class="role-box highlight" style="color: black;">
         <img src="Member/Teacher/CoNguyenThiThaoMai.jpg">
-        <strong>Cô Nguyễn Thị Thảo Mai</strong><br>
-        <span class="text-muted">- Ủy viên Ban Thường vụ Đoàn Thanh Niên<br>- Phó chủ tịch Hội sinh viên</span>
+        <strong>Cô Nguyễn Thị Thảo Mai</strong>
+        <div class="role-list">
+          <span class="text-muted">- Ủy viên Ban Thường vụ Đoàn Thanh Niên</span>
+          <span class="text-muted">- Phó chủ tịch Hội sinh viên</span>
+        </div>
         </div>
 
         <div class="role-box highlight" style="color: black;">
         <img src="Member/Teacher/ThayVuHongThanh.jpg">
-        <strong>Thầy Vũ Hồng Thanh</strong><br>
-        <span class="text-muted">- Đảng ủy Viên<br>- Trưởng phòng, Phòng Tuyển sinh, Truyền thông và Đối ngoại</span>
+        <strong>Thầy Vũ Hồng Thanh</strong>
+        <div class="role-list">
+          <span class="text-muted">- Đảng ủy Viên</span>
+          <span class="text-muted">- Trưởng phòng, Phòng Tuyển sinh, Truyền thông và Đối ngoại</span>
+        </div>
         </div>
 
         <div class="role-box highlight" style="color: black;">
