@@ -18,6 +18,86 @@
       padding: 32px 0;
     }
 
+    .timeline-wrap {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 18px;
+    }
+
+    .timeline-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(9, 131, 254, 0.18);
+      border-radius: 18px;
+      padding: 18px 20px;
+      box-shadow: 0 8px 24px rgba(44, 59, 144, 0.06);
+      transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .timeline-item.is-current {
+      border-color: rgba(255, 179, 0, 0.7);
+      background: linear-gradient(135deg, rgba(255, 250, 220, 0.95), rgba(255, 255, 255, 0.95));
+      box-shadow: 0 12px 28px rgba(255, 179, 0, 0.18);
+      transform: translateY(-2px);
+    }
+
+    .timeline-item.is-current .timeline-badge {
+      background: linear-gradient(135deg, #fef3c7, #fcd34d);
+      color: #7c4a00;
+    }
+
+    .timeline-item.is-current .timeline-date {
+      background: #fff3bf;
+      color: #8a5b00;
+    }
+
+    .timeline-badge {
+      flex-shrink: 0;
+      width: 52px;
+      height: 52px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #e0f2fe, #dbeafe);
+      color: var(--blue-main);
+      font-size: 1.3rem;
+      font-weight: 800;
+      box-shadow: inset 0 0 0 1px rgba(9, 131, 254, 0.12);
+    }
+
+    .timeline-content {
+      min-width: 0;
+    }
+
+    .timeline-date {
+      display: inline-block;
+      margin-bottom: 6px;
+      padding: 5px 10px;
+      border-radius: 999px;
+      background: #eef6ff;
+      color: var(--blue-dark);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    .timeline-content h3 {
+      margin: 0 0 4px;
+      font-size: 1.08rem;
+      color: var(--blue-dark);
+    }
+
+    .timeline-content p {
+      margin: 0;
+      color: var(--text-muted);
+      line-height: 1.6;
+      font-size: 0.94rem;
+    }
+
     .section-header {
       text-align: center;
       margin-bottom: 28px;
@@ -414,6 +494,10 @@
     }
 
     @media (max-width: 640px) {
+      .timeline-wrap {
+        grid-template-columns: 1fr;
+      }
+
       .hero {
         padding: 40px 16px 32px;
       }
@@ -508,6 +592,54 @@
           <a href="https://khunghinh.net/p/ytcgen15" target="_blank" class="btn welcome-btn-secondary">
             🎨 Tạo avatar
           </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 1.5. TIMELINE TUYỂN THÀNH VIÊN -->
+  <section class="joinus-section">
+    <div class="container fade-in">
+      <div class="section-header">
+        <h2 class="section-title">Timeline tuyển thành viên</h2>
+        <p class="section-desc">Theo dõi các mốc thời gian quan trọng trong quá trình tuyển chọn thành viên mới của YTC.</p>
+      </div>
+
+      <div class="timeline-wrap">
+        <div class="timeline-item" data-start="2026-09-01" data-end="2026-09-21">
+          <div class="timeline-badge">1</div>
+          <div class="timeline-content">
+            <span class="timeline-date">Ngày 1-21/9/2026</span>
+            <h3>Mở đơn</h3>
+            <p>Chính thức bắt đầu nhận hồ sơ ứng tuyển từ các bạn sinh viên quan tâm.</p>
+          </div>
+        </div>
+
+        <div class="timeline-item" data-start="2026-09-22" data-end="2026-09-25">
+          <div class="timeline-badge">2</div>
+          <div class="timeline-content">
+            <span class="timeline-date">Ngày 22/9/2026</span>
+            <h3>Đóng đơn</h3>
+            <p>Hạn cuối nộp hồ sơ và gửi đầy đủ thông tin cần thiết cho đơn ứng tuyển.</p>
+          </div>
+        </div>
+
+        <div class="timeline-item" data-start="2026-09-26" data-end="2026-09-28">
+          <div class="timeline-badge">3</div>
+          <div class="timeline-content">
+            <span class="timeline-date">Ngày 26-27/9/2026</span>
+            <h3>Phỏng vấn</h3>
+            <p>Thành viên hội đồng tuyển chọn sẽ tiến hành phỏng vấn trực tiếp để đánh giá sự phù hợp.</p>
+          </div>
+        </div>
+
+        <div class="timeline-item" data-start="2026-09-30" data-end="2026-10-01">
+          <div class="timeline-badge">4</div>
+          <div class="timeline-content">
+            <span class="timeline-date">Ngày 30/9/2026</span>
+            <h3>Công bố thành viên chính thức</h3>
+            <p>Thông báo danh sách thành viên được tuyển chọn và chào đón các bạn gia nhập YTC.</p>
+          </div>
         </div>
       </div>
     </div>
@@ -645,37 +777,56 @@
   <script>
     (function() {
       const countdown = document.getElementById('welcomeCountdown');
-      if (!countdown) return;
+      if (countdown) {
+        const targetDate = new Date(2026, 8, 22, 0, 0, 0);
+        const days = document.getElementById('welcomeCountdownDays');
+        const hours = document.getElementById('welcomeCountdownHours');
+        const minutes = document.getElementById('welcomeCountdownMinutes');
+        const seconds = document.getElementById('welcomeCountdownSeconds');
+        const title = countdown.querySelector('.welcome-countdown-title');
 
-      const targetDate = new Date(2026, 8, 22, 0, 0, 0);
-      const days = document.getElementById('welcomeCountdownDays');
-      const hours = document.getElementById('welcomeCountdownHours');
-      const minutes = document.getElementById('welcomeCountdownMinutes');
-      const seconds = document.getElementById('welcomeCountdownSeconds');
-      const title = countdown.querySelector('.welcome-countdown-title');
+        function updateWelcomeCountdown() {
+          const remaining = targetDate.getTime() - Date.now();
 
-      function updateWelcomeCountdown() {
-        const remaining = targetDate.getTime() - Date.now();
+          if (remaining <= 0) {
+            days.textContent = '00';
+            hours.textContent = '00';
+            minutes.textContent = '00';
+            seconds.textContent = '00';
+            title.textContent = '✅ Thời gian đăng ký đã kết thúc';
+            countdown.classList.add('expired');
+            return;
+          }
 
-        if (remaining <= 0) {
-          days.textContent = '00';
-          hours.textContent = '00';
-          minutes.textContent = '00';
-          seconds.textContent = '00';
-          title.textContent = '✅ Thời gian đăng ký đã kết thúc';
-          countdown.classList.add('expired');
-          return;
+          const totalSeconds = Math.floor(remaining / 1000);
+          days.textContent = String(Math.floor(totalSeconds / 86400)).padStart(2, '0');
+          hours.textContent = String(Math.floor((totalSeconds % 86400) / 3600)).padStart(2, '0');
+          minutes.textContent = String(Math.floor((totalSeconds % 3600) / 60)).padStart(2, '0');
+          seconds.textContent = String(totalSeconds % 60).padStart(2, '0');
         }
 
-        const totalSeconds = Math.floor(remaining / 1000);
-        days.textContent = String(Math.floor(totalSeconds / 86400)).padStart(2, '0');
-        hours.textContent = String(Math.floor((totalSeconds % 86400) / 3600)).padStart(2, '0');
-        minutes.textContent = String(Math.floor((totalSeconds % 3600) / 60)).padStart(2, '0');
-        seconds.textContent = String(totalSeconds % 60).padStart(2, '0');
+        updateWelcomeCountdown();
+        setInterval(updateWelcomeCountdown, 1000);
       }
 
-      updateWelcomeCountdown();
-      setInterval(updateWelcomeCountdown, 1000);
+      const timelineItems = document.querySelectorAll('.timeline-item');
+      if (!timelineItems.length) return;
+
+      const today = new Date();
+      const todayString = new Date(today.getFullYear(), today.getMonth(), today.getDate()).toISOString().slice(0, 10);
+
+      timelineItems.forEach((item) => {
+        const start = item.dataset.start;
+        const end = item.dataset.end || start;
+        if (!start) return;
+
+        const startDate = new Date(`${start}T00:00:00`);
+        const endDate = new Date(`${end}T23:59:59`);
+
+        if (today >= startDate && today <= endDate) {
+          item.classList.add('is-current');
+        }
+      });
     })();
   </script>
 
