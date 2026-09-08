@@ -1153,6 +1153,9 @@
       text-align: left;
       font-size: 0.88rem;
       color: #64748b;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
     }
 
     .btc-card strong {
@@ -1160,6 +1163,11 @@
       margin-top: 4px;
       color: #0f172a;
       font-size: 0.92rem;
+    }
+
+    .btc-card .profile-link-btn {
+      align-self: flex-start;
+      margin-top: 2px;
     }
 
     /* Sponsor cards */
