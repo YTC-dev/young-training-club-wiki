@@ -65,6 +65,12 @@ const footerHTML = `
           TikTok CLB:
           <a href="https://www.tiktok.com/@ytc.uneti" target="_blank">
           https://www.tiktok.com/@ytc.uneti
+          </a><br>
+
+          <img src="${BASE}/Image/Tiktok.png" class="social-icon" alt="TikTok">
+          TikTok Lễ Tân YTC:
+          <a href="https://www.tiktok.com/@letanytc.uneti" target="_blank">
+          https://www.tiktok.com/@letanytc.uneti
           </a>
         </p>
 
