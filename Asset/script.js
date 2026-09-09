@@ -51,7 +51,7 @@ const footerHTML = `
       <!-- Cột 1: Thương hiệu CLB & Giới thiệu -->
       <div class="footer-col footer-col--brand">
         <a href="${BASE}/index.html" class="footer-logo">
-          <p style="font-size: 20px; color: #7ed6ff"><strong>YTC - CLB Đào tạo kỹ năng trẻ</strong></p>
+          <p style="font-size: 20px; color: #7ed6ff"><strong>YTC - CLB Đào Tạo Kỹ Năng Trẻ</strong></p>
         </a>
         <p class="footer-tagline">“Nơi thắp sáng đam mê, tôi luyện kỹ năng và kết nối những trái tim nhiệt huyết trẻ UNETI.”</p>
         <div class="footer-org-badge">
