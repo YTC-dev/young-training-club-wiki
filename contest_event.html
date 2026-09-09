@@ -290,9 +290,14 @@
     .result-cover-wrap {
       position: relative;
       width: 100%;
-      height: 240px;
+      height: 300px;
       overflow: hidden;
       background: #f0f7ff;
+    }
+
+    .result-cover-wrap--wide {
+      height: auto;
+      aspect-ratio: 16 / 9;
     }
 
     .result-cover {
@@ -732,6 +737,9 @@
       .result-cover-wrap {
         height: 200px;
       }
+      .result-cover-wrap--wide {
+        height: auto;
+      }
     }
 
     @media (max-width: 600px) {
@@ -848,7 +856,7 @@
         <article class="result-card" data-category="podcast" data-keywords="one take one-take podcast gen 14.2 oneteam donald trump shineon">
           <div class="result-cover-wrap">
             <span class="card-category-tag">🎙️ Podcast Gen 14.2</span>
-            <img src="Contest/Podcast/Image/OneTakeResult.jpg" alt="Công bố giải Cuộc thi One - Take" class="result-cover" loading="lazy">
+            <img src="Contest/Podcast/Image/OneTake.jpg" alt="Công bố giải Cuộc thi One - Take" class="result-cover" loading="lazy">
           </div>
           <div class="result-body">
             <div class="result-top-info">
@@ -890,7 +898,7 @@
         <article class="result-card" data-category="podcast" data-keywords="rewrite destiny podcast gen 14.1 good vibes tribe the light am thuc trung sinh infinity dreamten">
           <div class="result-cover-wrap">
             <span class="card-category-tag">🎙️ Podcast Gen 14.1</span>
-            <img src="Contest/Podcast/Image/RewriteDestinyResult.jpg" alt="Công bố giải Cuộc thi Rewrite Destiny" class="result-cover" loading="lazy">
+            <img src="Contest/Podcast/Image/RewriteDestiny.jpg" alt="Công bố giải Cuộc thi Rewrite Destiny" class="result-cover" loading="lazy">
           </div>
           <div class="result-body">
             <div class="result-top-info">
@@ -935,7 +943,7 @@
         <article class="result-card" data-category="podcast" data-keywords="voice your mind podcast gen 13.2 together we rise biet doi xanh crew 1718">
           <div class="result-cover-wrap">
             <span class="card-category-tag">🎙️ Podcast Gen 13.2</span>
-            <img src="Contest/Podcast/Image/VoiceYourMindResult.jpg" alt="Công bố giải Cuộc thi Voice Your Mind" class="result-cover" loading="lazy">
+            <img src="Contest/Podcast/Image/VoiceYourMind.jpg" alt="Công bố giải Cuộc thi Voice Your Mind" class="result-cover" loading="lazy">
           </div>
           <div class="result-body">
             <div class="result-top-info">
@@ -977,7 +985,7 @@
         <article class="result-card" data-category="podcast" data-keywords="ytc podcast challenge gen 13.1 innovators hon thua musketeers bom no cham">
           <div class="result-cover-wrap">
             <span class="card-category-tag">🎙️ Podcast Gen 13.1</span>
-            <img src="Contest/Podcast/Image/YTCPodcastChallengeResult.jpg" alt="Công bố giải Cuộc thi YTC Podcast Challenge" class="result-cover" loading="lazy">
+            <img src="Contest/Podcast/Image/YTCPodcastChallenge.jpg" alt="Công bố giải Cuộc thi YTC Podcast Challenge" class="result-cover" loading="lazy">
           </div>
           <div class="result-body">
             <div class="result-top-info">
@@ -1020,7 +1028,7 @@
         <article class="result-card" data-category="podcast" data-keywords="suy nghi trong toi podcast gen 12.2 ba dao bac nhat sao sang the one">
           <div class="result-cover-wrap">
             <span class="card-category-tag">🎙️ Podcast Gen 12.2</span>
-            <img src="Contest/Podcast/Image/SuyNghiTrongToiResult.jpg" alt="Công bố giải Cuộc thi Suy Nghĩ Trong Tôi" class="result-cover" loading="lazy">
+            <img src="Contest/Podcast/Image/SuyNghiTrongToi.jpg" alt="Công bố giải Cuộc thi Suy Nghĩ Trong Tôi" class="result-cover" loading="lazy">
           </div>
           <div class="result-body">
             <div class="result-top-info">
@@ -1062,7 +1070,7 @@
         <article class="result-card" data-category="podcast" data-keywords="net dep am thuc viet podcast gen 12.1 huong sac viet nam tinh hoa sang tao hom nay an gi">
           <div class="result-cover-wrap">
             <span class="card-category-tag">🎙️ Podcast Gen 12.1</span>
-            <img src="Contest/Podcast/Image/NetDepAmThucVietResult.jpg" alt="Công bố giải Nét đẹp ẩm thực Việt" class="result-cover" loading="lazy">
+            <img src="Contest/Podcast/Image/NetDepAmThucViet.jpg" alt="Công bố giải Nét đẹp ẩm thực Việt" class="result-cover" loading="lazy">
           </div>
           <div class="result-body">
             <div class="result-top-info">
@@ -1118,7 +1126,7 @@
 
         <!-- 1. RISING VOICE 2025 -->
         <article class="result-card" data-category="mc" data-keywords="rising voice 2025 the mc talent hunt to thu trang nguyen thi thanh hoa nguyen ngoc nhu quynh nguyen minh anh ngo hanh nguyen">
-          <div class="result-cover-wrap" style="height: 425px;">
+          <div class="result-cover-wrap result-cover-wrap--wide">
             <img src="Contest/RisingVoice2025/Image/QuanQuan.jpg" alt="Quán quân Rising Voice 2025" class="result-cover" loading="lazy">
           </div>
           <div class="result-body">
@@ -1219,7 +1227,7 @@
             </div>
 
             <div class="result-card-footer">
-              <span class="result-meta-pill">🔥 Cuộc thi cấp trường</span>
+              <span class="result-meta-pill">🔥 Ý tưởng sáng tạo khởi nghiệp</span>
             </div>
           </div>
         </article>
@@ -1265,7 +1273,7 @@
             </div>
 
             <div class="result-card-footer">
-              <span class="result-meta-pill">✨ Ý tưởng sáng tạo khởi nghiệp</span>
+              <span class="result-meta-pill">✨ Loa toả nét đẹp của sinh viên UNETI</span>
             </div>
           </div>
         </article>
