@@ -2,1043 +2,1516 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <title>Cuộc thi - CLB Đào tạo Kỹ năng Trẻ</title>
+  <title>Cuộc thi & Hoạt động Tranh tài - CLB Đào tạo Kỹ năng Trẻ</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- Link CSS hệ thống -->
   <link rel="stylesheet" href="Asset/style.css">
   <link rel="icon" type="image/png" href="Image/YTC-Favicon.png">
+
+  <style>
+    /* =====================================================
+       CONTEST PAGE SPECIFIC STYLES
+       ===================================================== */
+    :root {
+      --rank-gold: #f59e0b;
+      --rank-gold-light: #fef3c7;
+      --rank-gold-border: rgba(245, 158, 11, 0.4);
+      --rank-silver: #64748b;
+      --rank-silver-light: #f1f5f9;
+      --rank-silver-border: rgba(100, 116, 139, 0.3);
+      --rank-bronze: #d97706;
+      --rank-bronze-light: #ffedd5;
+      --rank-bronze-border: rgba(217, 119, 6, 0.35);
+      --rank-fav: #e11d48;
+      --rank-fav-light: #ffe4e6;
+    }
+
+
+    /* Stats Overview Bar */
+    .contest-stats-bar {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+      max-width: 1040px;
+      margin: -24px auto 36px;
+      padding: 0 16px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .contest-stat-item {
+      background: #ffffff;
+      border: 1.5px solid rgba(161, 227, 255, 0.55);
+      border-radius: var(--radius-md);
+      padding: 16px 14px;
+      text-align: center;
+      box-shadow: 0 8px 24px rgba(44, 59, 144, 0.08);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+    }
+
+    .contest-stat-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 28px rgba(9, 131, 254, 0.16);
+      border-color: var(--blue-accent);
+    }
+
+    .contest-stat-icon {
+      font-size: 1.6rem;
+      margin-bottom: 2px;
+    }
+
+    .contest-stat-val {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--blue-dark);
+      line-height: 1.1;
+    }
+
+    .contest-stat-lbl {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    /* Filter & Search Toolbar */
+    .contest-toolbar {
+      max-width: 1040px;
+      margin: 0 auto 36px;
+      padding: 0 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .filter-chips-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+    }
+
+    .filter-chip {
+      padding: 9px 20px;
+      border-radius: 30px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      background: #ffffff;
+      color: var(--text-main);
+      border: 1.5px solid rgba(161, 227, 255, 0.5);
+      cursor: pointer;
+      transition: all 0.25s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 2px 8px rgba(44, 59, 144, 0.04);
+      user-select: none;
+    }
+
+    .filter-chip:hover {
+      background: #f0f8ff;
+      color: var(--blue-accent);
+      border-color: var(--blue-accent);
+      transform: translateY(-2px);
+    }
+
+    .filter-chip.active {
+      background: linear-gradient(135deg, #0983fe, #04006b);
+      color: #ffffff;
+      border-color: transparent;
+      box-shadow: 0 6px 18px rgba(9, 131, 254, 0.28);
+      transform: translateY(-2px);
+    }
+
+    .filter-chip .chip-count {
+      background: rgba(255, 255, 255, 0.25);
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 700;
+    }
+
+    .filter-chip:not(.active) .chip-count {
+      background: #e0f2fe;
+      color: #0284c7;
+    }
+
+    /* Search Box */
+    .search-input-wrap {
+      position: relative;
+      max-width: 520px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    .search-input-wrap input {
+      width: 100%;
+      padding: 12px 20px 12px 46px;
+      font-size: 0.95rem;
+      border-radius: 30px;
+      border: 1.5px solid rgba(161, 227, 255, 0.6);
+      background: #ffffff;
+      box-shadow: 0 4px 16px rgba(44, 59, 144, 0.05);
+      outline: none;
+      transition: all 0.25s ease;
+      color: var(--text-main);
+    }
+
+    .search-input-wrap input:focus {
+      border-color: var(--blue-accent);
+      box-shadow: 0 6px 20px rgba(9, 131, 254, 0.18);
+    }
+
+    .search-input-wrap .search-icon {
+      position: absolute;
+      left: 18px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      font-size: 1.1rem;
+      pointer-events: none;
+    }
+
+    .search-input-wrap .clear-btn {
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: #f1f5f9;
+      border: none;
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      cursor: pointer;
+      display: none;
+    }
+
+    .search-input-wrap .clear-btn:hover {
+      background: #e2e8f0;
+      color: var(--text-main);
+    }
+
+    /* Section & Module Headers */
+    .contest-module {
+      max-width: 1040px;
+      margin: 0 auto 52px;
+      padding: 0 16px;
+    }
+
+    .module-header {
+      margin-bottom: 24px;
+    }
+
+    .module-badge-wrap {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      border-radius: 20px;
+      background: #e0f2fe;
+      color: #0284c7;
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      margin-bottom: 10px;
+    }
+
+    .module-title {
+      font-size: 1.7rem;
+      font-weight: 800;
+      color: var(--blue-dark);
+      letter-spacing: -0.3px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .module-desc {
+      background: linear-gradient(145deg, #ffffff 0%, #f8fbff 100%);
+      border-left: 4px solid var(--blue-accent);
+      border-radius: 0 var(--radius-md) var(--radius-md) 0;
+      padding: 18px 22px;
+      color: var(--text-body);
+      line-height: 1.65;
+      font-size: 0.96rem;
+      box-shadow: 0 4px 16px rgba(44, 59, 144, 0.04);
+      border-top: 1px solid rgba(161, 227, 255, 0.25);
+      border-right: 1px solid rgba(161, 227, 255, 0.25);
+      border-bottom: 1px solid rgba(161, 227, 255, 0.25);
+    }
+
+    .contest-divider {
+      max-width: 1040px;
+      margin: 40px auto 52px;
+      height: 1.5px;
+      background: linear-gradient(90deg, transparent, rgba(9, 131, 254, 0.35), transparent);
+      border: none;
+    }
+
+    /* Contest Cards Grid */
+    .result-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      align-items: stretch;
+    }
+
+    .result-card {
+      background: #ffffff;
+      border: 1.5px solid rgba(161, 227, 255, 0.5);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 6px 20px rgba(44, 59, 144, 0.06);
+      transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .result-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 36px rgba(9, 131, 254, 0.16);
+      border-color: var(--blue-accent);
+    }
+
+    /* Card Cover & Badge */
+    .result-cover-wrap {
+      position: relative;
+      width: 100%;
+      height: 240px;
+      overflow: hidden;
+      background: #f0f7ff;
+    }
+
+    .result-cover {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.45s ease;
+    }
+
+    .result-card:hover .result-cover {
+      transform: scale(1.05);
+    }
+
+    .card-category-tag {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      background: rgba(4, 0, 107, 0.85);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      color: #ffffff;
+      font-size: 0.74rem;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Card Body */
+    .result-body {
+      padding: 22px 20px 24px;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+      justify-content: space-between;
+    }
+
+    .result-top-info {
+      margin-bottom: 16px;
+    }
+
+    .result-name {
+      font-size: 1.18rem;
+      font-weight: 800;
+      color: var(--blue-dark);
+      margin-bottom: 8px;
+      line-height: 1.35;
+    }
+
+    .result-meta-pill-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+
+    .result-meta-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.8rem;
+      padding: 3px 10px;
+      border-radius: 12px;
+      background: #f1f5f9;
+      color: var(--text-body);
+      font-weight: 600;
+    }
+
+    .result-meta-pill.highlight {
+      background: #e0f2fe;
+      color: #0284c7;
+    }
+
+    /* PODIUM / BỤC VINH DANH */
+    .podium-wrap {
+      margin: 16px 0 18px;
+    }
+
+    .podium-title {
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .podium {
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .podium-step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex: 1 1 0;
+      padding: 12px 6px 10px;
+      border-radius: 12px 12px 6px 6px;
+      text-align: center;
+      position: relative;
+      border: 1px solid transparent;
+      transition: transform 0.25s ease;
+    }
+
+    .podium-step:hover {
+      transform: translateY(-3px);
+    }
+
+    .podium-step .medal {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 0.95rem;
+      color: #ffffff;
+      margin-bottom: 6px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+      flex-shrink: 0;
+    }
+
+    .podium-step .rank-label {
+      font-size: 0.68rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+    }
+
+    .podium-step .winner-name {
+      font-weight: 700;
+      font-size: 0.82rem;
+      color: var(--blue-dark);
+      line-height: 1.25;
+      display: block;
+    }
+
+    .podium-step .winner-name + .winner-name {
+      margin-top: 5px;
+      padding-top: 5px;
+      border-top: 1px dashed rgba(15, 23, 42, 0.15);
+    }
+
+    .podium-step .winner-meta {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      font-weight: 600;
+      margin-top: 2px;
+      display: block;
+    }
+
+    /* Gold / 1st Place */
+    .podium-step.gold {
+      order: 2;
+      background: linear-gradient(180deg, var(--rank-gold-light) 0%, rgba(254, 243, 199, 0.3) 100%);
+      border-color: var(--rank-gold-border);
+      padding-top: 16px;
+      transform: translateY(-8px);
+    }
+    .podium-step.gold:hover {
+      transform: translateY(-11px);
+    }
+    .podium-step.gold .medal {
+      background: linear-gradient(135deg, #fbbf24, #d97706);
+      border: 2px solid #ffffff;
+    }
+    .podium-step.gold .rank-label {
+      color: #b45309;
+    }
+
+    /* Silver / 2nd Place */
+    .podium-step.silver {
+      order: 1;
+      background: linear-gradient(180deg, var(--rank-silver-light) 0%, rgba(241, 245, 249, 0.3) 100%);
+      border-color: var(--rank-silver-border);
+    }
+    .podium-step.silver .medal {
+      background: linear-gradient(135deg, #94a3b8, #475569);
+      border: 2px solid #ffffff;
+    }
+    .podium-step.silver .rank-label {
+      color: #475569;
+    }
+
+    /* Bronze / 3rd Place */
+    .podium-step.bronze {
+      order: 3;
+      background: linear-gradient(180deg, var(--rank-bronze-light) 0%, rgba(255, 237, 213, 0.3) 100%);
+      border-color: var(--rank-bronze-border);
+    }
+    .podium-step.bronze .medal {
+      background: linear-gradient(135deg, #f97316, #c2410c);
+      border: 2px solid #ffffff;
+    }
+    .podium-step.bronze .rank-label {
+      color: #c2410c;
+    }
+
+    /* Special Award */
+    .special-award-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--rank-fav-light);
+      color: var(--rank-fav);
+      border: 1px solid rgba(225, 29, 72, 0.2);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-weight: 700;
+      font-size: 0.82rem;
+      margin-top: 10px;
+    }
+
+    /* Participant Entry List for General Contests */
+    .entry-section-label {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin: 12px 0 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .entry-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .entry-card {
+      background: #f8fafc;
+      border-left: 3.5px solid var(--blue-accent);
+      border-radius: 4px 12px 12px 4px;
+      padding: 10px 14px;
+      border-top: 1px solid #edf2f7;
+      border-right: 1px solid #edf2f7;
+      border-bottom: 1px solid #edf2f7;
+      transition: all 0.2s ease;
+    }
+
+    .entry-card:hover {
+      background: #f0f7ff;
+      border-left-color: var(--blue-dark);
+      transform: translateX(3px);
+    }
+
+    .entry-top {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+      margin-bottom: 4px;
+    }
+
+    .entry-name {
+      font-weight: 700;
+      font-size: 0.92rem;
+      color: var(--blue-dark);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: color 0.2s ease;
+    }
+
+    a.entry-name:hover {
+      color: var(--blue-accent);
+      text-decoration: underline;
+    }
+
+    .entry-class {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #0369a1;
+      background: #e0f2fe;
+      padding: 2px 8px;
+      border-radius: 10px;
+    }
+
+    .entry-team, .entry-title {
+      font-size: 0.82rem;
+      color: var(--text-body);
+      line-height: 1.4;
+      margin: 2px 0;
+    }
+
+    .entry-team .team-label, .entry-title .title-label {
+      font-weight: 700;
+      color: var(--text-muted);
+    }
+
+    .entry-bottom-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 6px;
+    }
+
+    .entry-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 3px 10px;
+      border-radius: 12px;
+      font-size: 0.74rem;
+      font-weight: 700;
+    }
+
+    .entry-status.stage-final {
+      background: #fef3c7;
+      color: #b45309;
+      border: 1px solid rgba(245, 158, 11, 0.3);
+    }
+
+    .entry-status.stage-progress {
+      background: #e0f2fe;
+      color: #0369a1;
+      border: 1px solid rgba(2, 132, 199, 0.25);
+    }
+
+    .entry-inline-link {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--blue-accent);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      transition: all 0.2s ease;
+    }
+
+    .entry-inline-link:hover {
+      color: var(--blue-dark);
+      transform: translateX(2px);
+    }
+
+    /* Result Card Action CTA */
+    .result-card-footer {
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 1px solid #f1f5f9;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .result-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 700;
+      font-size: 0.88rem;
+      color: #ffffff;
+      background: linear-gradient(135deg, #0983fe, #04006b);
+      padding: 9px 20px;
+      border-radius: 12px;
+      text-decoration: none;
+      transition: all 0.25s ease;
+      box-shadow: 0 4px 14px rgba(9, 131, 254, 0.22);
+    }
+
+    .result-link:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(9, 131, 254, 0.35);
+      color: #ffffff;
+    }
+
+    .result-link.disabled {
+      background: #e2e8f0;
+      color: #94a3b8;
+      box-shadow: none;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+
+    /* No Search Results Message */
+    .no-results-box {
+      display: none;
+      text-align: center;
+      padding: 48px 20px;
+      background: #ffffff;
+      border: 1.5px dashed rgba(161, 227, 255, 0.8);
+      border-radius: 20px;
+      max-width: 600px;
+      margin: 30px auto;
+    }
+
+    .no-results-box .no-res-icon {
+      font-size: 3rem;
+      margin-bottom: 12px;
+    }
+
+    .no-results-box h3 {
+      font-size: 1.25rem;
+      color: var(--blue-dark);
+      margin-bottom: 8px;
+    }
+
+    .no-results-box p {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      margin-bottom: 16px;
+    }
+
+    .reset-search-btn {
+      padding: 8px 20px;
+      border-radius: 20px;
+      background: var(--blue-accent);
+      color: #fff;
+      border: none;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    /* Responsive */
+    @media (max-width: 860px) {
+      .result-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+      .result-cover-wrap {
+        height: 200px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .contest-stats-bar {
+        grid-template-columns: repeat(2, 1fr);
+        margin-top: -16px;
+      }
+      .module-title {
+        font-size: 1.4rem;
+      }
+      .result-body {
+        padding: 16px 14px;
+      }
+      .podium-step .medal {
+        width: 30px;
+        height: 30px;
+        font-size: 0.85rem;
+      }
+      .podium-step .winner-name {
+        font-size: 0.78rem;
+      }
+    }
+  </style>
 </head>
-<style>
-:root {
-    /* Rank / Podium colors */
-    --rank-gold:         #f5c518;
-    --rank-gold-soft:    rgba(245, 197, 24, 0.15);
-    --rank-silver:       #b0bec5;
-    --rank-silver-soft:  rgba(176, 190, 197, 0.15);
-    --rank-bronze:       #cd7f32;
-    --rank-bronze-soft:  rgba(205, 127, 50, 0.15);
-    --rank-favorite-soft: rgba(179, 55, 90, 0.10);
-
-    /* Display font */
-    --font-display: 'Inter', 'Segoe UI', sans-serif;
-}
-
-    /* ---------- Header subtitle ---------- */
-header p.subtitle {
-  font-size: 1rem;
-  opacity: 0.85;
-  margin-top: 4px;
-}
- 
-/* ---------- Module = one contest category ---------- */
-.contest-module {
-  margin: 0 auto 48px;
-  max-width: 1000px;
-  text-align: left;
-}
- 
-.contest-eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 6px 14px;
-  border-radius: 999px;
-  background: var(--light-blue);
-  color: var(--blue-dark);
-  font-family: var(--font-display);
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  margin-bottom: 12px;
-}
- 
-.contest-title {
-  font-family: var(--font-display);
-  font-size: 1.9rem;
-  font-weight: 700;
-  color: var(--blue-dark);
-  letter-spacing: -0.5px;
-  margin-bottom: 18px;
-  text-align: left;
-  display: block;
-}
- 
-/* Override the global centered/underlined h2 just within this module */
-.contest-module h2.contest-title {
-  display: block;
-}
-.contest-module h2.contest-title::after {
-  content: none;
-}
- 
-.contest-intro {
-  background: var(--light-bg);
-  border-left: 4px solid var(--blue-accent);
-  border-radius: var(--radius-md);
-  padding: 18px 22px;
-  text-align: left;
-  box-shadow: var(--shadow-soft);
-  color: var(--text-main);
-  margin-bottom: 8px;
-}
- 
-.list-label {
-  display: block;
-  text-align: left;
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 0.95rem;
-  color: var(--blue-main);
-  margin: 28px 0 14px;
-  padding-left: 14px;
-  border-left: 3px solid var(--blue-accent);
-}
- 
-.contest-divider {
-  width: 60%;
-  max-width: 320px;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, var(--blue-soft), transparent);
-  margin: 8px auto 48px;
-  border: none;
-}
- 
-/* ---------- Result card = one specific contest ---------- */
-.result-card {
-  background: var(--light-bg);
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  box-shadow: var(--shadow-soft);
-  margin-bottom: 28px;
-  transition: var(--transition-fast);
-  text-align: center;
-}
- 
-.result-card:hover {
-  box-shadow: var(--shadow-hover);
-}
- 
-.result-cover {
-  width: 100%;
-  display: block;
-  max-height: 700px;
-  object-fit: cover;
-}
- 
-.result-body {
-  padding: 26px 22px;
-}
- 
-.result-name {
-  font-family: var(--font-display);
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: var(--blue-main);
-  margin-bottom: 22px;
-  letter-spacing: 0.2px;
-}
- 
-/* ---------- Podium ---------- */
-.podium {
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  gap: 14px;
-  margin: 8px 0 28px;
-  flex-wrap: wrap;
-}
- 
-.podium-step {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  flex: 1 1 150px;
-  max-width: 190px;
-  padding: 18px 14px 16px;
-  border-radius: var(--radius-md) var(--radius-md) 4px 4px;
-  opacity: 0;
-  animation: fadeIn 0.6s ease forwards;
-}
- 
-.podium-step:nth-child(1) { animation-delay: 0.05s; }
-.podium-step:nth-child(2) { animation-delay: 0.15s; }
-.podium-step:nth-child(3) { animation-delay: 0.25s; }
- 
-.podium-step .medal {
-  width: 46px;
-  height: 46px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: var(--font-display);
-  font-weight: 800;
-  font-size: 1.05rem;
-  color: #fff;
-  margin-bottom: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-}
- 
-.podium-step .rank-label {
-  font-size: 0.7rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  margin-bottom: 4px;
-  opacity: 0.7;
-}
- 
-.podium-step .winner-name {
-  font-weight: 700;
-  font-size: 0.98rem;
-  color: var(--text-main);
-  line-height: 1.3;
-  display: block;
-}
- 
-.podium-step .winner-name + .winner-name {
-  margin-top: 8px;
-  padding-top: 8px;
-  border-top: 1px dashed rgba(15, 23, 42, 0.15);
-}
- 
-.podium-step .winner-meta {
-  font-size: 0.78rem;
-  color: var(--text-muted);
-  margin-top: 2px;
-  display: block;
-}
- 
-.podium-step.gold {
-  order: 2;
-  background: linear-gradient(180deg, var(--rank-gold-soft), transparent);
-  transform: translateY(-14px);
-}
-.podium-step.gold .medal { background: linear-gradient(135deg, var(--rank-gold), #d99a1f); }
- 
-.podium-step.silver {
-  order: 1;
-  background: linear-gradient(180deg, var(--rank-silver-soft), transparent);
-}
-.podium-step.silver .medal { background: linear-gradient(135deg, var(--rank-silver), #8a9aa6); }
- 
-.podium-step.bronze {
-  order: 3;
-  background: linear-gradient(180deg, var(--rank-bronze-soft), transparent);
-}
-.podium-step.bronze .medal { background: linear-gradient(135deg, var(--rank-bronze), #a8662f); }
- 
-/* ---------- Special / audience-choice award ---------- */
-.special-award {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: var(--rank-favorite-soft);
-  color: #b3375a;
-  padding: 10px 18px;
-  border-radius: 999px;
-  font-weight: 600;
-  font-size: 0.9rem;
-  margin: 4px 0 22px;
-}
- 
-/* ---------- CTA link ---------- */
-.result-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-weight: 600;
-  color: var(--blue-accent);
-  border: 1.5px solid var(--blue-accent);
-  padding: 9px 18px;
-  border-radius: var(--radius-sm);
-  transition: var(--transition-fast);
-}
-.result-link:hover {
-  background: var(--blue-accent);
-  color: #fff;
-  transform: translateY(-2px);
-}
-.result-link:focus-visible {
-  outline: 3px solid var(--blue-accent);
-  outline-offset: 3px;
-}
-
-/* ---------- Entry list (thành viên tham gia, không xếp hạng) ---------- */
-.entry-grid {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  margin: 8px 0 4px;
-}
-
-.entry-card {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  text-align: left;
-  background: #fff;
-  border-left: 4px solid var(--blue-accent);
-  border-radius: 4px var(--radius-md) var(--radius-md) 4px;
-  padding: 16px 20px;
-  box-shadow: var(--shadow-soft);
-  transition: var(--transition-fast);
-}
-
-.entry-card:hover {
-  box-shadow: var(--shadow-hover);
-  transform: translateX(2px);
-}
-
-.entry-top {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 8px;
-  justify-content: space-between;
-}
-
-.entry-name {
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 1.02rem;
-  color: var(--blue-main);
-}
-
-.entry-class {
-  font-size: 0.78rem;
-  font-weight: 600;
-  color: black;
-  background: var(--light-cyan);
-  padding: 2px 10px;
-  border-radius: 999px;
-  white-space: nowrap;
-}
-
-.entry-team {
-  font-size: 0.92rem;
-  color: var(--text-main);
-  line-height: 1.4;
-}
-
-.entry-team .team-label {
-  font-weight: 600;
-  color: var(--blue-dark);
-}
-
-.entry-title {
-  font-size: 0.92rem;
-  color: var(--text-main);
-  line-height: 1.4;
-}
-
-.entry-title .title-label {
-  font-weight: 600;
-  color: var(--blue-accent);
-}
-
-.entry-status {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  width: fit-content;
-  padding: 4px 12px;
-  border-radius: 999px;
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.3px;
-  margin-top: 2px;
-}
-
-.entry-status.stage-final {
-  background: var(--rank-gold-soft);
-  color: #a67c0a;
-}
-
-.entry-status.stage-progress {
-  background: var(--light-blue);
-  color: var(--blue-dark);
-}
-
-@media (max-width: 640px) {
-  .entry-top {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 4px;
-  }
-}
- 
-/* ---------- Mobile ---------- */
-@media (max-width: 640px) {
-  .podium {
-    flex-direction: column;
-    align-items: center;
-  }
-  .podium-step {
-    width: 100%;
-    max-width: 280px;
-    transform: none !important;
-    border-radius: var(--radius-md);
-  }
-  .podium-step.gold   { order: 1 !important; }
-  .podium-step.silver { order: 2 !important; }
-  .podium-step.bronze { order: 3 !important; }
- 
-  .contest-title { font-size: 1.5rem; }
-}
- 
-/* ---------- Reduced motion ---------- */
-@media (prefers-reduced-motion: reduce) {
-  .podium-step {
-    animation: none !important;
-    opacity: 1 !important;
-  }
-}
-
-/* =====================================================
-   COMPACT MODE — chỉ áp dụng cho .compact-contest
-   (khối Podcast - Phim và MC - Giọng nói)
-   ===================================================== */
-.compact-contest .contest-intro {
-  padding: 12px 16px;
-  font-size: 0.92rem;
-}
-
-.compact-contest .result-card {
-  margin-bottom: 18px;
-}
-
-.compact-contest .result-cover {
-  max-height: 300px;
-}
-
-.compact-contest .result-body {
-  padding: 14px 14px;
-}
-
-.compact-contest .result-name {
-  font-size: 0.98rem;
-  margin-bottom: 10px;
-}
-
-.compact-contest .result-body p {
-  font-size: 0.8rem;
-  margin: 2px 0;
-}
-
-.compact-contest .podium {
-  gap: 6px;
-  margin: 4px 0 14px;
-}
-
-.compact-contest .podium-step {
-  flex: 1 1 90px;
-  max-width: 110px;
-  padding: 8px 6px 6px;
-}
-
-/* ---------- Grid: tối đa 2 box mỗi dòng ---------- */
-.compact-contest .result-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 18px;
-  align-items: start;
-}
-
-.compact-contest .result-grid .result-card {
-  margin-bottom: 0;
-}
-
-.compact-contest-lite .result-body p {
-  font-size: 0.85rem;
-  margin: 2px 0;
-}
-
-@media (max-width: 640px) {
-  .compact-contest .result-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-.compact-contest .podium-step.gold {
-  transform: translateY(-8px);
-}
-
-.compact-contest .podium-step .medal {
-  width: 28px;
-  height: 28px;
-  font-size: 0.75rem;
-  margin-bottom: 5px;
-}
-
-.compact-contest .podium-step .rank-label {
-  font-size: 0.56rem;
-  margin-bottom: 2px;
-}
-
-.compact-contest .podium-step .winner-name {
-  font-size: 0.76rem;
-}
-
-.compact-contest .podium-step .winner-name + .winner-name {
-  margin-top: 5px;
-  padding-top: 5px;
-}
-
-.compact-contest .podium-step .winner-meta {
-  font-size: 0.66rem;
-}
-
-.compact-contest .special-award {
-  padding: 6px 12px;
-  font-size: 0.78rem;
-  margin: 2px 0 14px;
-}
-
-.compact-contest .result-link {
-  padding: 6px 14px;
-  font-size: 0.85rem;
-}
-
-.compact-contest-lite .result-link {
-  padding: 6px 14px;
-  font-size: 0.8rem;
-}
-
-@media (max-width: 640px) {
-  .compact-contest .result-cover {
-    max-height: 180px;
-  }
-}
-
-/* =====================================================
-   COMPACT-LITE — khối "Cuộc thi khác": chỉ giảm ảnh/khoảng
-   trắng, GIỮ NGUYÊN cỡ chữ để dễ đọc
-   ===================================================== */
-.compact-contest-lite .result-cover {
-  max-height: 220px;
-}
-
-.compact-contest-lite .result-body {
-  padding: 14px 16px;
-}
-
-.compact-contest-lite .result-card {
-  margin-bottom: 0;
-}
-
-.compact-contest-lite .result-name {
-  margin-bottom: 12px;
-}
-
-.compact-contest-lite .entry-grid {
-  gap: 10px;
-}
-
-.compact-contest-lite .entry-card {
-  padding: 12px 16px;
-}
-
-.compact-contest-lite .result-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 18px;
-  align-items: start;
-}
-
-@media (max-width: 640px) {
-  .compact-contest-lite .result-grid {
-    grid-template-columns: 1fr;
-  }
-  .compact-contest-lite .result-cover {
-    max-height: 200px;
-  }
-}
-</style>
 <body>
-<div id="nav-placeholder"></div>
+  <!-- Header Navigation -->
+  <div id="nav-placeholder"></div>
 
-  <!-- HEADER -->
+  <!-- HERO HEADER -->
   <header class="hero">
     <div class="container">
-      <h1>Cuộc thi</h1>
-      <p class="hero-subtitle">Sân khấu cho những câu chuyện, giọng nói và ý tưởng trẻ</p>
+      <h1>Cuộc Thi & Hoạt Động Tranh Tài</h1>
+      <p class="hero-subtitle">Nơi thế hệ trẻ YTC bộc lộ bản lĩnh, rèn giũa kỹ năng, lan tỏa những thông điệp giá trị và chinh phục những đỉnh cao mới</p>
     </div>
   </header>
-<br>
+
+  <!-- STATS OVERVIEW BAR -->
+  <div class="contest-stats-bar">
+    <div class="contest-stat-item">
+      <span class="contest-stat-icon">🎙️</span>
+      <span class="contest-stat-val">6+ Mùa</span>
+      <span class="contest-stat-lbl">Podcast & Phim</span>
+    </div>
+    <div class="contest-stat-item">
+      <span class="contest-stat-icon">🎤</span>
+      <span class="contest-stat-val">Rising Voice</span>
+      <span class="contest-stat-lbl">Sân khấu MC Tài Năng</span>
+    </div>
+    <div class="contest-stat-item">
+      <span class="contest-stat-icon">🌟</span>
+      <span class="contest-stat-val">8+ Giải Đấu</span>
+      <span class="contest-stat-lbl">Khởi nghiệp & Phong trào</span>
+    </div>
+    <div class="contest-stat-item">
+      <span class="contest-stat-icon">🏆</span>
+      <span class="contest-stat-val">40+ Giải Thưởng</span>
+      <span class="contest-stat-lbl">Vinh danh thủ lĩnh</span>
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT CONTAINER -->
   <main class="container">
 
-    <!-- PODCAST - PHIM -->
-    <section class="contest-module compact-contest fade-in">
-      <h2 class="contest-title">Cuộc thi nhóm Podcast - Phim</h2>
-      <p class="contest-intro">Với chuỗi cuộc thi thiết kế phim và sản xuất podcast về kỹ năng sống và các xu hướng thực tế, YTC không chỉ tạo ra sân chơi sáng tạo mà còn mở ra không gian để chia sẻ góc nhìn, cảm xúc và trách nhiệm xã hội. Mỗi tác phẩm là một câu chuyện nâng cao nhận thức, khơi gợi tinh thần chủ động và ý thức trách nhiệm của mỗi người trên hành trình khám phá bản thân và bước vào chặng đường mới của cuộc sống.</p>
+    <!-- FILTER & SEARCH TOOLBAR -->
+    <div class="contest-toolbar">
+      <!-- Live Search Box -->
+      <div class="search-input-wrap">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="contestSearchInput" placeholder="Tìm kiếm cuộc thi, chủ đề, thành viên, giải thưởng...">
+        <button class="clear-btn" id="contestClearBtn" title="Xóa tìm kiếm">✕</button>
+      </div>
 
-      <p class="list-label">Danh sách cuộc thi</p>
+      <!-- Category Filter Chips -->
+      <div class="filter-chips-row">
+        <button class="filter-chip active" data-category="all">
+          <span>🌟 Tất cả cuộc thi</span>
+          <span class="chip-count" id="count-all">15</span>
+        </button>
+        <button class="filter-chip" data-category="podcast">
+          <span>🎙️ Podcast - Phim</span>
+          <span class="chip-count" id="count-podcast">6</span>
+        </button>
+        <button class="filter-chip" data-category="mc">
+          <span>🎤 MC - Giọng nói</span>
+          <span class="chip-count" id="count-mc">1</span>
+        </button>
+        <button class="filter-chip" data-category="others">
+          <span>🏛️ Cuộc thi khác (Đoàn & Trường)</span>
+          <span class="chip-count" id="count-others">8</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- NO SEARCH RESULTS BOX -->
+    <div class="no-results-box" id="noResultsBox">
+      <div class="no-res-icon">🔎</div>
+      <h3>Không tìm thấy cuộc thi phù hợp</h3>
+      <p>Thử tìm kiếm với từ khóa khác hoặc nhấn Đặt lại để xem tất cả cuộc thi.</p>
+      <button class="reset-search-btn" id="resetSearchBtn">🔄 Đặt lại tìm kiếm</button>
+    </div>
+
+    <!-- =====================================================
+         1. CUỘC THI NHÓM PODCAST - PHIM
+         ===================================================== -->
+    <section class="contest-module" data-section-category="podcast" id="podcast-section">
+      <div class="module-header">
+        <h2 class="module-title">🎙️ Chuỗi Cuộc Thi Podcast & Phim Ngắn</h2>
+        <p class="module-desc">Với chuỗi cuộc thi thiết kế phim và sản xuất podcast về kỹ năng sống và các xu hướng thực tế, YTC không chỉ tạo ra sân chơi sáng tạo mà còn mở ra không gian để chia sẻ góc nhìn, cảm xúc và trách nhiệm xã hội. Mỗi tác phẩm là một câu chuyện nâng cao nhận thức, khơi gợi tinh thần chủ động và ý thức trách nhiệm của mỗi người trên hành trình khám phá bản thân.</p>
+      </div>
 
       <div class="result-grid">
 
-      <div class="result-card">
-        <img src="Contest/Podcast/Image/OneTakeResult.jpg" alt="Công bố giải One - Take" class="result-cover">
-        <div class="result-body">
-          <h3 class="result-name">Cuộc thi ONE - TAKE</h3>
-            <p>Dành cho thành viên thử thách Gen 14.2</p>
-            <p><b>Thời gian: </b>17/03/2026 - 28/03/2026</p>
-          <div class="podium">
-            <div class="podium-step silver">
-              <span class="rank-label">Giải nhì</span>
-              <span class="medal">2</span>
-              <span class="winner-name">Nhóm OneTeam</span>
-            </div>
-            <div class="podium-step gold">
-              <span class="rank-label">Giải nhất</span>
-              <span class="medal">1</span>
-              <span class="winner-name">Nhóm Donald Trump</span>
-            </div>
-            <div class="podium-step bronze">
-              <span class="rank-label">Giải ba</span>
-              <span class="medal">3</span>
-              <span class="winner-name">Nhóm ShineOn</span>
-            </div>
+        <!-- 1. ONE - TAKE -->
+        <article class="result-card" data-category="podcast" data-keywords="one take one-take podcast gen 14.2 oneteam donald trump shineon">
+          <div class="result-cover-wrap">
+            <span class="card-category-tag">🎙️ Podcast Gen 14.2</span>
+            <img src="Contest/Podcast/Image/OneTakeResult.jpg" alt="Công bố giải Cuộc thi One - Take" class="result-cover" loading="lazy">
           </div>
-
-          <a href="Contest/Podcast/OneTake.html" class="result-link">Xem series tại đây →</a>
-        </div>
-      </div>
-
-      <div class="result-card">
-        <img src="Contest/Podcast/Image/RewriteDestinyResult.jpg" alt="Công bố giải Rewrite Destiny" class="result-cover">
-        <div class="result-body">
-          <h3 class="result-name">Cuộc thi Rewrite Destiny</h3>
-          <p>Dành cho thành viên thử thách Gen 14.1</p>
-          <p><b>Thời gian: </b>18/10/2025 - 06/11/2025</p>
-          <div class="podium">
-            <div class="podium-step silver">
-              <span class="rank-label">Giải nhì</span>
-              <span class="medal">2</span>
-              <span class="winner-name">Nhóm The Light</span>
-              <span class="winner-name">Nhóm Ẩm thực trùng sinh</span>
-            </div>
-            <div class="podium-step gold">
-              <span class="rank-label">Giải nhất</span>
-              <span class="medal">1</span>
-              <span class="winner-name">Nhóm Good Vibes Tribe</span>
-            </div>
-            <div class="podium-step bronze">
-              <span class="rank-label">Giải ba</span>
-              <span class="medal">3</span>
-              <span class="winner-name">Nhóm INFINITY</span>
-              <span class="winner-name">Nhóm Dreamten</span>
-              <span class="winner-name">Nhóm The Last Victory Hunters</span>
-            </div>
-          </div>
-
-          <a href="Contest/Podcast/RewriteDestiny.html" class="result-link">Xem series tại đây →</a>
-        </div>
-      </div>
-
-      <div class="result-card">
-        <img src="Contest/Podcast/Image/VoiceYourMindResult.jpg" alt="Công bố giải Voice Your Mind" class="result-cover">
-        <div class="result-body">
-          <h3 class="result-name">Cuộc thi Voice Your Mind</h3>
-          <p>Dành cho thành viên thử thách Gen 13.2</p>
-          <p><b>Thời gian: </b>10/03/2025 - 02/04/2025</p>
-          <div class="podium">
-            <div class="podium-step silver">
-              <span class="rank-label">Giải nhì</span>
-              <span class="medal">2</span>
-              <span class="winner-name">Nhóm Biệt Đội Xanh</span>
-            </div>
-            <div class="podium-step gold">
-              <span class="rank-label">Giải nhất</span>
-              <span class="medal">1</span>
-              <span class="winner-name">Nhóm Together we rise</span>
-            </div>
-            <div class="podium-step bronze">
-              <span class="rank-label">Giải ba</span>
-              <span class="medal">3</span>
-              <span class="winner-name">Nhóm Crew 1718</span>
-            </div>
-          </div>
-
-          <a href="Contest/Podcast/VoiceYourMind.html" class="result-link">Xem series tại đây →</a>
-        </div>
-      </div>
-
-      <div class="result-card">
-        <img src="Contest/Podcast/Image/YTCPodcastChallengeResult.jpg" alt="Công bố giải YTC Podcast Challenge" class="result-cover">
-        <div class="result-body">
-          <h3 class="result-name">Cuộc thi YTC Podcast Challenge</h3>
-          <p>Dành cho thành viên thử thách Gen 13.1</p>
-          <p><b>Thời gian: </b>18/10/2025 - 11/04/2025</p>
-          <div class="podium">
-            <div class="podium-step silver">
-              <span class="rank-label">Giải nhì</span>
-              <span class="medal">2</span>
-              <span class="winner-name">Nhóm Hơn Thua</span>
-            </div>
-            <div class="podium-step gold">
-              <span class="rank-label">Giải nhất</span>
-              <span class="medal">1</span>
-              <span class="winner-name">Nhóm THE INNOVATORS</span>
-            </div>
-            <div class="podium-step bronze">
-              <span class="rank-label">Giải ba</span>
-              <span class="medal">3</span>
-              <span class="winner-name">Nhóm 8 Musketeers</span>
-            </div>
-          </div>
-          <div class="special-award">❤️ Yêu thích nhất: Nhóm Bom Nổ Chậm</div><br>
-          <a href="Contest/Podcast/YTCPodcastChallenge.html" class="result-link">Xem series tại đây →</a>
-        </div>
-      </div>
-
-      <div class="result-card">
-        <img src="Contest/Podcast/Image/SuyNghiTrongToiResult.jpg" alt="Công bố giải Suy Nghĩ Trong Tôi" class="result-cover">
-        <div class="result-body">
-          <h3 class="result-name">Cuộc thi Suy Nghĩ Trong Tôi</h3>
-          <p>Dành cho thành viên thử thách Gen 12.2</p>
-          <p><b>Thời gian: </b>04/04/2024 - 27/04/2024</p>
-          <div class="podium">
-            <div class="podium-step silver">
-              <span class="rank-label">Giải nhì</span>
-              <span class="medal">2</span>
-              <span class="winner-name">Nhóm Sao Sáng</span>
-            </div>
-            <div class="podium-step gold">
-              <span class="rank-label">Giải nhất</span>
-              <span class="medal">1</span>
-              <span class="winner-name">Nhóm Bá Đạo Bậc Nhất</span>
-            </div>
-            <div class="podium-step bronze">
-              <span class="rank-label">Giải ba</span>
-              <span class="medal">3</span>
-              <span class="winner-name">Nhóm THE ONE</span>
-            </div>
-          </div>
-          <a href="Contest/Podcast/SuyNghiTrongToi.html" class="result-link">Xem series tại đây →</a>
-        </div>
-      </div>
-
-      <div class="result-card">
-        <img src="Contest/Podcast/Image/NetDepAmThucVietResult.jpg" alt="Công bố giải Nét đẹp ẩm thực Việt" class="result-cover">
-        <div class="result-body">
-          <h3 class="result-name">Nét đẹp ẩm thực Việt</h3>
-          <p>Dành cho thành viên thử thách Gen 12.1</p>
-          <p><b>Thời gian: </b>01/11/2023 - 15/11/2023</p>
-          <div class="podium">
-            <div class="podium-step silver">
-              <span class="rank-label">Giải nhì</span>
-              <span class="medal">2</span>
-              <span class="winner-name">Nhóm Tinh hoa sáng tạo</span>
-            </div>
-            <div class="podium-step gold">
-              <span class="rank-label">Giải nhất</span>
-              <span class="medal">1</span>
-              <span class="winner-name">Nhóm Hương sắc Việt Nam</span>
-            </div>
-            <div class="podium-step bronze">
-              <span class="rank-label">Giải ba</span>
-              <span class="medal">3</span>
-              <span class="winner-name">Nhóm Hôm nay ăn gì?</span>
-            </div>
-          </div>
-          <a href="" class="result-link">[Đang cập nhật!]</a>
-        </div>
-      </div>
-
-
-      </div><!-- /.result-grid -->
-      <!-- Thêm .result-card mới ở đây (bên trong .result-grid) khi có cuộc thi tiếp theo trong chuỗi Podcast - Phim -->
-    </section>
-
-    <hr class="contest-divider">
-
-    <!-- MC - GIỌNG NÓI -->
-    <section class="contest-module compact-contest fade-in">
-      <h2 class="contest-title">Cuộc thi MC - Giọng nói</h2>
-      <p class="contest-intro">Chuỗi cuộc thi MC – Giọng nói dành cho toàn thể sinh viên UNETI không chỉ là sân chơi để mỗi cá nhân thể hiện bản thân, mà còn là cơ hội lan tỏa tài năng, sự năng động và tinh thần sáng tạo. Thông qua nhiều chủ đề và tình huống đa dạng, cuộc thi giúp sinh viên rèn luyện kỹ năng giao tiếp, bản lĩnh sân khấu và khả năng ứng biến, từ đó tự tin hơn trong học tập, hoạt động tập thể và hành trình phát triển bản thân.</p>
-
-      <p class="list-label">Danh sách cuộc thi</p>
-
-      <div class="result-grid">
-
-      <div class="result-card">
-        <img src="Contest/RisingVoice2025/Image/QuanQuan.jpg" alt="Quán quân Rising Voice 2025" class="result-cover">
-        <div class="result-body">
-          <h3 class="result-name">RISING VOICE 2025 - THE MC TALENT HUNT</h3>
-          <p><b>Thời gian: </b>21/11/2025 - 26/01/2026</p>
-
-          <div class="podium">
-            <div class="podium-step silver">
-              <span class="rank-label">Á quân 1</span>
-              <span class="medal">2</span>
-              <span class="winner-name">Nguyễn Thị Thanh Hoa</span>
-              <span class="winner-meta">SBD: 11</span>
-            </div>
-            <div class="podium-step gold">
-              <span class="rank-label">Quán quân</span>
-              <span class="medal">1</span>
-              <span class="winner-name">Tô Thu Trang</span>
-              <span class="winner-meta">SBD: 13</span>
-            </div>
-            <div class="podium-step bronze">
-              <span class="rank-label">Á quân 2</span>
-              <span class="medal">3</span>
-              <span class="winner-name">Nguyễn Ngọc Như Quỳnh</span>
-              <span class="winner-meta">SBD: 54</span>
-              <span class="winner-name">Nguyễn Minh Ánh</span>
-              <span class="winner-meta">SBD: 02</span>
-            </div>
-          </div>
-
-          <div class="special-award">❤️ Yêu thích nhất: Ngô Hạnh Nguyên (SBD: 31)</div>
-          <br>
-          <a href="Contest/RisingVoice2025/RisingVoice2025.html" class="result-link">Xem series tại đây →</a>
-        </div>
-      </div>
-
-      </div><!-- /.result-grid -->
-      <!-- Thêm .result-card mới ở đây (bên trong .result-grid) khi có cuộc thi tiếp theo trong chuỗi MC - Giọng nói -->
-    </section>
-
-    <hr class="contest-divider">
-
-    <!-- CUỘC THI KHÁC -->
-    <section class="contest-module compact-contest-lite fade-in">
-      <h2 class="contest-title">Cuộc thi khác</h2>
-      <p class="contest-intro">Các cuộc thi do Đoàn TNCS UNETI, nhà trường và ngoài nhà trường tổ chức có sự góp mặt của thành viên CLB YTC!</p>
-
-      <p class="list-label">Danh sách cuộc thi</p>
-
-      <div class="result-grid">
-
-      <div class="result-card">
-        <img src="Contest/YTSTKN/Image/YTSTKN_2026_Chung_Ket.jpg" alt="Ý TƯỞNG SÁNG TẠO KHỞI NGHIỆP SINH VIÊN UNETI NĂM HỌC 2025 - 2026" class="result-cover">
-        <div class="result-body">
-          <h3 class="result-name">Ý TƯỞNG SÁNG TẠO KHỞI NGHIỆP SINH VIÊN UNETI NĂM HỌC 2025 - 2026</h3>
-          <p><b>Thời gian: </b>Tháng 12/2025 - 5/2026</p>
-          <p class="list-label" style="margin-top:0;">Thành viên góp mặt</p>
-          <div class="entry-grid">
-
-            <div class="entry-card">
-              <div class="entry-top">
-                <a class="entry-name" href="Member/LuongThiThuTrang_DHQT16A5HN.html" target="_blank">Lương Thị Thu Trang</a>
-                <span class="entry-class">DHQT16A5HN</span>
+          <div class="result-body">
+            <div class="result-top-info">
+              <h3 class="result-name">Cuộc thi ONE - TAKE</h3>
+              <div class="result-meta-pill-group">
+                <span class="result-meta-pill highlight">👥 Thử thách Gen 14.2</span>
+                <span class="result-meta-pill">📅 17/03/2026 - 28/03/2026</span>
               </div>
-              <p class="entry-team"><span class="team-label">Đội thi:</span> UNETI 43 - YoungBoost - Mũ bảo hiểm thông minh</p>
-              <span class="entry-status stage-progress">Vòng phát triển dự án</span>
             </div>
 
-            <div class="entry-card">
-              <div class="entry-top">
-                <a class="entry-name" href="Member/TranDangBinhMinh_DHTI18A1CL.html" target="_blank">Trần Đặng Bình Minh</a>
-                <span class="entry-class">DHTI18A1CL</span>
-              </div>
-              <p class="entry-team"><span class="team-label">Đội thi:</span> UNETI 28 - FinFin Mind - Phát triển tư duy phản biện dành cho bé</p>
-              <span class="entry-status stage-final">Giải tiềm năng · Vòng chung kết</span>
-            </div>
-
-          </div>
-        </div>
-      </div>
-      <!-- Thêm .result-card mới ở đây khi có cuộc thi tiếp theo trong mục "Cuộc thi khác" -->
-
-      <div class="result-card">
-        <img src="Contest/Others/Image/KyUcUNETI_70NamToaSang.jpg" alt="SÁNG TẠO CLIP - VIDEO: KÝ ỨC UNETI - 70 NĂM TOẢ SÁNG" class="result-cover">
-        <div class="result-body">
-          <h3 class="result-name">SÁNG TẠO CLIP - VIDEO: KÝ ỨC UNETI - 70 NĂM TOẢ SÁNG</h3>
-          <p><b>Thời gian: </b>Tháng 4/2026 - 6/2026</p>
-          <p class="list-label" style="margin-top:0;">Thành viên góp mặt</p>
-          <div class="entry-grid">
-
-            <div class="entry-card">
-              <div class="entry-top">
-                <span class="entry-name">Phạm Thị Ngọc Ánh</span>
-                <span class="entry-class">DHDT19A1HN</span>
-              </div>
-              <p class="entry-title"><span class="title-label">Tên tác phẩm: </span>Tin vào lựa chọn bản thân</p>
-              <a href="https://www.facebook.com/reel/1511394070647760" target="_blank" class="result-link">Xem tác phẩm →</a>
-            </div>
-
-            <div class="entry-card">
-              <div class="entry-top">
-                <a class="entry-name" href="Member/PhungThuHa_DHDL19A1HN.html" target="_blank">Phùng Thu Hà</a>
-                <span class="entry-class">DHDL19A1HN</span>
-              </div>
-              <p class="entry-title"><span class="title-label">Tên tác phẩm: </span>70 Năm - Một Chặng Đường, Triệu Ước Mơ</p>
-              <span class="entry-status stage-final">Giải khuyến khích</span>
-              <a href="https://www.facebook.com/reel/1655797519008759" target="_blank" class="result-link">Xem tác phẩm →</a>
-            </div>
-
-          </div>
-        </div>
-      </div>
-
-      <div class="result-card">
-        <img src="Contest/Others/Image/UNETI_GOT_TALENT_2026_ChungKet.jpg" alt="UNETI GOT TALENT 2026" class="result-cover">
-        <div class="result-body">
-          <h3 class="result-name">UNETI GOT TALENT 2026</h3>
-          <p><b>Thời gian: </b>Tháng 3/2026 - 5/2026</p>
-          <p class="list-label" style="margin-top:0;">Thành viên góp mặt</p>
-          <div class="entry-grid">
-
-            <div class="entry-card">
-              <div class="entry-top">
-                <a class="entry-name" href="Member/ToThuTrang_DHTN19A3HN.html" target="_blank">Tô Thu Trang</a>
-                <span class="entry-class">DHTN19A3HN</span>
+            <div class="podium-wrap">
+              <div class="podium-title">🏆 Bảng vàng vinh danh</div>
+              <div class="podium">
+                <div class="podium-step silver">
+                  <span class="rank-label">Giải nhì</span>
+                  <span class="medal">🥈</span>
+                  <span class="winner-name">Nhóm OneTeam</span>
                 </div>
-                <p class="entry-title"><span class="title-label">Thể loại: </span>Múa</p>
-              <span class="entry-status stage-final">Top 20</span>
-              <a href="https://www.facebook.com/share/v/1HCzJBGUrQ/" target="_blank" class="result-link">Video bình chọn →</a>
+                <div class="podium-step gold">
+                  <span class="rank-label">Giải nhất</span>
+                  <span class="medal">🥇</span>
+                  <span class="winner-name">Nhóm Donald Trump</span>
+                </div>
+                <div class="podium-step bronze">
+                  <span class="rank-label">Giải ba</span>
+                  <span class="medal">🥉</span>
+                  <span class="winner-name">Nhóm ShineOn</span>
+                </div>
+              </div>
             </div>
 
+            <div class="result-card-footer">
+              <a href="Contest/Podcast/OneTake.html" class="result-link">Xem series tại đây →</a>
+            </div>
           </div>
-        </div>
+        </article>
+
+        <!-- 2. REWRITE DESTINY -->
+        <article class="result-card" data-category="podcast" data-keywords="rewrite destiny podcast gen 14.1 good vibes tribe the light am thuc trung sinh infinity dreamten">
+          <div class="result-cover-wrap">
+            <span class="card-category-tag">🎙️ Podcast Gen 14.1</span>
+            <img src="Contest/Podcast/Image/RewriteDestinyResult.jpg" alt="Công bố giải Cuộc thi Rewrite Destiny" class="result-cover" loading="lazy">
+          </div>
+          <div class="result-body">
+            <div class="result-top-info">
+              <h3 class="result-name">Cuộc thi Rewrite Destiny</h3>
+              <div class="result-meta-pill-group">
+                <span class="result-meta-pill highlight">👥 Thử thách Gen 14.1</span>
+                <span class="result-meta-pill">📅 18/10/2025 - 06/11/2025</span>
+              </div>
+            </div>
+
+            <div class="podium-wrap">
+              <div class="podium-title">🏆 Bảng vàng vinh danh</div>
+              <div class="podium">
+                <div class="podium-step silver">
+                  <span class="rank-label">Giải nhì</span>
+                  <span class="medal">🥈</span>
+                  <span class="winner-name">Nhóm The Light</span>
+                  <span class="winner-name">Ẩm thực trùng sinh</span>
+                </div>
+                <div class="podium-step gold">
+                  <span class="rank-label">Giải nhất</span>
+                  <span class="medal">🥇</span>
+                  <span class="winner-name">Good Vibes Tribe</span>
+                </div>
+                <div class="podium-step bronze">
+                  <span class="rank-label">Giải ba</span>
+                  <span class="medal">🥉</span>
+                  <span class="winner-name">Nhóm INFINITY</span>
+                  <span class="winner-name">Nhóm Dreamten</span>
+                  <span class="winner-name">Victory Hunters</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="result-card-footer">
+              <a href="Contest/Podcast/RewriteDestiny.html" class="result-link">Xem series tại đây →</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 3. VOICE YOUR MIND -->
+        <article class="result-card" data-category="podcast" data-keywords="voice your mind podcast gen 13.2 together we rise biet doi xanh crew 1718">
+          <div class="result-cover-wrap">
+            <span class="card-category-tag">🎙️ Podcast Gen 13.2</span>
+            <img src="Contest/Podcast/Image/VoiceYourMindResult.jpg" alt="Công bố giải Cuộc thi Voice Your Mind" class="result-cover" loading="lazy">
+          </div>
+          <div class="result-body">
+            <div class="result-top-info">
+              <h3 class="result-name">Cuộc thi Voice Your Mind</h3>
+              <div class="result-meta-pill-group">
+                <span class="result-meta-pill highlight">👥 Thử thách Gen 13.2</span>
+                <span class="result-meta-pill">📅 10/03/2025 - 02/04/2025</span>
+              </div>
+            </div>
+
+            <div class="podium-wrap">
+              <div class="podium-title">🏆 Bảng vàng vinh danh</div>
+              <div class="podium">
+                <div class="podium-step silver">
+                  <span class="rank-label">Giải nhì</span>
+                  <span class="medal">🥈</span>
+                  <span class="winner-name">Biệt Đội Xanh</span>
+                </div>
+                <div class="podium-step gold">
+                  <span class="rank-label">Giải nhất</span>
+                  <span class="medal">🥇</span>
+                  <span class="winner-name">Together We Rise</span>
+                </div>
+                <div class="podium-step bronze">
+                  <span class="rank-label">Giải ba</span>
+                  <span class="medal">🥉</span>
+                  <span class="winner-name">Crew 1718</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="result-card-footer">
+              <a href="Contest/Podcast/VoiceYourMind.html" class="result-link">Xem series tại đây →</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 4. YTC PODCAST CHALLENGE -->
+        <article class="result-card" data-category="podcast" data-keywords="ytc podcast challenge gen 13.1 innovators hon thua musketeers bom no cham">
+          <div class="result-cover-wrap">
+            <span class="card-category-tag">🎙️ Podcast Gen 13.1</span>
+            <img src="Contest/Podcast/Image/YTCPodcastChallengeResult.jpg" alt="Công bố giải Cuộc thi YTC Podcast Challenge" class="result-cover" loading="lazy">
+          </div>
+          <div class="result-body">
+            <div class="result-top-info">
+              <h3 class="result-name">Cuộc thi YTC Podcast Challenge</h3>
+              <div class="result-meta-pill-group">
+                <span class="result-meta-pill highlight">👥 Thử thách Gen 13.1</span>
+                <span class="result-meta-pill">📅 18/10/2025 - 11/04/2025</span>
+              </div>
+            </div>
+
+            <div class="podium-wrap">
+              <div class="podium-title">🏆 Bảng vàng vinh danh</div>
+              <div class="podium">
+                <div class="podium-step silver">
+                  <span class="rank-label">Giải nhì</span>
+                  <span class="medal">🥈</span>
+                  <span class="winner-name">Nhóm Hơn Thua</span>
+                </div>
+                <div class="podium-step gold">
+                  <span class="rank-label">Giải nhất</span>
+                  <span class="medal">🥇</span>
+                  <span class="winner-name">THE INNOVATORS</span>
+                </div>
+                <div class="podium-step bronze">
+                  <span class="rank-label">Giải ba</span>
+                  <span class="medal">🥉</span>
+                  <span class="winner-name">8 Musketeers</span>
+                </div>
+              </div>
+              <div class="special-award-pill">❤️ Yêu thích nhất: Nhóm Bom Nổ Chậm</div>
+            </div>
+
+            <div class="result-card-footer">
+              <a href="Contest/Podcast/YTCPodcastChallenge.html" class="result-link">Xem series tại đây →</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 5. SUY NGHĨ TRONG TÔI -->
+        <article class="result-card" data-category="podcast" data-keywords="suy nghi trong toi podcast gen 12.2 ba dao bac nhat sao sang the one">
+          <div class="result-cover-wrap">
+            <span class="card-category-tag">🎙️ Podcast Gen 12.2</span>
+            <img src="Contest/Podcast/Image/SuyNghiTrongToiResult.jpg" alt="Công bố giải Cuộc thi Suy Nghĩ Trong Tôi" class="result-cover" loading="lazy">
+          </div>
+          <div class="result-body">
+            <div class="result-top-info">
+              <h3 class="result-name">Cuộc thi Suy Nghĩ Trong Tôi</h3>
+              <div class="result-meta-pill-group">
+                <span class="result-meta-pill highlight">👥 Thử thách Gen 12.2</span>
+                <span class="result-meta-pill">📅 04/04/2024 - 27/04/2024</span>
+              </div>
+            </div>
+
+            <div class="podium-wrap">
+              <div class="podium-title">🏆 Bảng vàng vinh danh</div>
+              <div class="podium">
+                <div class="podium-step silver">
+                  <span class="rank-label">Giải nhì</span>
+                  <span class="medal">🥈</span>
+                  <span class="winner-name">Nhóm Sao Sáng</span>
+                </div>
+                <div class="podium-step gold">
+                  <span class="rank-label">Giải nhất</span>
+                  <span class="medal">🥇</span>
+                  <span class="winner-name">Bá Đạo Bậc Nhất</span>
+                </div>
+                <div class="podium-step bronze">
+                  <span class="rank-label">Giải ba</span>
+                  <span class="medal">🥉</span>
+                  <span class="winner-name">Nhóm THE ONE</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="result-card-footer">
+              <a href="Contest/Podcast/SuyNghiTrongToi.html" class="result-link">Xem series tại đây →</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 6. NÉT ĐẸP ẨM THỰC VIỆT -->
+        <article class="result-card" data-category="podcast" data-keywords="net dep am thuc viet podcast gen 12.1 huong sac viet nam tinh hoa sang tao hom nay an gi">
+          <div class="result-cover-wrap">
+            <span class="card-category-tag">🎙️ Podcast Gen 12.1</span>
+            <img src="Contest/Podcast/Image/NetDepAmThucVietResult.jpg" alt="Công bố giải Nét đẹp ẩm thực Việt" class="result-cover" loading="lazy">
+          </div>
+          <div class="result-body">
+            <div class="result-top-info">
+              <h3 class="result-name">Nét đẹp ẩm thực Việt</h3>
+              <div class="result-meta-pill-group">
+                <span class="result-meta-pill highlight">👥 Thử thách Gen 12.1</span>
+                <span class="result-meta-pill">📅 01/11/2023 - 15/11/2023</span>
+              </div>
+            </div>
+
+            <div class="podium-wrap">
+              <div class="podium-title">🏆 Bảng vàng vinh danh</div>
+              <div class="podium">
+                <div class="podium-step silver">
+                  <span class="rank-label">Giải nhì</span>
+                  <span class="medal">🥈</span>
+                  <span class="winner-name">Tinh hoa sáng tạo</span>
+                </div>
+                <div class="podium-step gold">
+                  <span class="rank-label">Giải nhất</span>
+                  <span class="medal">🥇</span>
+                  <span class="winner-name">Hương sắc Việt Nam</span>
+                </div>
+                <div class="podium-step bronze">
+                  <span class="rank-label">Giải ba</span>
+                  <span class="medal">🥉</span>
+                  <span class="winner-name">Hôm nay ăn gì?</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="result-card-footer">
+              <span class="result-link disabled">⏳ Đang cập nhật tư liệu</span>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <hr class="contest-divider">
+
+    <!-- =====================================================
+         2. CUỘC THI MC - GIỌNG NÓI
+         ===================================================== -->
+    <section class="contest-module" data-section-category="mc" id="mc-section">
+      <div class="module-header">
+        <h2 class="module-title">🎤 Cuộc Thi MC - Giọng Nói Toàn Trường</h2>
+        <p class="module-desc">Sân chơi rực lửa dành cho toàn thể sinh viên UNETI tỏa sáng với khả năng làm chủ sân khấu, nghệ thuật dẫn dắt và tư duy phản biện sắc bén. Không chỉ là cuộc thi, đây là bệ phóng tài năng và khẳng định phong cách cá nhân tự tin, chuyên nghiệp.</p>
       </div>
 
-      <div class="result-card">
-        <img src="Contest/Others/Image/MarketMaker2026.jpg" alt="MARKET MAKER 2026" class="result-cover">
-        <div class="result-body">
-          <h3 class="result-name">MARKET MAKER 2026</h3>
-          <p>(thuộc khoa Quản trị và Marketing)</p>
-          <p><b>Thời gian: </b>Tháng 4/2026 - 6/2026</p>
-          <p class="list-label" style="margin-top:0;">Thành viên góp mặt</p>
-          <div class="entry-grid">
+      <div class="result-grid" style="grid-template-columns: 1fr; max-width: 760px; margin: 0 auto;">
 
-            <div class="entry-card">
-              <div class="entry-top">
-                <a class="entry-name" href="" target="_blank">Nguyễn Thị Hồng Quyên</a>
-                <span class="entry-class">DHQT19A1CL</span>
+        <!-- 1. RISING VOICE 2025 -->
+        <article class="result-card" data-category="mc" data-keywords="rising voice 2025 the mc talent hunt to thu trang nguyen thi thanh hoa nguyen ngoc nhu quynh nguyen minh anh ngo hanh nguyen">
+          <div class="result-cover-wrap" style="height: 425px;">
+            <img src="Contest/RisingVoice2025/Image/QuanQuan.jpg" alt="Quán quân Rising Voice 2025" class="result-cover" loading="lazy">
+          </div>
+          <div class="result-body">
+            <div class="result-top-info">
+              <h3 class="result-name">RISING VOICE 2025 - THE MC TALENT HUNT</h3>
+              <div class="result-meta-pill-group">
+                <span class="result-meta-pill highlight">🎓 Toàn thể sinh viên UNETI</span>
+                <span class="result-meta-pill">📅 21/11/2025 - 26/01/2026</span>
+              </div>
+            </div>
+
+            <div class="podium-wrap">
+              <div class="podium-title">🏆 Bảng vàng chung cuộc</div>
+              <div class="podium">
+                <div class="podium-step silver">
+                  <span class="rank-label">Á quân 1</span>
+                  <span class="medal">🥈</span>
+                  <span class="winner-name">Nguyễn Thị Thanh Hoa</span>
+                  <span class="winner-meta">SBD: 11</span>
+                </div>
+                <div class="podium-step gold">
+                  <span class="rank-label">Quán quân</span>
+                  <span class="medal">👑</span>
+                  <span class="winner-name">Tô Thu Trang</span>
+                  <span class="winner-meta">SBD: 13</span>
+                </div>
+                <div class="podium-step bronze">
+                  <span class="rank-label">Á quân 2</span>
+                  <span class="medal">🥉</span>
+                  <span class="winner-name">Nguyễn Ngọc Như Quỳnh</span>
+                  <span class="winner-meta">SBD: 54</span>
+                  <span class="winner-name">Nguyễn Minh Ánh</span>
+                  <span class="winner-meta">SBD: 02</span>
+                </div>
+              </div>
+              <div class="special-award-pill">❤️ Thí sinh được yêu thích nhất: Ngô Hạnh Nguyên (SBD: 31)</div>
+            </div>
+
+            <div class="result-card-footer">
+              <a href="Contest/RisingVoice2025/RisingVoice2025.html" class="result-link">Xem chi tiết hành trình Rising Voice 2025 →</a>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <hr class="contest-divider">
+
+    <!-- =====================================================
+         3. CUỘC THI KHÁC (ĐOÀN - TRƯỜNG & PHONG TRÀO)
+         ===================================================== -->
+    <section class="contest-module" data-section-category="others" id="others-section">
+      <div class="module-header">
+        <h2 class="module-title">🌟 Dấu Ấn YTC Tại Các Cuộc Thi Đoàn - Hội & Ngoài Trường</h2>
+        <p class="module-desc">Các cuộc thi do Đoàn TNCS UNETI, các Khoa chuyên ngành và các đơn vị uy tín tổ chức với sự tham gia nhiệt huyết, sáng tạo và gặt hái nhiều thành tích tự hào của các thành viên CLB YTC!</p>
+      </div>
+
+      <div class="result-grid">
+
+        <!-- 1. Ý TƯỞNG SÁNG TẠO KHỞI NGHIỆP 2025-2026 -->
+        <article class="result-card" data-category="others" data-keywords="y tuong sang tao khoi nghiep 2025 2026 uneti luong thi thu trang tran dang binh minh youngboost finfin mind">
+          <div class="result-cover-wrap">
+            <img src="Contest/YTSTKN/Image/YTSTKN_2026_Chung_Ket.jpg" alt="Ý tưởng sáng tạo khởi nghiệp 2025-2026" class="result-cover" loading="lazy">
+          </div>
+          <div class="result-body">
+            <div class="result-top-info">
+              <h3 class="result-name">Ý TƯỞNG SÁNG TẠO KHỞI NGHIỆP SINH VIÊN UNETI 2025 - 2026</h3>
+              <div class="result-meta-pill-group">
+                <span class="result-meta-pill highlight">🏛️ Đoàn TNCS UNETI</span>
+                <span class="result-meta-pill">📅 12/2025 - 05/2026</span>
+              </div>
+            </div>
+
+            <div class="entry-section-label">👥 Thành viên YTC góp mặt</div>
+            <div class="entry-grid">
+              <div class="entry-card">
+                <div class="entry-top">
+                  <a class="entry-name" href="Member/LuongThiThuTrang_DHQT16A5HN.html" target="_blank">👤 Lương Thị Thu Trang</a>
+                  <span class="entry-class">DHQT16A5HN</span>
+                </div>
+                <p class="entry-team"><span class="team-label">Đội thi:</span> UNETI 43 - YoungBoost (Mũ bảo hiểm thông minh)</p>
+                <div class="entry-bottom-row">
+                  <span class="entry-status stage-progress">🚀 Vòng phát triển dự án</span>
+                </div>
+              </div>
+
+              <div class="entry-card">
+                <div class="entry-top">
+                  <a class="entry-name" href="Member/TranDangBinhMinh_DHTI18A1CL.html" target="_blank">👤 Trần Đặng Bình Minh</a>
+                  <span class="entry-class">DHTI18A1CL</span>
+                </div>
+                <p class="entry-team"><span class="team-label">Đội thi:</span> UNETI 28 - FinFin Mind (Tư duy phản biện cho bé)</p>
+                <div class="entry-bottom-row">
+                  <span class="entry-status stage-final">🏆 Giải Tiềm Năng · Chung Kết</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="result-card-footer">
+              <span class="result-meta-pill">🔥 Cuộc thi cấp trường</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- 2. SÁNG TẠO CLIP KÝ ỨC UNETI -->
+        <article class="result-card" data-category="others" data-keywords="sang tao clip ky uc uneti 70 nam toa sang pham thi ngoc anh phung thu ha video">
+          <div class="result-cover-wrap">
+            <img src="Contest/Others/Image/KyUcUNETI_70NamToaSang.jpg" alt="Sáng tạo Clip: Ký Ức UNETI - 70 Năm Tỏa Sáng" class="result-cover" loading="lazy">
+          </div>
+          <div class="result-body">
+            <div class="result-top-info">
+              <h3 class="result-name">SÁNG TẠO CLIP - VIDEO: KÝ ỨC UNETI - 70 NĂM TOẢ SÁNG</h3>
+              <div class="result-meta-pill-group">
+                <span class="result-meta-pill highlight">🏛️ Chào mừng 70 năm UNETI</span>
+                <span class="result-meta-pill">📅 04/2026 - 06/2026</span>
+              </div>
+            </div>
+
+            <div class="entry-section-label">👥 Thành viên YTC góp mặt</div>
+            <div class="entry-grid">
+              <div class="entry-card">
+                <div class="entry-top">
+                  <span class="entry-name">👤 Phạm Thị Ngọc Ánh</span>
+                  <span class="entry-class">DHDT19A1HN</span>
+                </div>
+                <p class="entry-title"><span class="title-label">Tác phẩm:</span> Tin vào lựa chọn bản thân</p>
+                <div class="entry-bottom-row">
+                  <a href="https://www.facebook.com/reel/1511394070647760" target="_blank" class="entry-inline-link">Xem tác phẩm Reel →</a>
+                </div>
+              </div>
+
+              <div class="entry-card">
+                <div class="entry-top">
+                  <a class="entry-name" href="Member/PhungThuHa_DHDL19A1HN.html" target="_blank">👤 Phùng Thu Hà</a>
+                  <span class="entry-class">DHDL19A1HN</span>
+                </div>
+                <p class="entry-title"><span class="title-label">Tác phẩm:</span> 70 Năm - Một Chặng Đường, Triệu Ước Mơ</p>
+                <div class="entry-bottom-row">
+                  <span class="entry-status stage-final">🏅 Giải Khuyến Khích</span>
+                  <a href="https://www.facebook.com/reel/1655797519008759" target="_blank" class="entry-inline-link">Xem tác phẩm Reel →</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="result-card-footer">
+              <span class="result-meta-pill">✨ Ý tưởng sáng tạo khởi nghiệp</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- 3. UNETI GOT TALENT 2026 -->
+        <article class="result-card" data-category="others" data-keywords="uneti got talent 2026 to thu trang mua top 20">
+          <div class="result-cover-wrap">
+            <img src="Contest/Others/Image/UNETI_GOT_TALENT_2026_ChungKet.jpg" alt="UNETI GOT TALENT 2026" class="result-cover" loading="lazy">
+          </div>
+          <div class="result-body">
+            <div class="result-top-info">
+              <h3 class="result-name">UNETI GOT TALENT 2026</h3>
+              <div class="result-meta-pill-group">
+                <span class="result-meta-pill highlight">🏛️ Đoàn trường UNETI</span>
+                <span class="result-meta-pill">📅 03/2026 - 05/2026</span>
+              </div>
+            </div>
+
+            <div class="entry-section-label">👥 Thành viên YTC góp mặt</div>
+            <div class="entry-grid">
+              <div class="entry-card">
+                <div class="entry-top">
+                  <a class="entry-name" href="Member/ToThuTrang_DHTN19A3HN.html" target="_blank">👤 Tô Thu Trang</a>
+                  <span class="entry-class">DHTN19A3HN</span>
+                </div>
+                <p class="entry-title"><span class="title-label">Tiết mục / Thể loại:</span> Múa nghệ thuật</p>
+                <div class="entry-bottom-row">
+                  <span class="entry-status stage-final">⭐ Top 20 Chung Kết</span>
+                  <a href="https://www.facebook.com/share/v/1HCzJBGUrQ/" target="_blank" class="entry-inline-link">Video bình chọn →</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="result-card-footer">
+              <span class="result-meta-pill">🌟 Sân khấu tài năng</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- 4. MARKET MAKER 2026 -->
+        <article class="result-card" data-category="others" data-keywords="market maker 2026 quan tri marketing nguyen thi hong quyen winx">
+          <div class="result-cover-wrap">
+            <img src="Contest/Others/Image/MarketMaker2026.jpg" alt="MARKET MAKER 2026" class="result-cover" loading="lazy">
+          </div>
+          <div class="result-body">
+            <div class="result-top-info">
+              <h3 class="result-name">MARKET MAKER 2026</h3>
+              <div class="result-meta-pill-group">
+                <span class="result-meta-pill highlight">🏛️ Khoa Quản trị & Marketing</span>
+                <span class="result-meta-pill">📅 04/2026 - 06/2026</span>
+              </div>
+            </div>
+
+            <div class="entry-section-label">👥 Thành viên YTC góp mặt</div>
+            <div class="entry-grid">
+              <div class="entry-card">
+                <div class="entry-top">
+                  <span class="entry-name">👤 Nguyễn Thị Hồng Quyên</span>
+                  <span class="entry-class">DHQT19A1CL</span>
                 </div>
                 <p class="entry-team"><span class="team-label">Đội thi:</span> WINX</p>
-              <span class="entry-status stage-progress">Vòng sơ loại</span>
-              <a href="https://www.facebook.com/share/v/1Ed7PJbqMn/" target="_blank" class="result-link">Video bình chọn →</a>
-            </div>
-
-          </div>
-        </div>
-      </div>      
-
-      <div class="result-card">
-        <img src="Contest/Others/Image/SachVaVanHoaDoc2026.jpg" alt="CHUNG KẾT CUỘC THI SÁCH VÀ VĂN HÓA ĐỌC TRONG KỶ NGUYÊN SỐ 2026" class="result-cover">
-        <div class="result-body">
-          <h3 class="result-name">CHUNG KẾT CUỘC THI “SÁCH VÀ VĂN HÓA ĐỌC TRONG KỶ NGUYÊN SỐ” 2026</h3>
-          <p><b>Thời gian: </b>Tháng 2/2026 - 4/2026</p>
-          <p class="list-label" style="margin-top:0;">Thành viên góp mặt</p>
-          <div class="entry-grid">
-
-            <div class="entry-card">
-              <div class="entry-top">
-                <a class="entry-name" href="Member/NguyenMinhAnh_DHQT19A1HN.html" target="_blank">Nguyễn Minh Ánh</a>
-                <span class="entry-class">DHQT19A1HN</span>
+                <div class="entry-bottom-row">
+                  <span class="entry-status stage-progress">🚀 Vòng sơ loại</span>
+                  <a href="https://www.facebook.com/share/v/1Ed7PJbqMn/" target="_blank" class="entry-inline-link">Video bình chọn →</a>
                 </div>
-                <p class="entry-title"><span class="title-label">Nội dung: </span>[Đang cập nhật]</p> 
-              <span class="entry-status stage-final">Giải nhì</span>
+              </div>
             </div>
 
+            <div class="result-card-footer">
+              <span class="result-meta-pill">🎯 Cuộc thi chuyên môn</span>
+            </div>
           </div>
-        </div>
-      </div>     
-      
-      <div class="result-card">
-        <img src="Contest/Others/Image/TheFaceUNETI2025.jpg" alt="THE FACE UNETI 2025" class="result-cover">
-        <div class="result-body">
-          <h3 class="result-name">THE FACE UNETI 2025</h3>
-          <p>(thuộc CLB Truyền thông UNETI)</p>
-          <p><b>Thời gian: </b>Tháng 11/2025 - 1/2026</p>
-          <p class="list-label" style="margin-top:0;">Thành viên góp mặt</p>
-          <div class="entry-grid">
+        </article>
 
-            <div class="entry-card">
-              <div class="entry-top">
-                <a class="entry-name" href="Member/ToThuTrang_DHTN19A3HN.html" target="_blank">Tô Thu Trang</a>
-                <span class="entry-class">DHTN19A3HN</span>
-                </div>
-              <span class="entry-status stage-progress">Vòng sơ khảo</span>
-              <a href="https://www.facebook.com/share/1DYhe7xcK2/" target="_blank" class="result-link">Profile bình chọn →</a>
-            </div>
-
-            <div class="entry-card">
-              <div class="entry-top">
-                <a class="entry-name" href="Member/NguyenHongThanh_DHMK18A1HN.html" target="_blank">Nguyễn Hồng Thanh</a>
-                <span class="entry-class">DHMK18A1HN</span>
-                </div>
-              <span class="entry-status stage-progress">Vòng sơ khảo</span>
-              <a href="https://www.facebook.com/share/19ZmzNJdvd/" target="_blank" class="result-link">Profile bình chọn →</a>
-            </div>
-
+        <!-- 5. SÁCH VÀ VĂN HÓA ĐỌC 2026 -->
+        <article class="result-card" data-category="others" data-keywords="sach va van hoa doc trong ky nguyen so 2026 nguyen minh anh giai nhi">
+          <div class="result-cover-wrap">
+            <img src="Contest/Others/Image/SachVaVanHoaDoc2026.jpg" alt="Sách và Văn hóa đọc trong kỷ nguyên số 2026" class="result-cover" loading="lazy">
           </div>
-        </div>
+          <div class="result-body">
+            <div class="result-top-info">
+              <h3 class="result-name">CUỘC THI “SÁCH VÀ VĂN HÓA ĐỌC TRONG KỶ NGUYÊN SỐ” 2026</h3>
+              <div class="result-meta-pill-group">
+                <span class="result-meta-pill highlight">🏛️ CLB Sách & Thư viện UNETI</span>
+                <span class="result-meta-pill">📅 02/2026 - 04/2026</span>
+              </div>
+            </div>
+
+            <div class="entry-section-label">👥 Thành viên YTC góp mặt</div>
+            <div class="entry-grid">
+              <div class="entry-card">
+                <div class="entry-top">
+                  <a class="entry-name" href="Member/NguyenMinhAnh_DHQT19A1HN.html" target="_blank">👤 Nguyễn Minh Ánh</a>
+                  <span class="entry-class">DHQT19A1HN</span>
+                </div>
+                <p class="entry-title"><span class="title-label">Nội dung dự thi:</span> [Đang cập nhật]</p>
+                <div class="entry-bottom-row">
+                  <span class="entry-status stage-final">🥈 Giải Nhì Chung Cuộc</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="result-card-footer">
+              <span class="result-meta-pill">🏆 Thành tích xuất sắc</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- 6. THE FACE UNETI 2025 -->
+        <article class="result-card" data-category="others" data-keywords="the face uneti 2025 to thu trang nguyen hong thanh truyen thong">
+          <div class="result-cover-wrap">
+            <img src="Contest/Others/Image/TheFaceUNETI2025.jpg" alt="THE FACE UNETI 2025" class="result-cover" loading="lazy">
+          </div>
+          <div class="result-body">
+            <div class="result-top-info">
+              <h3 class="result-name">THE FACE UNETI 2025</h3>
+              <div class="result-meta-pill-group">
+                <span class="result-meta-pill highlight">🏛️ CLB Truyền thông UNETI</span>
+                <span class="result-meta-pill">📅 11/2025 - 01/2026</span>
+              </div>
+            </div>
+
+            <div class="entry-section-label">👥 Thành viên YTC góp mặt</div>
+            <div class="entry-grid">
+              <div class="entry-card">
+                <div class="entry-top">
+                  <a class="entry-name" href="Member/ToThuTrang_DHTN19A3HN.html" target="_blank">👤 Tô Thu Trang</a>
+                  <span class="entry-class">DHTN19A3HN</span>
+                </div>
+                <div class="entry-bottom-row">
+                  <span class="entry-status stage-progress">🌟 Vòng sơ khảo</span>
+                  <a href="https://www.facebook.com/share/1DYhe7xcK2/" target="_blank" class="entry-inline-link">Profile bình chọn →</a>
+                </div>
+              </div>
+
+              <div class="entry-card">
+                <div class="entry-top">
+                  <a class="entry-name" href="Member/NguyenHongThanh_DHMK18A1HN.html" target="_blank">👤 Nguyễn Hồng Thanh</a>
+                  <span class="entry-class">DHMK18A1HN</span>
+                </div>
+                <div class="entry-bottom-row">
+                  <span class="entry-status stage-progress">🌟 Vòng sơ khảo</span>
+                  <a href="https://www.facebook.com/share/19ZmzNJdvd/" target="_blank" class="entry-inline-link">Profile bình chọn →</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="result-card-footer">
+              <span class="result-meta-pill">✨ Dấu ấn phong cách</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- 7. KHOẢNH KHẮC TRI ÂN 20/11 -->
+        <article class="result-card" data-category="others" data-keywords="khoanh khac tri an 20/11 mua 5 2025 tran dang binh minh nguyen hong thanh thiep bai viet">
+          <div class="result-cover-wrap">
+            <img src="Contest/Others/Image/KhoanhKhacTriAn2025.jpg" alt="KHOẢNH KHẮC TRI ÂN 20/11 – MÙA 5" class="result-cover" loading="lazy">
+          </div>
+          <div class="result-body">
+            <div class="result-top-info">
+              <h3 class="result-name">KHOẢNH KHẮC TRI ÂN 20/11 – MÙA 5 (2025)</h3>
+              <div class="result-meta-pill-group">
+                <span class="result-meta-pill highlight">🏛️ CLB Sách UNETI</span>
+                <span class="result-meta-pill">📅 Tháng 11/2025</span>
+              </div>
+            </div>
+
+            <div class="entry-section-label">👥 Thành viên YTC góp mặt</div>
+            <div class="entry-grid">
+              <div class="entry-card">
+                <div class="entry-top">
+                  <a class="entry-name" href="Member/TranDangBinhMinh_DHTI18A1CL.html" target="_blank">👤 Trần Đặng Bình Minh</a>
+                  <span class="entry-class">DHTI18A1CL</span>
+                </div>
+                <p class="entry-title"><span class="title-label">Thể loại:</span> Thiết kế thiệp</p>
+                <div class="entry-bottom-row">
+                  <span class="entry-status stage-final">🥈 Giải Nhì</span>
+                  <a href="https://www.facebook.com/share/1G2WXqDDUU/" target="_blank" class="entry-inline-link">Xem tác phẩm →</a>
+                </div>
+              </div>
+
+              <div class="entry-card">
+                <div class="entry-top">
+                  <a class="entry-name" href="Member/NguyenHongThanh_DHMK18A1HN.html" target="_blank">👤 Nguyễn Hồng Thanh</a>
+                  <span class="entry-class">DHMK18A1HN</span>
+                </div>
+                <p class="entry-title"><span class="title-label">Thể loại:</span> Thiệp + Bài viết tri ân</p>
+                <div class="entry-bottom-row">
+                  <a href="https://www.facebook.com/share/183DkhD8gw/" target="_blank" class="entry-inline-link">Xem tác phẩm →</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="result-card-footer">
+              <span class="result-meta-pill">💐 Hoạt động ý nghĩa</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- 8. LAN TỎA VĂN HÓA HỌC ĐƯỜNG 2025 -->
+        <article class="result-card" data-category="others" data-keywords="y tuong sang tao lan toa van hoa hoc duong 2025 tran dang binh minh nguyen hong thanh thiet ke">
+          <div class="result-cover-wrap">
+            <img src="Contest/Others/Image/LanToaVHHDUNETI2025.jpg" alt="Ý tưởng sáng tạo lan tỏa văn hoá học đường UNETI 2025" class="result-cover" loading="lazy">
+          </div>
+          <div class="result-body">
+            <div class="result-top-info">
+              <h3 class="result-name">LAN TỎA VĂN HÓA HỌC ĐƯỜNG SINH VIÊN UNETI 2025</h3>
+              <div class="result-meta-pill-group">
+                <span class="result-meta-pill highlight">🏛️ CLB TT Văn Hoá Học Đường</span>
+                <span class="result-meta-pill">📅 Tháng 11/2025</span>
+              </div>
+            </div>
+
+            <div class="entry-section-label">👥 Thành viên YTC góp mặt</div>
+            <div class="entry-grid">
+              <div class="entry-card">
+                <div class="entry-top">
+                  <a class="entry-name" href="Member/TranDangBinhMinh_DHTI18A1CL.html" target="_blank">👤 Trần Đặng Bình Minh</a>
+                  <span class="entry-class">DHTI18A1CL</span>
+                </div>
+                <p class="entry-title"><span class="title-label">Thể loại:</span> Thiết kế ấn phẩm</p>
+                <div class="entry-bottom-row">
+                  <a href="https://www.facebook.com/share/p/14UnpXnfPWN/" target="_blank" class="entry-inline-link">Xem ấn phẩm →</a>
+                </div>
+              </div>
+
+              <div class="entry-card">
+                <div class="entry-top">
+                  <a class="entry-name" href="Member/NguyenHongThanh_DHMK18A1HN.html" target="_blank">👤 Nguyễn Hồng Thanh</a>
+                  <span class="entry-class">DHMK18A1HN</span>
+                </div>
+                <p class="entry-title"><span class="title-label">Thể loại:</span> Thiết kế ấn phẩm</p>
+                <div class="entry-bottom-row">
+                  <span class="entry-status stage-final">❤️ Giải Yêu Thích Nhất</span>
+                  <a href="https://www.facebook.com/share/p/1BJSmmMTgL/" target="_blank" class="entry-inline-link">Xem ấn phẩm →</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="result-card-footer">
+              <span class="result-meta-pill">🎨 Ấn phẩm sáng tạo</span>
+            </div>
+          </div>
+        </article>
+
       </div>
-
-      <div class="result-card">
-        <img src="Contest/Others/Image/KhoanhKhacTriAn2025.jpg" alt="KHOẢNH KHẮC TRI ÂN 20/11 – MÙA 5" class="result-cover">
-        <div class="result-body">
-          <h3 class="result-name">KHOẢNH KHẮC TRI ÂN 20/11 – MÙA 5 (2025)</h3>
-          <p>(thuộc CLB Sách UNETI)</p>
-          <p><b>Thời gian: </b>Tháng 11/2025</p>
-          <p class="list-label" style="margin-top:0;">Thành viên góp mặt</p>
-          <div class="entry-grid">
-
-            <div class="entry-card">
-              <div class="entry-top">
-                <a class="entry-name" href="Member/TranDangBinhMinh_DHTI18A1CL.html" target="_blank">Trần Đặng Bình Minh</a>
-                <span class="entry-class">DHTI18A1CL</span>
-                </div>
-                <p class="entry-title"><span class="title-label">Thể loại: </span>Thiệp</p>
-              <span class="entry-status stage-final">Giải nhì</span>
-              <a href="https://www.facebook.com/share/1G2WXqDDUU/" target="_blank" class="result-link">Xem tác phẩm →</a>
-            </div>
-
-            <div class="entry-card">
-              <div class="entry-top">
-                <a class="entry-name" href="Member/NguyenHongThanh_DHMK18A1HN.html" target="_blank">Nguyễn Hồng Thanh</a>
-                <span class="entry-class">DHMK18A1HN</span>
-                </div>
-                <p class="entry-title"><span class="title-label">Thể loại: </span>Thiệp + Bài viết</p>
-              <a href="https://www.facebook.com/share/183DkhD8gw/" target="_blank" class="result-link">Xem tác phẩm →</a>
-            </div>
-
-          </div>
-        </div>
-      </div>    
-
-      <div class="result-card">
-        <img src="Contest/Others/Image/LanToaVHHDUNETI2025.jpg" alt="Ý tưởng sáng tạo lan tỏa văn hoá học đường sinh viên UNETI" class="result-cover">
-        <div class="result-body">
-          <h3 class="result-name">Ý tưởng sáng tạo lan tỏa văn hoá học đường sinh viên UNETI 2025</h3>
-          <p>(thuộc CLB Tuyên Truyền Văn Hoá Học Đường Sinh Viên UNETI)</p>
-          <p><b>Thời gian: </b>Tháng 11/2025</p>
-          <p class="list-label" style="margin-top:0;">Thành viên góp mặt</p>
-          <div class="entry-grid">
-
-            <div class="entry-card">
-              <div class="entry-top">
-                <a class="entry-name" href="Member/TranDangBinhMinh_DHTI18A1CL.html" target="_blank">Trần Đặng Bình Minh</a>
-                <span class="entry-class">DHTI18A1CL</span>
-                </div>
-                <p class="entry-title"><span class="title-label">Thể loại: </span>Thiết kế</p>
-              <a href="https://www.facebook.com/share/p/14UnpXnfPWN/" target="_blank" class="result-link">Xem tác phẩm →</a>
-            </div>
-
-            <div class="entry-card">
-              <div class="entry-top">
-                <a class="entry-name" href="Member/NguyenHongThanh_DHMK18A1HN.html" target="_blank">Nguyễn Hồng Thanh</a>
-                <span class="entry-class">DHMK18A1HN</span>
-                </div>
-                <p class="entry-title"><span class="title-label">Thể loại: </span>Thiết kế</p>
-                <span class="entry-status stage-final">Giải yêu thích nhất</span>
-              <a href="https://www.facebook.com/share/p/1BJSmmMTgL/" target="_blank" class="result-link">Xem tác phẩm →</a>
-            </div>
-
-          </div>
-        </div>
-      </div>
-
-      </div><!-- /.result-grid -->
-      <!-- Thêm .result-card mới ở đây (bên trong .result-grid) khi có cuộc thi tiếp theo trong mục "Cuộc thi khác" -->
     </section>
 
   </main>
@@ -1048,6 +1521,110 @@ header p.subtitle {
     <div id="footer-placeholder"></div>
   </footer>
 
+  <!-- Link script hệ thống -->
+  <script src="Asset/script.js"></script>
+
+  <!-- Interactive Filter & Search Script -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const searchInput = document.getElementById("contestSearchInput");
+      const clearBtn = document.getElementById("contestClearBtn");
+      const filterChips = document.querySelectorAll(".filter-chip");
+      const contestCards = document.querySelectorAll(".result-card");
+      const contestModules = document.querySelectorAll(".contest-module");
+      const contestDividers = document.querySelectorAll(".contest-divider");
+      const noResultsBox = document.getElementById("noResultsBox");
+      const resetSearchBtn = document.getElementById("resetSearchBtn");
+
+      let currentCategory = "all";
+
+      // Function to remove Vietnamese diacritics for flexible fuzzy searching
+      function removeDiacritics(str) {
+        return str.normalize("NFD")
+                  .replace(/[\u0300-\u036f]/g, "")
+                  .replace(/đ/g, "d").replace(/Đ/g, "D")
+                  .toLowerCase();
+      }
+
+      function applyFilterAndSearch() {
+        const query = removeDiacritics(searchInput.value.trim());
+        if (query.length > 0) {
+          clearBtn.style.display = "flex";
+        } else {
+          clearBtn.style.display = "none";
+        }
+
+        let visibleTotalCount = 0;
+
+        contestModules.forEach((module, idx) => {
+          const modCategory = module.getAttribute("data-section-category");
+          const cardsInModule = module.querySelectorAll(".result-card");
+          let visibleInModule = 0;
+
+          // Check if category matches
+          const categoryMatches = (currentCategory === "all" || currentCategory === modCategory);
+
+          cardsInModule.forEach(card => {
+            const cardKeywords = removeDiacritics(card.getAttribute("data-keywords") || "");
+            const cardText = removeDiacritics(card.innerText || "");
+            const textMatches = !query || cardKeywords.includes(query) || cardText.includes(query);
+
+            if (categoryMatches && textMatches) {
+              card.style.display = "flex";
+              visibleInModule++;
+              visibleTotalCount++;
+            } else {
+              card.style.display = "none";
+            }
+          });
+
+          // Show/hide entire section based on visible cards
+          if (visibleInModule > 0) {
+            module.style.display = "block";
+            if (contestDividers[idx]) contestDividers[idx].style.display = "block";
+          } else {
+            module.style.display = "none";
+            if (contestDividers[idx]) contestDividers[idx].style.display = "none";
+          }
+        });
+
+        // Toggle No Results Box
+        if (visibleTotalCount === 0) {
+          noResultsBox.style.display = "block";
+        } else {
+          noResultsBox.style.display = "none";
+        }
+      }
+
+      // Filter chips click handler
+      filterChips.forEach(chip => {
+        chip.addEventListener("click", () => {
+          filterChips.forEach(c => c.classList.remove("active"));
+          chip.classList.add("active");
+          currentCategory = chip.getAttribute("data-category");
+          applyFilterAndSearch();
+        });
+      });
+
+      // Search input handler
+      searchInput.addEventListener("input", applyFilterAndSearch);
+
+      // Clear search button
+      clearBtn.addEventListener("click", () => {
+        searchInput.value = "";
+        applyFilterAndSearch();
+        searchInput.focus();
+      });
+
+      // Reset button in empty state
+      resetSearchBtn.addEventListener("click", () => {
+        searchInput.value = "";
+        currentCategory = "all";
+        filterChips.forEach(c => c.classList.remove("active"));
+        document.querySelector('.filter-chip[data-category="all"]').classList.add("active");
+        applyFilterAndSearch();
+      });
+    });
+  </script>
 </body>
-<script src="Asset/script.js"></script>
 </html>

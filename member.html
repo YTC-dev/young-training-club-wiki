@@ -8,15 +8,397 @@
   <!-- Link CSS hệ thống -->
   <link rel="stylesheet" href="Asset/style.css">
   <link rel="icon" type="image/png" href="Image/YTC-Favicon.png">
-</head>
-<style>
+
+  <style>
+    /* ==========================================
+       MEMBER PAGE ENHANCED STYLING
+    ========================================== */
+
+    .member-section {
+      padding: 32px 0 48px;
+    }
+
+    /* Hero header */
+    .member-hero {
+      padding: 56px 20px 42px;
+      background: linear-gradient(135deg, #04006b 0%, #1a2a80 50%, #0983fe 100%);
+      color: #fff;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 16px;
+      background: rgba(255, 255, 255, 0.16);
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border-radius: 30px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      margin-bottom: 14px;
+      color: #e0f2fe;
+    }
+
+    .member-hero h1 {
+      font-size: 2.3rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      margin-bottom: 10px;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .hero-subtitle {
+      font-size: 1.05rem;
+      color: #bae6fd;
+      font-weight: 400;
+      max-width: 780px;
+      margin: 0 auto;
+    }
+
+    /* Quick jump navigation chips */
+    .member-nav-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      max-width: 960px;
+      margin: 0 auto 32px;
+      padding: 0 16px;
+    }
+
+    .nav-chip {
+      padding: 8px 18px;
+      border-radius: 20px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      background: #ffffff;
+      color: var(--text-muted);
+      border: 1.5px solid rgba(161, 227, 255, 0.5);
+      cursor: pointer;
+      transition: all 0.25s ease;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .nav-chip:hover {
+      background: #f0f8ff;
+      color: var(--blue-accent);
+      border-color: var(--blue-accent);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(9, 131, 254, 0.2);
+    }
+
+    /* Section Subheadings */
+    .member-section-heading {
+      text-align: center;
+      margin: 36px 0 24px;
+    }
+
+    .member-section-heading .section-title {
+      font-size: 1.55rem;
+      font-weight: 800;
+      color: var(--blue-main);
+      display: inline-block;
+      position: relative;
+    }
+
+    /* Department Cards (4 Ban chuyên môn) */
+    .dept-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin-bottom: 36px;
+    }
+
+    .dept-card {
+      background: #ffffff;
+      border: 1.5px solid rgba(161, 227, 255, 0.45);
+      border-radius: var(--radius-md);
+      padding: 24px 20px;
+      box-shadow: var(--shadow-sm);
+      transition: all var(--transition-fast);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .dept-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-hover);
+      border-color: var(--blue-accent);
+    }
+
+    .dept-card .dept-icon {
+      font-size: 2.5rem;
+      margin-bottom: 12px;
+      display: inline-block;
+    }
+
+    .dept-card h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--blue-dark);
+      margin-bottom: 10px;
+    }
+
+    .dept-card p {
+      font-size: 0.92rem;
+      color: var(--text-body);
+      line-height: 1.6;
+    }
+
+    /* Member Card & Role Grid */
+    .bcn-role-group {
+      margin-bottom: 24px;
+    }
+
+    .bcn-role-group-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--blue-dark);
+      text-align: left;
+      margin: 18px 0 12px;
+      padding-left: 10px;
+      border-left: 3.5px solid var(--blue-accent);
+    }
+
+    .bcn-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .member-profile-card {
+      background: #ffffff;
+      border: 1.5px solid rgba(161, 227, 255, 0.4);
+      border-radius: var(--radius-md);
+      padding: 20px 16px 18px;
+      box-shadow: var(--shadow-sm);
+      transition: all var(--transition-fast);
+      text-decoration: none;
+      color: var(--text-main);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .member-profile-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-hover);
+      border-color: var(--blue-accent);
+    }
+
+    .member-profile-card.highlight {
+      background: linear-gradient(145deg, #ffffff 0%, #f0f7ff 100%);
+      border: 2px solid rgba(9, 131, 254, 0.5);
+      box-shadow: 0 6px 20px rgba(9, 131, 254, 0.15);
+    }
+
+    .member-avatar-wrap {
+      width: 100%;
+      max-width: 270px;
+      max-height: 270px;
+      aspect-ratio: 1 / 1;
+      border-radius: 20px;
+      overflow: hidden;
+      margin: 0 auto 16px;
+      border: 3.5px solid #e0f2fe;
+      box-shadow: 0 6px 18px rgba(44, 59, 144, 0.14);
+      background: #f0f8ff;
+      flex-shrink: 0;
+      transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+    }
+
+    .member-profile-card:hover .member-avatar-wrap {
+      transform: scale(1.04);
+      border-color: var(--blue-accent);
+      box-shadow: 0 8px 20px rgba(9, 131, 254, 0.22);
+    }
+
+    .member-avatar-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .member-role-badge {
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 3px 12px;
+      border-radius: 20px;
+      background: #e0f2fe;
+      color: #0284c7;
+      margin-bottom: 8px;
+      display: inline-block;
+    }
+
+    .member-profile-card.highlight .member-role-badge {
+      background: linear-gradient(135deg, #0983fe, #04006b);
+      color: #ffffff;
+    }
+
+    .member-name {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--blue-dark);
+      margin-bottom: 4px;
+      line-height: 1.35;
+    }
+
+    .member-class {
+      font-size: 0.86rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .member-card-action {
+      margin-top: 12px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--blue-accent);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      opacity: 0;
+      transform: translateY(4px);
+      transition: all 0.2s ease;
+    }
+
+    .member-profile-card:hover .member-card-action {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Teacher Cards */
+    .teacher-card {
+      background: #ffffff;
+      border: 1.5px solid rgba(161, 227, 255, 0.45);
+      border-radius: var(--radius-md);
+      padding: 22px 18px;
+      box-shadow: var(--shadow-sm);
+      transition: all var(--transition-fast);
+      text-decoration: none;
+      color: var(--text-main);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .teacher-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-hover);
+      border-color: var(--blue-accent);
+    }
+
+    .teacher-avatar-wrap {
+      width: 100%;
+      max-width: 250px;
+      max-height: 250px;
+      aspect-ratio: 1 / 1;
+      border-radius: 20px;
+      overflow: hidden;
+      margin: 0 auto 16px;
+      border: 3.5px solid #dbeafe;
+      box-shadow: 0 6px 18px rgba(44, 59, 144, 0.14);
+      background: #eff6ff;
+      flex-shrink: 0;
+      transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+    }
+
+    .teacher-card:hover .teacher-avatar-wrap {
+      transform: scale(1.04);
+      border-color: var(--blue-accent);
+      box-shadow: 0 8px 20px rgba(9, 131, 254, 0.22);
+    }
+
+    .teacher-avatar-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .teacher-card strong {
+      font-size: 1.05rem;
+      color: var(--blue-dark);
+      margin-bottom: 8px;
+    }
+
+    .teacher-roles-list {
+      list-style: none;
+      padding: 0;
+      margin: 8px 0 0;
+      text-align: left;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .teacher-roles-list li {
+      font-size: 0.84rem;
+      color: var(--text-body);
+      line-height: 1.4;
+      padding-left: 12px;
+      position: relative;
+    }
+
+    .teacher-roles-list li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: var(--blue-accent);
+      font-weight: 700;
+    }
+
+    /* Generation Accordion / Box */
+    .gen-container {
+      background: #ffffff;
+      border: 1px solid var(--surface-border);
+      border-radius: var(--radius-lg);
+      padding: 28px 24px;
+      box-shadow: var(--shadow-soft);
+      margin-bottom: 28px;
+    }
+
+    .gen-header-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      border-bottom: 1.5px solid var(--light-soft);
+      padding-bottom: 12px;
+    }
+
+    .gen-tag-badge {
+      background: linear-gradient(135deg, #0983fe, #04006b);
+      color: #ffffff;
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 0.88rem;
+      font-weight: 700;
+    }
+
+    /* Honor Floating Star Button */
     .star-floating-btn {
       position: fixed;
-      bottom: 50px;
-      right: 30px;
-      width: 70px;
-      height: 70px;
-      background: linear-gradient(135deg, #ffb800, #ff8c00);
+      bottom: 40px;
+      right: 28px;
+      width: 62px;
+      height: 62px;
+      background: linear-gradient(135deg, #ffd700, #ff8c00);
       border-radius: 50%;
       display: flex;
       align-items: center;
@@ -43,8 +425,8 @@
     }
 
     .star-floating-btn svg {
-      width: 34px;
-      height: 34px;
+      width: 30px;
+      height: 30px;
       transition: transform 0.3s ease;
       filter: drop-shadow(0 2px 4px rgba(0,0,0,0.25));
     }
@@ -60,15 +442,15 @@
     }
 
     /* ==========================================
-       HONOR POPUP
+       HONOR POPUP MODAL
     ========================================== */
     .honor-overlay {
       position: fixed;
       top: 0; left: 0;
       width: 100%; height: 100%;
-      background: rgba(0,0,0,0.78);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
+      background: rgba(0, 0, 20, 0.82);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -76,6 +458,7 @@
       opacity: 0;
       visibility: hidden;
       transition: all 0.3s ease;
+      padding: 20px;
     }
 
     .honor-overlay.active {
@@ -90,20 +473,20 @@
 
     #honorBox {
       position: relative;
-      width: min(820px, 92vw);
+      width: min(840px, 94vw);
       max-height: 85vh;
       overflow-y: auto;
       overflow-x: hidden;
-      background: linear-gradient(160deg, #2a1500 0%, #7a3e00 55%, #3d1c00 100%);
+      background: linear-gradient(160deg, #1f1200 0%, #5e3000 55%, #2a1500 100%);
       border: 2px solid #ffd700;
       border-radius: 20px;
       box-shadow:
         0 0 60px rgba(255, 215, 0, 0.4),
-        0 24px 64px rgba(0,0,0,0.7);
+        0 24px 64px rgba(0,0,0,0.8);
       transform: scale(0.92) translateY(16px);
       opacity: 0;
       transition: all 0.32s cubic-bezier(0.34, 1.4, 0.64, 1);
-      padding: 44px 40px 36px;
+      padding: 40px 36px 32px;
       color: #fff;
       scrollbar-width: thin;
       scrollbar-color: rgba(255,215,0,0.5) transparent;
@@ -116,8 +499,8 @@
     .honor-close-btn {
       position: absolute;
       top: 18px; right: 18px;
-      width: 40px; height: 40px;
-      background: rgba(255,215,0,0.12);
+      width: 38px; height: 38px;
+      background: rgba(255,215,0,0.14);
       border: 1.5px solid #ffd700;
       border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
@@ -127,7 +510,7 @@
     }
 
     .honor-close-btn:hover {
-      background: rgba(255,215,0,0.25);
+      background: rgba(255,215,0,0.3);
       transform: rotate(90deg);
     }
 
@@ -135,7 +518,7 @@
     .honor-close-btn::after {
       content: '';
       position: absolute;
-      width: 18px; height: 2px;
+      width: 16px; height: 2px;
       background: #ffd700;
     }
 
@@ -144,152 +527,162 @@
 
     #honorBox .honor-title {
       text-align: center;
-      font-size: 1.5rem;
-      font-weight: 700;
+      font-size: 1.45rem;
+      font-weight: 800;
       color: #ffd700;
       text-shadow: 0 0 24px rgba(255,215,0,0.6);
-      margin-bottom: 28px;
-      line-height: 1.5;
+      margin-bottom: 24px;
+      line-height: 1.45;
       letter-spacing: 0.5px;
-    }
-
-    .honor-divider {
-      border: none;
-      border-top: 1.5px solid rgba(255,215,0,0.35);
-      margin: 20px 0;
     }
 
     .honor-category {
       background: rgba(255,215,0,0.1);
       border-left: 4px solid #ffd700;
-      border-radius: 10px;
+      border-radius: 12px;
       padding: 16px 20px;
       margin-bottom: 14px;
-    }
-
-    .honor-category h3 {
-      font-size: 1.05rem;
-      color: #ffe680;
-      margin-bottom: 8px;
-      font-weight: 600;
     }
 
     .honor-member {
       display: flex;
       align-items: center;
       gap: 10px;
-      padding: 8px 0;
+      padding: 9px 0;
       border-bottom: 1px solid rgba(255,215,0,0.15);
-      font-size: 1rem;
+      font-size: 0.98rem;
       color: #fff5cc;
+      text-decoration: none;
+      transition: transform 0.2s ease;
+    }
+
+    .honor-member:hover {
+      transform: translateX(4px);
+      color: #ffffff;
     }
 
     .honor-member:last-child { border-bottom: none; }
-
     .honor-member .star-icon { font-size: 1.2rem; }
 
-    .honor-note {
-      text-align: center;
-      font-size: 0.88rem;
-      color: rgba(255,230,128,0.7);
-      margin-top: 18px;
-      font-style: italic;
-    }
-
-    @media (max-width: 600px) {
-      #honorBox { padding: 36px 18px 28px; }
-      #honorBox .honor-title { font-size: 1.2rem; }
-    }
-
-    /* ===== EVENT GRID ===== */
+    /* Event Cards (Góc Vinh Danh) */
     .events-grid {
       max-width: 960px;
       margin: 0 auto;
-      padding: 12px 16px 40px;
+      padding: 12px 16px 36px;
       display: grid;
-      gap: 24px;
+      gap: 22px;
     }
 
-    /* ===== EVENT CARD ===== */
     .event-card {
-      background: var(--light-bg);
+      background: #ffffff;
       border-radius: 16px;
-      box-shadow: 0 4px 20px rgba(44,59,144,0.10);
+      box-shadow: var(--shadow-sm);
       display: grid;
       grid-template-columns: 240px 1fr;
       overflow: hidden;
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
-      border: 1px solid rgba(161,227,255,0.35);
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+      border: 1px solid rgba(161,227,255,0.4);
     }
+
     .event-card:hover {
       transform: translateY(-4px);
-      box-shadow: 0 10px 32px rgba(9,131,254,0.18);
+      box-shadow: var(--shadow-hover);
+      border-color: var(--blue-accent);
     }
+
     .event-card__img {
       width: 240px;
-      max-height: 240px;
+      height: 100%;
       min-height: 180px;
       object-fit: cover;
       display: block;
-      background: var(--light-soft);
+      background: #f0f7ff;
+      transition: transform 0.35s ease;
     }
-    .event-card__img-placeholder {
-      width: 240px;
-      min-height: 180px;
-      background: linear-gradient(135deg, var(--light-soft), var(--light-blue));
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 2.5rem;
-      color: var(--blue-accent);
+
+    .event-card:hover .event-card__img {
+      transform: scale(1.04);
     }
+
+    .event-card__img-placeholder,
     .event-card__img-placeholder-honor {
       width: 240px;
+      height: 100%;
       min-height: 180px;
-      background: linear-gradient(135deg, #ffb800,#ff8c00);
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 2.5rem;
+    }
+
+    .event-card__img-placeholder {
+      background: linear-gradient(135deg, var(--light-soft), var(--light-blue));
       color: var(--blue-accent);
     }
+
+    .event-card__img-placeholder-honor {
+      background: linear-gradient(135deg, #ffd700, #ff8c00);
+      color: #04006b;
+      padding: 24px;
+    }
+
     .event-card__body {
-      padding: 20px 24px;
+      padding: 22px 24px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       text-align: left;
     }
-    .event-card__title {
-      font-size: 1rem;
-      font-weight: 700;
-      color: var(--blue-dark);
-      line-height: 1.5;
-      margin-bottom: 10px;
-    }
-    .event-card__list {
-      font-size: 1rem;
-      font-weight: 700;
-      color: #ff6f00;
-      line-height: 1.5;
-      margin-bottom: 10px;
-    }
-    a.event-card__list:hover {
-      color: #ffb800;
-    }
+
     .event-card__category {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      font-size: 14px;
-      color: var(--text-muted);
-      font-weight: 500;
-      background: var(--light-soft);
-      padding: 4px 10px;
+      font-size: 0.8rem;
+      color: #0284c7;
+      font-weight: 700;
+      background: #e0f2fe;
+      padding: 4px 12px;
       border-radius: 20px;
-      margin-bottom: 14px;
+      margin-bottom: 10px;
       width: fit-content;
     }
+
+    .event-card__title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--blue-dark);
+      line-height: 1.5;
+      margin-bottom: 14px;
+    }
+
+    .event-card__list {
+      font-size: 0.94rem;
+      font-weight: 600;
+      color: #c2410c;
+      line-height: 1.6;
+      margin-bottom: 4px;
+      display: block;
+    }
+
+    a.event-card__list {
+      color: #0284c7;
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    a.event-card__list:hover {
+      color: #04006b;
+      text-decoration: underline;
+    }
+
+    .event-card__links {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 14px;
+    }
+
     .event-card__link {
       display: inline-flex;
       align-items: center;
@@ -300,903 +693,1035 @@
       border: 1.5px solid var(--blue-accent);
       padding: 7px 16px;
       border-radius: 8px;
-      transition: background 0.2s, color 0.2s;
-      width: fit-content;
+      background: #ffffff;
+      text-decoration: none;
+      transition: all 0.2s ease;
     }
+
     .event-card__link:hover {
       background: var(--blue-accent);
-      color: #fff;
+      color: #ffffff;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(9, 131, 254, 0.25);
     }
-    .event-card__links {
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      width: 100%;
-      flex-wrap: wrap;
-    }
-    .event-card__links .event-card__link {
-      flex: 1;
-      justify-content: center;
-      text-align: center;
-    }
-    /* ===== XEM THÊM BUTTON ===== */
+
+    /* Load More */
     .is-hidden {
-      display: none;
+      display: none !important;
     }
+
     .load-more-wrap {
       display: flex;
       justify-content: center;
-      padding: 8px 16px 40px;
+      padding: 12px 16px 36px;
     }
+
     .load-more-btn {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      font-size: 0.95rem;
+      font-size: 0.96rem;
       font-weight: 700;
-      color: #fff;
-      background: var(--blue-accent);
+      color: #ffffff;
+      background: linear-gradient(135deg, #0983fe, #04006b);
       border: none;
-      padding: 12px 28px;
+      padding: 12px 32px;
       border-radius: 30px;
       cursor: pointer;
-      box-shadow: 0 4px 16px rgba(9,131,254,0.25);
-      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+      box-shadow: 0 6px 20px rgba(9, 131, 254, 0.28);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
     }
+
     .load-more-btn:hover {
       transform: translateY(-2px);
-      box-shadow: 0 8px 22px rgba(9,131,254,0.32);
+      box-shadow: 0 10px 28px rgba(9, 131, 254, 0.4);
     }
+
     .load-more-btn .arrow {
       transition: transform 0.25s ease;
       display: inline-block;
     }
+
     .load-more-btn.is-expanded .arrow {
       transform: rotate(180deg);
     }
 
-    /* ===== ROLE LIST (VA Positions) ===== */
-    .role-list {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      margin-top: 8px;
+    /* Responsive */
+    @media (max-width: 900px) {
+      .bcn-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+      }
+      .dept-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+      }
+      .member-avatar-wrap {
+        max-width: 230px;
+        max-height: 230px;
+      }
+      .teacher-avatar-wrap {
+        max-width: 220px;
+        max-height: 220px;
+      }
     }
 
-    .role-list .text-muted {
-      display: block;
-      font-size: 0.95rem;
-      line-height: 1.4;
-      word-break: break-word;
-    }
-
-    /* ===== MOBILE ===== */
-    @media (max-width: 640px) {
+    @media (max-width: 600px) {
+      .member-hero {
+        padding: 40px 16px 32px;
+      }
+      .member-hero h1 {
+        font-size: 1.7rem;
+      }
+      .bcn-grid {
+        grid-template-columns: 1fr;
+        gap: 14px;
+      }
+      .dept-grid {
+        grid-template-columns: 1fr;
+        gap: 14px;
+      }
+      .member-avatar-wrap {
+        max-width: 220px;
+        max-height: 220px;
+      }
+      .teacher-avatar-wrap {
+        max-width: 200px;
+        max-height: 200px;
+      }
+      .member-name {
+        font-size: 1rem;
+      }
+      .member-role-badge {
+        font-size: 0.76rem;
+        padding: 2px 10px;
+      }
       .event-card {
         grid-template-columns: 1fr;
       }
       .event-card__img,
-      .event-card__img-placeholder {
+      .event-card__img-placeholder,
+      .event-card__img-placeholder-honor {
         width: 100%;
-        height: 240px;
+        height: 200px;
+        min-height: 200px;
       }
       .event-card__body {
         padding: 16px;
       }
-      .page-header h1 {
-        font-size: 1.6rem;
+      .gen-container {
+        padding: 20px 14px;
       }
-
-      .role-list {
-        gap: 4px;
-        margin-top: 6px;
-      }
-
-      .role-list .text-muted {
-        font-size: 0.9rem;
+      #honorBox {
+        padding: 32px 18px 24px;
       }
     }
+  </style>
+</head>
 
-</style>
 <body>
 <div id="nav-placeholder"></div>
 
-  <!-- HEADER -->
-  <header class="hero">
-    <div class="container">
-      <h1>Thành viên</h1>
-    </div>
-  </header>
-<br>
-  <!-- BAN -->
-<h2 class="section-title"><b>Giới thiệu chung</b></h2>
+<!-- HERO HEADER -->
+<header class="member-hero">
+  <div class="container">
+    <div class="hero-badge">👥 Đại Gia Đình YTC</div>
+    <h1>Cơ Cấu Tổ Chức & Thành Viên</h1>
+    <p class="hero-subtitle">Hội tụ những thế hệ thủ lĩnh tài năng, nhiệt huyết và cống hiến không ngừng cho sự phát triển của CLB và UNETI</p>
+  </div>
+</header>
 
-<section class="container fade-in">
-  <div class="role role-4">
+<section class="member-section">
+  <div class="container">
 
-    <div class="role-box">
-      <h3 class="section-title">Ban Nhân Sự - Hậu Cần</h3>
-      <p>Luôn tận hình, chu đáo trong công tác hỗ trợ, nhân sự vào hoạt động. Luôn có trách nhiệm trong công việc nhóm, phân công và nhân lực!</p>
-    </div>
-
-    <div class="role-box">
-      <h3 class="section-title">Ban MC - Lễ Tân</h3>
-      <p>Chú trọng trong công việc MC sự kiện và lễ tân đón tiếp đại biểu. Luôn giữ hình ảnh chuyên nghiệp, linh hoạt xử lý các tình huống!</p>
+    <!-- QUICK JUMP NAVIGATION -->
+    <div class="member-nav-chips fade-in">
+      <a href="#cac-ban" class="nav-chip">🏢 4 Ban chuyên môn</a>
+      <a href="#gen-14" class="nav-chip">⭐ BCN Gen 14 (Hiện tại)</a>
+      <a href="#bcn-generations" class="nav-chip">📜 Các thế hệ trước</a>
+      <a href="#thay-co-phu-trach" class="nav-chip">🎓 Thầy cô phụ trách</a>
+      <a href="#goc-vinh-danh" class="nav-chip">🏆 Góc vinh danh</a>
     </div>
 
-    <div class="role-box">
-      <h3 class="section-title">Ban Kỹ Thuật - Vận Hành</h3>
-      <p>Quản lý hệ thống, thiết kế và đa phương tiện của CLB chuyên dụng. Vận hành các thiết bị - kỹ thuật cho mọi sự kiện - hoạt động!</p>
+    <!-- 1. GIỚI THIỆU 4 BAN CHUYÊN MÔN -->
+    <div id="cac-ban" class="member-section-heading fade-in">
+      <h2 class="section-title">4 Ban Chuyên Môn YTC</h2>
     </div>
 
-    <div class="role-box">
-      <h3 class="section-title">Ban Truyền Thông</h3>
-      <p>Lên kế hoạch truyền thông trước – trong – sau sự kiện. Làm content, dựng kịch bản, quảng bá cho Facebook, Tiktok... đều không khó!</p>
+    <div class="dept-grid fade-in">
+      <div class="dept-card">
+        <div class="dept-icon">👥</div>
+        <h3>Ban Nhân Sự - Hậu Cần</h3>
+        <p>Tận tâm, chu đáo trong công tác quản trị nhân lực, hậu cần chuẩn bị sự kiện và gắn kết mọi thành viên trong ngôi nhà chung YTC.</p>
+      </div>
+
+      <div class="dept-card">
+        <div class="dept-icon">🎙️</div>
+        <h3>Ban MC - Lễ Tân</h3>
+        <p>Gương mặt đại diện duyên dáng, chuyên nghiệp. Làm chủ sân khấu, dẫn dắt các sự kiện lớn nhỏ và đón tiếp đại biểu trang trọng.</p>
+      </div>
+
+      <div class="dept-card">
+        <div class="dept-icon">⚙️</div>
+        <h3>Ban Kỹ Thuật - Vận Hành</h3>
+        <p>Hậu phương vững chắc, làm chủ âm thanh, ánh sáng, máy quay, slide trình chiếu và vận hành kỹ thuật trơn tru cho mọi chương trình.</p>
+      </div>
+
+      <div class="dept-card">
+        <div class="dept-icon">📢</div>
+        <h3>Ban Truyền Thông</h3>
+        <p>Khơi nguồn sáng tạo, xây dựng nội dung, thiết kế ấn phẩm, quay dựng video và lan tỏa hình ảnh YTC bùng nổ trên mọi nền tảng.</p>
+      </div>
+    </div>
+
+    <!-- 2. BAN CHỦ NHIỆM GEN 14 (HIỆN TẠI) -->
+    <div id="gen-14" class="gen-container fade-in">
+      <div class="gen-header-wrap">
+        <div>
+          <h2 style="font-size: 1.45rem; font-weight: 800; color: var(--blue-dark); text-align: left; margin: 0;">
+            Ban Chủ Nhiệm Gen 14
+          </h2>
+          <span style="font-size: 0.88rem; color: var(--text-muted); font-weight: 500;">Nhiệm kỳ 2026 – 2027</span>
+        </div>
+        <span class="gen-tag-badge">🔥 Đang đương nhiệm</span>
+      </div>
+
+      <!-- Thường trực BCN -->
+      <div class="bcn-role-group">
+        <div class="bcn-role-group-title">👑 Ban Thường Trực Chủ Nhiệm</div>
+        <div class="bcn-grid">
+          <a href="Member/NguyenHongThanh_DHMK18A1HN.html" class="member-profile-card highlight">
+            <div class="member-avatar-wrap">
+              <img src="Image/BCN Gen14/NguyenHongThanh.jpg" alt="Nguyễn Hồng Thanh">
+            </div>
+            <span class="member-role-badge">Chủ Nhiệm CLB</span>
+            <div class="member-name">Nguyễn Hồng Thanh</div>
+            <div class="member-class">DHMK18A1HN</div>
+            <span class="member-card-action">👤 Xem Profile →</span>
+          </a>
+
+          <a href="Member/NguyenThanhLan_DHLQ17A1HN.html" class="member-profile-card">
+            <div class="member-avatar-wrap">
+              <img src="Image/BCN Gen14/NguyenThanhLan.jpg" alt="Nguyễn Thanh Lan">
+            </div>
+            <span class="member-role-badge">Phó Chủ Nhiệm</span>
+            <div class="member-name">Nguyễn Thanh Lan</div>
+            <div class="member-class">DHLQ17A1HN</div>
+            <span class="member-card-action">👤 Xem Profile →</span>
+          </a>
+
+          <a href="Member/LeHuyenDoanTrang_DHLQ18A3HN.html" class="member-profile-card">
+            <div class="member-avatar-wrap">
+              <img src="Image/BCN Gen14/LeHuyenDoanTrang.jpg" alt="Lê Huyền Đoan Trang">
+            </div>
+            <span class="member-role-badge">Phó Chủ Nhiệm</span>
+            <div class="member-name">Lê Huyền Đoan Trang</div>
+            <div class="member-class">DHLQ18A3HN</div>
+            <span class="member-card-action">👤 Xem Profile →</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Ban NSHC Gen 14 -->
+      <div class="bcn-role-group">
+        <div class="bcn-role-group-title">👥 Ban Nhân Sự - Hậu Cần</div>
+        <div class="bcn-grid">
+          <a href="Member/BuiQuangMinh_DHDT19A3HN.html" class="member-profile-card">
+            <div class="member-avatar-wrap">
+              <img src="Image/BCN Gen14/BuiQuangMinh.jpg" alt="Bùi Quang Minh">
+            </div>
+            <span class="member-role-badge">Trưởng Ban</span>
+            <div class="member-name">Bùi Quang Minh</div>
+            <div class="member-class">DHDT19A3HN</div>
+            <span class="member-card-action">👤 Xem Profile →</span>
+          </a>
+
+          <a href="Member/PhamThiThaoAnh_DHMA19A2HN.html" class="member-profile-card">
+            <div class="member-avatar-wrap">
+              <img src="Image/BCN Gen14/PhamThiThaoAnh.jpg" alt="Phạm Thị Thảo Anh">
+            </div>
+            <span class="member-role-badge">Phó Ban</span>
+            <div class="member-name">Phạm Thị Thảo Anh</div>
+            <div class="member-class">DHMA19A2HN</div>
+            <span class="member-card-action">👤 Xem Profile →</span>
+          </a>
+
+          <a href="Member/DaoThiThuHang_DHMA19A3HN.html" class="member-profile-card">
+            <div class="member-avatar-wrap">
+              <img src="Image/BCN Gen14/DaoThiThuHang.jpg" alt="Đào Thị Thu Hằng">
+            </div>
+            <span class="member-role-badge">Phó Ban</span>
+            <div class="member-name">Đào Thị Thu Hằng</div>
+            <div class="member-class">DHMA19A3HN</div>
+            <span class="member-card-action">👤 Xem Profile →</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Ban MCLT Gen 14 -->
+      <div class="bcn-role-group">
+        <div class="bcn-role-group-title">🎙️ Ban MC - Lễ Tân</div>
+        <div class="bcn-grid">
+          <a href="Member/ToThuTrang_DHTN19A3HN.html" class="member-profile-card">
+            <div class="member-avatar-wrap">
+              <img src="Image/BCN Gen14/ToThuTrang.jpg" alt="Tô Thu Trang">
+            </div>
+            <span class="member-role-badge">Trưởng Ban</span>
+            <div class="member-name">Tô Thu Trang</div>
+            <div class="member-class">DHTN19A3HN</div>
+            <span class="member-card-action">👤 Xem Profile →</span>
+          </a>
+
+          <a href="Member/NguyenMinhAnh_DHQT19A1HN.html" class="member-profile-card">
+            <div class="member-avatar-wrap">
+              <img src="Image/BCN Gen14/NguyenMinhAnh.jpg" alt="Nguyễn Minh Ánh">
+            </div>
+            <span class="member-role-badge">Phó Ban</span>
+            <div class="member-name">Nguyễn Minh Ánh</div>
+            <div class="member-class">DHQT19A1HN</div>
+            <span class="member-card-action">👤 Xem Profile →</span>
+          </a>
+
+          <a href="Member/LeThiPhuongAnh_DHKMT19A1HN.html" class="member-profile-card">
+            <div class="member-avatar-wrap">
+              <img src="Image/BCN Gen14/LeThiPhuongAnh.jpg" alt="Lê Thị Phương Anh">
+            </div>
+            <span class="member-role-badge">Phó Ban</span>
+            <div class="member-name">Lê Thị Phương Anh</div>
+            <div class="member-class">DHKMT19A1HN</div>
+            <span class="member-card-action">👤 Xem Profile →</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Ban KTVH Gen 14 -->
+      <div class="bcn-role-group">
+        <div class="bcn-role-group-title">⚙️ Ban Kỹ Thuật - Vận Hành</div>
+        <div class="bcn-grid">
+          <a href="Member/DangThiPhuongLinh_DHTM19A1CL.html" class="member-profile-card">
+            <div class="member-avatar-wrap">
+              <img src="Image/BCN Gen14/DangThiPhuongLinh.jpg" alt="Đặng Thị Phương Linh">
+            </div>
+            <span class="member-role-badge">Trưởng Ban</span>
+            <div class="member-name">Đặng Thị Phương Linh</div>
+            <div class="member-class">DHTM19A1CL</div>
+            <span class="member-card-action">👤 Xem Profile →</span>
+          </a>
+
+          <a href="Member/PhungThuHa_DHDL19A1HN.html" class="member-profile-card">
+            <div class="member-avatar-wrap">
+              <img src="Image/BCN Gen14/PhungThuHa.jpg" alt="Phùng Thu Hà">
+            </div>
+            <span class="member-role-badge">Phó Ban</span>
+            <div class="member-name">Phùng Thu Hà</div>
+            <div class="member-class">DHDL19A1HN</div>
+            <span class="member-card-action">👤 Xem Profile →</span>
+          </a>
+
+          <a href="Member/TranManhDung_DHMK18A2HN.html" class="member-profile-card">
+            <div class="member-avatar-wrap">
+              <img src="Image/BCN Gen14/TranManhDung.jpg" alt="Trần Mạnh Dũng">
+            </div>
+            <span class="member-role-badge">Phó Ban</span>
+            <div class="member-name">Trần Mạnh Dũng</div>
+            <div class="member-class">DHMK18A2HN</div>
+            <span class="member-card-action">👤 Xem Profile →</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Ban TT Gen 14 -->
+      <div class="bcn-role-group">
+        <div class="bcn-role-group-title">📢 Ban Truyền Thông</div>
+        <div class="bcn-grid">
+          <a href="Member/VuXuanNhatMinh_DHMK18A1HN.html" class="member-profile-card">
+            <div class="member-avatar-wrap">
+              <img src="Image/BCN Gen14/VuXuanNhatMinh.jpg" alt="Vũ Xuân Nhật Minh">
+            </div>
+            <span class="member-role-badge">Trưởng Ban</span>
+            <div class="member-name">Vũ Xuân Nhật Minh</div>
+            <div class="member-class">DHMK18A1HN</div>
+            <span class="member-card-action">👤 Xem Profile →</span>
+          </a>
+
+          <a href="Member/NguyenPhuongAnh_DHTM18A2HN.html" class="member-profile-card">
+            <div class="member-avatar-wrap">
+              <img src="Image/BCN Gen14/NguyenPhuongAnh.jpg" alt="Nguyễn Phương Anh">
+            </div>
+            <span class="member-role-badge">Phó Ban</span>
+            <div class="member-name">Nguyễn Phương Anh</div>
+            <div class="member-class">DHTM18A2HN</div>
+            <span class="member-card-action">👤 Xem Profile →</span>
+          </a>
+
+          <a href="Member/HoangThiHaLinh_DHKT19A1HN.html" class="member-profile-card">
+            <div class="member-avatar-wrap">
+              <img src="Image/BCN Gen14/HoangThiHaLinh.jpg" alt="Hoàng Thị Hà Linh">
+            </div>
+            <span class="member-role-badge">Phó Ban</span>
+            <div class="member-name">Hoàng Thị Hà Linh</div>
+            <div class="member-class">DHKT19A1HN</div>
+            <span class="member-card-action">👤 Xem Profile →</span>
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 3. CÁC THẾ HỆ BCN TIỀN NHIỆM (GEN 13, GEN 12) -->
+    <div id="bcn-generations">
+
+      <!-- Gen 13 -->
+      <div class="gen-block gen-container fade-in">
+        <div class="gen-header-wrap">
+          <div>
+            <h2 style="font-size: 1.4rem; font-weight: 800; color: var(--blue-dark); text-align: left; margin: 0;">
+              Ban Chủ Nhiệm Gen 13
+            </h2>
+            <span style="font-size: 0.88rem; color: var(--text-muted); font-weight: 500;">Nhiệm kỳ 2025 – 2026</span>
+          </div>
+          <span style="background:#e0f2fe; color:#0284c7; padding:5px 14px; border-radius:20px; font-size:0.84rem; font-weight:700;">📜 Tiền nhiệm</span>
+        </div>
+
+        <div class="bcn-role-group">
+          <div class="bcn-role-group-title">👑 Ban Thường Trực Chủ Nhiệm</div>
+          <div class="bcn-grid">
+            <a href="Member/TranThiThuHong_DHQT13A3HN.html" class="member-profile-card">
+              <div class="member-avatar-wrap">
+                <img src="Image/BCN Gen13/TranThiThuHong.jpg" alt="Trần Thị Thu Hồng">
+              </div>
+              <span class="member-role-badge">Chủ Nhiệm</span>
+              <div class="member-name">Trần Thị Thu Hồng</div>
+              <div class="member-class">DHQT13A3HN</div>
+              <span class="member-card-action">👤 Xem Profile →</span>
+            </a>
+
+            <a href="Member/NguyenThanhLan_DHLQ17A1HN.html" class="member-profile-card">
+              <div class="member-avatar-wrap">
+                <img src="Image/BCN Gen13/NguyenThanhLan.jpg" alt="Nguyễn Thanh Lan">
+              </div>
+              <span class="member-role-badge">Phó Chủ Nhiệm</span>
+              <div class="member-name">Nguyễn Thanh Lan</div>
+              <div class="member-class">DHLQ17A1HN</div>
+              <span class="member-card-action">👤 Xem Profile →</span>
+            </a>
+
+            <a href="Member/NguyenThuyTrang_DHMK18A1CL.html" class="member-profile-card">
+              <div class="member-avatar-wrap">
+                <img src="Image/BCN Gen13/NguyenThuyTrang.jpg" alt="Nguyễn Thuỳ Trang">
+              </div>
+              <span class="member-role-badge">Phó Chủ Nhiệm</span>
+              <div class="member-name">Nguyễn Thuỳ Trang</div>
+              <div class="member-class">DHMK18A1CL</div>
+              <span class="member-card-action">👤 Xem Profile →</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="bcn-role-group">
+          <div class="bcn-role-group-title">👥 Ban Nhân Sự - Hậu Cần</div>
+          <div class="bcn-grid">
+            <div class="member-profile-card">
+              <div class="member-avatar-wrap">
+                <img src="Image/BCN Gen13/NguyenThiVan.jpg" alt="Nguyễn Thị Vân">
+              </div>
+              <span class="member-role-badge">Trưởng Ban</span>
+              <div class="member-name">Nguyễn Thị Vân</div>
+              <div class="member-class">DHMA17A1HN</div>
+            </div>
+
+            <a href="Member/LaiManhTu_DHMT17A2HN.html" class="member-profile-card">
+              <div class="member-avatar-wrap">
+                <img src="Image/BCN Gen13/LaiManhTu.jpg" alt="Lại Mạnh Tú">
+              </div>
+              <span class="member-role-badge">Phó Ban</span>
+              <div class="member-name">Lại Mạnh Tú</div>
+              <div class="member-class">DHMT17A2HN</div>
+              <span class="member-card-action">👤 Xem Profile →</span>
+            </a>
+
+            <a href="Member/VuMaiHoa_DHDL18A1HN.html" class="member-profile-card">
+              <div class="member-avatar-wrap">
+                <img src="Image/BCN Gen13/VuMaiHoa.jpg" alt="Vũ Mai Hoa">
+              </div>
+              <span class="member-role-badge">Phó Ban</span>
+              <div class="member-name">Vũ Mai Hoa</div>
+              <div class="member-class">DHDL18A1HN</div>
+              <span class="member-card-action">👤 Xem Profile →</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="bcn-role-group">
+          <div class="bcn-role-group-title">🎙️ Ban MC - Lễ Tân</div>
+          <div class="bcn-grid">
+            <a href="Member/PhamLinhHuong_DHKT17A5HN.html" class="member-profile-card">
+              <div class="member-avatar-wrap">
+                <img src="Image/BCN Gen13/PhamLinhHuong.jpg" alt="Phạm Linh Hương">
+              </div>
+              <span class="member-role-badge">Trưởng Ban</span>
+              <div class="member-name">Phạm Linh Hương</div>
+              <div class="member-class">DHKT17A5HN</div>
+              <span class="member-card-action">👤 Xem Profile →</span>
+            </a>
+
+            <div class="member-profile-card">
+              <div class="member-avatar-wrap">
+                <img src="Image/BCN Gen13/DaoThuHuong.jpg" alt="Đào Thu Hương">
+              </div>
+              <span class="member-role-badge">Phó Ban</span>
+              <div class="member-name">Đào Thu Hương</div>
+              <div class="member-class">DHQT18A3HN</div>
+            </div>
+
+            <a href="Member/LeHuyenDoanTrang_DHLQ18A3HN.html" class="member-profile-card">
+              <div class="member-avatar-wrap">
+                <img src="Image/BCN Gen13/LeHuyenDoanTrang.jpg" alt="Lê Huyền Đoan Trang">
+              </div>
+              <span class="member-role-badge">Phó Ban</span>
+              <div class="member-name">Lê Huyền Đoan Trang</div>
+              <div class="member-class">DHLQ18A3HN</div>
+              <span class="member-card-action">👤 Xem Profile →</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="bcn-role-group">
+          <div class="bcn-role-group-title">⚙️ Ban Kỹ Thuật - Vận Hành</div>
+          <div class="bcn-grid">
+            <a href="Member/LeChiMinhThong_DHCK17A1CL.html" class="member-profile-card">
+              <div class="member-avatar-wrap">
+                <img src="Image/BCN Gen13/LeChiMinhThong.jpg" alt="Lê Chí Minh Thông">
+              </div>
+              <span class="member-role-badge">Trưởng Ban</span>
+              <div class="member-name">Lê Chí Minh Thông</div>
+              <div class="member-class">DHCK17A1CL</div>
+              <span class="member-card-action">👤 Xem Profile →</span>
+            </a>
+
+            <div class="member-profile-card">
+              <div class="member-avatar-wrap">
+                <img src="Image/BCN Gen13/NguyenThaoLinh.jpg" alt="Nguyễn Thảo Linh">
+              </div>
+              <span class="member-role-badge">Phó Ban</span>
+              <div class="member-name">Nguyễn Thảo Linh</div>
+              <div class="member-class">DHKT18A6HN</div>
+            </div>
+
+            <a href="Member/DuongMinhDung_DHCK17A1CL.html" class="member-profile-card">
+              <div class="member-avatar-wrap">
+                <img src="Image/BCN Gen13/DuongMinhDung.jpg" alt="Dương Minh Dũng">
+              </div>
+              <span class="member-role-badge">Phó Ban</span>
+              <div class="member-name">Dương Minh Dũng</div>
+              <div class="member-class">DHCK17A1CL</div>
+              <span class="member-card-action">👤 Xem Profile →</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="bcn-role-group">
+          <div class="bcn-role-group-title">📢 Ban Truyền Thông</div>
+          <div class="bcn-grid">
+            <a href="Member/DangMyUyen_DHKT18A5HN.html" class="member-profile-card">
+              <div class="member-avatar-wrap">
+                <img src="Image/BCN Gen13/DangMyUyen.jpg" alt="Đặng Mỹ Uyên">
+              </div>
+              <span class="member-role-badge">Trưởng Ban</span>
+              <div class="member-name">Đặng Mỹ Uyên</div>
+              <div class="member-class">DHKT18A5HN</div>
+              <span class="member-card-action">👤 Xem Profile →</span>
+            </a>
+
+            <a href="Member/LeQuocViet_DHTD18A1HN.html" class="member-profile-card">
+              <div class="member-avatar-wrap">
+                <img src="Image/BCN Gen13/LeQuocViet.jpg" alt="Lê Quốc Việt">
+              </div>
+              <span class="member-role-badge">Phó Ban</span>
+              <div class="member-name">Lê Quốc Việt</div>
+              <div class="member-class">DHTD18A1HN</div>
+              <span class="member-card-action">👤 Xem Profile →</span>
+            </a>
+
+            <a href="Member/NguyenNgocBinhMinh_DHKT18A2HN.html" class="member-profile-card">
+              <div class="member-avatar-wrap">
+                <img src="Image/BCN Gen13/NguyenNgocBinhMinh.jpg" alt="Nguyễn Ngọc Bình Minh">
+              </div>
+              <span class="member-role-badge">Phó Ban</span>
+              <div class="member-name">Nguyễn Ngọc Bình Minh</div>
+              <div class="member-class">DHKT18A2HN</div>
+              <span class="member-card-action">👤 Xem Profile →</span>
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Gen 12 -->
+      <div class="gen-block gen-container fade-in">
+        <div class="gen-header-wrap">
+          <div>
+            <h2 style="font-size: 1.4rem; font-weight: 800; color: var(--blue-dark); text-align: left; margin: 0;">
+              Ban Chủ Nhiệm Gen 12
+            </h2>
+            <span style="font-size: 0.88rem; color: var(--text-muted); font-weight: 500;">Nhiệm kỳ 2023 – 2025</span>
+          </div>
+          <span style="background:#f1f5f9; color:#475569; padding:5px 14px; border-radius:20px; font-size:0.84rem; font-weight:700;">📜 Tiền nhiệm</span>
+        </div>
+
+        <div class="bcn-role-group">
+          <div class="bcn-role-group-title">👑 Ban Thường Trực Chủ Nhiệm</div>
+          <div class="bcn-grid">
+            <a href="Member/TranThiThuHong_DHQT13A3HN.html" class="member-profile-card">
+              <span class="member-role-badge">Chủ Nhiệm</span>
+              <div class="member-name">Trần Thị Thu Hồng</div>
+              <div class="member-class">DHQT13A3HN</div>
+              <span class="member-card-action">👤 Xem Profile →</span>
+            </a>
+
+            <div class="member-profile-card">
+              <span class="member-role-badge">Chủ Nhiệm</span>
+              <div class="member-name">Tạ Thị Huyền Trang</div>
+              <div class="member-class">DHTN15A3HN</div>
+            </div>
+
+            <div class="member-profile-card">
+              <span class="member-role-badge">Phó Chủ Nhiệm</span>
+              <div class="member-name">Lê Thị Hạnh</div>
+              <div class="member-class">DHQT15A13HN</div>
+            </div>
+
+            <div class="member-profile-card">
+              <span class="member-role-badge">Phó Chủ Nhiệm</span>
+              <div class="member-name">Nguyễn Đại Lâm</div>
+              <div class="member-class">DHCD14A2HN</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bcn-role-group">
+          <div class="bcn-role-group-title">🏢 Trưởng / Phó các Ban Chuyên Môn</div>
+          <div class="bcn-grid">
+            <div class="member-profile-card">
+              <span class="member-role-badge">Trưởng Ban NSHC</span>
+              <div class="member-name">Trần Ngọc Duy</div>
+              <div class="member-class">DHDL16A1HN</div>
+            </div>
+
+            <div class="member-profile-card">
+              <span class="member-role-badge">Trưởng Ban MCLT</span>
+              <div class="member-name">Trần Thị Tuyết</div>
+              <div class="member-class">DHQT16A1HN</div>
+            </div>
+
+            <div class="member-profile-card">
+              <span class="member-role-badge">Phó Ban MCLT</span>
+              <div class="member-name">Đinh Kiều Linh</div>
+              <div class="member-class">DHTM16A1CL</div>
+            </div>
+
+            <div class="member-profile-card">
+              <span class="member-role-badge">Trưởng Ban KTVH</span>
+              <div class="member-name">Nguyễn Hà Thanh</div>
+              <div class="member-class">DHTN16A2HN</div>
+            </div>
+
+            <div class="member-profile-card">
+              <span class="member-role-badge">Phó Ban KTVH</span>
+              <div class="member-name">Nguyễn Thị Lan</div>
+              <div class="member-class">DHQT16A3HN</div>
+            </div>
+
+            <div class="member-profile-card">
+              <span class="member-role-badge">Trưởng Ban TT</span>
+              <div class="member-name">Nguyễn Tố Chinh</div>
+              <div class="member-class">DHQT16A4HN</div>
+            </div>
+
+            <div class="member-profile-card">
+              <span class="member-role-badge">Phó Ban TT</span>
+              <div class="member-name">Tạ Kiều Anh</div>
+              <div class="member-class">DHKT16A2HN</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Nút xem thêm / thu gọn các thế hệ cũ -->
+    <div class="load-more-wrap">
+      <button type="button" class="load-more-btn" id="load-more-btn-bcn" onclick="toggleGenBlocks()">
+        <span id="load-more-text-bcn">Xem thêm các thế hệ trước</span>
+        <span class="arrow">▼</span>
+      </button>
+    </div>
+
+    <!-- 4. ĐỘI NGŨ THẦY CÔ -->
+    <div id="thay-co-phu-trach" class="gen-container fade-in" style="margin-top: 20px;">
+      <div class="gen-header-wrap">
+        <div>
+          <h2 style="font-size: 1.45rem; font-weight: 800; color: var(--blue-dark); text-align: left; margin: 0;">
+            Đội Ngũ Thầy Cô Phụ Trách
+          </h2>
+          <span style="font-size: 0.88rem; color: var(--text-muted); font-weight: 500;">Đoàn TNCS HCM – Hội Sinh viên UNETI</span>
+        </div>
+        <span class="gen-tag-badge">🎓 Cố vấn & Chỉ đạo</span>
+      </div>
+
+      <div class="bcn-grid">
+        <!-- Thầy Giáp Văn Dương -->
+        <a href="Member/ThayGiapVanDuong.html" class="teacher-card">
+          <div class="teacher-avatar-wrap">
+            <img src="Member/Teacher/ThayGiapVanDuong.jpg" alt="Thầy Giáp Văn Dương">
+          </div>
+          <strong>Thầy Giáp Văn Dương</strong>
+          <ul class="teacher-roles-list">
+            <li>Đảng ủy viên</li>
+            <li>Bí thư Đoàn Thanh niên Trường</li>
+            <li>Phó trưởng phòng Chính trị & CTSV</li>
+            <li>Ủy viên BCH Công đoàn Trường</li>
+          </ul>
+        </a>
+
+        <!-- Thầy Lê Mạnh Thắng -->
+        <a href="Member/ThayLeManhThang.html" class="teacher-card">
+          <div class="teacher-avatar-wrap">
+            <img src="Member/Teacher/ThayLeManhThang.jpg" alt="Thầy Lê Mạnh Thắng">
+          </div>
+          <strong>Thầy Lê Mạnh Thắng</strong>
+          <ul class="teacher-roles-list">
+            <li>Đảng ủy viên</li>
+            <li>Bí thư Chi bộ</li>
+            <li>Trưởng phòng Chính trị & CTSV</li>
+          </ul>
+        </a>
+
+        <!-- Thầy Phạm Văn Giảng -->
+        <a href="Member/ThayPhamVanGiang.html" class="teacher-card">
+          <div class="teacher-avatar-wrap">
+            <img src="Member/Teacher/ThayPhamVanGiang.jpg" alt="Thầy Phạm Văn Giảng">
+          </div>
+          <strong>Thầy Phạm Văn Giảng</strong>
+          <ul class="teacher-roles-list">
+            <li>Phó Bí thư Đoàn Thanh niên Trường</li>
+            <li>Chủ tịch Hội Sinh viên Trường</li>
+            <li>Phụ trách CLB Young Training Club</li>
+          </ul>
+        </a>
+
+        <!-- Cô Nguyễn Thị Thảo Mai -->
+        <a href="Member/CoNguyenThiThaoMai.html" class="teacher-card">
+          <div class="teacher-avatar-wrap">
+            <img src="Member/Teacher/CoNguyenThiThaoMai.jpg" alt="Cô Nguyễn Thị Thảo Mai">
+          </div>
+          <strong>Cô Nguyễn Thị Thảo Mai</strong>
+          <ul class="teacher-roles-list">
+            <li>Ủy viên BTV Đoàn Thanh niên</li>
+            <li>Phó Chủ tịch Hội Sinh viên Trường</li>
+          </ul>
+        </a>
+
+        <!-- Thầy Vũ Hồng Thanh -->
+        <div class="teacher-card">
+          <div class="teacher-avatar-wrap">
+            <img src="Member/Teacher/ThayVuHongThanh.jpg" alt="Thầy Vũ Hồng Thanh">
+          </div>
+          <strong>Thầy Vũ Hồng Thanh</strong>
+          <ul class="teacher-roles-list">
+            <li>Đảng ủy viên</li>
+            <li>Trưởng phòng Tuyển sinh, TT & ĐN</li>
+          </ul>
+        </div>
+
+        <!-- Thầy Phạm Đức Tài -->
+        <div class="teacher-card">
+          <div class="teacher-avatar-wrap">
+            <img src="Member/Teacher/ThayPhamDucTai.jpg" alt="Thầy Phạm Đức Tài">
+          </div>
+          <strong>Thầy Phạm Đức Tài</strong>
+          <ul class="teacher-roles-list">
+            <li>Ủy viên Ban Thường vụ Đoàn Thanh niên</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. GÓC VINH DANH -->
+    <div id="goc-vinh-danh" class="member-section-heading fade-in" style="margin-top: 48px;">
+      <h2 class="section-title">Góc Vinh Danh Gương Mặt Tiêu Biểu 🏆</h2>
+    </div>
+
+    <div class="events-grid">
+
+      <!-- Vinh danh Lê Huyền Đoan Trang -->
+      <div class="event-card fade-in">
+        <img src="Image/VinhDanh_LeHuyenDoanTrang.jpg" alt="Lê Huyền Đoan Trang" class="event-card__img"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="event-card__img-placeholder" style="display:none">🎓</div>
+        <div class="event-card__body">
+          <div>
+            <div class="event-card__category">🎉 GƯƠNG MẶT SINH VIÊN TIÊU BIỂU UNETI 🎉</div>
+            <div class="event-card__title">Lê Huyền Đoan Trang (DHLQ18A3HN) – Bản lĩnh thủ lĩnh, lan tỏa giá trị tuổi trẻ UNETI</div>
+          </div>
+          <div class="event-card__links">
+            <a href="https://uneti.edu.vn/le-huyen-doan-trang-lop-truong-dhlq18a3hn-khoa-thuong-mai-pho-chu-nhiem-clb-dao-tao-ky-nang-tre-ban-linh-thu-linh-lan-toa-gia-tri-tuoi-tre-uneti/" target="_blank" class="event-card__link">
+              ↗ Xem bài viết UNETI
+            </a>
+            <a href="Member/LeHuyenDoanTrang_DHLQ18A3HN.html" target="_blank" class="event-card__link">
+              👤 Xem hồ sơ profile
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Vinh danh Hoàng Thị Huyền Trang -->
+      <div class="event-card fade-in">
+        <img src="Image/VinhDanh_HoangThiHuyenTrang.jpg" alt="Hoàng Thị Huyền Trang" class="event-card__img"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="event-card__img-placeholder" style="display:none">🎓</div>
+        <div class="event-card__body">
+          <div>
+            <div class="event-card__category">🎉 GƯƠNG MẶT SINH VIÊN TIÊU BIỂU UNETI 🎉</div>
+            <div class="event-card__title">Hoàng Thị Huyền Trang (DHKT17A6HN) – Một sinh viên đầy nhiệt huyết, năng động trong các hoạt động phong trào của CLB và Nhà trường</div>
+          </div>
+          <div class="event-card__links">
+            <a href="https://uneti.edu.vn/hoang-thi-huyen-trang-sinh-vien-lop-dhkt17a6hn-khoa-ke-toan-kiem-toan-mot-sinh-vien-day-nhiet-huyet-nang-dong-trong-cac-hoat-dong-phong-trao-cua-clb-va-nha-truong/" target="_blank" class="event-card__link">
+              ↗ Xem bài viết UNETI
+            </a>
+            <a href="Member/HoangThiHuyenTrang_DHKT17A6HN.html" target="_blank" class="event-card__link">
+              👤 Xem hồ sơ profile
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Vinh danh Nguyễn Thanh Lan -->
+      <div class="event-card fade-in">
+        <img src="Image/VinhDanh_NguyenThanhLan.jpg" alt="Nguyễn Thanh Lan" class="event-card__img"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="event-card__img-placeholder" style="display:none">🎓</div>
+        <div class="event-card__body">
+          <div>
+            <div class="event-card__category">🎉 GƯƠNG MẶT SINH VIÊN TIÊU BIỂU UNETI 🎉</div>
+            <div class="event-card__title">Nguyễn Thanh Lan (DHLQ17A1HN) – Gương mặt tiêu biểu của tuổi trẻ nhiệt huyết và khát vọng vươn xa</div>
+          </div>
+          <div class="event-card__links">
+            <a href="https://uneti.edu.vn/nguyen-thanh-lan-sinh-vien-lop-dhlq17a1hn-khoa-thuong-mai-guong-mat-tieu-bieu-cua-tuoi-tre-nhiet-huyet-va-khat-vong-vuon-xa/" target="_blank" class="event-card__link">
+              ↗ Xem bài viết UNETI
+            </a>
+            <a href="Member/NguyenThanhLan_DHLQ17A1HN.html" target="_blank" class="event-card__link">
+              👤 Xem hồ sơ profile
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Vinh danh Tháng 5/2026 -->
+      <div class="event-card fade-in">
+        <div class="event-card__img-placeholder-honor">    
+          <svg viewBox="0 0 24 24" width="80" height="80" xmlns="http://www.w3.org/2000/svg">
+            <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26" fill="#fff700" stroke="#fff" stroke-width="0.8" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="event-card__body">
+          <div>
+            <div class="event-card__category">⭐ THÀNH VIÊN XUẤT SẮC THÁNG 5/2026 ⭐</div>
+            <div class="event-card__list">• Vũ Ngọc Huyền (DHQT19A1HN) — <b>MC - Lễ tân</b></div>
+            <div class="event-card__list">• Lưu Vũ Quỳnh Anh (DHKT19A5HN) — <b>MC - Lễ tân</b></div>
+            <div class="event-card__list">• Nguyễn Thị Thu Hồng (DHTN19A1HN) — <b>Truyền thông</b></div>
+            <div class="event-card__list">• Lê Hữu Tuấn Anh (DHCD19A2HN) — <b>Truyền thông</b></div>
+            <div class="event-card__list">• Đỗ Đức Lương (DHTD19A2HN) — <b>Nhân sự - Hậu cần</b></div>
+            <div class="event-card__list">• Vũ Thị Thảo (DHLQ18A3HN) — <b>Nhân sự - Hậu cần</b></div>
+            <a class="event-card__list" href="Member/TranDangBinhMinh_DHTI18A1CL.html" target="_blank">• Trần Đặng Bình Minh (DHTI18A1CL) — <b>Kỹ thuật - Vận hành (Xem profile)</b></a>
+          </div>
+        </div>
+      </div>  
+
+      <!-- Vinh danh Tháng 3/2026 -->
+      <div class="event-card fade-in">
+        <div class="event-card__img-placeholder-honor">    
+          <svg viewBox="0 0 24 24" width="80" height="80" xmlns="http://www.w3.org/2000/svg">
+            <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26" fill="#fff700" stroke="#fff" stroke-width="0.8" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="event-card__body">
+          <div>
+            <div class="event-card__category">⭐ THÀNH VIÊN XUẤT SẮC THÁNG 3/2026 ⭐</div>
+            <div class="event-card__list">• Nguyễn Xuân Diệp (DHMA19A3HN) — <b>MC - Lễ tân</b></div>
+            <div class="event-card__list">• Đào Châm Anh (DHQT19A2HN) — <b>MC - Lễ tân</b></div>
+            <div class="event-card__list">• Nguyễn Hồng Quyên (DHQT19A1CL) — <b>Truyền thông</b></div>
+            <div class="event-card__list">• Hoàng Thị Hà Linh (DHKT19A1HN) — <b>Truyền thông</b></div>
+            <div class="event-card__list">• Chu Hương Lan (DHMK19A3HN) — <b>Nhân sự - Hậu cần</b></div>
+            <div class="event-card__list">• Nguyễn Ngọc Trà My (DHTN19A1CL) — <b>Nhân sự - Hậu cần</b></div>
+            <div class="event-card__list">• Nguyễn Thu Phương (DHDL19A1HN) — <b>Kỹ thuật - Vận hành</b></div>
+            <div class="event-card__list">• Phạm Thị Ngọc Ánh (DHDT19A1HN) — <b>Kỹ thuật - Vận hành</b></div>
+          </div>
+        </div>
+      </div>  
+
+      <!-- Vinh danh Phạm Linh Hương -->
+      <div class="event-card fade-in">
+        <img src="Image/VinhDanh_PhamLinhHuong.jpg" alt="Phạm Linh Hương" class="event-card__img"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="event-card__img-placeholder" style="display:none">🎓</div>
+        <div class="event-card__body">
+          <div>
+            <div class="event-card__category">🎉 GƯƠNG MẶT SINH VIÊN TIÊU BIỂU UNETI 🎉</div>
+            <div class="event-card__title">Phạm Linh Hương (DHKT17A5HN) – Tuổi trẻ là những chuyến đi không chỉ là hành trình trên bản đồ, mà còn là hành trình khám phá bản thân</div>
+          </div>
+          <div class="event-card__links">
+            <a href="https://uneti.edu.vn/pham-linh-huong-truong-ban-mc-le-tan-clb-dao-tao-ky-nang-tre-chi-hoi-truong-lop-dhkt17a5hn-khoa-ke-toan-kiem-toan-sinh-vien-tieu-bieu-trong-hoat-dong-phong-trao-cua-nha-truong/" target="_blank" class="event-card__link">
+              ↗ Xem bài viết UNETI
+            </a>
+            <a href="Member/PhamLinhHuong_DHKT17A5HN.html" target="_blank" class="event-card__link">
+              👤 Xem hồ sơ profile
+            </a>
+          </div>
+        </div>
+      </div>  
+
+      <!-- Vinh danh Nguyễn Hà Thanh -->
+      <div class="event-card fade-in">
+        <img src="Image/VinhDanh_NguyenHaThanh.jpg" alt="Nguyễn Hà Thanh" class="event-card__img"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="event-card__img-placeholder" style="display:none">🎓</div>
+        <div class="event-card__body">
+          <div>
+            <div class="event-card__category">🎉 GƯƠNG MẶT SINH VIÊN TIÊU BIỂU UNETI 🎉</div>
+            <div class="event-card__title">Nguyễn Hà Thanh (DHTN16A2HN) – Luôn tỏa sáng với tinh thần trách nhiệm và cống hiến</div>
+          </div>
+          <div class="event-card__links">
+            <a href="https://uneti.edu.vn/nguyen-ha-thanh-sinh-vien-lop-dhtn16a2hn-luon-toa-sang-voi-tinh-than-trach-nhiem-va-cong-hien/" target="_blank" class="event-card__link">
+              ↗ Xem bài viết UNETI
+            </a>
+          </div>
+        </div>
+      </div>  
+
+      <!-- Vinh danh Nguyễn Thuỳ Trang -->
+      <div class="event-card fade-in">
+        <img src="Image/VinhDanh_NguyenThuyTrang.jpg" alt="Nguyễn Thuỳ Trang" class="event-card__img"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="event-card__img-placeholder" style="display:none">🎓</div>
+        <div class="event-card__body">
+          <div>
+            <div class="event-card__category">🎉 GƯƠNG MẶT SINH VIÊN TIÊU BIỂU UNETI 🎉</div>
+            <div class="event-card__title">Nguyễn Thuỳ Trang (DHMK18A1CL) – “Tuổi trẻ là không ngại phấn đấu”</div>
+          </div>
+          <div class="event-card__links">
+            <a href="https://uneti.edu.vn/tuoi-tre-la-khong-ngai-phan-dau-do-chinh-la-phuong-cham-song-cua-nguyen-thuy-trang-sinh-vien-nam-2-bi-thu-lop-dhmk18a1cl-khoa-quan-tri-va-marketing/" target="_blank" class="event-card__link">
+              ↗ Xem bài viết UNETI
+            </a>
+            <a href="Member/NguyenThuyTrang_DHMK18A1CL.html" target="_blank" class="event-card__link">
+              👤 Xem hồ sơ profile
+            </a>
+          </div>
+        </div>
+      </div> 
+
+      <!-- Vinh danh Phạm Thị Hương -->
+      <div class="event-card fade-in">
+        <img src="Image/VinhDanh_PhamThiHuong.jpg" alt="Phạm Thị Hương" class="event-card__img"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="event-card__img-placeholder" style="display:none">🎓</div>
+        <div class="event-card__body">
+          <div>
+            <div class="event-card__category">🎉 GƯƠNG MẶT SINH VIÊN TIÊU BIỂU UNETI 🎉</div>
+            <div class="event-card__title">Phạm Thị Hương (DHKT16A5HN) – Gây ấn tượng bởi ngoại hình xinh xắn và nhiệt huyết trách nhiệm trong mọi hoạt động của Khoa và Nhà trường</div>
+          </div>
+          <div class="event-card__links">
+            <a href="https://uneti.edu.vn/sinh-vien-pham-thi-huong-khoa-ke-toan-kiem-toan-gay-an-tuong-boi-ngoai-hinh-xinh-xan-va-nhiet-huyet-trach-nhiem-trong-moi-hoat-dong-cua-khoa-va-nha-truong/" target="_blank" class="event-card__link">
+              ↗ Xem bài viết UNETI
+            </a>
+          </div>
+        </div>
+      </div> 
+
     </div>
 
   </div>
 </section>
 
-<div id="bcn-generations">
-
-  <div class="gen-block">
-    <h2 class="section-title"><b>Ban Chủ Nhiệm Gen 14 (2026-2027)</b></h2>
-
-    <section class="container fade-in">
-      <div class="box">
-
-  <section class="container fade-in">
-  <div class="role">
-
-    <a href="Member/NguyenHongThanh_DHMK18A1HN.html" class="role-box highlight" style="color: black;">
-    <h3 class="section-title"><strong>Chủ Nhiệm</strong></h3>
-    <img src="Image/BCN Gen14/NguyenHongThanh.jpg">
-    <strong>Nguyễn Hồng Thanh</strong><br>
-    <span class="text-muted">DHMK18A1HN</span>
-    </a>
-
-    <a href="Member/NguyenThanhLan_DHLQ17A1HN.html" class="role-box" style="color: black;">
-    <h3 class="section-title">Phó Chủ Nhiệm</h3>
-    <img src="Image/BCN Gen14/NguyenThanhLan.jpg">
-    <strong>Nguyễn Thanh Lan</strong><br>
-    <span class="text-muted">DHLQ17A1HN</span>
-    </a>
-
-    <a href="Member/LeHuyenDoanTrang_DHLQ18A3HN.html" class="role-box" style="color: black;">
-    <h3 class="section-title">Phó Chủ Nhiệm</h3>
-    <img src="Image/BCN Gen14/LeHuyenDoanTrang.jpg">
-    <strong>Lê Huyền Đoan Trang</strong><br>
-    <span class="text-muted">DHLQ18A3HN</span>
-    </a>
-
-  </div>
-</section>
-
-  <section class="container fade-in">
-  <div class="role">
-
-    <a href="Member/BuiQuangMinh_DHDT19A3HN.html" class="role-box" style="color: black;">
-    <h3 class="section-title">Trưởng ban Nhân Sự - Hậu Cần</h3>
-    <img src="Image/BCN Gen14/BuiQuangMinh.jpg">
-    <strong>Bùi Quang Minh</strong><br>
-    <span class="text-muted">DHDT19A3HN</span>
-    </a>
-
-    <a href="Member/PhamThiThaoAnh_DHMA19A2HN.html" class="role-box" style="color: black;">
-    <h3 class="section-title">Phó ban Nhân Sự - Hậu Cần</h3>
-    <img src="Image/BCN Gen14/PhamThiThaoAnh.jpg">
-    <strong>Phạm Thị Thảo Anh</strong><br>
-    <span class="text-muted">DHMA19A2HN</span>
-    </a>
-
-    <a href="Member/DaoThiThuHang_DHMA19A3HN.html" class="role-box" style="color: black;">
-    <h3 class="section-title">Phó ban Nhân Sự - Hậu Cần</h3>
-    <img src="Image/BCN Gen14/DaoThiThuHang.jpg">
-    <strong>Đào Thị Thu Hằng</strong><br>
-    <span class="text-muted">DHMA19A3HN</span>
-    </a>
-
-  </div>
-</section>
-
-  <section class="container fade-in">
-  <div class="role">
-
-    <a href="Member/ToThuTrang_DHTN19A3HN.html" class="role-box" style="color: black;">
-    <h3 class="section-title">Trưởng ban MC - Lễ Tân</h3>
-    <img src="Image/BCN Gen14/ToThuTrang.jpg">
-    <strong>Tô Thu Trang</strong><br>
-    <span class="text-muted">DHTN19A3HN</span>
-    </a>
-
-    <a href="Member/NguyenMinhAnh_DHQT19A1HN.html" class="role-box" style="color: black;">
-    <h3 class="section-title">Phó ban MC - Lễ Tân</h3>
-    <img src="Image/BCN Gen14/NguyenMinhAnh.jpg">
-    <strong>Nguyễn Minh Ánh</strong><br>
-    <span class="text-muted">DHQT19A1HN</span>
-    </a>
-
-    <a href="Member/LeThiPhuongAnh_DHKMT19A1HN.html" class="role-box" style="color: black;">
-    <h3 class="section-title">Phó ban MC - Lễ Tân</h3>
-    <img src="Image/BCN Gen14/LeThiPhuongAnh.jpg">
-    <strong>Lê Thị Phuong Anh</strong><br>
-    <span class="text-muted">DHKMT19A1HN</span>
-    </a>
-
-  </div>
-</section>
-
-  <section class="container fade-in">
-  <div class="role">
-
-    <a href="Member/DangThiPhuongLinh_DHTM19A1CL.html" class="role-box" style="color: black;">
-    <h3 class="section-title">Trưởng ban Kỹ Thuật - Vận Hành</h3>
-    <img src="Image/BCN Gen14/DangThiPhuongLinh.jpg">
-    <strong>Đặng Thị Phương Linh</strong><br>
-    <span class="text-muted">DHTM19A1CL</span>
-    </a>
-
-    <a href="Member/PhungThuHa_DHDL19A1HN.html" class="role-box" style="color: black;">
-    <h3 class="section-title">Phó ban Kỹ Thuật - Vận Hành</h3>
-    <img src="Image/BCN Gen14/PhungThuHa.jpg">
-    <strong>Phùng Thu Hà</strong><br>
-    <span class="text-muted">DHDL19A1HN</span>
-    </a>
-
-    <a href="Member/TranManhDung_DHMK18A2HN.html" class="role-box" style="color: black;">
-    <h3 class="section-title">Phó ban Kỹ Thuật - Vận Hành</h3>
-    <img src="Image/BCN Gen14/TranManhDung.jpg">
-    <strong>Trần Mạnh Dũng</strong><br>
-    <span class="text-muted">DHMK18A2HN</span>
-    </a>
-
-  </div>
-</section>
-
-  <section class="container fade-in">
-  <div class="role">
-
-    <a href="Member/VuXuanNhatMinh_DHMK18A1HN.html" class="role-box" style="color: black;">
-    <h3 class="section-title">Trưởng ban Truyền Thông</h3>
-    <img src="Image/BCN Gen14/VuXuanNhatMinh.jpg">
-    <strong>Vũ Xuân Nhật Minh</strong><br>
-    <span class="text-muted">DHMK18A1HN</span>
-    </a>
-
-    <a href="Member/NguyenPhuongAnh_DHTM18A2HN.html" class="role-box" style="color: black;">
-    <h3 class="section-title">Phó ban Truyền Thông</h3>
-    <img src="Image/BCN Gen14/NguyenPhuongAnh.jpg">
-    <strong>Nguyễn Phương Anh</strong><br>
-    <span class="text-muted">DHTM18A2HN</span>
-    </a>
-
-    <a href="Member/HoangThiHaLinh_DHKT19A1HN.html" class="role-box" style="color: black;">
-    <h3 class="section-title">Phó ban Truyền Thông</h3>
-    <img src="Image/BCN Gen14/HoangThiHaLinh.jpg">
-    <strong>Hoàng Thị Hà Linh</strong><br>
-    <span class="text-muted">DHKT19A1HN</span>
-    </a>
-
-  </div>
-</section>
-
+<!-- FLOATING STAR BUTTON -->
+<div class="star-floating-btn" onclick="openHonorBox()" title="Bảng vàng vinh danh thành viên">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26" fill="#fff700" stroke="#fff" stroke-width="0.6" stroke-linejoin="round"/>
+  </svg>
 </div>
-</section>
+
+<!-- HONOR MODAL POPUP -->
+<div class="honor-overlay" id="honorOverlay" onclick="closeHonorBox(event)">
+  <div id="honorBox" onclick="event.stopPropagation()">
+    <div class="honor-close-btn" onclick="closeHonorBox()"></div>
+
+    <div class="honor-title">
+      ⭐ VINH DANH NHỮNG THÀNH VIÊN XUẤT SẮC<br>TRONG THÁNG 5 NĂM 2026 ⭐
+    </div>
+
+    <div class="honor-category">
+      <div class="honor-member">
+        <span class="star-icon">⭐</span>
+        <span>Vũ Ngọc Huyền (DHQT19A1HN) — <em>MC - Lễ tân</em></span>
+      </div>
+      <div class="honor-member">
+        <span class="star-icon">⭐</span>
+        <span>Lưu Vũ Quỳnh Anh (DHKT19A5HN) — <em>MC - Lễ tân</em></span>
+      </div>
+      <div class="honor-member">
+        <span class="star-icon">⭐</span>
+        <span>Nguyễn Thị Thu Hồng (DHTN19A1HN) — <em>Truyền thông</em></span>
+      </div>
+      <div class="honor-member">
+        <span class="star-icon">⭐</span>
+        <span>Lê Hữu Tuấn Anh (DHCD19A2HN) — <em>Truyền thông</em></span>
+      </div>
+      <div class="honor-member">
+        <span class="star-icon">⭐</span>
+        <span>Đỗ Đức Lương (DHTD19A2HN) — <em>Nhân sự - Hậu cần</em></span>
+      </div>
+      <div class="honor-member">
+        <span class="star-icon">⭐</span>
+        <span>Vũ Thị Thảo (DHLQ18A3HN) — <em>Nhân sự - Hậu cần</em></span>
+      </div>
+      <a class="honor-member" href="Member/TranDangBinhMinh_DHTI18A1CL.html" target="_blank">
+        <span class="star-icon">⭐</span>
+        <span>Trần Đặng Bình Minh (DHTI18A1CL) — <em>Kỹ thuật - Vận hành (Xem profile)</em></span>
+      </a>
+    </div>
+  </div>
 </div>
 
-<div class="gen-block">
-  <h2 class="section-title"><b>Ban Chủ Nhiệm Gen 13 (2025-2026)</b></h2>
+<!-- FOOTER -->
+<footer>
+  <div id="footer-placeholder"></div>
+</footer>
 
-  <section class="container fade-in">
-    <div class="box">
-
-  <section class="container fade-in">
-  <div class="role">
-
-    <a href="Member/TranThiThuHong_DHQT13A3HN.html" class="role-box" style="color: black;">
-    <h3 class="section-title"><strong>Chủ Nhiệm</strong></h3>
-    <img src="Image/BCN Gen13/TranThiThuHong.jpg">
-    <strong>Chị Trần Thị Thu Hồng</strong><br>
-    <span class="text-muted">Cựu SV lớp DHQT13A3HN</span>
-    </a>
-
-    <a href="Member/NguyenThanhLan_DHLQ17A1HN.html" class="role-box" style="color: black;">
-    <h3 class="section-title">Phó Chủ Nhiệm</h3>
-    <img src="Image/BCN Gen13/NguyenThanhLan.jpg">
-    <strong>Nguyễn Thanh Lan</strong><br>
-    <span class="text-muted">DHLQ17A1HN</span>
-    </a>
-
-    <a href="Member/NguyenThuyTrang_DHMK18A1CL.html" class="role-box" style="color: black;">
-    <h3 class="section-title">Phó Chủ Nhiệm</h3>
-    <img src="Image/BCN Gen13/NguyenThuyTrang.jpg">
-    <strong>Nguyễn Thuỳ Trang</strong><br>
-    <span class="text-muted">DHMK18A1CL</span>
-    </a>
-
-  </div>
-</section>
-
-  <section class="container fade-in">
-  <div class="role">
-
-    <div class="role-box">
-    <h3 class="section-title">Trưởng ban Nhân Sự - Hậu Cần</h3>
-    <img src="Image/BCN Gen13/NguyenThiVan.jpg">
-    <strong>Nguyễn Thị Vân</strong><br>
-    <span class="text-muted">DHMA17A1HN</span>
-    </div>
-
-    <a href="Member/LaiManhTu_DHMT17A2HN.html" class="role-box" style="color: black;">
-    <h3 class="section-title">Phó ban Nhân Sự - Hậu Cần</h3>
-    <img src="Image/BCN Gen13/LaiManhTu.jpg">
-    <strong>Lại Mạnh Tú</strong><br>
-    <span class="text-muted">DHMT17A2HN</span>
-    </a>
-
-    <a href="Member/VuMaiHoa_DHDL18A1HN.html" class="role-box" style="color: black;">
-    <h3 class="section-title">Phó ban Nhân Sự - Hậu Cần</h3>
-    <img src="Image/BCN Gen13/VuMaiHoa.jpg">
-    <strong>Vũ Mai Hoa</strong><br>
-    <span class="text-muted">DHDL18A1HN</span>
-    </a>
-
-  </div>
-</section>
-
-  <section class="container fade-in">
-  <div class="role">
-
-    <a href="Member/PhamLinhHuong_DHKT17A5HN.html" class="role-box" style="color: black;">
-    <h3 class="section-title">Trưởng ban MC - Lễ Tân</h3>
-    <img src="Image/BCN Gen13/PhamLinhHuong.jpg">
-    <strong>Phạm Linh Hương</strong><br>
-    <span class="text-muted">DHKT17A5HN</span>
-    </a>
-
-    <div class="role-box" style="color: black;">
-    <h3 class="section-title">Phó ban MC - Lễ Tân</h3>
-    <img src="Image/BCN Gen13/DaoThuHuong.jpg">
-    <strong>Đào Thu Hương</strong><br>
-    <span class="text-muted">DHQT18A3HN</span>
-    </div>
-
-    <a href="Member/LeHuyenDoanTrang_DHLQ18A3HN.html" class="role-box" style="color: black;">
-    <h3 class="section-title">Phó ban MC - Lễ Tân</h3>
-    <img src="Image/BCN Gen13/LeHuyenDoanTrang.jpg">
-    <strong>Lê Huyền Đoan Trang</strong><br>
-    <span class="text-muted">DHLQ18A3HN</span>
-    </a>
-
-  </div>
-</section>
-
-  <section class="container fade-in">
-  <div class="role">
-
-    <a href="Member/LeChiMinhThong_DHCK17A1CL.html" class="role-box" style="color: black;">
-    <h3 class="section-title">Trưởng ban Kỹ Thuật - Vận Hành</h3>
-    <img src="Image/BCN Gen13/LeChiMinhThong.jpg">
-    <strong>Lê Chí Minh Thông</strong><br>
-    <span class="text-muted">DHCK17A1CL</span>
-    </a>
-
-    <div class="role-box" style="color: black;">
-    <h3 class="section-title">Phó ban Kỹ Thuật - Vận Hành</h3>
-    <img src="Image/BCN Gen13/NguyenThaoLinh.jpg">
-    <strong>Nguyễn Thảo Linh</strong><br>
-    <span class="text-muted">DHKT18A6HN</span>
-    </div>
-
-    <a href="Member/DuongMinhDung_DHCK17A1CL.html" class="role-box" style="color: black;">
-    <h3 class="section-title">Phó ban Kỹ Thuật - Vận Hành</h3>
-    <img src="Image/BCN Gen13/DuongMinhDung.jpg">
-    <strong>Dương Minh Dũng</strong><br>
-    <span class="text-muted">DHCK17A1CL</span>
-    </a>
-
-  </div>
-</section>
-
-  <section class="container fade-in">
-  <div class="role">
-
-    <a href="Member/DangMyUyen_DHKT18A5HN.html" class="role-box" style="color: black;">
-    <h3 class="section-title">Trưởng ban Truyền Thông</h3>
-    <img src="Image/BCN Gen13/DangMyUyen.jpg">
-    <strong>Đặng Mỹ Uyên</strong><br>
-    <span class="text-muted">DHKT18A5HN</span>
-    </a>
-
-    <a href="Member/LeQuocViet_DHTD18A1HN.html" class="role-box" style="color: black;">
-    <h3 class="section-title">Phó ban Truyền Thông</h3>
-    <img src="Image/BCN Gen13/LeQuocViet.jpg">
-    <strong>Lê Quốc Việt</strong><br>
-    <span class="text-muted">DHTD18A1HN</span>
-    </a>
-
-    <a href="Member/NguyenNgocBinhMinh_DHKT18A2HN.html" class="role-box" style="color: black;">
-    <h3 class="section-title">Phó ban Truyền Thông</h3>
-    <img src="Image/BCN Gen13/NguyenNgocBinhMinh.jpg">
-    <strong>Nguyễn Ngọc Bình Minh</strong><br>
-    <span class="text-muted">DHKT18A2HN</span>
-    </a>
-
-  </div>
-</section>
-
-</div>
-</section>
-</div>
-
-<div class="gen-block">
-  <h2 class="section-title"><b>Ban Chủ Nhiệm Gen 12 (2023-2025)</b></h2>
-
-  <section class="container fade-in">
-    <div class="box">
-
-  <section class="container fade-in">
-  <div class="role">
-
-    <a href="Member/TranThiThuHong_DHQT13A3HN.html" class="role-box" style="color: black;">
-    <h3 class="section-title"><strong>Chủ Nhiệm</strong></h3>
-    <strong>Chị Trần Thị Thu Hồng</strong><br>
-    <span class="text-muted">Cựu SV lớp DHQT13A3HN</span>
-    </a>
-
-    <div class="role-box">
-    <h3 class="section-title"><strong>Chủ Nhiệm</strong></h3>
-    <strong>Tạ Thị Huyền Trang</strong><br>
-    <span class="text-muted">DHTN15A3HN</span>
-    </div>
-
-    </div>
-  </section>
-
-  <section class="container fade-in">
-  <div class="role">
-
-    <div class="role-box">
-    <h3 class="section-title">Phó Chủ Nhiệm</h3>
-    <strong>Lê Thị Hạnh</strong><br>
-    <span class="text-muted">DHQT15A13HN</span>
-    </div>
-
-    <div class="role-box">
-    <h3 class="section-title">Phó Chủ Nhiệm</h3>
-    <strong>Nguyễn Đại Lâm</strong><br>
-    <span class="text-muted">DHCD14A2HN</span>
-    </div>
-
-    </div>
-  </section>
-
-  <section class="container fade-in">
-  <div class="role">
-
-    <div class="role-box">
-    <h3 class="section-title">Trưởng ban Nhân Sự - Hậu Cần</h3>
-    <strong>Trần Ngọc Duy</strong><br>
-    <span class="text-muted">DHDL16A1HN</span>
-    </div>
-
-  </div>
-</section>
-
-  <section class="container fade-in">
-  <div class="role">
-
-    <div class="role-box">
-    <h3 class="section-title">Trưởng ban MC - Lễ Tân</h3>
-    <strong>Trần Thị Tuyết</strong><br>
-    <span class="text-muted">DHQT16A1HN</span>
-    </div>
-
-    <div class="role-box">
-    <h3 class="section-title">Phó ban MC - Lễ Tân</h3>
-    <strong>Đinh Kiều Linh</strong><br>
-    <span class="text-muted">DHTM16A1CL</span>
-    </a>
-
-  </div>
-</section>
-
-  <section class="container fade-in">
-  <div class="role">
-
-    <div class="role-box">
-    <h3 class="section-title">Trưởng ban Kỹ Thuật - Vận Hành</h3>
-    <strong>Nguyễn Hà Thanh</strong><br>
-    <span class="text-muted">DHTN16A2HN</span>
-    </div>
-
-    <div class="role-box">
-    <h3 class="section-title">Phó ban Kỹ Thuật - Vận Hành</h3>
-    <strong>Nguyễn Thị Lan</strong><br>
-    <span class="text-muted">DHQT16A3HN</span>
-    </div>
-
-  </div>
-</section>
-
-  <section class="container fade-in">
-  <div class="role">
-
-    <div class="role-box">
-    <h3 class="section-title">Trưởng ban Truyền Thông</h3>
-    <strong>Nguyễn Tố Chinh</strong><br>
-    <span class="text-muted">DHQT16A4HN</span>
-    </div>
-
-    <div class="role-box">
-    <h3 class="section-title">Phó ban Truyền Thông</h3>
-    <strong>Tạ Kiều Anh</strong><br>
-    <span class="text-muted">DHKT16A2HN</span>
-    </div>
-
-  </div>
-</section>
-
-</div>
-</section>
-</div>
-
-</div>
-
-<div class="load-more-wrap">
-  <button type="button" class="load-more-btn" id="load-more-btn-bcn" onclick="toggleGenBlocks()">
-    <span id="load-more-text-bcn">Xem thêm</span>
-    <span class="arrow">▼</span>
-  </button>
-</div>
-
-<div class="gen-block">
-  <h2 class="section-title"><b>Đội ngũ thầy cô Đoàn TNCS HCM - Hội sinh viên UNETI [Đang cập nhật!]</b></h2>
-
-  <section class="container fade-in">
-    <div class="box">
-
-    <section class="container fade-in">
-      <div class="role">
-        <a href="Member/ThayGiapVanDuong.html" class="role-box highlight" style="color: black;">
-        <img src="Member/Teacher/ThayGiapVanDuong.jpg">
-        <strong>Thầy Giáp Văn Dương</strong>
-        <div class="role-list">
-          <span class="text-muted">- Đảng ủy Viên</span>
-          <span class="text-muted">- Bí thư Đoàn Thanh Niên</span>
-          <span class="text-muted">- Phó trưởng phòng, Phòng Chính trị và Công tác sinh viên</span>
-          <span class="text-muted">- Ủy viên Ban Chấp Hành Công Đoàn</span>
-        </div>
-        </a>
-
-        <a href="Member/ThayLeManhThang.html" class="role-box highlight" style="color: black;">
-        <img src="Member/Teacher/ThayLeManhThang.jpg">
-        <strong>Thầy Lê Mạnh Thắng</strong>
-        <div class="role-list">
-          <span class="text-muted">- Đảng ủy Viên</span>
-          <span class="text-muted">- Bí thư Chi bộ</span>
-          <span class="text-muted">- Trưởng phòng, Phòng Chính trị và Công tác sinh viên</span>
-        </div>
-        </a>
-
-        <a href="Member/ThayPhamVanGiang.html" class="role-box highlight" style="color: black;">
-        <img src="Member/Teacher/ThayPhamVanGiang.jpg">
-           <strong>Thầy Phạm Văn Giảng</strong>
-           <div class="role-list">
-             <span class="text-muted">- Phó bí thư Đoàn Thanh Niên</span>
-             <span class="text-muted">- Chủ tịch Hội sinh viên</span>
-             <span class="text-muted">- Phụ trách CLB Young Training Club</span>
-           </div>
-           </a>
-      </div>
-    </section>
-
-    <section class="container fade-in">
-      <div class="role">
-        <a href="Member/CoNguyenThiThaoMai.html" class="role-box highlight" style="color: black;">
-        <img src="Member/Teacher/CoNguyenThiThaoMai.jpg">
-        <strong>Cô Nguyễn Thị Thảo Mai</strong>
-        <div class="role-list">
-          <span class="text-muted">- Ủy viên Ban Thường vụ Đoàn Thanh Niên</span>
-          <span class="text-muted">- Phó chủ tịch Hội sinh viên</span>
-        </div>
-        </a>
-
-        <div class="role-box highlight" style="color: black;">
-        <img src="Member/Teacher/ThayVuHongThanh.jpg">
-        <strong>Thầy Vũ Hồng Thanh</strong>
-        <div class="role-list">
-          <span class="text-muted">- Đảng ủy Viên</span>
-          <span class="text-muted">- Trưởng phòng, Phòng Tuyển sinh, Truyền thông và Đối ngoại</span>
-        </div>
-        </div>
-
-        <div class="role-box highlight" style="color: black;">
-        <img src="Member/Teacher/ThayPhamDucTai.jpg">
-        <strong>Thầy Phạm Đức Tài</strong><br>
-        <span class="text-muted">- Ủy viên Ban Thường vụ Đoàn Thanh Niên</span>
-        </div>
-      </div>
-    </section>
-    </div>
-  </section>
-</div>
-
-<!-- SECTION TITLE -->
-<section> 
-<h2 class="section-title"><b>Góc vinh danh</b></h2>
-
-<!-- EVENTS -->
-<div class="events-grid">
-
-  <div class="event-card fade-in">
-    <img src="Image/VinhDanh_LeHuyenDoanTrang.jpg" alt="Lê Huyền Đoan Trang" class="event-card__img"
-         onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-    <div class="event-card__img-placeholder" style="display:none">🎓</div>
-    <div class="event-card__body">
-      <div>
-        <div class="event-card__category">🎉 GƯƠNG MẶT SINH VIÊN TIÊU BIỂU UNETI 🎉</div>
-        <div class="event-card__title">Lê Huyền Đoan Trang (DHLQ18A3HN) – Bản lĩnh thủ lĩnh, lan tỏa giá trị tuổi trẻ UNETI</div>
-      </div>
-      <div class="event-card__links">
-        <a href="https://uneti.edu.vn/le-huyen-doan-trang-lop-truong-dhlq18a3hn-khoa-thuong-mai-pho-chu-nhiem-clb-dao-tao-ky-nang-tre-ban-linh-thu-linh-lan-toa-gia-tri-tuoi-tre-uneti/" target="_blank" class="event-card__link">
-          ↗ Xem chi tiết
-        </a>
-        <a href="Member/LeHuyenDoanTrang_DHLQ18A3HN.html" target="_blank" class="event-card__link">
-          * Xem hồ sơ
-        </a>
-      </div>
-    </div>
-  </div>
-
-  <div class="event-card fade-in">
-    <img src="Image/VinhDanh_HoangThiHuyenTrang.jpg" alt="Hoàng Thị Huyền Trang" class="event-card__img"
-         onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-    <div class="event-card__img-placeholder" style="display:none">🎓</div>
-    <div class="event-card__body">
-      <div>
-        <div class="event-card__category">🎉 GƯƠNG MẶT SINH VIÊN TIÊU BIỂU UNETI 🎉</div>
-        <div class="event-card__title">Hoàng Thị Huyền Trang (DHKT17A6HN) – Một sinh viên đầy nhiệt huyết, năng động trong các hoạt động phong trào của CLB và Nhà trường</div>
-      </div>
-      <div class="event-card__links">
-        <a href="https://uneti.edu.vn/hoang-thi-huyen-trang-sinh-vien-lop-dhkt17a6hn-khoa-ke-toan-kiem-toan-mot-sinh-vien-day-nhiet-huyet-nang-dong-trong-cac-hoat-dong-phong-trao-cua-clb-va-nha-truong/" target="_blank" class="event-card__link">
-          ↗ Xem chi tiết
-        </a>
-        <a href="Member/HoangThiHuyenTrang_DHKT17A6HN.html" target="_blank" class="event-card__link">
-          * Xem hồ sơ
-        </a>
-      </div>
-    </div>
-  </div>
-
-  <div class="event-card fade-in">
-    <img src="Image/VinhDanh_NguyenThanhLan.jpg" alt="Nguyễn Thanh Lan" class="event-card__img"
-         onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-    <div class="event-card__img-placeholder" style="display:none">🎓</div>
-    <div class="event-card__body">
-      <div>
-        <div class="event-card__category">🎉 GƯƠNG MẶT SINH VIÊN TIÊU BIỂU UNETI 🎉</div>
-        <div class="event-card__title">Nguyễn Thanh Lan (DHLQ17A1HN) – Gương mặt tiêu biểu của tuổi trẻ nhiệt huyết và khát vọng vươn xa</div>
-      </div>
-      <div class="event-card__links">
-        <a href="https://uneti.edu.vn/nguyen-thanh-lan-sinh-vien-lop-dhlq17a1hn-khoa-thuong-mai-guong-mat-tieu-bieu-cua-tuoi-tre-nhiet-huyet-va-khat-vong-vuon-xa/" target="_blank" class="event-card__link">
-          ↗ Xem chi tiết
-        </a>
-        <a href="Member/NguyenThanhLan_DHLQ17A1HN.html" target="_blank" class="event-card__link">
-          * Xem hồ sơ
-        </a>
-      </div>
-    </div>
-  </div>
-
-  <div class="event-card fade-in">
-    <img src="Image/d.jpg" alt="" class="event-card__img"
-         onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-    <div class="event-card__img-placeholder-honor" style="display:none">    
-      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-      <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26" fill="#ffd900" stroke="#fff" stroke-width="0.6" stroke-linejoin="round"/>
-    </svg>
-    </div>
-    <div class="event-card__body">
-      <div>
-        <div class="event-card__category">⭐ VINH DANH NHỮNG THÀNH VIÊN XUẤT SẮC TRONG THÁNG 5 NĂM 2026 ⭐</div>
-        <div class="event-card__list">* Vũ Ngọc Huyền (DHQT19A1HN) — <b>MC - Lễ tân</b></div>
-        <div class="event-card__list">* Lưu Vũ Quỳnh Anh (DHKT19A5HN) — <b>MC - Lễ tân</b></div>
-        <div class="event-card__list">* Nguyễn Thị Thu Hồng (DHTN19A1HN) — <b>Truyền thông</b></div>
-        <div class="event-card__list">* Lê Hữu Tuấn Anh (DHCD19A2HN) — <b>Truyền thông</b></div>
-        <div class="event-card__list">* Đỗ Đức Lương (DHTD19A2HN) — <b>Nhân sự - Hậu cần</b></div>
-        <div class="event-card__list">* Vũ Thị Thảo (DHLQ18A3HN) — <b>Nhân sự - Hậu cần</b></div>
-        <a class="event-card__list" href="Member/TranDangBinhMinh_DHTI18A1CL.html" target="_blank">* Trần Đặng Bình Minh (DHTI18A1CL) — <b>Kỹ thuật - Vận hành</b></a>
-      </div>
-    </div>
-  </div>  
-
-  <div class="event-card fade-in">
-    <img src="Image/d.jpg" alt="" class="event-card__img"
-         onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-    <div class="event-card__img-placeholder-honor" style="display:none">    
-      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-      <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26" fill="#ffd900" stroke="#fff" stroke-width="0.6" stroke-linejoin="round"/>
-    </svg>
-    </div>
-    <div class="event-card__body">
-      <div>
-        <div class="event-card__category">⭐ VINH DANH NHỮNG THÀNH VIÊN XUẤT SẮC TRONG THÁNG 3 NĂM 2026 ⭐</div>
-        <div class="event-card__list">* Nguyễn Xuân Diệp (DHMA19A3HN) — <b>MC - Lễ tân</b></div>
-        <div class="event-card__list">* Đào Châm Anh (DHQT19A2HN) — <b>MC - Lễ tân</b></div>
-        <div class="event-card__list">* Nguyễn Hồng Quyên (DHQT19A1CL) — <b>Truyền thông</b></div>
-        <div class="event-card__list">* Hoàng Thị Hà Linh (DHKT19A1HN) — <b>Truyền thông</b></div>
-        <div class="event-card__list">* Chu Hương Lan (DHMK19A3HN) — <b>Nhân sự - Hậu cần</b></div>
-        <div class="event-card__list">* Nguyễn Ngọc Trà My (DHTN19A1CL) — <b>Nhân sự - Hậu cần</b></div>
-        <div class="event-card__list">* Nguyễn Thu Phương (DHDL19A1HN) — <b>Kỹ thuật - Vận hành</b></div>
-        <div class="event-card__list">* Phạm Thị Ngọc Ánh (DHDT19A1HN) — <b>Kỹ thuật - Vận hành</b></div>
-      </div>
-    </div>
-  </div>  
-
-  <div class="event-card fade-in">
-    <img src="Image/VinhDanh_PhamLinhHuong.jpg" alt="Phạm Linh Hương" class="event-card__img"
-         onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-    <div class="event-card__img-placeholder" style="display:none">🎓</div>
-    <div class="event-card__body">
-      <div>
-        <div class="event-card__category">🎉 GƯƠNG MẶT SINH VIÊN TIÊU BIỂU UNETI 🎉</div>
-        <div class="event-card__title">Phạm Linh Hương (DHKT17A5HN) – Tuổi trẻ là những chuyến đi không chỉ là hành trình trên bản đồ, mà còn là hành trình khám phá bản thân</div>
-      </div>
-      <div class="event-card__links">
-        <a href="https://uneti.edu.vn/pham-linh-huong-truong-ban-mc-le-tan-clb-dao-tao-ky-nang-tre-chi-hoi-truong-lop-dhkt17a5hn-khoa-ke-toan-kiem-toan-sinh-vien-tieu-bieu-trong-hoat-dong-phong-trao-cua-nha-truong/" target="_blank" class="event-card__link">
-          ↗ Xem chi tiết
-        </a>
-        <a href="Member/PhamLinhHuong_DHKT17A5HN.html" target="_blank" class="event-card__link">
-          * Xem hồ sơ
-        </a>
-      </div>
-    </div>
-  </div>  
-
-  <div class="event-card fade-in">
-    <img src="Image/VinhDanh_NguyenHaThanh.jpg" alt="Nguyễn Hà Thanh" class="event-card__img"
-         onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-    <div class="event-card__img-placeholder" style="display:none">🎓</div>
-    <div class="event-card__body">
-      <div>
-        <div class="event-card__category">🎉 GƯƠNG MẶT SINH VIÊN TIÊU BIỂU UNETI 🎉</div>
-        <div class="event-card__title">Nguyễn Hà Thanh (DHTN16A2HN) – Luôn tỏa sáng với tinh thần trách nhiệm và cống hiến</div>
-      </div>
-      <div class="event-card__links">
-        <a href="https://uneti.edu.vn/nguyen-ha-thanh-sinh-vien-lop-dhtn16a2hn-luon-toa-sang-voi-tinh-than-trach-nhiem-va-cong-hien/" target="_blank" class="event-card__link">
-          ↗ Xem chi tiết
-        </a>
-        <a href="" target="_blank" class="event-card__link">
-          * Xem hồ sơ [Đang cập nhật!]
-        </a>
-      </div>
-    </div>
-  </div>  
-
-  <div class="event-card fade-in">
-    <img src="Image/VinhDanh_NguyenThuyTrang.jpg" alt="Nguyễn Thuỳ Trang" class="event-card__img"
-         onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-    <div class="event-card__img-placeholder" style="display:none">🎓</div>
-    <div class="event-card__body">
-      <div>
-        <div class="event-card__category">🎉 GƯƠNG MẶT SINH VIÊN TIÊU BIỂU UNETI 🎉</div>
-        <div class="event-card__title">Nguyễn Thuỳ Trang (DHMK18A1CL) – “Tuổi trẻ là không ngại phấn đấu”</div>
-      </div>
-      <div class="event-card__links">
-        <a href="https://uneti.edu.vn/tuoi-tre-la-khong-ngai-phan-dau-do-chinh-la-phuong-cham-song-cua-nguyen-thuy-trang-sinh-vien-nam-2-bi-thu-lop-dhmk18a1cl-khoa-quan-tri-va-marketing/" target="_blank" class="event-card__link">
-          ↗ Xem chi tiết
-        </a>
-        <a href="Member/NguyenThuyTrang_DHMK18A1CL.html" target="_blank" class="event-card__link">
-          * Xem hồ sơ
-        </a>
-      </div>
-    </div>
-  </div> 
-
-  <div class="event-card fade-in">
-    <img src="Image/VinhDanh_PhamThiHuong.jpg" alt="Phạm Thị Hương" class="event-card__img"
-         onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-    <div class="event-card__img-placeholder" style="display:none">🎓</div>
-    <div class="event-card__body">
-      <div>
-        <div class="event-card__category">🎉 GƯƠNG MẶT SINH VIÊN TIÊU BIỂU UNETI 🎉</div>
-        <div class="event-card__title">Phạm Thị Hương (DHKT16A5HN) – Gây ấn tượng bởi ngoại hình xinh xắn và nhiệt huyết trách nhiệm trong mọi hoạt động của Khoa và Nhà trường</div>
-      </div>
-      <div class="event-card__links">
-        <a href="https://uneti.edu.vn/sinh-vien-pham-thi-huong-khoa-ke-toan-kiem-toan-gay-an-tuong-boi-ngoai-hinh-xinh-xan-va-nhiet-huyet-trach-nhiem-trong-moi-hoat-dong-cua-khoa-va-nha-truong/" target="_blank" class="event-card__link">
-          ↗ Xem chi tiết
-        </a>
-        <a href="" target="_blank" class="event-card__link">
-          * Xem hồ sơ [Đang cập nhật!]
-        </a>
-      </div>
-    </div>
-  </div> 
-
-</div>
-</section>
-
-  <div class="star-floating-btn" onclick="openHonorBox()" title="Vinh danh thành viên xuất sắc">
-    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-      <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26" fill="#fff700" stroke="#fff" stroke-width="0.6" stroke-linejoin="round"/>
-    </svg>
-  </div>
-
-  <div class="honor-overlay" id="honorOverlay" onclick="closeHonorBox(event)">
-    <div id="honorBox" onclick="event.stopPropagation()">
-      <div class="honor-close-btn" onclick="closeHonorBox()"></div>
-
-      <div class="honor-title">
-        ⭐ VINH DANH NHỮNG THÀNH VIÊN XUẤT SẮC<br>TRONG THÁNG 5 NĂM 2026 ⭐
-      </div>
-
-      <hr class="honor-divider">
-
-      <div class="honor-category">
-        <div class="honor-member">
-          <span class="star-icon">⭐</span>
-          <span>Vũ Ngọc Huyền (DHQT19A1HN) — <em>MC - Lễ tân</em></span>
-        </div>
-        <div class="honor-member">
-          <span class="star-icon">⭐</span>
-          <span>Lưu Vũ Quỳnh Anh (DHKT19A5HN) — <em>MC - Lễ tân</em></span>
-        </div>
-        <div class="honor-member">
-          <span class="star-icon">⭐</span>
-          <span>Nguyễn Thị Thu Hồng (DHTN19A1HN) — <em>Truyền thông</em></span>
-        </div>
-        <div class="honor-member">
-          <span class="star-icon">⭐</span>
-          <span>Lê Hữu Tuấn Anh (DHCD19A2HN) — <em>Truyền thông</em></span>
-        </div>
-        <div class="honor-member">
-          <span class="star-icon">⭐</span>
-          <span>Đỗ Đức Lương (DHTD19A2HN) — <em>Nhân sự - Hậu cần</em></span>
-        </div>
-        <div class="honor-member">
-          <span class="star-icon">⭐</span>
-          <span>Vũ Thị Thảo (DHLQ18A3HN) — <em>Nhân sự - Hậu cần</em></span>
-        </div>
-        <a class="honor-member" href="Member/TranDangBinhMinh_DHTI18A1CL.html" target="_blank" style="color: #fff5cc;">
-          <span class="star-icon">⭐</span>
-          <span>Trần Đặng Bình Minh (DHTI18A1CL) — <em>Kỹ thuật - Vận hành</em></span>
-        </a>
-      </div>
-
-      <!-- <p class="honor-note">✨ Cập nhật thêm thông tin sẽ được bổ sung sớm ✨</p> -->
-    </div>
-  </div>
-
-  <!-- FOOTER -->
-  <footer>
-    <div id="footer-placeholder"></div>
-  </footer>
-
-</body>
 <script src="Asset/script.js"></script>
 <script>
-  // Honor Box
-    function openHonorBox() {
-      document.getElementById('honorOverlay').classList.add('active');
-      document.body.style.overflow = 'hidden';
-    }
+  // Honor Box Modal
+  function openHonorBox() {
+    document.getElementById('honorOverlay').classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
 
-    function closeHonorBox(event) {
-      if (!event || event.target.id === 'honorOverlay' || event.target.classList.contains('honor-close-btn')) {
-        document.getElementById('honorOverlay').classList.remove('active');
-        document.body.style.overflow = 'auto';
-      }
+  function closeHonorBox(event) {
+    if (!event || event.target.id === 'honorOverlay' || event.target.classList.contains('honor-close-btn')) {
+      document.getElementById('honorOverlay').classList.remove('active');
+      document.body.style.overflow = 'auto';
     }
+  }
 
   // Close with ESC key
-    document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape') {
-        closeHonorBox();
-      }
-    });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      closeHonorBox();
+    }
+  });
 
-  var VISIBLE_GENS = 2; // số Gen hiển thị mặc định (Gen 14, Gen 13)
+  // Toggle older generations
+  var VISIBLE_GENS = 1; // Gen 13 visible, Gen 12 collapsed
 
   function getGenBlocks() {
     return document.querySelectorAll('#bcn-generations > .gen-block');
@@ -1214,7 +1739,7 @@
     if (btn) {
       btn.style.display = blocks.length > VISIBLE_GENS ? '' : 'none';
     }
-    if (text) text.textContent = 'Xem thêm';
+    if (text) text.textContent = 'Xem thêm các thế hệ trước';
     if (btn) btn.classList.remove('is-expanded');
   }
 
@@ -1236,6 +1761,6 @@
   }
 
   document.addEventListener('DOMContentLoaded', applyGenDefaultVisibility);
-
 </script>
+</body>
 </html>
