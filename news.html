@@ -86,7 +86,7 @@
     }
 
     .filter-chip.active {
-      background: var(--blue-accent);
+      background: linear-gradient(135deg, #0983fe, #04006b);
       color: #ffffff;
       border-color: var(--blue-accent);
       box-shadow: 0 4px 14px rgba(9, 131, 254, 0.3);
@@ -409,6 +409,28 @@
 
     <!-- EVENTS GRID -->
     <div class="events-grid" id="events-grid">
+
+      <div class="event-card fade-in" data-categories="support routine">
+        <div class="event-card__img-wrap">
+          <img src="Event/Image/LeTanNam2026_Phan2.jpg" alt="" class="event-card__img"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="event-card__img-placeholder" style="display:none">🔑</div>
+        </div>
+        <div class="event-card__body">
+          <div>
+            <div class="event-card__date">📅 11/09/2026</div>
+            <div class="event-card__title">✨LỄ TÂN NAM – MẢNH GHÉP MỚI, CHẤT RIÊNG MỚI!✨</div>
+          </div>
+          <div class="event-card__links">
+            <a href="https://www.facebook.com/share/p/1BUahVtnT7/" target="_blank" class="event-card__link">
+              ↗ Xem chi tiết
+            </a>
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSeDCXfRFedVRbgOJlD2O6q66bzjH5wkkyDCxYJms-SKJn4j0Q/viewform" target="_blank" class="event-card__link event-card__link--media">
+              🚀 Đăng kí Gen 15.1
+            </a>
+          </div>
+        </div>
+      </div>
 
       <div class="event-card fade-in" data-categories="support routine">
         <div class="event-card__img-wrap">
