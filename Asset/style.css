@@ -1043,7 +1043,7 @@ footer {
   .department-intro p, .department-section-subtitle { color: var(--text-muted); }
   .department-groups { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
   .department-card {
-    display: flex; flex-direction: column; padding: 26px 22px 24px; text-align: left;
+    display: flex; flex-direction: column; text-align: left;
     background: #fff; border: 1px solid rgba(161,227,255,.55); border-radius: var(--radius-md);
     box-shadow: var(--shadow-sm); transition: transform var(--transition-fast),box-shadow var(--transition-fast);
   }
