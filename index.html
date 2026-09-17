@@ -438,6 +438,10 @@
       color: #cceeff;
     }
 
+    .registration-countdown.expired .registration-countdown-link {
+      display: none;
+    }
+
     .registration-countdown-link {
       display: inline-block;
       width: 100%;
@@ -1565,7 +1569,7 @@
   <p class="welcome-tagline">Nơi bạn kết nối và hoà nhập!</p>
 
   <div class="welcome-countdown" id="welcomeCountdown" aria-live="polite">
-    <div class="welcome-countdown-title">⏳ Thời gian còn lại đến hết ngày 21/09/2026</div>
+    <div class="welcome-countdown-title">⏳ Còn lại thời gian điền đơn (hạn 21/09/2026)</div>
     <div class="welcome-countdown-grid">
       <div class="welcome-countdown-item">
         <span class="welcome-countdown-value" id="welcomeCountdownDays">00</span>
@@ -1685,12 +1689,12 @@
   <!-- NỘI DUNG CHÍNH -->
   <main class="main-content">
 
-  <!-- Đăng ký thành viên -->
+  <!-- Lịch phỏng vấn thành viên -->
   <div class="widget registration-countdown-widget">
-    <div class="widget-title">📝 Đăng ký thành viên Gen 15.1 📝</div>
+    <div class="widget-title">🎙️ Lịch phỏng vấn Gen 15.1 🎙️</div>
     <div class="registration-countdown" id="memberRegistrationCountdown" aria-live="polite">
       <div class="registration-countdown-title">🔑 THE KEY IS YOU - MỘT DIỆN MẠO MỚI, MỘT HÀNH TRÌNH MỚI 🔑</div>
-      <div class="registration-countdown-note">Thời gian đăng kí: Đến hết ngày 21/09/2026</div>
+      <div class="registration-countdown-note">📋 Đóng đơn: 22/9 &nbsp;|&nbsp; 🎤 Phỏng vấn: 18h00 ngày 26/09/2026</div>
       <div class="registration-countdown-grid">
         <div class="registration-countdown-item">
           <span class="registration-countdown-value" id="memberCountdownDays">00</span>
@@ -1808,6 +1812,16 @@
 <br>
 <h2 class="section-title"><b>Sự kiện gần đây</b></h2><br>
  <a href="news.html"><i>[Xem chi tiết]</i></a>
+   <section class="container fade-in">
+    <div class="card">
+      <p>
+        <h3 class="section-title">✨ RECAP BUỔI SINH HOẠT ĐẦU NĂM HỌC - NẠP NĂNG LƯỢNG, BỨT PHÁ HÀNH TRÌNH MỚI ✨</h3>
+        <img src="Event/Image/SinhHoat_16_09_2026.jpg" alt="" class="responsive-img"><br>
+        <b>Thời gian: </b>Ngày 17/08/2026<br>
+        <a href="https://www.facebook.com/share/p/1DKimi8Biy/" target="_blank"><i>[Xem tại đây]</i></a>
+      </p>
+    </div>
+  </section>
     <section class="container fade-in">
   <div class="card">
       <p>
@@ -1865,26 +1879,6 @@
         <img src="Event/Image/HoNghiDaiHoiDBCBVC2026_2027.jpg" alt="" class="responsive-img"><br>
         <b>Thời gian: </b>Ngày 18/08/2026<br>
         <a href="https://www.facebook.com/share/p/1CCPnyZhgx/" target="_blank"><i>[Xem tại đây]</i></a>
-      </p>
-    </div>
-  </section>
-  <section class="container fade-in">
-    <div class="card">
-      <p>
-        <h3 class="section-title">🇻🇳 KỶ NIỆM 79 NĂM NGÀY THƯƠNG BINH - LIỆT SĨ (27/7/1947 – 27/7/2026) | ĐỜI ĐỜI GHI NHỚ – MÃI MÃI TRI ÂN 🇻🇳</h3>
-        <img src="Event/Image/NgayThuongBinhLietSi2026.jpg" alt="" class="responsive-img"><br>
-        <b>Thời gian: </b>Ngày 27/07/2026<br>
-        <a href="https://www.facebook.com/share/p/1JD6GeJg9r/" target="_blank"><i>[Xem tại đây]</i></a>
-      </p>
-    </div>
-  </section>
-  <section class="container fade-in">
-    <div class="card">
-      <p>
-        <h3 class="section-title">🎉 CHÚC MỪNG SINH NHẬT 10 TUỔI ANH NGỮ LEPOCA – 10 NĂM KIẾN TẠO, 10 NĂM DẪN LỐI 🌟</h3>
-        <img src="Event/Image/SinhNhatAnhNguLepoca10Tuoi.jpg" alt="" class="responsive-img"><br>
-        <b>Thời gian: </b>Ngày 13/07/2026<br>
-        <a href="https://www.facebook.com/share/p/18CTkcgLVG/" target="_blank"><i>[Xem tại đây]</i></a>
       </p>
     </div>
   </section>
@@ -2196,48 +2190,68 @@
       });
     })();
 
-    // ===== COUNTDOWN ĐĂNG KÝ GEN 15.1 =====
+    // ===== COUNTDOWN LỊCH PHỎNG VẤN GEN 15.1 =====
     (function() {
       const countdown = document.getElementById('welcomeCountdown');
       if (!countdown) return;
 
-      const targetDate = new Date(2026, 8, 22, 0, 0, 0);
+      const deadlineDate = new Date(2026, 8, 21, 23, 59, 59);   // hết ngày 21/09/2026 - hạn điền đơn
+      const interviewDate = new Date(2026, 8, 26, 18, 0, 0);    // 18h00 ngày 26/09/2026 - phỏng vấn
       const days = document.getElementById('welcomeCountdownDays');
       const hours = document.getElementById('welcomeCountdownHours');
       const minutes = document.getElementById('welcomeCountdownMinutes');
       const seconds = document.getElementById('welcomeCountdownSeconds');
       const title = countdown.querySelector('.welcome-countdown-title');
 
-      function updateWelcomeCountdown() {
-        const remaining = targetDate.getTime() - Date.now();
-
-        if (remaining <= 0) {
-          days.textContent = '00';
-          hours.textContent = '00';
-          minutes.textContent = '00';
-          seconds.textContent = '00';
-          title.textContent = '✅ Thời gian đăng ký đã kết thúc';
-          countdown.classList.add('expired');
-          return;
-        }
-
-        const totalSeconds = Math.floor(remaining / 1000);
+      function setValues(totalSeconds) {
         days.textContent = String(Math.floor(totalSeconds / 86400)).padStart(2, '0');
         hours.textContent = String(Math.floor((totalSeconds % 86400) / 3600)).padStart(2, '0');
         minutes.textContent = String(Math.floor((totalSeconds % 3600) / 60)).padStart(2, '0');
         seconds.textContent = String(totalSeconds % 60).padStart(2, '0');
       }
 
+      function updateWelcomeCountdown() {
+        const now = Date.now();
+        const remainingToDeadline = deadlineDate.getTime() - now;
+
+        if (remainingToDeadline > 0) {
+          // Giai đoạn 1: còn hạn điền đơn
+          if (title) title.textContent = '⏳ Còn lại thời gian điền đơn (hạn 21/09/2026)';
+          setValues(Math.floor(remainingToDeadline / 1000));
+          countdown.classList.remove('expired');
+          return;
+        }
+
+        const remainingToInterview = interviewDate.getTime() - now;
+
+        if (remainingToInterview > 0) {
+          // Giai đoạn 2: đã đóng đơn, đếm ngược đến phỏng vấn
+          if (title) title.textContent = '🎤 Đã đóng đơn - Countdown đến phỏng vấn (18h00 ngày 26/09/2026)';
+          setValues(Math.floor(remainingToInterview / 1000));
+          countdown.classList.add('expired');
+          const regBtn = document.querySelector('#welcomeScreen .welcome-btn-primary');
+          if (regBtn) regBtn.style.display = 'none';
+          return;
+        }
+
+        // Giai đoạn 3: đã kết thúc
+        setValues(0);
+        if (title) title.textContent = '✅ Đã đóng đơn & Bắt đầu phỏng vấn!';
+        countdown.classList.add('expired');
+        const regBtn = document.querySelector('#welcomeScreen .welcome-btn-primary');
+        if (regBtn) regBtn.style.display = 'none';
+      }
+
       updateWelcomeCountdown();
       setInterval(updateWelcomeCountdown, 1000);
     })();
 
-    // ===== COUNTDOWN ĐĂNG KÝ THÀNH VIÊN TRONG SIDEBAR =====
+    // ===== COUNTDOWN LỊCH PHỎNG VẤN THÀNH VIÊN TRONG SIDEBAR =====
     (function() {
       const countdown = document.getElementById('memberRegistrationCountdown');
       if (!countdown) return;
 
-      const targetDate = new Date(2026, 8, 22, 0, 0, 0);
+      const targetDate = new Date(2026, 8, 26, 18, 0, 0);
       const days = document.getElementById('memberCountdownDays');
       const hours = document.getElementById('memberCountdownHours');
       const minutes = document.getElementById('memberCountdownMinutes');
@@ -2252,7 +2266,7 @@
           hours.textContent = '00';
           minutes.textContent = '00';
           seconds.textContent = '00';
-          title.textContent = '✅ Thời gian đăng ký đã kết thúc';
+          title.textContent = '✅ Đã đến giờ phỏng vấn!';
           countdown.classList.add('expired');
           return;
         }

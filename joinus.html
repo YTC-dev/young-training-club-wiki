@@ -554,7 +554,7 @@
         <p class="welcome-showcase__tagline">Nơi bạn kết nối và hoà nhập!</p>
 
         <div class="welcome-countdown" id="welcomeCountdown" aria-live="polite">
-          <div class="welcome-countdown-title">⏳ Thời gian còn lại đến hết ngày 21/09/2026</div>
+          <div class="welcome-countdown-title">⏳ Còn lại thời gian điền đơn (đến hết ngày 21/09/2026)</div>
           <div class="welcome-countdown-grid">
             <div class="welcome-countdown-item">
               <span class="welcome-countdown-value" id="welcomeCountdownDays">00</span>
@@ -615,7 +615,7 @@
           </div>
         </div>
 
-        <div class="timeline-item" data-start="2026-09-22" data-end="2026-09-25">
+        <div class="timeline-item" data-start="2026-09-22" data-end="2026-09-22">
           <div class="timeline-badge">2</div>
           <div class="timeline-content">
             <span class="timeline-date">Ngày 22/9/2026</span>
@@ -624,10 +624,10 @@
           </div>
         </div>
 
-        <div class="timeline-item" data-start="2026-09-26" data-end="2026-09-28">
+        <div class="timeline-item" data-start="2026-09-26" data-end="2026-09-26">
           <div class="timeline-badge">3</div>
           <div class="timeline-content">
-            <span class="timeline-date">Ngày 26-27/9/2026</span>
+            <span class="timeline-date">18h00 Ngày 26/9/2026</span>
             <h3>Phỏng vấn</h3>
             <p>Thành viên hội đồng tuyển chọn sẽ tiến hành phỏng vấn trực tiếp để đánh giá sự phù hợp.</p>
           </div>
@@ -666,7 +666,7 @@
               <span class="department-card__badge badge-nshc">👥 Quản trị & Hậu trường</span>
               <h3 class="department-card__title">Ban Nhân Sự - Hậu Cần</h3>
               <p class="department-card__lead">“Hậu phương vững chắc” giúp mọi hoạt động và sự kiện của CLB diễn ra thuận lợi, suôn sẻ nhất.</p>
-              
+
               <ul class="department-card__list">
                 <li><span>🔹</span> Quản lý, phân công nhiệm vụ và gắn kết tinh thần đồng đội giữa các thành viên. Đồng thời hỗ trợ chuẩn bị, tổ chức các hoạt động.</li>
                 <li><span>🔹</span> Chuẩn bị và điều phối hậu cần chu đáo: trang thiết bị, tài liệu, đạo cụ và kinh phí sự kiện.</li>
@@ -691,7 +691,7 @@
               <span class="department-card__badge badge-mclt">🎤 Tự tin & Bản lĩnh sân khấu</span>
               <h3 class="department-card__title">Ban MC - Lễ Tân</h3>
               <p class="department-card__lead">Gương mặt đại diện duyên dáng, năng động và chuyên nghiệp của CLB trong mọi chương trình.</p>
-              
+
               <ul class="department-card__list">
                 <li><span>🔹</span> Đảm nhận vai trò MC dẫn chương trình và lễ tân đón tiếp đại biểu trong các sự kiện lớn nhỏ của nhà trường.</li>
                 <li><span>🔹</span> Rèn luyện khả năng làm chủ giọng nói, ngôn ngữ hình thể và phong thái tự tin trước đám đông.</li>
@@ -716,7 +716,7 @@
               <span class="department-card__badge badge-ktvh">⚙️ Sáng tạo & nâng cao kỹ thuật</span>
               <h3 class="department-card__title">Ban Kỹ Thuật - Vận Hành</h3>
               <p class="department-card__lead">Trụ cột công nghệ, đảm nhiệm toàn bộ khâu âm thanh, ánh sáng, thiết kế và media sự kiện.</p>
-              
+
               <ul class="department-card__list">
                 <li><span>🔹</span> Vận hành hệ thống âm thanh, ánh sáng, máy chiếu và thiết bị kỹ thuật trong các chương trình, sự kiện.</li>
                 <li><span>🔹</span> Thiết kế ấn phẩm đồ họa (banner, poster, infographic, backdrop, slide) phục vụ chương trình, bài đăng.</li>
@@ -725,7 +725,7 @@
             </div>
 
             <div class="department-card__note">
-              ✨ <b>Phù hợp with bạn:</b> Nếu bạn đam mê công nghệ, kỹ thuật âm thanh ánh sáng, đồ họa thiết kế hoặc quay dựng video.
+              ✨ <b>Phù hợp với bạn:</b> Nếu bạn đam mê công nghệ, kỹ thuật âm thanh ánh sáng, đồ họa thiết kế hoặc quay dựng video.
             </div>
           </div>
         </a>
@@ -741,7 +741,7 @@
               <span class="department-card__badge badge-tt">📢 Sáng tạo nội dung & Lan tỏa</span>
               <h3 class="department-card__title">Ban Truyền Thông</h3>
               <p class="department-card__lead">Cầu nối lan tỏa hình ảnh, thông điệp và câu chuyện ý nghĩa của YTC đến toàn thể cộng đồng sinh viên.</p>
-              
+
               <ul class="department-card__list">
                 <li><span>🔹</span> Lên kế hoạch, ý tưởng và triển khai các chiến dịch truyền thông trước, trong và sau sự kiện.</li>
                 <li><span>🔹</span> Sáng tạo nội dung bài viết (Content Creator), quản trị Fanpage và các kênh mạng xã hội (Facebook, TikTok).</li>
@@ -778,31 +778,52 @@
     (function() {
       const countdown = document.getElementById('welcomeCountdown');
       if (countdown) {
-        const targetDate = new Date(2026, 8, 22, 0, 0, 0);
+        // Giai đoạn 1: đếm ngược đến hạn đóng đơn
+        // Giai đoạn 2: hết hạn đóng đơn -> tự chuyển sang đếm ngược đến hết lịch phỏng vấn
+        const deadlineDate = new Date(2026, 8, 21, 23, 59, 59);   // hết ngày 21/09/2026 - hạn điền đơn
+        const interviewEndDate = new Date(2026, 8, 26, 18, 0, 0); // 18h00 ngày 26/09/2026 - đến lịch phỏng vấn
+
         const days = document.getElementById('welcomeCountdownDays');
         const hours = document.getElementById('welcomeCountdownHours');
         const minutes = document.getElementById('welcomeCountdownMinutes');
         const seconds = document.getElementById('welcomeCountdownSeconds');
         const title = countdown.querySelector('.welcome-countdown-title');
 
-        function updateWelcomeCountdown() {
-          const remaining = targetDate.getTime() - Date.now();
+        function setValues(totalSeconds) {
+          if (days) days.textContent = String(Math.floor(totalSeconds / 86400)).padStart(2, '0');
+          if (hours) hours.textContent = String(Math.floor((totalSeconds % 86400) / 3600)).padStart(2, '0');
+          if (minutes) minutes.textContent = String(Math.floor((totalSeconds % 3600) / 60)).padStart(2, '0');
+          if (seconds) seconds.textContent = String(totalSeconds % 60).padStart(2, '0');
+        }
 
-          if (remaining <= 0) {
-            days.textContent = '00';
-            hours.textContent = '00';
-            minutes.textContent = '00';
-            seconds.textContent = '00';
-            title.textContent = '✅ Thời gian đăng ký đã kết thúc';
-            countdown.classList.add('expired');
+        function updateWelcomeCountdown() {
+          const now = Date.now();
+          const remainingToDeadline = deadlineDate.getTime() - now;
+
+          if (remainingToDeadline > 0) {
+            // Giai đoạn 1: còn hạn điền đơn
+            if (title) title.textContent = '⏳ Còn lại thời gian điền đơn (hạn 22/09/2026)';
+            setValues(Math.floor(remainingToDeadline / 1000));
+            countdown.classList.remove('expired');
             return;
           }
 
-          const totalSeconds = Math.floor(remaining / 1000);
-          days.textContent = String(Math.floor(totalSeconds / 86400)).padStart(2, '0');
-          hours.textContent = String(Math.floor((totalSeconds % 86400) / 3600)).padStart(2, '0');
-          minutes.textContent = String(Math.floor((totalSeconds % 3600) / 60)).padStart(2, '0');
-          seconds.textContent = String(totalSeconds % 60).padStart(2, '0');
+          const remainingToInterviewEnd = interviewEndDate.getTime() - now;
+
+          if (remainingToInterviewEnd > 0) {
+            // Giai đoạn 2: đã đóng đơn, đang trong lịch phỏng vấn
+            if (title) title.textContent = '🎤 Đã đóng đơn - Countdown đến phỏng vấn (18h00 ngày 26/09/2026)';
+            setValues(Math.floor(remainingToInterviewEnd / 1000));
+            countdown.classList.add('expired');
+            document.querySelectorAll('.welcome-btn-primary').forEach(btn => btn.style.display = 'none');
+            return;
+          }
+
+          // Giai đoạn 3: đã kết thúc cả điền đơn lẫn phỏng vấn
+          setValues(0);
+          if (title) title.textContent = '✅ Đã kết thúc điền đơn & phỏng vấn!';
+          countdown.classList.add('expired');
+          document.querySelectorAll('.welcome-btn-primary').forEach(btn => btn.style.display = 'none');
         }
 
         updateWelcomeCountdown();
@@ -813,7 +834,6 @@
       if (!timelineItems.length) return;
 
       const today = new Date();
-      const todayString = new Date(today.getFullYear(), today.getMonth(), today.getDate()).toISOString().slice(0, 10);
 
       timelineItems.forEach((item) => {
         const start = item.dataset.start;
@@ -825,6 +845,8 @@
 
         if (today >= startDate && today <= endDate) {
           item.classList.add('is-current');
+        } else {
+          item.classList.remove('is-current');
         }
       });
     })();
