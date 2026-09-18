@@ -1042,21 +1042,21 @@ footer {
   .department-intro h2, .department-section-title { margin-bottom: 8px; color: var(--blue-dark); font-size: 1.8rem; }
   .department-intro p, .department-section-subtitle { color: var(--text-muted); }
   .department-groups { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
-  .department-card {
-    display: flex; flex-direction: column; text-align: left;
+  .department-card, .department-card-s {
+    display: flex; flex-direction: column; text-align: left; padding: 22px 20px 18px;
     background: #fff; border: 1px solid rgba(161,227,255,.55); border-radius: var(--radius-md);
     box-shadow: var(--shadow-sm); transition: transform var(--transition-fast),box-shadow var(--transition-fast);
   }
-  .department-card:hover, .department-leader:hover, .department-gallery-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-hover); }
+  .department-card:hover, .department-card-s:hover, .department-leader:hover, .department-gallery-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-hover); }
   .department-card__icon {
     display: flex; align-items: center; justify-content: center; width: 58px; height: 58px;
     margin-bottom: 18px; font-size: 1.8rem; background: linear-gradient(135deg,#e0f2fe,#bae6fd); border-radius: 16px;
   }
-  .department-card h3 { margin-bottom: 10px; color: var(--blue-dark); font-size: 1.22rem; }
+  .department-card h3, .department-card-s h3 { margin-bottom: 10px; color: var(--blue-dark); font-size: 1.22rem; }
   .department-card__new-label { color: #dc2626; }
-  .department-card p { flex: 1; margin-bottom: 18px; color: var(--text-body); font-size: .94rem; line-height: 1.7; }
-  .department-card ul { display: grid; gap: 9px; padding: 16px 0 0 20px; color: var(--text-body); border-top: 1px solid #e0f2fe; font-size: .9rem; line-height: 1.55; }
-  .department-card li::marker { color: var(--blue-accent); }
+  .department-card p, .department-card-s p { flex: 1; margin-bottom: 18px; color: var(--text-body); font-size: .94rem; line-height: 1.7; }
+  .department-card ul, .department-card-s ul { display: grid; gap: 9px; padding: 16px 0 0 20px; color: var(--text-body); border-top: 1px solid #e0f2fe; font-size: .9rem; line-height: 1.55; }
+  .department-card li::marker, .department-card-s li::marker { color: var(--blue-accent); }
   .department-leaders, .department-gallery { margin-top: 44px; }
   .department-leaders__heading, .department-section-heading { margin-bottom: 22px; text-align: center; }
   .department-leaders__heading h2, .department-section-heading h2 { margin-bottom: 8px; color: var(--blue-dark); font-size: 1.8rem; }
