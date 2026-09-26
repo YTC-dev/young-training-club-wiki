@@ -73,6 +73,20 @@
   color: #a8e6ff;
 }
 
+.hero-img-wrap {
+  margin: 24px auto 8px;
+  text-align: center;
+}
+
+.hero-img-wrap img {
+  display: block;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 680px;
+  border-radius: 16px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+}
+
 .btn-hero {
   display: inline-block;
   background: linear-gradient(135deg, #00d4ff, #0983fe);
