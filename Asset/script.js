@@ -4,11 +4,22 @@
 // =============================================
 
 // Base URL
-const BASE =
+const isLocalPreview =
+  window.location.protocol === "file:" ||
   window.location.hostname === "localhost" ||
-  window.location.hostname === "127.0.0.1"
+  window.location.hostname === "127.0.0.1";
+
+const localFileBase = document.currentScript
+  ? new URL("..", document.currentScript.src).href.replace(/\/$/, "")
+  : "";
+
+const BASE = window.location.protocol === "file:"
+  ? localFileBase
+  : isLocalPreview
     ? ""
-    : "/young-training-club-wiki";
+  : window.location.pathname.startsWith("/young-training-club-wiki/")
+    ? "/young-training-club-wiki"
+    : "";
 
 // ----- 1. NAV HTML -----
 const navHTML = `
@@ -219,3 +230,20 @@ function initVisitCounter() {
 
 // ----- Disable Right Click -----
 document.addEventListener("contextmenu", e => e.preventDefault());
+
+// ----- Scroll fade-in (shared across all pages, incl. contest pages) -----
+const fadeInEls = document.querySelectorAll(".fade-in");
+if (fadeInEls.length) {
+  const fadeInObserver = new IntersectionObserver(
+    entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          fadeInObserver.unobserve(entry.target); // đã hiện thì thôi theo dõi, đỡ tốn tài nguyên
+        }
+      });
+    },
+    { threshold: 0.08 }
+  );
+  fadeInEls.forEach(el => fadeInObserver.observe(el));
+}

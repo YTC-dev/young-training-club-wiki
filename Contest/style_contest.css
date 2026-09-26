@@ -667,13 +667,13 @@
 }
 
 .video-topic {
-  font-style: bold;
-  margin-bottom: 12px !important;
+  font-weight: 700;
+  margin-bottom: 12px;
 }
 
 .team-message {
   font-style: italic;
-  margin-bottom: 12px !important;
+  margin-bottom: 12px;
 }
 
 .team-video-btn {
@@ -839,7 +839,7 @@
       padding: 1px 8px;
       border-radius: 6px;
       background: #e0f2fe;
-      color: #0284c7 !important;
+      color: #0284c7;
       font-size: 0.8rem;
       font-weight: 600;
       white-space: nowrap;
@@ -1468,8 +1468,17 @@
     .lightbox-next { right: -56px; }
 
     @media (max-width: 600px) {
-      .lightbox-prev { left: -44px; }
-      .lightbox-next { right: -44px; }
+      .lightbox-inner {
+        width: 100%;
+        max-width: calc(100vw - 32px);
+      }
+      .lightbox-inner img {
+        max-width: calc(100vw - 32px);
+        max-height: calc(100dvh - 72px);
+      }
+      .lightbox-close { top: 8px; right: 8px; }
+      .lightbox-prev { left: 8px; }
+      .lightbox-next { right: 8px; }
     }
 
     .gallery-block {
@@ -1484,3 +1493,306 @@
       color: var(--blue-main);
       margin-bottom: 14px;
     }
+/* ==========================================================
+   ✨ PREMIUM ENHANCEMENTS — chuyển động & hiệu ứng nâng cao
+   Bổ sung ở cuối file để không phá vỡ style gốc phía trên.
+   Toàn bộ chỉ dùng lại các class đã có sẵn trong HTML.
+========================================================== */
+
+/* ---------- HERO: gradient sống động + quầng sáng trôi ---------- */
+.hero {
+  background-size: 220% 220%;
+  animation: heroGradientShift 16s ease infinite;
+}
+
+@keyframes heroGradientShift {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  inset: -20%;
+  background:
+    radial-gradient(circle at 22% 28%, rgba(126, 214, 255, 0.28), transparent 42%),
+    radial-gradient(circle at 78% 72%, rgba(0, 212, 255, 0.22), transparent 45%);
+  animation: heroOrbFloat 11s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+@keyframes heroOrbFloat {
+  0%   { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(3%, -4%) scale(1.08); }
+}
+
+/* Entrance nhẹ cho nội dung hero khi tải trang */
+.hero-badge,
+.hero h1,
+.hero-sub,
+.hero-img-wrap,
+.hero-meta {
+  animation: heroFadeUp 0.85s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.hero-badge    { animation-delay: 0.02s; }
+.hero h1       { animation-delay: 0.12s; }
+.hero-sub      { animation-delay: 0.22s; }
+.hero-img-wrap { animation-delay: 0.3s; }
+.hero-meta     { animation-delay: 0.4s; }
+
+@keyframes heroFadeUp {
+  from { opacity: 0; transform: translateY(22px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Badge dạng ruy-băng: ánh sáng lướt qua */
+.hero-badge {
+  position: relative;
+  overflow: hidden;
+}
+.hero-badge::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -60%;
+  width: 40%; height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.55), transparent);
+  animation: badgeShine 3.4s ease-in-out infinite;
+}
+@keyframes badgeShine {
+  0%   { left: -60%; }
+  55%  { left: 130%; }
+  100% { left: 130%; }
+}
+
+/* Stars: thêm chuyển động lắc nhẹ, giữ hiệu ứng phát sáng cũ */
+.stars {
+  animation: starPulse 2s infinite ease-in-out, starRock 3.6s ease-in-out infinite;
+}
+@keyframes starRock {
+  0%, 100% { transform: rotate(-4deg); }
+  50%      { transform: rotate(4deg); }
+}
+
+/* Ảnh poster hero: nổi nhẹ theo nhịp thở */
+.hero-img-wrap img {
+  animation: heroImgFloat 5s ease-in-out infinite;
+}
+@keyframes heroImgFloat {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-8px); }
+}
+
+/* ---------- THẺ (card): ánh sáng lướt + nhấc mượt hơn khi hover ---------- */
+.info-card,
+.prize-card,
+.judge-card,
+.team-card,
+.result-card,
+.top10-card,
+.tl-content {
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.3s ease;
+}
+
+.info-card::after,
+.prize-card::after,
+.judge-card::after,
+.team-card::after,
+.result-card::after,
+.top10-card::after,
+.tl-content::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -75%;
+  width: 45%;
+  height: 100%;
+  background: linear-gradient(115deg, transparent, rgba(255, 255, 255, 0.55), transparent);
+  transform: skewX(-20deg);
+  transition: left 0.7s ease;
+  pointer-events: none;
+}
+
+.info-card:hover::after,
+.prize-card:hover::after,
+.judge-card:hover::after,
+.team-card:hover::after,
+.result-card:hover::after,
+.top10-card:hover::after,
+.tl-content:hover::after {
+  left: 130%;
+}
+
+/* Nhấc + phóng nhẹ khi hover (ghi đè transform của rule gốc phía trên,
+   box-shadow gốc vẫn được giữ nguyên) */
+.info-card:hover,
+.judge-card:hover,
+.team-card:hover,
+.result-card:hover,
+.top10-card:hover {
+  transform: translateY(-8px) scale(1.015);
+}
+.prize-card:hover {
+  transform: translateY(-8px) scale(1.02);
+}
+.tl-content:hover {
+  transform: translateY(-4px);
+}
+.info-card:hover {
+  border-top-color: var(--blue-soft);
+}
+
+/* Viền huy chương phát sáng theo nhịp — nhấn mạnh giải Nhất */
+.prize-card.gold {
+  animation: goldGlow 3s ease-in-out infinite;
+}
+@keyframes goldGlow {
+  0%, 100% { box-shadow: var(--shadow-soft); }
+  50%      { box-shadow: 0 12px 32px rgba(246, 211, 101, 0.45); }
+}
+
+/* ---------- TIMELINE: chấm mốc lan toả ---------- */
+.tl-dot {
+  animation: tlDotPulse 2.4s ease-in-out infinite;
+}
+@keyframes tlDotPulse {
+  0%, 100% { box-shadow: 0 0 0 3px var(--blue-soft); }
+  50%      { box-shadow: 0 0 0 7px rgba(81, 194, 242, 0.35); }
+}
+
+
+.gallery-item:has(img):hover::before {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* Lightbox: hiệu ứng xuất hiện mượt hơn */
+.lightbox-inner {
+  animation: lightboxIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+@keyframes lightboxIn {
+  from { opacity: 0; transform: scale(0.94); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+/* ---------- NÚT: hiệu ứng gợn sóng khi bấm (spawn bởi script_contest.js) ---------- */
+.btn-hero,
+.btn-outline,
+.btn-white,
+.team-video-btn,
+.profile-link-btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.ytc-ripple {
+  position: absolute;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.35;
+  transform: scale(0);
+  animation: ytcRippleAnim 0.6s ease-out;
+  pointer-events: none;
+}
+@keyframes ytcRippleAnim {
+  to { transform: scale(2.6); opacity: 0; }
+}
+
+/* ---------- THANH TIẾN TRÌNH CUỘN TRANG ---------- */
+.ytc-scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 4px;
+  width: 0%;
+  background: linear-gradient(90deg, var(--blue-accent), var(--blue-light));
+  box-shadow: 0 0 8px rgba(9, 131, 254, 0.6);
+  z-index: 100000;
+  transition: width 0.12s ease-out;
+}
+
+/* ---------- NÚT VỀ ĐẦU TRANG ---------- */
+.ytc-back-to-top {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--blue-main), var(--blue-accent));
+  color: #fff;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.15rem;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(9, 131, 254, 0.35);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(16px);
+  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s, box-shadow 0.25s ease;
+  z-index: 9999;
+}
+.ytc-back-to-top.is-visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+.ytc-back-to-top:hover {
+  box-shadow: 0 12px 28px rgba(9, 131, 254, 0.5);
+  transform: translateY(-4px);
+}
+@media (max-width: 600px) {
+  .ytc-back-to-top {
+    right: 14px;
+    bottom: 14px;
+    width: 42px;
+    height: 42px;
+    font-size: 1.05rem;
+  }
+}
+
+/* ---------- Fade-in theo bậc (stagger), do script_contest.js gán --transition-delay ---------- */
+.fade-in {
+  transition-delay: var(--ytc-stagger-delay, 0s);
+}
+
+/* ---------- Tôn trọng người dùng ưu tiên giảm chuyển động ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .hero,
+  .hero::after,
+  .hero-badge::after,
+  .hero-img-wrap img,
+  .stars,
+  .section-heading .label,
+  .prize-card.gold,
+  .tl-dot,
+  .info-card::after,
+  .prize-card::after,
+  .judge-card::after,
+  .team-card::after,
+  .result-card::after,
+  .top10-card::after,
+  .tl-content::after,
+  .lightbox-inner {
+    animation: none !important;
+  }
+  .hero-badge,
+  .hero h1,
+  .hero-sub,
+  .hero-img-wrap,
+  .hero-meta {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .fade-in {
+    transition-delay: 0s !important;
+  }
+}

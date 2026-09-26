@@ -794,6 +794,15 @@
     .lightbox-next { right: -56px; }
 
     @media (max-width: 600px) {
-      .lightbox-prev { left: -44px; }
-      .lightbox-next { right: -44px; }
+      .lightbox-inner {
+        width: 100%;
+        max-width: calc(100vw - 32px);
+      }
+      .lightbox-inner img {
+        max-width: calc(100vw - 32px);
+        max-height: calc(100dvh - 72px);
+      }
+      .lightbox-close { top: 8px; right: 8px; }
+      .lightbox-prev { left: 8px; }
+      .lightbox-next { right: 8px; }
     }

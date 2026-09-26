@@ -1,4 +1,6 @@
 (function() {
+  'use strict';
+
   const overlay = document.createElement('div');
   overlay.className = 'lightbox-overlay';
   overlay.innerHTML = `
@@ -147,10 +149,110 @@
 
   document.querySelectorAll('.gallery-block').forEach(initGallery);
 })();
+// Lưu ý: hiệu ứng fade-in khi cuộn giờ dùng chung ở Asset/script.js,
+// không cần lặp lại ở đây nữa.
+// =========================================================
+// ✨ PREMIUM ENHANCEMENTS — thanh tiến trình, nút về đầu trang,
+//    hiệu ứng gợn sóng cho nút bấm, fade-in so le theo hàng
+// Độc lập với code gallery/lightbox phía trên, tự bỏ qua nếu
+// trang không có phần tử tương ứng.
+// =========================================================
+(function () {
+  'use strict';
 
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(e => {
-        if (e.isIntersecting) e.target.classList.add('visible');
+  const prefersReducedMotion =
+    window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // ----- 1. Thanh tiến trình cuộn trang -----
+  const progressBar = document.createElement('div');
+  progressBar.className = 'ytc-scroll-progress';
+  document.body.appendChild(progressBar);
+
+  let progressTicking = false;
+  function updateScrollProgress() {
+    const scrollTop = window.scrollY || document.documentElement.scrollTop;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const pct = docHeight > 0 ? Math.min(100, Math.max(0, (scrollTop / docHeight) * 100)) : 0;
+    progressBar.style.width = pct + '%';
+    progressTicking = false;
+  }
+  window.addEventListener('scroll', () => {
+    if (!progressTicking) {
+      requestAnimationFrame(updateScrollProgress);
+      progressTicking = true;
+    }
+  }, { passive: true });
+  updateScrollProgress();
+
+  // ----- 2. Nút "Về đầu trang" -----
+  const backToTop = document.createElement('button');
+  backToTop.type = 'button';
+  backToTop.className = 'ytc-back-to-top';
+  backToTop.setAttribute('aria-label', 'Về đầu trang');
+  backToTop.innerHTML = '&#8593;';
+  document.body.appendChild(backToTop);
+
+  let backToTopTicking = false;
+  function updateBackToTop() {
+    if (window.scrollY > 480) {
+      backToTop.classList.add('is-visible');
+    } else {
+      backToTop.classList.remove('is-visible');
+    }
+    backToTopTicking = false;
+  }
+  window.addEventListener('scroll', () => {
+    if (!backToTopTicking) {
+      requestAnimationFrame(updateBackToTop);
+      backToTopTicking = true;
+    }
+  }, { passive: true });
+  updateBackToTop();
+
+  backToTop.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
+  });
+
+  // ----- 3. Hiệu ứng gợn sóng khi bấm nút -----
+  const rippleSelector =
+    '.btn-hero, .btn-outline, .btn-white, .team-video-btn, .profile-link-btn';
+
+  document.addEventListener('click', e => {
+    const btn = e.target.closest(rippleSelector);
+    if (!btn) return;
+
+    const rect = btn.getBoundingClientRect();
+    const size = Math.max(rect.width, rect.height);
+    const ripple = document.createElement('span');
+    ripple.className = 'ytc-ripple';
+    ripple.style.width = ripple.style.height = size + 'px';
+    ripple.style.left = (e.clientX - rect.left - size / 2) + 'px';
+    ripple.style.top = (e.clientY - rect.top - size / 2) + 'px';
+
+    btn.appendChild(ripple);
+    ripple.addEventListener('animationend', () => ripple.remove());
+  });
+
+  // ----- 4. Fade-in so le theo hàng: các phần tử .fade-in nằm cùng
+  //          một khối cha sẽ lần lượt xuất hiện cách nhau một nhịp nhỏ -----
+  if (!prefersReducedMotion) {
+    const groups = new Map();
+    document.querySelectorAll('.fade-in').forEach(el => {
+      const parent = el.parentElement;
+      if (!parent) return;
+      if (!groups.has(parent)) groups.set(parent, []);
+      groups.get(parent).push(el);
+    });
+
+    groups.forEach(siblings => {
+      // Chỉ so le khi có từ 2 phần tử trở lên trong cùng một nhóm,
+      // và mỗi bậc trễ tối đa 6 phần tử để tránh chờ quá lâu.
+      if (siblings.length < 2) return;
+      siblings.forEach((el, i) => {
+        const step = Math.min(i, 5) * 0.08;
+        el.style.setProperty('--ytc-stagger-delay', step + 's');
       });
-    }, { threshold: 0.08 });
-    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    });
+  }
+
+})();
