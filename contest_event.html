@@ -1628,6 +1628,23 @@
         document.querySelector('.filter-chip[data-category="all"]').classList.add("active");
         applyFilterAndSearch();
       });
+
+      // Bấm menu phụ "Cuộc thi" trên navbar: nếu section đang bị lọc ẩn thì bỏ lọc rồi cuộn tới
+      function revealHashSection() {
+        const id = window.location.hash.slice(1);
+        const target = id && document.getElementById(id);
+        if (!target || !target.classList.contains("contest-module")) return;
+        if (target.style.display === "none") {
+          searchInput.value = "";
+          currentCategory = "all";
+          filterChips.forEach(c => c.classList.remove("active"));
+          document.querySelector('.filter-chip[data-category="all"]').classList.add("active");
+          applyFilterAndSearch();
+        }
+        target.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+      window.addEventListener("hashchange", revealHashSection);
+      if (window.location.hash) setTimeout(revealHashSection, 150);
     });
   </script>
 </body>

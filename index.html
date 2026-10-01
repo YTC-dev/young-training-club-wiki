@@ -2092,30 +2092,36 @@
 
     <!-- 🎂 SINH NHẬT THÁNG -->
     <div class="widget birthday-widget">
-      <div class="widget-title">🎂 Sinh nhật tháng 9/2026</div>
+      <div class="widget-title">🎂 Sinh nhật tháng 10/2026</div>
       <ul class="birthday-list" id="birthdayList">
           <li class="birthday-item">
           <div class="birthday-info">
-            <span class="birthday-name">Ninh Ngọc Anh</span>
-            <span class="birthday-date">07/09 · Ban Nhân sự - Hậu cần</span>
+            <span class="birthday-name">Nguyễn Thùy Trang</span>
+            <span class="birthday-date">01/01 · MC - Lễ tân</span>
           </div>
           </li> 
           <li class="birthday-item">
           <div class="birthday-info">
-            <span class="birthday-name">Lê Đỗ Quyên</span>
-            <span class="birthday-date">10/09 · Ban Nhân sự - Hậu cần</span>
+            <span class="birthday-name">Nguyễn Hồng Thanh</span>
+            <span class="birthday-date">10/10 · Chủ nhiệm CLB</span>
           </div>
           </li>
           <li class="birthday-item">
           <div class="birthday-info">
-            <span class="birthday-name">Trương Thị Thuý</span>
-            <span class="birthday-date">28/09 · Ban MC - Lễ tân</span>
+            <span class="birthday-name">Phạm Thị Thảo Anh</span>
+            <span class="birthday-date">14/10 · Phó Ban Nhân sự - Hậu cần</span>
+          </div>
+          </li>
+          <li class="birthday-item">
+          <div class="birthday-info">
+            <span class="birthday-name">Trần Quang Công</span>
+            <span class="birthday-date">16/10 · Ban Nhân sự - Hậu cần</span>
           </div>
           </li>                  
           <li class="birthday-item">
           <div class="birthday-info">
-            <span class="birthday-name">Nguyễn Yến Nhi</span>
-            <span class="birthday-date">30/09 · Ban Nhân sự - Hậu cần</span>
+            <span class="birthday-name">Lê Thị Phương Anh</span>
+            <span class="birthday-date">26/10 · Phó MC - Lễ tân</span>
           </div>
           </li>        
           <!-- <li class="birthday-item">
@@ -2349,7 +2355,7 @@
     // Open Recap Box
     function openRecapBox() {
       document.getElementById('recapOverlay').classList.add('active');
-      document.body.style.overflow = 'hidden'; // Prevent scrolling
+      document.documentElement.classList.add('no-scroll'); // Prevent scrolling
     }
 
     // Close Recap Box
@@ -2357,7 +2363,7 @@
       // Nếu click vào overlay hoặc nút close
       if (!event || event.target.id === 'recapOverlay' || event.target.classList.contains('close-btn')) {
         document.getElementById('recapOverlay').classList.remove('active');
-        document.body.style.overflow = 'auto'; // Enable scrolling
+        document.documentElement.classList.remove('no-scroll'); // Enable scrolling
       }
     }
 
@@ -2374,7 +2380,7 @@
       const screen = document.getElementById('welcomeScreen');
       if (screen) {
         screen.classList.remove('hidden');
-        document.body.style.overflow = 'hidden';
+        document.documentElement.classList.add('no-scroll');
       }
     }
 
@@ -2518,13 +2524,13 @@
 
     function openStarBox() {
       document.getElementById('starOverlay').classList.add('active');
-      document.body.style.overflow = 'hidden';
+      document.documentElement.classList.add('no-scroll');
     }
 
     function closeStarBox(event) {
       if (!event || event.target.id === 'starOverlay' || event.target.classList.contains('close-btn')) {
         document.getElementById('starOverlay').classList.remove('active');
-        document.body.style.overflow = 'auto';
+        document.documentElement.classList.remove('no-scroll');
       }
     }
 
@@ -2551,7 +2557,7 @@
       const screen = document.getElementById('welcomeScreen');
       if (screen) {
         screen.classList.add('hidden');
-        document.body.style.overflow = 'auto';
+        document.documentElement.classList.remove('no-scroll');
       }
 
       const hideCheckbox = document.getElementById('welcomeHideCheckbox');
@@ -2572,7 +2578,7 @@
       const screen = document.getElementById('welcomeScreen');
       if (screen) screen.classList.add('hidden');
     } else {
-      document.body.style.overflow = 'hidden';
+      document.documentElement.classList.add('no-scroll');
     }
   </script>
 

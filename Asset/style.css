@@ -1409,3 +1409,174 @@ footer {
     scroll-behavior: auto !important;
   }
 }
+/* Khóa cuộn trang khi mở popup (đặt trên <html>, KHÔNG đặt trên <body> để không phá position: sticky của sidebar) */
+html.no-scroll {
+  overflow: hidden;
+}
+
+/* ==========================================
+   NAVBAR DROPDOWN (menu phụ khi hover)
+========================================== */
+.nav-links .has-dropdown {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.dropdown-toggle {
+  width: 16px;
+  height: 16px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  position: relative;
+}
+
+.dropdown-toggle::before {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 6px;
+  height: 6px;
+  border-right: 2px solid #004ecc;
+  border-bottom: 2px solid #004ecc;
+  transform: rotate(45deg);
+  transition: transform 0.25s ease;
+}
+
+.nav-links .dropdown {
+  list-style: none;
+  margin: 0;
+  padding: 8px;
+  min-width: 210px;
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translate(-50%, 8px);
+  opacity: 0;
+  visibility: hidden;
+  background: rgba(255, 255, 255, 0.97);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid var(--surface-border);
+  border-radius: var(--radius-md);
+  box-shadow: 0 12px 32px rgba(44, 59, 144, 0.18);
+  transition: opacity 0.22s ease, transform 0.22s ease, visibility 0.22s;
+  z-index: 10001;
+}
+
+/* Vùng đệm vô hình để chuột đi từ link xuống menu không bị mất hover */
+.nav-links .dropdown::before {
+  content: "";
+  position: absolute;
+  top: -14px;
+  left: 0;
+  width: 100%;
+  height: 14px;
+}
+
+.nav-links .dropdown li a {
+  display: block;
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  font-size: 0.92rem;
+  white-space: nowrap;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.nav-links .dropdown li a::after {
+  display: none;
+}
+
+.nav-links .dropdown li a:hover {
+  background: var(--light-soft);
+  color: var(--blue-dark);
+}
+
+@media (min-width: 769px) {
+  .nav-links .has-dropdown:hover > .dropdown,
+  .nav-links .has-dropdown:focus-within > .dropdown,
+  .nav-links .has-dropdown.open > .dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, 0);
+  }
+
+  .nav-links .has-dropdown:hover > .dropdown-toggle::before,
+  .nav-links .has-dropdown.open > .dropdown-toggle::before {
+    transform: rotate(-135deg) translate(-1px, -1px);
+  }
+}
+
+/* Mobile: menu phụ xổ xuống trong danh sách */
+@media (max-width: 768px) {
+  .nav-links.active .has-dropdown {
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .nav-links.active .dropdown-toggle {
+    width: 28px;
+    height: 28px;
+  }
+
+  .nav-links.active .dropdown-toggle::before {
+    top: 8px;
+    left: 9px;
+  }
+
+  .nav-links.active .has-dropdown.open > .dropdown-toggle::before {
+    transform: rotate(-135deg);
+  }
+
+  .nav-links.active .dropdown {
+    display: none;
+    position: static;
+    transform: none;
+    opacity: 1;
+    visibility: visible;
+    width: 100%;
+    min-width: 0;
+    margin-top: 8px;
+    background: var(--light-cyan);
+    box-shadow: none;
+    text-align: center;
+  }
+
+  .nav-links.active .dropdown::before {
+    display: none;
+  }
+
+  .nav-links.active .has-dropdown.open > .dropdown {
+    display: block;
+  }
+}
+
+/* Chừa chỗ cho navbar cố định khi nhảy tới #anchor */
+#podcast-section,
+#mc-section,
+#others-section {
+  scroll-margin-top: 100px;
+}
+
+.icon {
+  width: 1.1em;
+  height: 1.1em;
+  vertical-align: -0.2em;
+  flex-shrink: 0;
+}
+
+.footer-nav .icon,
+.contact-icon .icon {
+  width: 18px;
+  height: 18px;
+}
+
+.footer-org-badge .icon {
+  width: 20px;
+  height: 20px;
+}
