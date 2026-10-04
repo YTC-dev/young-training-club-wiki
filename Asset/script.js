@@ -72,6 +72,7 @@ const navHTML = `
         <a href="${BASE}/member.html">Thành viên</a>
         <button type="button" class="dropdown-toggle" aria-label="Mở menu Thành viên" aria-expanded="false"></button>
         <ul class="dropdown">
+          <li><a href="${BASE}/ChuNhiem.html">Thành viên Chủ nhiệm</a></li>
           <li><a href="${BASE}/NSHC.html">Nhân sự - Hậu cần</a></li>
           <li><a href="${BASE}/MCLT.html">MC - Lễ tân</a></li>
           <li><a href="${BASE}/KTVH.html">Kỹ thuật - Vận hành</a></li>
@@ -146,7 +147,7 @@ const footerHTML = `
               <span>@ytc.uneti</span>
             </div>
           </a>
-          <a href="https://www.tiktok.com/@letanytc.uneti" target="_blank" rel="noopener" class="footer-social-item" title="TikTok Ban Lễ Tân YTC">
+          <a href="https://www.tiktok.com/@letanytc.uneti" target="_blank" rel="noopener" class="footer-social-item" title="TikTok Lễ Tân YTC">
             <img src="${BASE}/Image/Tiktok.png" class="social-icon" alt="TikTok Lễ Tân">
             <div class="social-info">
               <strong>TikTok Lễ Tân YTC</strong>
