@@ -93,7 +93,7 @@
 
     .timeline-content p {
       margin: 0;
-      color: var(--text-muted);
+      color: var(--text-main);
       line-height: 1.6;
       font-size: 0.94rem;
     }
@@ -173,106 +173,34 @@
       font-style: italic;
     }
 
-    .welcome-countdown {
+    .challenge-announcement {
       position: relative;
-      margin: 0 0 28px;
+      max-width: 760px;
+      margin: 24px auto 0;
       color: #e0f4ff;
     }
 
-    .welcome-countdown-title {
-      margin-bottom: 10px;
-      font-size: 0.82rem;
-      font-weight: 700;
-      letter-spacing: 1px;
-      text-transform: uppercase;
+    .challenge-announcement h3 {
+      margin-bottom: 8px;
+      color: #a8e6ff;
+      font-size: 1.4rem;
+    }
+
+    .challenge-announcement img {
+      width: 100%;
+      max-width: 800px;
+      margin: 18px auto 0;
+      border-radius: 14px;
+      border: 1.5px solid rgba(126, 214, 255, 0.4);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+    }
+
+    .challenge-announcement a {
       color: #a8e6ff;
     }
 
-    .welcome-countdown-grid {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    .welcome-countdown-item {
-      min-width: 72px;
-      padding: 10px 10px 8px;
-      background: rgba(255, 255, 255, 0.12);
-      border: 1px solid rgba(126, 214, 255, 0.4);
-      border-radius: 10px;
-      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
-    }
-
-    .welcome-countdown-value {
-      display: block;
-      font-size: 1.45rem;
-      font-weight: 800;
-      line-height: 1.1;
+    .challenge-announcement a:hover {
       color: #ffffff;
-      font-variant-numeric: tabular-nums;
-    }
-
-    .welcome-countdown-label {
-      display: block;
-      margin-top: 4px;
-      font-size: 0.68rem;
-      color: #cfe9ff;
-    }
-
-    .welcome-countdown.expired .welcome-countdown-title {
-      color: #ffd700;
-    }
-
-    .welcome-media {
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 28px;
-      margin-bottom: 30px;
-      flex-wrap: wrap;
-    }
-
-    .welcome-poster {
-      flex: 1 1 380px;
-      max-width: 450px;
-      width: 100%;
-      border-radius: 16px;
-      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
-      border: 1.5px solid rgba(126, 214, 255, 0.4);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .welcome-poster:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 20px 48px rgba(0, 0, 0, 0.5);
-    }
-
-    .welcome-avatar-frame {
-      flex: 0 0 auto;
-      width: 240px;
-      height: 240px;
-      border-radius: 12px;
-      overflow: hidden;
-      border: 4px solid #7ed6ff;
-      box-shadow: 0 0 25px rgba(126, 214, 255, 0.45);
-      background: rgba(255, 255, 255, 0.08);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: transform 0.3s ease;
-    }
-
-    .welcome-avatar-frame:hover {
-      transform: scale(1.05) rotate(2deg);
-    }
-
-    .welcome-avatar-frame img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
     }
 
     .welcome-actions {
@@ -484,7 +412,7 @@
 
     .register-card p {
       font-size: 1rem;
-      color: var(--text-muted);
+      color: var(--text-main);
       max-width: 600px;
       margin: 0 auto 20px;
     }
@@ -516,13 +444,6 @@
       .welcome-showcase__tagline {
         font-size: 0.95rem;
       }
-      .welcome-poster {
-        max-width: 100%;
-      }
-      .welcome-avatar-frame {
-        width: 110px;
-        height: 110px;
-      }
       .welcome-actions {
         flex-direction: column;
       }
@@ -549,48 +470,25 @@
   <!-- 1. MÀN HÌNH / KHUNG CHÀO ĐÓN GEN 15.1 -->
   <section class="joinus-section">
     <div class="container fade-in">
-      <div class="welcome-showcase">
+      <div class="welcome-showcase" id="challenge-announcement">
         <h2>THE KEY IS YOU<br>CHÀO MỪNG BẠN ĐẾN VỚI <b>GEN 15.1</b></h2>
         <p class="welcome-showcase__tagline">Nơi bạn kết nối và hoà nhập!</p>
 
-        <div class="welcome-countdown" id="welcomeCountdown" aria-live="polite">
-          <div class="welcome-countdown-title">⏳ Còn lại thời gian điền đơn (đến hết ngày 21/09/2026)</div>
-          <div class="welcome-countdown-grid">
-            <div class="welcome-countdown-item">
-              <span class="welcome-countdown-value" id="welcomeCountdownDays">00</span>
-              <span class="welcome-countdown-label">Ngày</span>
-            </div>
-            <div class="welcome-countdown-item">
-              <span class="welcome-countdown-value" id="welcomeCountdownHours">00</span>
-              <span class="welcome-countdown-label">Giờ</span>
-            </div>
-            <div class="welcome-countdown-item">
-              <span class="welcome-countdown-value" id="welcomeCountdownMinutes">00</span>
-              <span class="welcome-countdown-label">Phút</span>
-            </div>
-            <div class="welcome-countdown-item">
-              <span class="welcome-countdown-value" id="welcomeCountdownSeconds">00</span>
-              <span class="welcome-countdown-label">Giây</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="welcome-media">
-          <img src="Image/Gen15_1_Mo_Don.jpg" alt="Poster Gen 15.1" class="welcome-poster">
-          <div class="welcome-avatar-frame">
-            <img src="Image/Gen15_1_Avatar_Frame.png" alt="Khung avatar Gen 15.1">
-          </div>
+        <div class="challenge-announcement">
+          <h3>Công bố thành viên thử thách</h3>
+          <p>Chúc mừng những gương mặt mới chính thức gia nhập Gen 15.1 của YTC!</p>
+          <img src="Image/ChaoDon_Gen_15.png" alt="YTC chào đón thành viên Gen 15.1">
+          <p style="margin-top: 12px;">
+            <a href="https://www.facebook.com/share/p/1GxQgsgSCm/" target="_blank" rel="noopener noreferrer">
+              Thành viên Ban Nhân sự - Hậu cần (Bài đăng Facebook)
+            </a><br>
+            [Ban MC - Lễ tân, Ban Kỹ thuật - Vận hành và Ban Truyền thông sẽ có cập nhật sớm!]
+          </p>
         </div>
 
         <div class="welcome-actions">
-          <a href="https://docs.google.com/forms/d/e/1FAIpQLSeDCXfRFedVRbgOJlD2O6q66bzjH5wkkyDCxYJms-SKJn4j0Q/viewform" target="_blank" class="btn welcome-btn-primary">
-            🚀 Đăng kí ngay!
-          </a>
           <a href="#departments" class="btn welcome-btn-secondary">
             🔍 Khám phá các ban
-          </a>
-          <a href="https://khunghinh.net/p/ytcgen15" target="_blank" class="btn welcome-btn-secondary">
-            🎨 Tạo avatar
           </a>
         </div>
       </div>
@@ -633,10 +531,10 @@
           </div>
         </div>
 
-        <div class="timeline-item" data-start="" data-end="">
+        <div class="timeline-item is-current">
           <div class="timeline-badge">4</div>
           <div class="timeline-content">
-            <span class="timeline-date">[Sẽ cập nhật]</span>
+            <span class="timeline-date">Đã công bố</span>
             <h3>Công bố thành viên thử thách</h3>
             <p>Thông báo danh sách thành viên được tuyển chọn và chào đón các bạn gia nhập YTC.</p>
           </div>
@@ -759,11 +657,9 @@
 
       <!-- CTA CARD -->
       <div class="register-card fade-in">
-        <h3>Sẵn sàng trở thành một phần của YTC Gen 15.1?</h3>
+        <h3>Sẵn sàng trở thành một phần của YTC?</h3>
         <p>Đừng ngần ngại đăng ký ngay hôm nay để không bỏ lỡ cơ hội khám phá bản thân và cùng YTC tạo nên những kỷ niệm thời thanh xuân rực rỡ nhất!</p>
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLSeDCXfRFedVRbgOJlD2O6q66bzjH5wkkyDCxYJms-SKJn4j0Q/viewform" target="_blank" class="btn welcome-btn-primary">
-          🚀 Điền đơn ứng tuyển ngay
-        </a>
+        <p><b>Hẹn các bạn vào đợt đăng ký tiếp theo của Young Training Club!</b></p>
       </div>
 
     </div>
@@ -776,60 +672,6 @@
 
   <script>
     (function() {
-      const countdown = document.getElementById('welcomeCountdown');
-      if (countdown) {
-        // Giai đoạn 1: đếm ngược đến hạn đóng đơn
-        // Giai đoạn 2: hết hạn đóng đơn -> tự chuyển sang đếm ngược đến hết lịch phỏng vấn
-        const deadlineDate = new Date(2026, 8, 21, 23, 59, 59);   // hết ngày 21/09/2026 - hạn điền đơn
-        const interviewEndDate = new Date(2026, 8, 26, 18, 0, 0); // 18h00 ngày 26/09/2026 - đến lịch phỏng vấn
-
-        const days = document.getElementById('welcomeCountdownDays');
-        const hours = document.getElementById('welcomeCountdownHours');
-        const minutes = document.getElementById('welcomeCountdownMinutes');
-        const seconds = document.getElementById('welcomeCountdownSeconds');
-        const title = countdown.querySelector('.welcome-countdown-title');
-
-        function setValues(totalSeconds) {
-          if (days) days.textContent = String(Math.floor(totalSeconds / 86400)).padStart(2, '0');
-          if (hours) hours.textContent = String(Math.floor((totalSeconds % 86400) / 3600)).padStart(2, '0');
-          if (minutes) minutes.textContent = String(Math.floor((totalSeconds % 3600) / 60)).padStart(2, '0');
-          if (seconds) seconds.textContent = String(totalSeconds % 60).padStart(2, '0');
-        }
-
-        function updateWelcomeCountdown() {
-          const now = Date.now();
-          const remainingToDeadline = deadlineDate.getTime() - now;
-
-          if (remainingToDeadline > 0) {
-            // Giai đoạn 1: còn hạn điền đơn
-            if (title) title.textContent = '⏳ Còn lại thời gian điền đơn (hạn 22/09/2026)';
-            setValues(Math.floor(remainingToDeadline / 1000));
-            countdown.classList.remove('expired');
-            return;
-          }
-
-          const remainingToInterviewEnd = interviewEndDate.getTime() - now;
-
-          if (remainingToInterviewEnd > 0) {
-            // Giai đoạn 2: đã đóng đơn, đang trong lịch phỏng vấn
-            if (title) title.textContent = '🎤 Đã đóng đơn - Countdown đến phỏng vấn (18h00 ngày 26/09/2026)';
-            setValues(Math.floor(remainingToInterviewEnd / 1000));
-            countdown.classList.add('expired');
-            document.querySelectorAll('.welcome-btn-primary').forEach(btn => btn.style.display = 'none');
-            return;
-          }
-
-          // Giai đoạn 3: đã kết thúc cả điền đơn lẫn phỏng vấn
-          setValues(0);
-          if (title) title.textContent = '✅ Đã kết thúc điền đơn & phỏng vấn! Hãy đón chờ kết quả trong thời gian tới!';
-          countdown.classList.add('expired');
-          document.querySelectorAll('.welcome-btn-primary').forEach(btn => btn.style.display = 'none');
-        }
-
-        updateWelcomeCountdown();
-        setInterval(updateWelcomeCountdown, 1000);
-      }
-
       const timelineItems = document.querySelectorAll('.timeline-item');
       if (!timelineItems.length) return;
 

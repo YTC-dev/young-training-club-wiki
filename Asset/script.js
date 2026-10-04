@@ -117,7 +117,7 @@ const footerHTML = `
           <li><a href="${BASE}/contest_event.html">${icon("trophy")} Cuộc thi & Sự kiện</a></li>
           <li><a href="${BASE}/news.html">${icon("newspaper")} Nhật ký hoạt động</a></li>
           <li><a href="${BASE}/member.html">${icon("users")} Thành viên</a></li>
-          <li><a href="${BASE}/joinus.html" class="footer-highlight-link">${icon("rocket")} Tuyển thành viên Gen 15.1</a></li>
+          <li><a href="${BASE}/joinus.html" class="footer-highlight-link">${icon("rocket")} Thành viên Gen 15.1</a></li>
         </ul>
       </div>
 
