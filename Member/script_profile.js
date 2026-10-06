@@ -1,153 +1,359 @@
-(function() {
-    const track = document.getElementById('galleryTrack');
-    const wrapper = document.getElementById('galleryWrapper');
-    const dotsContainer = document.getElementById('galleryDots');
-    const items = track.querySelectorAll('.gallery-item');
-    const total = items.length;
-    let current = 0;
-    let perView = window.innerWidth <= 768 ? 1 : 3;
+(function () {
+  const track = document.getElementById('galleryTrack');
+  const wrapper = document.getElementById('galleryWrapper');
+  const progressHost = document.getElementById('galleryDots');
+  const prevBtn = document.getElementById('galPrev');
+  const nextBtn = document.getElementById('galNext');
+  if (!track || !wrapper) return;
 
-    const maxIndex = Math.max(0, total - perView);
+  const items = Array.from(track.querySelectorAll('.gallery-item'));
+  const total = items.length;
+  if (!total) return;
 
-    // dots
-    const dots = [];
-    for (let i = 0; i <= maxIndex; i++) {
-      const d = document.createElement('div');
-      d.className = 'gallery-dot' + (i === 0 ? ' active' : '');
-      d.addEventListener('click', () => goTo(i));
-      dotsContainer.appendChild(d);
-      dots.push(d);
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const clamp = (n, min, max) => Math.max(min, Math.min(n, max));
+  const pad = n => String(n).padStart(2, '0');
+
+  const ICON = {
+    left: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>',
+    right: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>',
+    close: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>'
+  };
+
+  // ===== Thanh điều khiển: [←] progress + đếm [→] =====
+  let fillEl = null, counterEl = null;
+  if (prevBtn && nextBtn && progressHost) {
+    const nav = prevBtn.parentElement;
+    const controls = document.createElement('div');
+    controls.className = 'gallery-controls';
+    nav.parentNode.insertBefore(controls, nav);
+
+    prevBtn.className = 'gallery-arrow';
+    nextBtn.className = 'gallery-arrow';
+    prevBtn.innerHTML = ICON.left;
+    nextBtn.innerHTML = ICON.right;
+
+    progressHost.className = 'gallery-progress-wrap';
+    progressHost.innerHTML =
+      '<div class="gallery-progress"><span class="gallery-progress-fill"></span></div>' +
+      '<span class="gallery-counter" aria-live="polite"></span>';
+    fillEl = progressHost.querySelector('.gallery-progress-fill');
+    counterEl = progressHost.querySelector('.gallery-counter');
+
+    controls.append(prevBtn, progressHost, nextBtn);
+    if (!nav.children.length) nav.remove();
+
+    // Bấm vào thanh tiến trình để nhảy tới vị trí tương ứng
+    progressHost.querySelector('.gallery-progress').addEventListener('click', e => {
+      const r = e.currentTarget.getBoundingClientRect();
+      userGoTo(Math.round(((e.clientX - r.left) / r.width) * maxIndex));
+    });
+  }
+
+  // ===== Trạng thái & đo kích thước =====
+  let current = 0, perView = 1, step = 0, maxIndex = 0, maxShift = 0, itemW = 0;
+
+  function measure() {
+    const gap = parseFloat(getComputedStyle(track).columnGap) || 0;
+    const viewW = wrapper.clientWidth;
+    itemW = items[0].offsetWidth;
+    step = itemW + gap;
+    perView = Math.max(1, Math.floor((viewW + gap) / step + 0.05));
+    maxShift = Math.max(0, total * itemW + (total - 1) * gap - viewW);
+    maxIndex = maxShift <= 1 ? 0 : Math.max(0, Math.ceil((maxShift - 1) / step));
+  }
+
+  const shiftFor = i => Math.min(i * step, maxShift);
+  const setX = px => track.style.setProperty('--x', `${-px}px`);
+
+  function render() {
+    const shift = shiftFor(current);
+    const viewW = wrapper.clientWidth;
+    items.forEach(it => it.classList.remove('is-active'));
+    items.forEach((it, i) => {
+      const left = i * step;
+      it.classList.toggle('is-active', left >= shift - 4 && left + itemW <= shift + viewW + 4);
+    });
+    if (fillEl) fillEl.style.setProperty('--p', `${((current + 1) / (maxIndex + 1)) * 100}%`);
+    if (counterEl) counterEl.textContent = `${pad(current + 1)} / ${pad(maxIndex + 1)}`;
+  }
+
+  function goTo(i, instant) {
+    current = clamp(i, 0, maxIndex);
+    if (instant) {
+      track.classList.add('is-dragging');
+      setX(shiftFor(current));
+      void track.offsetWidth;
+      track.classList.remove('is-dragging');
+    } else {
+      setX(shiftFor(current));
+    }
+    render();
+  }
+
+  function userGoTo(i) {
+    goTo(i);
+    stopAuto(); startAuto();
+  }
+
+  const wrapNext = () => (current >= maxIndex ? 0 : current + 1);
+  const wrapPrev = () => (current <= 0 ? maxIndex : current - 1);
+  prevBtn && prevBtn.addEventListener('click', () => userGoTo(wrapPrev()));
+  nextBtn && nextBtn.addEventListener('click', () => userGoTo(wrapNext()));
+
+  // ===== Kéo / vuốt bám theo ngón tay, có quán tính =====
+  let drag = null, suppressClick = false;
+
+  wrapper.addEventListener('pointerdown', e => {
+    if (e.pointerType === 'mouse' && e.button !== 0) return;
+    drag = {
+      id: e.pointerId, x: e.clientX, base: shiftFor(current),
+      moved: false, lastX: e.clientX, lastT: performance.now(), v: 0
+    };
+  });
+
+  window.addEventListener('pointermove', e => {
+    if (!drag || e.pointerId !== drag.id) return;
+    const dx = e.clientX - drag.x;
+    if (!drag.moved) {
+      if (Math.abs(dx) < 6) return;
+      drag.moved = true;
+      track.classList.add('is-dragging');
+      wrapper.classList.add('is-grabbing');
+      setHold('drag', true);
+    }
+    const now = performance.now();
+    drag.v = (e.clientX - drag.lastX) / Math.max(1, now - drag.lastT);
+    drag.lastX = e.clientX; drag.lastT = now;
+
+    let target = drag.base - dx;
+    // Kéo quá mép thì có lực cản (rubber-band)
+    if (target < 0) target *= 0.35;
+    else if (target > maxShift) target = maxShift + (target - maxShift) * 0.35;
+    setX(target);
+  });
+
+  function endDrag(e) {
+    if (!drag || e.pointerId !== drag.id) return;
+    const d = drag; drag = null;
+    if (!d.moved) return;
+    track.classList.remove('is-dragging');
+    wrapper.classList.remove('is-grabbing');
+    suppressClick = true;
+    setTimeout(() => { suppressClick = false; }, 60);
+
+    const dx = (e.clientX ?? d.lastX) - d.x;
+    const projected = d.base - dx - d.v * 180;            // thêm quán tính
+    const idx = clamp(Math.round(projected / step), current - perView, current + perView);
+    goTo(idx);
+    setHold('drag', false);
+  }
+  window.addEventListener('pointerup', endDrag);
+  window.addEventListener('pointercancel', endDrag);
+
+  // Chặn click mở lightbox sau khi vừa kéo
+  wrapper.addEventListener('click', e => {
+    if (suppressClick) { e.stopPropagation(); e.preventDefault(); }
+  }, true);
+
+  // Focus bằng phím Tab không được làm lệch khung
+  wrapper.addEventListener('scroll', () => { wrapper.scrollLeft = 0; });
+
+  // ===== Tự chạy: tạm dừng khi hover / tab ẩn / ngoài màn hình / mở lightbox =====
+  let timer = null;
+  const holds = new Set(['offscreen']);
+
+  function startAuto() {
+    if (reduceMotion || timer || holds.size || maxIndex === 0) return;
+    timer = setInterval(() => goTo(wrapNext()), 4500);
+  }
+  function stopAuto() { clearInterval(timer); timer = null; }
+  function setHold(key, on) {
+    on ? holds.add(key) : holds.delete(key);
+    holds.size ? stopAuto() : startAuto();
+  }
+
+  wrapper.addEventListener('pointerenter', e => { if (e.pointerType === 'mouse') setHold('hover', true); });
+  wrapper.addEventListener('pointerleave', e => { if (e.pointerType === 'mouse') setHold('hover', false); });
+  document.addEventListener('visibilitychange', () => setHold('hidden', document.hidden));
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(([en]) => setHold('offscreen', !en.isIntersecting), { threshold: 0.2 })
+      .observe(wrapper);
+  } else {
+    holds.delete('offscreen');
+  }
+
+  // ===== Tải ảnh: hiện dần, báo lỗi gọn =====
+  items.forEach((item, i) => {
+    const img = item.querySelector('img');
+    item.tabIndex = 0;
+    item.setAttribute('role', 'button');
+    item.setAttribute('aria-label', `Xem ảnh ${i + 1}/${total}`);
+    if (!img) return;
+    img.loading = 'lazy';
+    img.decoding = 'async';
+    img.draggable = false;
+    const ok = () => item.classList.add('is-loaded');
+    const bad = () => item.classList.add('is-broken');
+    if (img.complete) (img.naturalWidth ? ok() : bad());
+    else { img.addEventListener('load', ok, { once: true }); img.addEventListener('error', bad, { once: true }); }
+
+    item.addEventListener('focus', () => {
+      if (i < current) goTo(i);
+      else if (i >= current + perView) goTo(i - perView + 1);
+    });
+  });
+
+  // ===== Responsive =====
+  let rafId = 0;
+  window.addEventListener('resize', () => {
+    cancelAnimationFrame(rafId);
+    rafId = requestAnimationFrame(() => {
+      measure();
+      goTo(current, true);
+      stopAuto(); startAuto();
+    });
+  });
+
+  // ===== LIGHTBOX =====
+  const overlay = document.createElement('div');
+  overlay.className = 'lightbox-overlay';
+  overlay.setAttribute('role', 'dialog');
+  overlay.setAttribute('aria-modal', 'true');
+  overlay.setAttribute('aria-label', 'Xem ảnh phóng to');
+  overlay.innerHTML = `
+    <div class="lightbox-topbar">
+      <span class="lightbox-counter"></span>
+      <button class="lightbox-close" aria-label="Đóng">${ICON.close}</button>
+    </div>
+    <button class="lightbox-nav lightbox-prev" aria-label="Ảnh trước">${ICON.left}</button>
+    <figure class="lightbox-stage">
+      <img src="" alt="" id="lightboxImg">
+      <figcaption class="lightbox-caption" id="lightboxCaption"></figcaption>
+    </figure>
+    <button class="lightbox-nav lightbox-next" aria-label="Ảnh tiếp">${ICON.right}</button>
+  `;
+  document.body.appendChild(overlay);
+
+  const lbImg = overlay.querySelector('#lightboxImg');
+  const lbCaption = overlay.querySelector('#lightboxCaption');
+  const lbCounter = overlay.querySelector('.lightbox-counter');
+  const lbStage = overlay.querySelector('.lightbox-stage');
+  const lbClose = overlay.querySelector('.lightbox-close');
+  const lbPrev = overlay.querySelector('.lightbox-prev');
+  const lbNext = overlay.querySelector('.lightbox-next');
+
+  let lbList = [], lbIndex = 0, lbToken = 0, lastFocus = null;
+  const isOpen = () => overlay.classList.contains('active');
+
+  function showLb(i, dir = 0) {
+    const n = lbList.length;
+    lbIndex = (i + n) % n;
+    const item = lbList[lbIndex];
+    const img = item.querySelector('img');
+    const cap = item.querySelector('.gallery-caption');
+    const src = img.currentSrc || img.src;
+    const token = ++lbToken;
+
+    lbCounter.textContent = `${pad(lbIndex + 1)} / ${pad(n)}`;
+    if (dir) {
+      lbImg.style.setProperty('--out', `${-dir * 28}px`);
+      lbImg.classList.add('is-out');
     }
 
-    function goTo(idx) {
-      current = Math.max(0, Math.min(idx, maxIndex));
-      const itemW = items[0].offsetWidth + 12;
-      track.style.transform = `translateX(-${current * itemW}px)`;
-      dots.forEach((d, i) => d.classList.toggle('active', i === current));
-    }
-
-    document.getElementById('galPrev').addEventListener('click', () => goTo(current - 1));
-    document.getElementById('galNext').addEventListener('click', () => goTo(current + 1));
-
-    // Drag / swipe
-    let startX = 0, dragging = false;
-    wrapper.addEventListener('mousedown', e => { startX = e.clientX; dragging = true; });
-    wrapper.addEventListener('mousemove', e => { if (dragging) e.preventDefault(); });
-    wrapper.addEventListener('mouseup', e => {
-      if (!dragging) return;
-      dragging = false;
-      const diff = startX - e.clientX;
-      if (Math.abs(diff) > 50) goTo(current + (diff > 0 ? 1 : -1));
+    const loaded = new Promise(res => {
+      const pre = new Image();
+      pre.onload = pre.onerror = res;
+      pre.src = src;
     });
-    wrapper.addEventListener('mouseleave', () => { dragging = false; });
+    const wait = new Promise(res => setTimeout(res, dir && !reduceMotion ? 170 : 0));
 
-    wrapper.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, { passive: true });
-    wrapper.addEventListener('touchend', e => {
-      const diff = startX - e.changedTouches[0].clientX;
-      if (Math.abs(diff) > 40) goTo(current + (diff > 0 ? 1 : -1));
-    });
-
-    // Auto-play
-    let timer = setInterval(() => goTo(current < maxIndex ? current + 1 : 0), 4000);
-    wrapper.addEventListener('mouseenter', () => clearInterval(timer));
-    wrapper.addEventListener('mouseleave', () => {
-      timer = setInterval(() => goTo(current < maxIndex ? current + 1 : 0), 4000);
-    });
-
-    window.addEventListener('resize', () => {
-      perView = window.innerWidth <= 768 ? 1 : 3;
-      goTo(0);
-    });
-
-    // ===== LIGHTBOX =====
-    // Tạo overlay lightbox và thêm vào body
-    const overlay = document.createElement('div');
-    overlay.className = 'lightbox-overlay';
-    overlay.innerHTML = `
-      <div class="lightbox-inner">
-        <button class="lightbox-close" aria-label="Đóng">&#10005;</button>
-        <button class="lightbox-nav lightbox-prev" aria-label="Ảnh trước">&#8592;</button>
-        <button class="lightbox-nav lightbox-next" aria-label="Ảnh tiếp">&#8594;</button>
-        <img src="" alt="Ảnh phóng to" id="lightboxImg">
-        <p class="lightbox-caption" id="lightboxCaption"></p>
-      </div>
-    `;
-    document.body.appendChild(overlay);
-
-    const lbImg = overlay.querySelector('#lightboxImg');
-    const lbCaption = overlay.querySelector('#lightboxCaption');
-    let lbIndex = 0;
-
-    // Lấy danh sách ảnh có src thật (không phải placeholder)
-    function getImageItems() {
-      return Array.from(items).filter(item => item.querySelector('img'));
-    }
-
-    function openLightbox(index) {
-      const imgItems = getImageItems();
-      if (!imgItems.length) return;
-      lbIndex = Math.max(0, Math.min(index, imgItems.length - 1));
-      const img = imgItems[lbIndex].querySelector('img');
-      const caption = imgItems[lbIndex].querySelector('.gallery-caption');
-      lbImg.src = img.src;
+    Promise.all([loaded, wait]).then(() => {
+      if (token !== lbToken) return;
+      lbImg.style.transition = 'none';
+      lbImg.style.setProperty('--out', `${dir * 28}px`);
+      lbImg.src = src;
       lbImg.alt = img.alt || '';
-      lbCaption.textContent = caption ? caption.textContent : '';
-      overlay.classList.add('active');
-      document.body.style.overflow = 'hidden';
-    }
+      lbCaption.textContent = cap ? cap.textContent : '';
+      void lbImg.offsetWidth;
+      lbImg.style.transition = '';
+      lbImg.classList.remove('is-out');
 
-    function closeLightbox() {
-      overlay.classList.remove('active');
-      document.body.style.overflow = '';
-    }
-
-    function prevLightbox() {
-      const imgItems = getImageItems();
-      openLightbox((lbIndex - 1 + imgItems.length) % imgItems.length);
-    }
-
-    function nextLightbox() {
-      const imgItems = getImageItems();
-      openLightbox((lbIndex + 1) % imgItems.length);
-    }
-
-    // Click ảnh trong gallery để mở lightbox
-    items.forEach((item, i) => {
-      if (item.querySelector('img')) {
-        item.addEventListener('click', (e) => {
-          if (dragging) return;
-          const imgItems = getImageItems();
-          const realIndex = imgItems.indexOf(item);
-          if (realIndex >= 0) openLightbox(realIndex);
-        });
-      }
+      // Tải trước ảnh kế bên để chuyển ảnh không bị khựng
+      [1, -1].forEach(s => {
+        const nb = lbList[(lbIndex + s + n) % n].querySelector('img');
+        if (nb) new Image().src = nb.currentSrc || nb.src;
+      });
     });
+  }
 
-    overlay.querySelector('.lightbox-close').addEventListener('click', closeLightbox);
-    overlay.querySelector('.lightbox-prev').addEventListener('click', (e) => { e.stopPropagation(); prevLightbox(); });
-    overlay.querySelector('.lightbox-next').addEventListener('click', (e) => { e.stopPropagation(); nextLightbox(); });
+  function openLightbox(item) {
+    lbList = items.filter(it => it.querySelector('img') && !it.classList.contains('is-broken'));
+    const idx = lbList.indexOf(item);
+    if (idx < 0) return;
+    lastFocus = document.activeElement;
+    lbImg.classList.remove('is-out');
+    showLb(idx);
+    overlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    setHold('lightbox', true);
+    lbClose.focus({ preventScroll: true });
+  }
 
-    // Bấm ngoài ảnh để đóng
-    overlay.addEventListener('click', (e) => {
-      if (e.target === overlay) closeLightbox();
+  function closeLightbox() {
+    if (!isOpen()) return;
+    overlay.classList.remove('active');
+    document.body.style.overflow = '';
+    // Đưa gallery về đúng ảnh vừa xem
+    const idx = items.indexOf(lbList[lbIndex]);
+    if (idx >= 0) {
+      if (idx < current) goTo(idx);
+      else if (idx >= current + perView) goTo(idx - perView + 1);
+    }
+    setHold('lightbox', false);
+    if (lastFocus && lastFocus.focus) lastFocus.focus({ preventScroll: true });
+  }
+
+  items.forEach(item => {
+    if (!item.querySelector('img')) return;
+    item.addEventListener('click', () => openLightbox(item));
+    item.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLightbox(item); }
     });
+  });
 
-    // Phím tắt
-    document.addEventListener('keydown', (e) => {
-      if (!overlay.classList.contains('active')) return;
-      if (e.key === 'Escape') closeLightbox();
-      if (e.key === 'ArrowLeft') prevLightbox();
-      if (e.key === 'ArrowRight') nextLightbox();
-    });
+  lbClose.addEventListener('click', closeLightbox);
+  lbPrev.addEventListener('click', e => { e.stopPropagation(); showLb(lbIndex - 1, -1); });
+  lbNext.addEventListener('click', e => { e.stopPropagation(); showLb(lbIndex + 1, 1); });
+  overlay.addEventListener('click', e => {
+    if (e.target === overlay || e.target === lbStage) closeLightbox();
+  });
 
-    // Swipe để chuyển ảnh trong lightbox
-    let lbTouchStart = 0;
-    overlay.addEventListener('touchstart', e => { lbTouchStart = e.touches[0].clientX; }, { passive: true });
-    overlay.addEventListener('touchend', e => {
-      const diff = lbTouchStart - e.changedTouches[0].clientX;
-      if (Math.abs(diff) > 50) diff > 0 ? nextLightbox() : prevLightbox();
-    });
-  })();
+  document.addEventListener('keydown', e => {
+    if (!isOpen()) return;
+    if (e.key === 'Escape') closeLightbox();
+    else if (e.key === 'ArrowLeft') showLb(lbIndex - 1, -1);
+    else if (e.key === 'ArrowRight') showLb(lbIndex + 1, 1);
+    else if (e.key === 'Tab') {
+      const f = [lbClose, lbPrev, lbNext];
+      const i = f.indexOf(document.activeElement);
+      e.preventDefault();
+      f[(i + (e.shiftKey ? -1 : 1) + f.length) % f.length].focus();
+    }
+  });
+
+  let lbTouchX = 0;
+  overlay.addEventListener('touchstart', e => { lbTouchX = e.touches[0].clientX; }, { passive: true });
+  overlay.addEventListener('touchend', e => {
+    const diff = lbTouchX - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 50) diff > 0 ? showLb(lbIndex + 1, 1) : showLb(lbIndex - 1, -1);
+  });
+
+  // ===== Khởi tạo =====
+  measure();
+  goTo(0, true);
+  window.addEventListener('load', () => { measure(); goTo(current, true); });
+})();
 
 // =========================
 // BADGE SPARKLE EFFECT
