@@ -104,6 +104,7 @@ const footerHTML = `
           <p style="font-size: 20px; color: #7ed6ff"><strong>YTC - CLB Đào Tạo Kỹ Năng Trẻ</strong></p>
         </a>
         <p class="footer-tagline">“Nơi thắp sáng đam mê, tôi luyện kỹ năng và kết nối những trái tim nhiệt huyết trẻ UNETI.”</p>
+        <p class="footer-tagline">Ý TƯỞNG LỚN - TÀI NĂNG TRẺ - CHUNG NIỀM TIN</p>
         <div class="footer-org-badge">
           ${icon("landmark")} <span>Trực thuộc <strong>Đoàn TN – Hội SV UNETI</strong></span>
         </div>
@@ -152,6 +153,13 @@ const footerHTML = `
             <div class="social-info">
               <strong>TikTok Lễ Tân YTC</strong>
               <span>@letanytc.uneti</span>
+            </div>
+          </a>
+          <a href="https://www.tiktok.com/@tr.ytc5" target="_blank" rel="noopener" class="footer-social-item" title="TikTok Lễ Tân YTC">
+            <img src="${BASE}/Image/Tiktok.png" class="social-icon" alt="TikTok Trẻ YTC">
+            <div class="social-info">
+              <strong>TikTok Trẻ YTC</strong>
+              <span>@tr.ytc5</span>
             </div>
           </a>
         </div>
