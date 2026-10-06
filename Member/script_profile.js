@@ -21,11 +21,12 @@
   };
 
   // ===== Thanh điều khiển: [←] progress + đếm [→] =====
-  let fillEl = null, counterEl = null;
+  let fillEl = null, counterEl = null, controlsEl = null;
   if (prevBtn && nextBtn && progressHost) {
     const nav = prevBtn.parentElement;
     const controls = document.createElement('div');
     controls.className = 'gallery-controls';
+    controlsEl = controls;
     nav.parentNode.insertBefore(controls, nav);
 
     prevBtn.className = 'gallery-arrow';
@@ -61,6 +62,7 @@
     perView = Math.max(1, Math.floor((viewW + gap) / step + 0.05));
     maxShift = Math.max(0, total * itemW + (total - 1) * gap - viewW);
     maxIndex = maxShift <= 1 ? 0 : Math.max(0, Math.ceil((maxShift - 1) / step));
+    if (controlsEl) controlsEl.hidden = maxIndex === 0;   // đủ chỗ hiện hết thì ẩn điều khiển
   }
 
   const shiftFor = i => Math.min(i * step, maxShift);
@@ -186,10 +188,10 @@
   // ===== Tải ảnh: hiện dần, báo lỗi gọn =====
   items.forEach((item, i) => {
     const img = item.querySelector('img');
+    if (!img) { item.classList.add('is-placeholder'); return; }   // giữ nguyên SVG "Đang cập nhật"
     item.tabIndex = 0;
     item.setAttribute('role', 'button');
     item.setAttribute('aria-label', `Xem ảnh ${i + 1}/${total}`);
-    if (!img) return;
     img.loading = 'lazy';
     img.decoding = 'async';
     img.draggable = false;
