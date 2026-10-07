@@ -1330,6 +1330,9 @@ footer {
   .department-intro h2, .department-section-title { margin-bottom: 8px; color: var(--blue-dark); font-size: 1.8rem; }
   .department-intro p, .department-section-subtitle { color: var(--text-muted); }
   .department-groups { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+  .department-groups li{
+    list-style-type: none;
+  }
   .department-card, .department-card-s {
     display: flex; flex-direction: column; text-align: left;
     background: #fff; border: 1px solid rgba(161,227,255,.55); border-radius: var(--radius-md);
