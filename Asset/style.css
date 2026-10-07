@@ -902,7 +902,7 @@ select:focus {
   border: 1px solid rgba(9, 131, 254, 0.2);
 }
 
-.golden-badge, .blue-badge, .purple-badge, .cyan-badge {
+.golden-badge, .blue-badge, .purple-badge, .cyan-badge, .orange-badge {
   display: inline-flex;
   align-items: center;
   gap: 5px;
@@ -910,6 +910,51 @@ select:focus {
   border-radius: var(--radius-full);
   font-size: 0.82rem;
   font-weight: 700;
+}
+
+.orange-badge {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: linear-gradient(
+    120deg,
+    #e63900 0%,
+    #ff5500 20%,
+    #ff9400 38%,
+    #ffcf40 50%,
+    #ff9400 62%,
+    #ff5500 80%,
+    #e63900 100%
+  );
+  background-size: 300% 100%;
+  color: #ffffff;
+  border: 1.5px solid #ffe082;
+  text-shadow: 0 1px 2px rgba(120, 28, 0, 0.5);
+  animation:
+    orange-gradient-move 3s linear infinite,
+    orange-badge-glow 2.2s ease-in-out infinite;
+}
+
+@keyframes orange-gradient-move {
+  0%   { background-position: 100% 50%; }
+  100% { background-position:   0% 50%; }
+}
+
+@keyframes orange-badge-glow {
+  0%, 100% {
+    border-color: rgba(255, 224, 130, 0.7);
+    box-shadow:
+      0 0 0 1.5px rgba(255, 167, 38, 0.45),
+      0 0 10px rgba(255, 109, 0, 0.4),
+      0 4px 12px rgba(230, 57, 0, 0.25);
+  }
+  50% {
+    border-color: #fff275;
+    box-shadow:
+      0 0 0 2px rgba(255, 193, 7, 0.9),
+      0 0 16px 3px rgba(255, 87, 34, 0.6),
+      0 4px 16px rgba(230, 57, 0, 0.4);
+  }
 }
 
 /* ==========================================
