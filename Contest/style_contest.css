@@ -1956,3 +1956,7 @@
     content-visibility: visible;
   }
 }
+/* Sao SVG trên trang cuộc thi giữ được hiệu ứng phát sáng như emoji cũ */
+.stars svg {
+  filter: drop-shadow(0 0 8px rgba(255, 213, 0, 0.9));
+}

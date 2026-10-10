@@ -1935,3 +1935,27 @@ html.no-scroll {
     transform: none;
   }
 }
+
+/* ===== Inline SVG icon (thay emoji) ===== */
+.ico {
+  width: 1em;
+  height: 1em;
+  display: inline-block;
+  vertical-align: -0.14em;
+  flex-shrink: 0;
+}
+
+/* Icon placeholder khi ảnh sự kiện chưa tải được */
+.event-card__img-placeholder .ico {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+/* Màu đặc trưng của từng icon (giữ cảm giác màu như emoji cũ) */
+.ico-star { color: #f5b301; }
+.ico-fire { color: #f97316; }
+.ico-heart { color: #e0245e; }
+.ico-crown { color: #d4a017; }
+.ico-zap { color: #f59e0b; }
+.ico-fb { color: #1877f2; }
+.ico-tulip { color: #e879a0; }

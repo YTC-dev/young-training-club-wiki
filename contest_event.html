@@ -778,22 +778,22 @@
   <!-- STATS OVERVIEW BAR -->
   <div class="contest-stats-bar">
     <div class="contest-stat-item">
-      <span class="contest-stat-icon">🎙️</span>
+      <span class="contest-stat-icon"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10v1a7 7 0 0 0 14 0v-1"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="9" y1="22" x2="15" y2="22"/></svg></span>
       <span class="contest-stat-val">2 Mùa</span>
       <span class="contest-stat-lbl">Podcast & Phim mỗi năm</span>
     </div>
     <div class="contest-stat-item">
-      <span class="contest-stat-icon">🎤</span>
+      <span class="contest-stat-icon"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg></span>
       <span class="contest-stat-val">Rising Voice</span>
       <span class="contest-stat-lbl">Sân khấu MC Tài Năng</span>
     </div>
     <div class="contest-stat-item">
-      <span class="contest-stat-icon">🌟</span>
+      <span class="contest-stat-icon"><svg class="ico ico-star" viewBox="0 0 24 24" fill="currentColor" stroke="none" aria-hidden="true"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg></span>
       <span class="contest-stat-val">8+ Giải Đấu</span>
       <span class="contest-stat-lbl">Khởi nghiệp & Phong trào mỗi năm</span>
     </div>
     <div class="contest-stat-item">
-      <span class="contest-stat-icon">🏆</span>
+      <span class="contest-stat-icon"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg></span>
       <span class="contest-stat-val">50+ Giải Thưởng</span>
       <span class="contest-stat-lbl">Vinh danh thủ lĩnh</span>
     </div>
@@ -806,7 +806,7 @@
     <div class="contest-toolbar">
       <!-- Live Search Box -->
       <div class="search-input-wrap">
-        <span class="search-icon">🔍</span>
+        <span class="search-icon"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span>
         <input type="text" id="contestSearchInput" placeholder="Tìm kiếm cuộc thi, chủ đề, thành viên, giải thưởng...">
         <button class="clear-btn" id="contestClearBtn" title="Xóa tìm kiếm">✕</button>
       </div>
@@ -814,19 +814,19 @@
       <!-- Category Filter Chips -->
       <div class="filter-chips-row">
         <button class="filter-chip active" data-category="all">
-          <span>🌟 Tất cả cuộc thi</span>
+          <span><svg class="ico ico-star" viewBox="0 0 24 24" fill="currentColor" stroke="none" aria-hidden="true"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg> Tất cả cuộc thi</span>
           <span class="chip-count" id="count-all">15</span>
         </button>
         <button class="filter-chip" data-category="podcast">
-          <span>🎙️ Podcast - Phim</span>
+          <span><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10v1a7 7 0 0 0 14 0v-1"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="9" y1="22" x2="15" y2="22"/></svg> Podcast - Phim</span>
           <span class="chip-count" id="count-podcast">6</span>
         </button>
         <button class="filter-chip" data-category="mc">
-          <span>🎤 MC - Giọng nói</span>
+          <span><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg> MC - Giọng nói</span>
           <span class="chip-count" id="count-mc">1</span>
         </button>
         <button class="filter-chip" data-category="others">
-          <span>🏛️ Cuộc thi khác (Đoàn & Trường)</span>
+          <span><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" x2="21" y1="22" y2="22"/><line x1="6" x2="6" y1="18" y2="11"/><line x1="10" x2="10" y1="18" y2="11"/><line x1="14" x2="14" y1="18" y2="11"/><line x1="18" x2="18" y1="18" y2="11"/><polygon points="12 2 20 7 4 7"/></svg> Cuộc thi khác (Đoàn & Trường)</span>
           <span class="chip-count" id="count-others">8</span>
         </button>
       </div>
@@ -834,10 +834,10 @@
 
     <!-- NO SEARCH RESULTS BOX -->
     <div class="no-results-box" id="noResultsBox">
-      <div class="no-res-icon">🔎</div>
+      <div class="no-res-icon"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
       <h3>Không tìm thấy cuộc thi phù hợp</h3>
       <p>Thử tìm kiếm với từ khóa khác hoặc nhấn Đặt lại để xem tất cả cuộc thi.</p>
-      <button class="reset-search-btn" id="resetSearchBtn">🔄 Đặt lại tìm kiếm</button>
+      <button class="reset-search-btn" id="resetSearchBtn"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/></svg> Đặt lại tìm kiếm</button>
     </div>
 
     <!-- =====================================================
@@ -845,7 +845,7 @@
          ===================================================== -->
     <section class="contest-module" data-section-category="podcast" id="podcast-section">
       <div class="module-header">
-        <h2 class="module-title">🎙️ Chuỗi Cuộc Thi Podcast & Phim Ngắn</h2>
+        <h2 class="module-title"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10v1a7 7 0 0 0 14 0v-1"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="9" y1="22" x2="15" y2="22"/></svg> Chuỗi Cuộc Thi Podcast & Phim Ngắn</h2>
         <p class="module-desc">Với chuỗi cuộc thi thiết kế phim và sản xuất podcast về kỹ năng sống và các xu hướng thực tế, YTC không chỉ tạo ra sân chơi sáng tạo mà còn mở ra không gian để chia sẻ góc nhìn, cảm xúc và trách nhiệm xã hội. Mỗi tác phẩm là một câu chuyện nâng cao nhận thức, khơi gợi tinh thần chủ động và ý thức trách nhiệm của mỗi người trên hành trình khám phá bản thân.</p>
       </div>
 
@@ -861,27 +861,27 @@
             <div class="result-top-info">
               <h3 class="result-name">Cuộc thi ONE - TAKE</h3>
               <div class="result-meta-pill-group">
-                <span class="result-meta-pill highlight">👥 Thử thách Gen 14.2</span>
-                <span class="result-meta-pill">📅 17/03/2026 - 28/03/2026</span>
+                <span class="result-meta-pill highlight"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> Thử thách Gen 14.2</span>
+                <span class="result-meta-pill"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> 17/03/2026 - 28/03/2026</span>
               </div>
             </div>
 
             <div class="podium-wrap">
-              <div class="podium-title">🏆 Bảng vàng vinh danh</div>
+              <div class="podium-title"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg> Bảng vàng vinh danh</div>
               <div class="podium">
                 <div class="podium-step silver">
                   <span class="rank-label">Giải nhì</span>
-                  <span class="medal">🥈</span>
+                  <span class="medal"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5.5"/><path d="M8.6 10.7 5.5 3h4.2L12 8l2.3-5h4.2l-3.1 7.7"/></svg></span>
                   <span class="winner-name">Nhóm OneTeam</span>
                 </div>
                 <div class="podium-step gold">
                   <span class="rank-label">Giải nhất</span>
-                  <span class="medal">🥇</span>
+                  <span class="medal"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5.5"/><path d="M8.6 10.7 5.5 3h4.2L12 8l2.3-5h4.2l-3.1 7.7"/></svg></span>
                   <span class="winner-name">Nhóm Donald Trump</span>
                 </div>
                 <div class="podium-step bronze">
                   <span class="rank-label">Giải ba</span>
-                  <span class="medal">🥉</span>
+                  <span class="medal"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5.5"/><path d="M8.6 10.7 5.5 3h4.2L12 8l2.3-5h4.2l-3.1 7.7"/></svg></span>
                   <span class="winner-name">Nhóm ShineOn</span>
                 </div>
               </div>
@@ -903,28 +903,28 @@
             <div class="result-top-info">
               <h3 class="result-name">Cuộc thi Rewrite Destiny</h3>
               <div class="result-meta-pill-group">
-                <span class="result-meta-pill highlight">👥 Thử thách Gen 14.1</span>
-                <span class="result-meta-pill">📅 18/10/2025 - 06/11/2025</span>
+                <span class="result-meta-pill highlight"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> Thử thách Gen 14.1</span>
+                <span class="result-meta-pill"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> 18/10/2025 - 06/11/2025</span>
               </div>
             </div>
 
             <div class="podium-wrap">
-              <div class="podium-title">🏆 Bảng vàng vinh danh</div>
+              <div class="podium-title"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg> Bảng vàng vinh danh</div>
               <div class="podium">
                 <div class="podium-step silver">
                   <span class="rank-label">Giải nhì</span>
-                  <span class="medal">🥈</span>
+                  <span class="medal"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5.5"/><path d="M8.6 10.7 5.5 3h4.2L12 8l2.3-5h4.2l-3.1 7.7"/></svg></span>
                   <span class="winner-name">Nhóm The Light</span>
                   <span class="winner-name">Nhóm Ẩm thực trùng sinh</span>
                 </div>
                 <div class="podium-step gold">
                   <span class="rank-label">Giải nhất</span>
-                  <span class="medal">🥇</span>
+                  <span class="medal"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5.5"/><path d="M8.6 10.7 5.5 3h4.2L12 8l2.3-5h4.2l-3.1 7.7"/></svg></span>
                   <span class="winner-name">Nhóm Good Vibes Tribe</span>
                 </div>
                 <div class="podium-step bronze">
                   <span class="rank-label">Giải ba</span>
-                  <span class="medal">🥉</span>
+                  <span class="medal"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5.5"/><path d="M8.6 10.7 5.5 3h4.2L12 8l2.3-5h4.2l-3.1 7.7"/></svg></span>
                   <span class="winner-name">Nhóm INFINITY</span>
                   <span class="winner-name">Nhóm Dreamten</span>
                   <span class="winner-name">Nhóm THE LAST VICTORY HUNTERS</span>
@@ -948,27 +948,27 @@
             <div class="result-top-info">
               <h3 class="result-name">Cuộc thi Voice Your Mind</h3>
               <div class="result-meta-pill-group">
-                <span class="result-meta-pill highlight">👥 Thử thách Gen 13.2</span>
-                <span class="result-meta-pill">📅 10/03/2025 - 02/04/2025</span>
+                <span class="result-meta-pill highlight"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> Thử thách Gen 13.2</span>
+                <span class="result-meta-pill"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> 10/03/2025 - 02/04/2025</span>
               </div>
             </div>
 
             <div class="podium-wrap">
-              <div class="podium-title">🏆 Bảng vàng vinh danh</div>
+              <div class="podium-title"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg> Bảng vàng vinh danh</div>
               <div class="podium">
                 <div class="podium-step silver">
                   <span class="rank-label">Giải nhì</span>
-                  <span class="medal">🥈</span>
+                  <span class="medal"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5.5"/><path d="M8.6 10.7 5.5 3h4.2L12 8l2.3-5h4.2l-3.1 7.7"/></svg></span>
                   <span class="winner-name">Nhóm Biệt Đội Xanh</span>
                 </div>
                 <div class="podium-step gold">
                   <span class="rank-label">Giải nhất</span>
-                  <span class="medal">🥇</span>
+                  <span class="medal"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5.5"/><path d="M8.6 10.7 5.5 3h4.2L12 8l2.3-5h4.2l-3.1 7.7"/></svg></span>
                   <span class="winner-name">Nhóm Together We Rise</span>
                 </div>
                 <div class="podium-step bronze">
                   <span class="rank-label">Giải ba</span>
-                  <span class="medal">🥉</span>
+                  <span class="medal"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5.5"/><path d="M8.6 10.7 5.5 3h4.2L12 8l2.3-5h4.2l-3.1 7.7"/></svg></span>
                   <span class="winner-name">Nhóm Crew 1718</span>
                 </div>
               </div>
@@ -990,31 +990,31 @@
             <div class="result-top-info">
               <h3 class="result-name">Cuộc thi YTC Podcast Challenge</h3>
               <div class="result-meta-pill-group">
-                <span class="result-meta-pill highlight">👥 Thử thách Gen 13.1</span>
-                <span class="result-meta-pill">📅 18/10/2025 - 11/04/2025</span>
+                <span class="result-meta-pill highlight"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> Thử thách Gen 13.1</span>
+                <span class="result-meta-pill"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> 18/10/2025 - 11/04/2025</span>
               </div>
             </div>
 
             <div class="podium-wrap">
-              <div class="podium-title">🏆 Bảng vàng vinh danh</div>
+              <div class="podium-title"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg> Bảng vàng vinh danh</div>
               <div class="podium">
                 <div class="podium-step silver">
                   <span class="rank-label">Giải nhì</span>
-                  <span class="medal">🥈</span>
+                  <span class="medal"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5.5"/><path d="M8.6 10.7 5.5 3h4.2L12 8l2.3-5h4.2l-3.1 7.7"/></svg></span>
                   <span class="winner-name">Nhóm Hơn Thua</span>
                 </div>
                 <div class="podium-step gold">
                   <span class="rank-label">Giải nhất</span>
-                  <span class="medal">🥇</span>
+                  <span class="medal"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5.5"/><path d="M8.6 10.7 5.5 3h4.2L12 8l2.3-5h4.2l-3.1 7.7"/></svg></span>
                   <span class="winner-name">Nhóm THE INNOVATORS</span>
                 </div>
                 <div class="podium-step bronze">
                   <span class="rank-label">Giải ba</span>
-                  <span class="medal">🥉</span>
+                  <span class="medal"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5.5"/><path d="M8.6 10.7 5.5 3h4.2L12 8l2.3-5h4.2l-3.1 7.7"/></svg></span>
                   <span class="winner-name">Nhóm 8 Musketeers</span>
                 </div>
               </div>
-              <div class="special-award-pill">❤️ Yêu thích nhất: Nhóm Bom Nổ Chậm</div>
+              <div class="special-award-pill"><svg class="ico ico-heart" viewBox="0 0 24 24" fill="currentColor" stroke="none" aria-hidden="true"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg> Yêu thích nhất: Nhóm Bom Nổ Chậm</div>
             </div>
 
             <div class="result-card-footer">
@@ -1033,27 +1033,27 @@
             <div class="result-top-info">
               <h3 class="result-name">Cuộc thi Suy Nghĩ Trong Tôi</h3>
               <div class="result-meta-pill-group">
-                <span class="result-meta-pill highlight">👥 Thử thách Gen 12.2</span>
-                <span class="result-meta-pill">📅 04/04/2024 - 27/04/2024</span>
+                <span class="result-meta-pill highlight"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> Thử thách Gen 12.2</span>
+                <span class="result-meta-pill"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> 04/04/2024 - 27/04/2024</span>
               </div>
             </div>
 
             <div class="podium-wrap">
-              <div class="podium-title">🏆 Bảng vàng vinh danh</div>
+              <div class="podium-title"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg> Bảng vàng vinh danh</div>
               <div class="podium">
                 <div class="podium-step silver">
                   <span class="rank-label">Giải nhì</span>
-                  <span class="medal">🥈</span>
+                  <span class="medal"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5.5"/><path d="M8.6 10.7 5.5 3h4.2L12 8l2.3-5h4.2l-3.1 7.7"/></svg></span>
                   <span class="winner-name">Nhóm Sao Sáng</span>
                 </div>
                 <div class="podium-step gold">
                   <span class="rank-label">Giải nhất</span>
-                  <span class="medal">🥇</span>
+                  <span class="medal"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5.5"/><path d="M8.6 10.7 5.5 3h4.2L12 8l2.3-5h4.2l-3.1 7.7"/></svg></span>
                   <span class="winner-name">Nhóm Bá Đạo Bậc Nhất</span>
                 </div>
                 <div class="podium-step bronze">
                   <span class="rank-label">Giải ba</span>
-                  <span class="medal">🥉</span>
+                  <span class="medal"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5.5"/><path d="M8.6 10.7 5.5 3h4.2L12 8l2.3-5h4.2l-3.1 7.7"/></svg></span>
                   <span class="winner-name">Nhóm THE ONE</span>
                 </div>
               </div>
@@ -1075,27 +1075,27 @@
             <div class="result-top-info">
               <h3 class="result-name">Nét đẹp ẩm thực Việt</h3>
               <div class="result-meta-pill-group">
-                <span class="result-meta-pill highlight">👥 Thử thách Gen 12.1</span>
-                <span class="result-meta-pill">📅 01/11/2023 - 15/11/2023</span>
+                <span class="result-meta-pill highlight"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> Thử thách Gen 12.1</span>
+                <span class="result-meta-pill"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> 01/11/2023 - 15/11/2023</span>
               </div>
             </div>
 
             <div class="podium-wrap">
-              <div class="podium-title">🏆 Bảng vàng vinh danh</div>
+              <div class="podium-title"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg> Bảng vàng vinh danh</div>
               <div class="podium">
                 <div class="podium-step silver">
                   <span class="rank-label">Giải nhì</span>
-                  <span class="medal">🥈</span>
+                  <span class="medal"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5.5"/><path d="M8.6 10.7 5.5 3h4.2L12 8l2.3-5h4.2l-3.1 7.7"/></svg></span>
                   <span class="winner-name">Nhóm Tinh hoa sáng tạo</span>
                 </div>
                 <div class="podium-step gold">
                   <span class="rank-label">Giải nhất</span>
-                  <span class="medal">🥇</span>
+                  <span class="medal"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5.5"/><path d="M8.6 10.7 5.5 3h4.2L12 8l2.3-5h4.2l-3.1 7.7"/></svg></span>
                   <span class="winner-name">Nhóm Hương sắc Việt Nam</span>
                 </div>
                 <div class="podium-step bronze">
                   <span class="rank-label">Giải ba</span>
-                  <span class="medal">🥉</span>
+                  <span class="medal"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5.5"/><path d="M8.6 10.7 5.5 3h4.2L12 8l2.3-5h4.2l-3.1 7.7"/></svg></span>
                   <span class="winner-name">Nhóm Hôm nay ăn gì?</span>
                 </div>
               </div>
@@ -1132,36 +1132,36 @@
             <div class="result-top-info">
               <h3 class="result-name">RISING VOICE 2025 - THE MC TALENT HUNT</h3>
               <div class="result-meta-pill-group">
-                <span class="result-meta-pill highlight">🎓 Toàn thể sinh viên UNETI</span>
-                <span class="result-meta-pill">📅 21/11/2025 - 26/01/2026</span>
+                <span class="result-meta-pill highlight"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21.42 10.92a1 1 0 0 0-.02-1.84L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.83l8.57 3.91a2 2 0 0 0 1.66 0Z"/><path d="M22 10v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/></svg> Toàn thể sinh viên UNETI</span>
+                <span class="result-meta-pill"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> 21/11/2025 - 26/01/2026</span>
               </div>
             </div>
 
             <div class="podium-wrap">
-              <div class="podium-title">🏆 Bảng vàng chung cuộc</div>
+              <div class="podium-title"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg> Bảng vàng chung cuộc</div>
               <div class="podium">
                 <div class="podium-step silver">
                   <span class="rank-label">Á quân 1</span>
-                  <span class="medal">🥈</span>
+                  <span class="medal"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5.5"/><path d="M8.6 10.7 5.5 3h4.2L12 8l2.3-5h4.2l-3.1 7.7"/></svg></span>
                   <span class="winner-name">Nguyễn Thị Thanh Hoa</span>
                   <span class="winner-meta">SBD: 11</span>
                 </div>
                 <div class="podium-step gold">
                   <span class="rank-label">Quán quân</span>
-                  <span class="medal">👑</span>
+                  <span class="medal"><svg class="ico ico-crown" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 7 4.5 3L12 4l4.5 6L21 7l-2 11H5Z"/><path d="M5.5 21h13"/></svg></span>
                   <span class="winner-name">Tô Thu Trang</span>
                   <span class="winner-meta">SBD: 13</span>
                 </div>
                 <div class="podium-step bronze">
                   <span class="rank-label">Á quân 2</span>
-                  <span class="medal">🥉</span>
+                  <span class="medal"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5.5"/><path d="M8.6 10.7 5.5 3h4.2L12 8l2.3-5h4.2l-3.1 7.7"/></svg></span>
                   <span class="winner-name">Nguyễn Ngọc Như Quỳnh</span>
                   <span class="winner-meta">SBD: 54</span>
                   <span class="winner-name">Nguyễn Minh Ánh</span>
                   <span class="winner-meta">SBD: 02</span>
                 </div>
               </div>
-              <div class="special-award-pill">❤️ Thí sinh được yêu thích nhất: Ngô Hạnh Nguyên (SBD: 31)</div>
+              <div class="special-award-pill"><svg class="ico ico-heart" viewBox="0 0 24 24" fill="currentColor" stroke="none" aria-hidden="true"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg> Thí sinh được yêu thích nhất: Ngô Hạnh Nguyên (SBD: 31)</div>
             </div>
 
             <div class="result-card-footer">
@@ -1180,7 +1180,7 @@
          ===================================================== -->
     <section class="contest-module" data-section-category="others" id="others-section">
       <div class="module-header">
-        <h2 class="module-title">🌟 Dấu Ấn YTC Tại Các Cuộc Thi Đoàn - Hội & Ngoài Trường</h2>
+        <h2 class="module-title"><svg class="ico ico-star" viewBox="0 0 24 24" fill="currentColor" stroke="none" aria-hidden="true"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg> Dấu Ấn YTC Tại Các Cuộc Thi Đoàn - Hội & Ngoài Trường</h2>
         <p class="module-desc">Các cuộc thi do Đoàn TNCS UNETI, các Khoa chuyên ngành và các đơn vị uy tín tổ chức với sự tham gia nhiệt huyết, sáng tạo và gặt hái nhiều thành tích tự hào của các thành viên CLB YTC!</p>
       </div>
 
@@ -1195,37 +1195,37 @@
             <div class="result-top-info">
               <h3 class="result-name">Ý TƯỞNG SÁNG TẠO KHỞI NGHIỆP SINH VIÊN UNETI 2025 - 2026</h3>
               <div class="result-meta-pill-group">
-                <span class="result-meta-pill">📅 12/2025 - 05/2026</span>
+                <span class="result-meta-pill"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> 12/2025 - 05/2026</span>
               </div>
             </div>
 
-            <div class="entry-section-label">👥 Thành viên YTC góp mặt</div>
+            <div class="entry-section-label"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> Thành viên YTC góp mặt</div>
             <div class="entry-grid">
               <div class="entry-card">
                 <div class="entry-top">
-                  <a class="entry-name" href="Member/LuongThiThuTrang_DHQT16A5HN.html" target="_blank">👤 Lương Thị Thu Trang</a>
+                  <a class="entry-name" href="Member/LuongThiThuTrang_DHQT16A5HN.html" target="_blank"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> Lương Thị Thu Trang</a>
                   <span class="entry-class">DHQT16A5HN</span>
                 </div>
                 <p class="entry-team"><span class="team-label">Đội thi:</span> UNETI 43 - YoungBoost (Mũ bảo hiểm thông minh)</p>
                 <div class="entry-bottom-row">
-                  <span class="entry-status stage-progress">🚀 Vòng phát triển dự án</span>
+                  <span class="entry-status stage-progress"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09Z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2Z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg> Vòng phát triển dự án</span>
                 </div>
               </div>
 
               <div class="entry-card">
                 <div class="entry-top">
-                  <a class="entry-name" href="Member/TranDangBinhMinh_DHTI18A1CL.html" target="_blank">👤 Trần Đặng Bình Minh</a>
+                  <a class="entry-name" href="Member/TranDangBinhMinh_DHTI18A1CL.html" target="_blank"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> Trần Đặng Bình Minh</a>
                   <span class="entry-class">DHTI18A1CL</span>
                 </div>
                 <p class="entry-team"><span class="team-label">Đội thi:</span> UNETI 28 - FinFin Mind (Tư duy phản biện cho bé)</p>
                 <div class="entry-bottom-row">
-                  <span class="entry-status stage-final">🏆 Giải Tiềm Năng · Chung Kết</span>
+                  <span class="entry-status stage-final"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg> Giải Tiềm Năng · Chung Kết</span>
                 </div>
               </div>
             </div>
 
             <div class="result-card-footer">
-              <span class="result-meta-pill">🔥 Ý tưởng sáng tạo khởi nghiệp</span>
+              <span class="result-meta-pill"><svg class="ico ico-fire" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.07-2.14-.22-4.05 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.15.43-2.29 1-3a2.5 2.5 0 0 0 2.5 2.5Z"/></svg> Ý tưởng sáng tạo khởi nghiệp</span>
             </div>
           </div>
         </article>
@@ -1239,15 +1239,15 @@
             <div class="result-top-info">
               <h3 class="result-name">SÁNG TẠO CLIP - VIDEO: KÝ ỨC UNETI - 70 NĂM TOẢ SÁNG</h3>
               <div class="result-meta-pill-group">
-                <span class="result-meta-pill">📅 04/2026 - 06/2026</span>
+                <span class="result-meta-pill"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> 04/2026 - 06/2026</span>
               </div>
             </div>
 
-            <div class="entry-section-label">👥 Thành viên YTC góp mặt</div>
+            <div class="entry-section-label"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> Thành viên YTC góp mặt</div>
             <div class="entry-grid">
               <div class="entry-card">
                 <div class="entry-top">
-                  <span class="entry-name">👤 Phạm Thị Ngọc Ánh</span>
+                  <span class="entry-name"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> Phạm Thị Ngọc Ánh</span>
                   <span class="entry-class">DHDT19A1HN</span>
                 </div>
                 <p class="entry-title"><span class="title-label">Tác phẩm:</span> Tin vào lựa chọn bản thân</p>
@@ -1258,19 +1258,19 @@
 
               <div class="entry-card">
                 <div class="entry-top">
-                  <a class="entry-name" href="Member/PhungThuHa_DHDL19A1HN.html" target="_blank">👤 Phùng Thu Hà</a>
+                  <a class="entry-name" href="Member/PhungThuHa_DHDL19A1HN.html" target="_blank"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> Phùng Thu Hà</a>
                   <span class="entry-class">DHDL19A1HN</span>
                 </div>
                 <p class="entry-title"><span class="title-label">Tác phẩm:</span> 70 Năm - Một Chặng Đường, Triệu Ước Mơ</p>
                 <div class="entry-bottom-row">
-                  <span class="entry-status stage-final">🏅 Giải Khuyến Khích</span>
+                  <span class="entry-status stage-final"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5.5"/><path d="M8.6 10.7 5.5 3h4.2L12 8l2.3-5h4.2l-3.1 7.7"/></svg> Giải Khuyến Khích</span>
                   <a href="https://www.facebook.com/reel/1655797519008759" target="_blank" class="entry-inline-link">Xem tác phẩm Reel →</a>
                 </div>
               </div>
             </div>
 
             <div class="result-card-footer">
-              <span class="result-meta-pill">✨ Loa toả nét đẹp của sinh viên UNETI</span>
+              <span class="result-meta-pill"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></svg> Loa toả nét đẹp của sinh viên UNETI</span>
             </div>
           </div>
         </article>
@@ -1284,28 +1284,28 @@
             <div class="result-top-info">
               <h3 class="result-name">UNETI GOT TALENT 2026</h3>
               <div class="result-meta-pill-group">
-                <span class="result-meta-pill highlight">🏛️ Đoàn TNCS - Hội SV UNETI</span>
-                <span class="result-meta-pill">📅 03/2026 - 05/2026</span>
+                <span class="result-meta-pill highlight"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" x2="21" y1="22" y2="22"/><line x1="6" x2="6" y1="18" y2="11"/><line x1="10" x2="10" y1="18" y2="11"/><line x1="14" x2="14" y1="18" y2="11"/><line x1="18" x2="18" y1="18" y2="11"/><polygon points="12 2 20 7 4 7"/></svg> Đoàn TNCS - Hội SV UNETI</span>
+                <span class="result-meta-pill"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> 03/2026 - 05/2026</span>
               </div>
             </div>
 
-            <div class="entry-section-label">👥 Thành viên YTC góp mặt</div>
+            <div class="entry-section-label"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> Thành viên YTC góp mặt</div>
             <div class="entry-grid">
               <div class="entry-card">
                 <div class="entry-top">
-                  <a class="entry-name" href="Member/ToThuTrang_DHTN19A3HN.html" target="_blank">👤 Tô Thu Trang</a>
+                  <a class="entry-name" href="Member/ToThuTrang_DHTN19A3HN.html" target="_blank"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> Tô Thu Trang</a>
                   <span class="entry-class">DHTN19A3HN</span>
                 </div>
                 <p class="entry-title"><span class="title-label">Tiết mục / Thể loại:</span> Múa nghệ thuật</p>
                 <div class="entry-bottom-row">
-                  <span class="entry-status stage-final">⭐ Top 20 Chung Kết</span>
+                  <span class="entry-status stage-final"><svg class="ico ico-star" viewBox="0 0 24 24" fill="currentColor" stroke="none" aria-hidden="true"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg> Top 20 Chung Kết</span>
                   <a href="https://www.facebook.com/share/v/1HCzJBGUrQ/" target="_blank" class="entry-inline-link">Video bình chọn →</a>
                 </div>
               </div>
             </div>
 
             <div class="result-card-footer">
-              <span class="result-meta-pill">🌟 Sân khấu tài năng</span>
+              <span class="result-meta-pill"><svg class="ico ico-star" viewBox="0 0 24 24" fill="currentColor" stroke="none" aria-hidden="true"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg> Sân khấu tài năng</span>
             </div>
           </div>
         </article>
@@ -1319,28 +1319,28 @@
             <div class="result-top-info">
               <h3 class="result-name">MARKET MAKER 2026</h3>
               <div class="result-meta-pill-group">
-                <span class="result-meta-pill highlight">🏛️ Khoa Quản trị & Marketing</span>
-                <span class="result-meta-pill">📅 04/2026 - 06/2026</span>
+                <span class="result-meta-pill highlight"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" x2="21" y1="22" y2="22"/><line x1="6" x2="6" y1="18" y2="11"/><line x1="10" x2="10" y1="18" y2="11"/><line x1="14" x2="14" y1="18" y2="11"/><line x1="18" x2="18" y1="18" y2="11"/><polygon points="12 2 20 7 4 7"/></svg> Khoa Quản trị & Marketing</span>
+                <span class="result-meta-pill"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> 04/2026 - 06/2026</span>
               </div>
             </div>
 
-            <div class="entry-section-label">👥 Thành viên YTC góp mặt</div>
+            <div class="entry-section-label"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> Thành viên YTC góp mặt</div>
             <div class="entry-grid">
               <div class="entry-card">
                 <div class="entry-top">
-                  <span class="entry-name">👤 Nguyễn Thị Hồng Quyên</span>
+                  <span class="entry-name"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> Nguyễn Thị Hồng Quyên</span>
                   <span class="entry-class">DHQT19A1CL</span>
                 </div>
                 <p class="entry-team"><span class="team-label">Đội thi:</span> WINX</p>
                 <div class="entry-bottom-row">
-                  <span class="entry-status stage-progress">🚀 Vòng sơ loại</span>
+                  <span class="entry-status stage-progress"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09Z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2Z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg> Vòng sơ loại</span>
                   <a href="https://www.facebook.com/share/v/1Ed7PJbqMn/" target="_blank" class="entry-inline-link">Video bình chọn →</a>
                 </div>
               </div>
             </div>
 
             <div class="result-card-footer">
-              <span class="result-meta-pill">🎯 Cuộc thi chuyên môn</span>
+              <span class="result-meta-pill"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg> Cuộc thi chuyên môn</span>
             </div>
           </div>
         </article>
@@ -1354,26 +1354,26 @@
             <div class="result-top-info">
               <h3 class="result-name">CUỘC THI “SÁCH VÀ VĂN HÓA ĐỌC TRONG KỶ NGUYÊN SỐ” 2026</h3>
               <div class="result-meta-pill-group">
-                <span class="result-meta-pill">📅 02/2026 - 04/2026</span>
+                <span class="result-meta-pill"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> 02/2026 - 04/2026</span>
               </div>
             </div>
 
-            <div class="entry-section-label">👥 Thành viên YTC góp mặt</div>
+            <div class="entry-section-label"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> Thành viên YTC góp mặt</div>
             <div class="entry-grid">
               <div class="entry-card">
                 <div class="entry-top">
-                  <a class="entry-name" href="Member/NguyenMinhAnh_DHQT19A1HN.html" target="_blank">👤 Nguyễn Minh Ánh</a>
+                  <a class="entry-name" href="Member/NguyenMinhAnh_DHQT19A1HN.html" target="_blank"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> Nguyễn Minh Ánh</a>
                   <span class="entry-class">DHQT19A1HN</span>
                 </div>
                 <p class="entry-title"><span class="title-label">Nội dung dự thi:</span> [Đang cập nhật]</p>
                 <div class="entry-bottom-row">
-                  <span class="entry-status stage-final">🥈 Giải Nhì Chung Cuộc</span>
+                  <span class="entry-status stage-final"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5.5"/><path d="M8.6 10.7 5.5 3h4.2L12 8l2.3-5h4.2l-3.1 7.7"/></svg> Giải Nhì Chung Cuộc</span>
                 </div>
               </div>
             </div>
 
             <div class="result-card-footer">
-              <span class="result-meta-pill">🏆 Thành tích xuất sắc</span>
+              <span class="result-meta-pill"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg> Thành tích xuất sắc</span>
             </div>
           </div>
         </article>
@@ -1387,38 +1387,38 @@
             <div class="result-top-info">
               <h3 class="result-name">THE FACE UNETI 2025</h3>
               <div class="result-meta-pill-group">
-                <span class="result-meta-pill highlight">🏛️ CLB Truyền thông UNETI</span>
-                <span class="result-meta-pill">📅 11/2025 - 01/2026</span>
+                <span class="result-meta-pill highlight"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" x2="21" y1="22" y2="22"/><line x1="6" x2="6" y1="18" y2="11"/><line x1="10" x2="10" y1="18" y2="11"/><line x1="14" x2="14" y1="18" y2="11"/><line x1="18" x2="18" y1="18" y2="11"/><polygon points="12 2 20 7 4 7"/></svg> CLB Truyền thông UNETI</span>
+                <span class="result-meta-pill"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> 11/2025 - 01/2026</span>
               </div>
             </div>
 
-            <div class="entry-section-label">👥 Thành viên YTC góp mặt</div>
+            <div class="entry-section-label"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> Thành viên YTC góp mặt</div>
             <div class="entry-grid">
               <div class="entry-card">
                 <div class="entry-top">
-                  <a class="entry-name" href="Member/ToThuTrang_DHTN19A3HN.html" target="_blank">👤 Tô Thu Trang</a>
+                  <a class="entry-name" href="Member/ToThuTrang_DHTN19A3HN.html" target="_blank"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> Tô Thu Trang</a>
                   <span class="entry-class">DHTN19A3HN</span>
                 </div>
                 <div class="entry-bottom-row">
-                  <span class="entry-status stage-progress">🌟 Vòng sơ khảo</span>
+                  <span class="entry-status stage-progress"><svg class="ico ico-star" viewBox="0 0 24 24" fill="currentColor" stroke="none" aria-hidden="true"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg> Vòng sơ khảo</span>
                   <a href="https://www.facebook.com/share/1DYhe7xcK2/" target="_blank" class="entry-inline-link">Profile bình chọn →</a>
                 </div>
               </div>
 
               <div class="entry-card">
                 <div class="entry-top">
-                  <a class="entry-name" href="Member/NguyenHongThanh_DHMK18A1HN.html" target="_blank">👤 Nguyễn Hồng Thanh</a>
+                  <a class="entry-name" href="Member/NguyenHongThanh_DHMK18A1HN.html" target="_blank"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> Nguyễn Hồng Thanh</a>
                   <span class="entry-class">DHMK18A1HN</span>
                 </div>
                 <div class="entry-bottom-row">
-                  <span class="entry-status stage-progress">🌟 Vòng sơ khảo</span>
+                  <span class="entry-status stage-progress"><svg class="ico ico-star" viewBox="0 0 24 24" fill="currentColor" stroke="none" aria-hidden="true"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg> Vòng sơ khảo</span>
                   <a href="https://www.facebook.com/share/19ZmzNJdvd/" target="_blank" class="entry-inline-link">Profile bình chọn →</a>
                 </div>
               </div>
             </div>
 
             <div class="result-card-footer">
-              <span class="result-meta-pill">✨ Dấu ấn phong cách</span>
+              <span class="result-meta-pill"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></svg> Dấu ấn phong cách</span>
             </div>
           </div>
         </article>
@@ -1432,28 +1432,28 @@
             <div class="result-top-info">
               <h3 class="result-name">KHOẢNH KHẮC TRI ÂN 20/11 – MÙA 5 (2025)</h3>
               <div class="result-meta-pill-group">
-                <span class="result-meta-pill highlight">🏛️ CLB Sách UNETI</span>
-                <span class="result-meta-pill">📅 Tháng 11/2025</span>
+                <span class="result-meta-pill highlight"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" x2="21" y1="22" y2="22"/><line x1="6" x2="6" y1="18" y2="11"/><line x1="10" x2="10" y1="18" y2="11"/><line x1="14" x2="14" y1="18" y2="11"/><line x1="18" x2="18" y1="18" y2="11"/><polygon points="12 2 20 7 4 7"/></svg> CLB Sách UNETI</span>
+                <span class="result-meta-pill"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> Tháng 11/2025</span>
               </div>
             </div>
 
-            <div class="entry-section-label">👥 Thành viên YTC góp mặt</div>
+            <div class="entry-section-label"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> Thành viên YTC góp mặt</div>
             <div class="entry-grid">
               <div class="entry-card">
                 <div class="entry-top">
-                  <a class="entry-name" href="Member/TranDangBinhMinh_DHTI18A1CL.html" target="_blank">👤 Trần Đặng Bình Minh</a>
+                  <a class="entry-name" href="Member/TranDangBinhMinh_DHTI18A1CL.html" target="_blank"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> Trần Đặng Bình Minh</a>
                   <span class="entry-class">DHTI18A1CL</span>
                 </div>
                 <p class="entry-title"><span class="title-label">Thể loại:</span> Thiết kế thiệp</p>
                 <div class="entry-bottom-row">
-                  <span class="entry-status stage-final">🥈 Giải Nhì</span>
+                  <span class="entry-status stage-final"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5.5"/><path d="M8.6 10.7 5.5 3h4.2L12 8l2.3-5h4.2l-3.1 7.7"/></svg> Giải Nhì</span>
                   <a href="https://www.facebook.com/share/1G2WXqDDUU/" target="_blank" class="entry-inline-link">Xem tác phẩm →</a>
                 </div>
               </div>
 
               <div class="entry-card">
                 <div class="entry-top">
-                  <a class="entry-name" href="Member/NguyenHongThanh_DHMK18A1HN.html" target="_blank">👤 Nguyễn Hồng Thanh</a>
+                  <a class="entry-name" href="Member/NguyenHongThanh_DHMK18A1HN.html" target="_blank"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> Nguyễn Hồng Thanh</a>
                   <span class="entry-class">DHMK18A1HN</span>
                 </div>
                 <p class="entry-title"><span class="title-label">Thể loại:</span> Thiệp + Bài viết tri ân</p>
@@ -1464,7 +1464,7 @@
             </div>
 
             <div class="result-card-footer">
-              <span class="result-meta-pill">💐 Hoạt động ý nghĩa</span>
+              <span class="result-meta-pill"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="9" r="2"/><path d="M12 11v10"/><path d="M12 17c-4 0-6-2-7-5 4 0 6 2 7 5Z"/><path d="M12 14c4 0 6-2 7-5-4 0-6 2-7 5Z"/></svg> Hoạt động ý nghĩa</span>
             </div>
           </div>
         </article>
@@ -1478,16 +1478,16 @@
             <div class="result-top-info">
               <h3 class="result-name">LAN TỎA VĂN HÓA HỌC ĐƯỜNG SINH VIÊN UNETI 2025</h3>
               <div class="result-meta-pill-group">
-                <span class="result-meta-pill highlight">🏛️ CLB Tuyên truyền Văn hoá học đường Sinh viên</span>
-                <span class="result-meta-pill">📅 Tháng 11/2025</span>
+                <span class="result-meta-pill highlight"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" x2="21" y1="22" y2="22"/><line x1="6" x2="6" y1="18" y2="11"/><line x1="10" x2="10" y1="18" y2="11"/><line x1="14" x2="14" y1="18" y2="11"/><line x1="18" x2="18" y1="18" y2="11"/><polygon points="12 2 20 7 4 7"/></svg> CLB Tuyên truyền Văn hoá học đường Sinh viên</span>
+                <span class="result-meta-pill"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> Tháng 11/2025</span>
               </div>
             </div>
 
-            <div class="entry-section-label">👥 Thành viên YTC góp mặt</div>
+            <div class="entry-section-label"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> Thành viên YTC góp mặt</div>
             <div class="entry-grid">
               <div class="entry-card">
                 <div class="entry-top">
-                  <a class="entry-name" href="Member/TranDangBinhMinh_DHTI18A1CL.html" target="_blank">👤 Trần Đặng Bình Minh</a>
+                  <a class="entry-name" href="Member/TranDangBinhMinh_DHTI18A1CL.html" target="_blank"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> Trần Đặng Bình Minh</a>
                   <span class="entry-class">DHTI18A1CL</span>
                 </div>
                 <p class="entry-title"><span class="title-label">Thể loại:</span> Thiết kế ấn phẩm</p>
@@ -1498,19 +1498,19 @@
 
               <div class="entry-card">
                 <div class="entry-top">
-                  <a class="entry-name" href="Member/NguyenHongThanh_DHMK18A1HN.html" target="_blank">👤 Nguyễn Hồng Thanh</a>
+                  <a class="entry-name" href="Member/NguyenHongThanh_DHMK18A1HN.html" target="_blank"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> Nguyễn Hồng Thanh</a>
                   <span class="entry-class">DHMK18A1HN</span>
                 </div>
                 <p class="entry-title"><span class="title-label">Thể loại:</span> Thiết kế ấn phẩm</p>
                 <div class="entry-bottom-row">
-                  <span class="entry-status stage-final">❤️ Giải Yêu Thích Nhất</span>
+                  <span class="entry-status stage-final"><svg class="ico ico-heart" viewBox="0 0 24 24" fill="currentColor" stroke="none" aria-hidden="true"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg> Giải Yêu Thích Nhất</span>
                   <a href="https://www.facebook.com/share/p/1BJSmmMTgL/" target="_blank" class="entry-inline-link">Xem ấn phẩm →</a>
                 </div>
               </div>
             </div>
 
             <div class="result-card-footer">
-              <span class="result-meta-pill">🎨 Ấn phẩm sáng tạo</span>
+              <span class="result-meta-pill"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="13.5" cy="6.5" r=".5"/><circle cx="17.5" cy="10.5" r=".5"/><circle cx="8.5" cy="7.5" r=".5"/><circle cx="6.5" cy="12.5" r=".5"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.93 0 1.68-.75 1.68-1.68 0-.44-.18-.83-.44-1.12-.28-.3-.44-.66-.44-1.06a1.68 1.68 0 0 1 1.68-1.68h1.99c3.05 0 5.53-2.48 5.53-5.53C22 6.01 17.5 2 12 2Z"/></svg> Ấn phẩm sáng tạo</span>
             </div>
           </div>
         </article>
