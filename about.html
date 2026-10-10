@@ -138,6 +138,213 @@
       margin: 0;
     }
 
+    /* ===== TẦM NHÌN YTC ===== */
+    .vision-box {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+      margin-top: 24px;
+      padding: 30px 32px 26px 36px;
+      text-align: left;
+      background:
+        radial-gradient(circle at 100% 0%, rgba(81, 194, 242, 0.22), transparent 42%),
+        radial-gradient(circle at 0% 100%, rgba(37, 99, 235, 0.10), transparent 40%),
+        linear-gradient(135deg, #f8fbff 0%, #edf7ff 50%, #e7f1ff 100%);
+      border: 1px solid rgba(81, 194, 242, 0.32);
+      border-radius: 22px;
+      box-shadow: 0 18px 40px rgba(40, 92, 178, 0.10);
+    }
+
+    /* Thanh nhấn bên trái */
+    .vision-box::before {
+      content: "";
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 6px;
+      background: linear-gradient(180deg, #38bdf8, #2563eb 55%, #04006b);
+    }
+
+    /* Lưới chấm trang trí góc phải */
+    .vision-box::after {
+      content: "";
+      position: absolute;
+      top: 14px;
+      right: 16px;
+      width: 120px;
+      height: 84px;
+      z-index: -1;
+      opacity: 0.55;
+      background-image: radial-gradient(rgba(37, 99, 235, 0.35) 1.4px, transparent 1.6px);
+      background-size: 14px 14px;
+      -webkit-mask-image: linear-gradient(135deg, transparent 0%, #000 100%);
+              mask-image: linear-gradient(135deg, transparent 0%, #000 100%);
+      pointer-events: none;
+    }
+
+    .vision-box__header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 22px;
+    }
+
+    .vision-box__header .highlight-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 48px;
+      height: 48px;
+      font-size: 1.5rem;
+      background: linear-gradient(135deg, #ffffff, #dff1ff);
+      border: 1px solid rgba(81, 194, 242, 0.45);
+      border-radius: 14px;
+      box-shadow: 0 8px 18px rgba(9, 131, 254, 0.18);
+    }
+
+    .vision-box__header h4 {
+      position: relative;
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--blue-dark);
+      margin: 0;
+      padding-bottom: 6px;
+      letter-spacing: 0.02em;
+    }
+
+    .vision-box__header h4::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 44px;
+      height: 3px;
+      border-radius: 3px;
+      background: linear-gradient(90deg, var(--blue-accent), var(--blue-soft));
+      transition: width 0.3s ease;
+    }
+
+    .vision-box:hover .vision-box__header h4::after {
+      width: 72px;
+    }
+
+    /* Danh sách → lưới thẻ đánh số */
+    .vision-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      color: var(--text-main);
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      counter-reset: vision;
+    }
+
+    .vision-list li {
+      position: relative;
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 16px 18px;
+      font-size: 0.96rem;
+      line-height: 1.7;
+      font-weight: 500;
+      color: var(--text-main);
+      background: rgba(255, 255, 255, 0.86);
+      border: 1px solid rgba(161, 227, 255, 0.65);
+      border-radius: 16px;
+      box-shadow: 0 4px 14px rgba(30, 64, 110, 0.06);
+      counter-increment: vision;
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+    }
+
+    /* Số thứ tự dạng huy hiệu */
+    .vision-list li::before {
+      content: counter(vision, decimal-leading-zero);
+      flex: 0 0 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      font-size: 0.95rem;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      color: var(--blue-main);
+      background: linear-gradient(135deg, #e0f2fe, #bae6fd);
+      border-radius: 12px;
+      transition: transform 0.25s ease, background 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .vision-list li:hover {
+      transform: translateY(-4px);
+      background: #ffffff;
+      border-color: rgba(9, 131, 254, 0.45);
+      box-shadow: 0 14px 30px rgba(9, 131, 254, 0.16);
+    }
+
+    .vision-list li:hover::before {
+      color: #ffffff;
+      background: linear-gradient(135deg, var(--blue-accent), #04006b);
+      box-shadow: 0 6px 14px rgba(9, 131, 254, 0.35);
+      transform: rotate(-6deg) scale(1.06);
+    }
+
+    /* Mục lẻ cuối cùng trải hết chiều ngang, làm điểm nhấn */
+    .vision-list li:last-child:nth-child(odd) {
+      grid-column: 1 / -1;
+      background: linear-gradient(135deg, #0b1a4a 0%, #153280 60%, #1e40af 100%);
+      border-color: rgba(255, 255, 255, 0.12);
+      color: #ffffff;
+      box-shadow: 0 10px 26px rgba(11, 26, 74, 0.22);
+    }
+
+    .vision-list li:last-child:nth-child(odd)::before {
+      color: #fde047;
+      background: rgba(253, 224, 71, 0.14);
+      border: 1px solid rgba(253, 224, 71, 0.35);
+    }
+
+    .vision-list li:last-child:nth-child(odd):hover {
+      background: linear-gradient(135deg, #0b1a4a 0%, #153280 60%, #1e40af 100%);
+      border-color: rgba(253, 224, 71, 0.45);
+      box-shadow: 0 16px 34px rgba(9, 131, 254, 0.32);
+    }
+
+    .vision-list li:last-child:nth-child(odd):hover::before {
+      color: #0b1a4a;
+      background: #fde047;
+      box-shadow: 0 6px 14px rgba(253, 224, 71, 0.4);
+    }
+
+    @media (max-width: 860px) {
+      .vision-box {
+        padding: 24px 18px 18px 22px;
+      }
+      .vision-list {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .vision-box::after {
+        display: none;
+      }
+      .vision-box__header h4 {
+        font-size: 1.08rem;
+      }
+      .vision-list li {
+        padding: 14px;
+        gap: 12px;
+        font-size: 0.93rem;
+      }
+      .vision-list li::before {
+        flex-basis: 34px;
+        width: 34px;
+        height: 34px;
+        font-size: 0.85rem;
+      }
+    }
+
     /* ===== ACTIVITIES GRID ===== */
     .activity-grid {
       display: grid;
@@ -643,6 +850,7 @@
               </div>
             </div>
           </div>
+
         </div>
       </div>
     </div>
@@ -868,6 +1076,30 @@
           </div>
           <p class="achievement-card__date">🗓️ Ngày diễn ra: 16/03/2025</p>
         </div>   
+      </div>
+    </div>
+  </section>
+
+  <!-- 5.1. TẦM NHÌN CỦA YTC -->
+  <section class="about-section">
+    <div class="container fade-in">
+      <div class="section-header">
+        <h2 class="section-title">Tầm nhìn của Young Trainng Club</h2>
+        <p class="section-desc">Mục tiêu phát triển bền vững, lan tỏa giá trị và nâng tầm phong trào trẻ</p>
+      </div>
+
+      <div class="vision-box">
+        <div class="vision-box__header">
+          <div class="highlight-icon">🔭</div>
+          <h4>YTC hướng tới</h4>
+        </div>
+        <ul class="vision-list">
+          <li>Là nơi đào tạo MC trong chương trình: Bản tin UNETI, cuộc thi – sự kiện lớn của Nhà trường…</li>
+          <li>Là đầu mối MC – Lễ lớn nhất UNETI trong các sự kiện lớn của nhà trường, bộ Công Thương… Và mở rộng quy mô tại cơ sở Ninh Bình</li>
+          <li>Trở thành CLB phát triển nền tảng kỹ năng trẻ toàn diện cho các hoạt động phong trào, nghề nghiệp và sáng tạo khởi nghiệp</li>
+          <li>Kết nối, tiếp sức với nhiều doanh nghiệp trong công việc, kỹ năng và phong trào…</li>
+          <li>Trở thành 1 trong những CLB có hoạt động phong trào Đoàn TN xuất sắc cấp tỉnh/thành phố</li>
+        </ul>
       </div>
     </div>
   </section>
