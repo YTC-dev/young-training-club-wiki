@@ -1960,3 +1960,13 @@ html.no-scroll {
 .ico-fb { color: #1877f2; }
 .ico-tulip { color: #e879a0; }
 .ico-trophy { color: #f59e0b; }
+
+/* Màu huy chương theo giải */
+.ico-gold { color: #eab308; }
+.ico-silver { color: #94a3b8; }
+.ico-bronze { color: #cd7f32; }
+
+/* Trong vòng tròn podium nền đã màu sẵn -> icon giữ trắng */
+.podium-step .medal svg.ico {
+  color: #ffffff;
+}
