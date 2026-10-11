@@ -147,7 +147,7 @@
       position: absolute;
       top: 12px;
       right: 12px;
-      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpolygon points='12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26' fill='%2304006b'/%3E%3C/svg%3E") no-repeat 9px center / 13px 13px, linear-gradient(135deg, #ffef94, #ffe100);
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpolygon points='12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26' fill='%23f5b301'/%3E%3C/svg%3E") no-repeat 9px center / 13px 13px, linear-gradient(135deg, #ffef94, #ffe100);
       color: #04006b;
       font-size: 0.76rem;
       font-weight: 800;
@@ -268,6 +268,12 @@
       color: #ffffff;
       border-color: #d97706;
       box-shadow: 0 4px 12px rgba(217, 119, 6, 0.25);
+    }
+
+    /* Icon SVG trong nút bám màu chữ của nút: cam thường -> trắng khi hover,
+       không bị rule :where(svg.ico) trong style.css ép về xanh (icon chìm vào nền) */
+    .event-card__link .ico {
+      color: inherit;
     }
 
     /* ===== LOAD MORE BUTTON ===== */
