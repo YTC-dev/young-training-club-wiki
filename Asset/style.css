@@ -1970,3 +1970,16 @@ html.no-scroll {
 .podium-step .medal svg.ico {
   color: #ffffff;
 }
+
+/* ===== Màu mặc định cho icon: xanh thương hiệu (sống động, đồng bộ) ===== */
+/* Dùng :where() để mọi class màu riêng (.ico-star, .ico-fire...) vẫn thắng */
+:where(svg.ico) {
+  color: var(--blue-accent);
+}
+
+/* Icon thường trên nền xanh đậm -> giữ trắng cho dễ đọc */
+:where(.filter-chip.active) :where(svg.ico) { color: #ffffff; }
+:where(.judge-avatar) :where(svg.ico) { color: #ffffff; }
+
+/* Nút chào mừng nền vàng -> icon xanh navy như chữ */
+:where(.welcome-btn-primary) :where(svg.ico) { color: #04006b; }
