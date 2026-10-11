@@ -1984,3 +1984,4 @@ html.no-scroll {
 /* Nút chào mừng nền vàng -> icon xanh navy như chữ */
 :where(.welcome-btn-primary) :where(svg.ico) { color: #04006b; }
 .ico-cake { color: #ec4899; }
+.ico-sparkle { color: #f5b301; }
