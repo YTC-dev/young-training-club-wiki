@@ -1,0 +1,1159 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Tổng quan về Wiki - CLB Đào tạo Kỹ năng Trẻ</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Link CSS hệ thống -->
+  <link rel="stylesheet" href="Asset/style.css">
+  <link rel="icon" type="image/png" href="Image/YTC-Favicon.png">
+
+  <style>
+    /* Section Container Spacing */
+    .wiki-section {
+      padding: 32px 0;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+
+    .section-header .section-title {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--blue-dark);
+      position: relative;
+      display: inline-block;
+      margin-bottom: 8px;
+    }
+
+    .section-header .section-desc {
+      font-size: 0.95rem;
+      color: var(--text-main);
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    /* ===== BREADCRUMB / BACK NAV ===== */
+    .wiki-backnav {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 14px 16px 0;
+    }
+
+    .wiki-backnav a,
+    .wiki-backnav span {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.86rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-decoration: none;
+      background: #ffffff;
+      border: 1.5px solid rgba(161, 227, 255, 0.5);
+      border-radius: 20px;
+      padding: 6px 14px;
+      transition: all 0.25s ease;
+    }
+
+    .wiki-backnav a:hover {
+      color: var(--blue-accent);
+      border-color: var(--blue-accent);
+      background: #f0f8ff;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(9, 131, 254, 0.2);
+    }
+
+    .wiki-backnav span.wiki-current {
+      color: var(--blue-main);
+      background: linear-gradient(135deg, #e0f2fe, #bae6fd);
+      border-color: rgba(9, 131, 254, 0.35);
+    }
+
+    /* ===== INTRO SHOWCASE CARD ===== */
+    .intro-showcase {
+      background: #ffffff;
+      border: 1px solid rgba(161, 227, 255, 0.5);
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(44, 59, 144, 0.08);
+      overflow: hidden;
+      margin-bottom: 24px;
+      transition: box-shadow 0.3s ease, transform 0.3s ease;
+    }
+
+    .intro-showcase:hover {
+      box-shadow: 0 16px 36px rgba(9, 131, 254, 0.15);
+      transform: translateY(-2px);
+    }
+
+    .intro-showcase__img-box {
+      width: 100%;
+      background: #f0f7ff;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      max-height: 440px;
+    }
+
+    .intro-showcase__img {
+      width: 100%;
+      height: 100%;
+      max-height: 440px;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+
+    .intro-showcase:hover .intro-showcase__img {
+      transform: scale(1.02);
+    }
+
+    .intro-showcase__content {
+      padding: 28px 32px;
+      text-align: left;
+    }
+
+    .intro-lead-text {
+      font-size: 1.05rem;
+      line-height: 1.75;
+      color: var(--text-main);
+      margin-bottom: 24px;
+    }
+
+    .intro-lead-text strong {
+      color: var(--blue-dark);
+    }
+
+    /* Key Highlights Grid */
+    .intro-highlights {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+    }
+
+    .highlight-box {
+      background: linear-gradient(135deg, #f0f8ff, #e6f3ff);
+      border: 1px solid rgba(81, 194, 242, 0.25);
+      border-radius: 12px;
+      padding: 16px 18px;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      transition: background 0.25s ease, transform 0.25s ease;
+    }
+
+    .highlight-box:hover {
+      background: linear-gradient(135deg, #e3f2fd, #dbeafe);
+      transform: translateY(-2px);
+    }
+
+    .highlight-icon {
+      font-size: 1.6rem;
+      line-height: 1;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, #ffffff, #dff1ff);
+      border: 1px solid rgba(81, 194, 242, 0.45);
+      border-radius: 12px;
+      box-shadow: 0 6px 14px rgba(9, 131, 254, 0.14);
+    }
+
+    .highlight-info h4 {
+      font-size: 0.88rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--blue-main);
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .highlight-info p {
+      font-size: 0.94rem;
+      color: var(--text-main);
+      font-weight: 500;
+      line-height: 1.4;
+      margin: 0;
+    }
+
+    .highlight-info p a {
+      color: var(--blue-accent);
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .highlight-info p a:hover {
+      text-decoration: underline;
+    }
+
+    /* ===== ADMIN TEAM ===== */
+    .admin-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .admin-card {
+      background: #ffffff;
+      border: 1.5px solid rgba(161, 227, 255, 0.4);
+      border-radius: 16px;
+      padding: 24px 18px 20px;
+      box-shadow: 0 4px 20px rgba(44, 59, 144, 0.08);
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+      text-decoration: none;
+      color: var(--text-main);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .admin-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 14px 32px rgba(9, 131, 254, 0.18);
+      border-color: var(--blue-accent);
+    }
+
+    .admin-card.admin-head {
+      background: linear-gradient(145deg, #ffffff 0%, #f0f7ff 100%);
+      border: 2px solid rgba(9, 131, 254, 0.5);
+      box-shadow: 0 8px 24px rgba(9, 131, 254, 0.15);
+    }
+
+    .admin-avatar-wrap {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      overflow: hidden;
+      margin: 0 auto 14px;
+      border: 3.5px solid #e0f2fe;
+      box-shadow: 0 6px 18px rgba(44, 59, 144, 0.14);
+      background: #f0f8ff;
+      flex-shrink: 0;
+      transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+    }
+
+    .admin-card:hover .admin-avatar-wrap {
+      transform: scale(1.05);
+      border-color: var(--blue-accent);
+      box-shadow: 0 8px 20px rgba(9, 131, 254, 0.22);
+    }
+
+    .admin-avatar-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .admin-role-badge {
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 4px 14px;
+      border-radius: 20px;
+      background: #e0f2fe;
+      color: #0284c7;
+      margin-bottom: 10px;
+      display: inline-block;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(2, 132, 199, 0.28);
+      box-shadow: 0 2px 8px rgba(9, 131, 254, 0.12);
+      transition: transform 0.25s ease;
+      animation: wiki-badge-glow-soft 3s ease-in-out infinite;
+    }
+
+    /* Vệt sáng quét ngang qua badge, lệch pha từng thẻ cho tự nhiên */
+    .admin-role-badge::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -80%;
+      width: 50%;
+      height: 100%;
+      background: linear-gradient(105deg, transparent 0%, rgba(255, 255, 255, 0.85) 50%, transparent 100%);
+      transform: skewX(-18deg);
+      animation: wiki-badge-shine 3.6s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    .admin-card:nth-child(2) .admin-role-badge::after { animation-delay: 1.2s; }
+    .admin-card:nth-child(3) .admin-role-badge::after { animation-delay: 2.4s; }
+
+    .admin-card:hover .admin-role-badge {
+      transform: translateY(-1px) scale(1.04);
+    }
+
+    .admin-card.admin-head .admin-role-badge {
+      background: linear-gradient(135deg, #0983fe 0%, #04006b 50%, #0983fe 100%);
+      background-size: 200% 100%;
+      color: #ffffff;
+      border: 1px solid rgba(126, 214, 255, 0.55);
+      text-shadow: 0 1px 2px rgba(4, 0, 107, 0.45);
+      animation:
+        wiki-badge-flow 3s linear infinite,
+        wiki-badge-glow-head 2.6s ease-in-out infinite;
+    }
+
+    @keyframes wiki-badge-shine {
+      0%        { left: -80%; }
+      45%, 100% { left: 140%; }
+    }
+
+    @keyframes wiki-badge-flow {
+      0%   { background-position: 0% 50%; }
+      100% { background-position: 200% 50%; }
+    }
+
+    @keyframes wiki-badge-glow-head {
+      0%, 100% { box-shadow: 0 2px 10px rgba(9, 131, 254, 0.35); }
+      50%      { box-shadow: 0 3px 16px rgba(9, 131, 254, 0.65); }
+    }
+
+    @keyframes wiki-badge-glow-soft {
+      0%, 100% { box-shadow: 0 2px 8px rgba(9, 131, 254, 0.12); }
+      50%      { box-shadow: 0 2px 12px rgba(9, 131, 254, 0.3); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .admin-role-badge,
+      .admin-card.admin-head .admin-role-badge {
+        animation: none;
+      }
+      .admin-role-badge::after {
+        display: none;
+      }
+    }
+
+    .admin-name {
+      font-size: 1.08rem;
+      font-weight: 700;
+      color: var(--blue-dark);
+      margin-bottom: 4px;
+      line-height: 1.35;
+    }
+
+    .admin-class {
+      font-size: 0.86rem;
+      color: var(--text-muted);
+      font-weight: 500;
+      margin-bottom: 6px;
+    }
+
+    .admin-dept {
+      font-size: 0.82rem;
+      color: #475569;
+      background: #f1f5f9;
+      border-radius: 6px;
+      padding: 3px 10px;
+      font-weight: 600;
+    }
+
+    .admin-card-action {
+      margin-top: 12px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--blue-accent);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      opacity: 0;
+      transform: translateY(4px);
+      transition: all 0.2s ease;
+    }
+
+    .admin-card:hover .admin-card-action {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .admin-note {
+      max-width: 1000px;
+      margin: 20px auto 0;
+      background: linear-gradient(135deg, #f8fbff 0%, #edf7ff 50%, #e7f1ff 100%);
+      border: 1px solid rgba(81, 194, 242, 0.32);
+      border-radius: 16px;
+      padding: 16px 20px;
+      font-size: 0.92rem;
+      line-height: 1.7;
+      color: var(--text-main);
+      text-align: left;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .admin-note strong {
+      color: var(--blue-dark);
+    }
+
+    .admin-note a {
+      color: var(--blue-accent);
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .admin-note a:hover {
+      text-decoration: underline;
+    }
+
+    /* ===== SITE CONTENT MAP ===== */
+    .sitemap-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    .sitemap-card {
+      background: #ffffff;
+      border: 1px solid rgba(161, 227, 255, 0.45);
+      border-radius: 16px;
+      padding: 24px;
+      text-align: left;
+      box-shadow: 0 4px 20px rgba(44, 59, 144, 0.06);
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+      display: flex;
+      flex-direction: column;
+      text-decoration: none;
+      color: var(--text-main);
+    }
+
+    .sitemap-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 30px rgba(9, 131, 254, 0.16);
+      border-color: rgba(9, 131, 254, 0.4);
+    }
+
+    .sitemap-card__header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .sitemap-card__icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #e0f2fe, #bae6fd);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.35rem;
+      flex-shrink: 0;
+    }
+
+    .sitemap-card__icon .ico {
+      width: 22px;
+      height: 22px;
+      color: var(--blue-main);
+    }
+
+    .sitemap-card__title {
+      font-size: 1.12rem;
+      font-weight: 700;
+      color: var(--blue-dark);
+      margin: 0;
+      line-height: 1.4;
+    }
+
+    .sitemap-card__path {
+      font-size: 0.76rem;
+      font-weight: 600;
+      color: #0284c7;
+      background: #f0f9ff;
+      border: 1px solid rgba(2, 132, 199, 0.18);
+      border-radius: 6px;
+      padding: 2px 8px;
+      width: fit-content;
+      margin-bottom: 10px;
+      font-family: Consolas, Monaco, monospace;
+    }
+
+    .sitemap-card__body {
+      font-size: 0.93rem;
+      color: #475569;
+      line-height: 1.65;
+      margin: 0;
+      flex: 1;
+    }
+
+    .sitemap-card__more {
+      margin-top: 12px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--blue-accent);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      text-decoration: none;
+    }
+
+    .sitemap-card__more:hover {
+      text-decoration: underline;
+    }
+
+    .sitemap-card:hover .sitemap-card__more {
+      text-decoration: underline;
+    }
+
+    .sitemap-card__sub {
+      margin-top: 12px;
+      padding: 10px 12px;
+      background: #f8fafc;
+      border: 1px dashed rgba(148, 163, 184, 0.5);
+      border-radius: 10px;
+      font-size: 0.82rem;
+      color: #475569;
+      line-height: 1.6;
+    }
+
+    .sitemap-card__sub strong {
+      color: var(--blue-dark);
+    }
+
+    .sitemap-card__sub a {
+      color: var(--blue-accent);
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .sitemap-card__sub a:hover {
+      text-decoration: underline;
+    }
+
+    /* ===== BADGE SYSTEM ===== */
+    .badge-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .badge-card {
+      background: #ffffff;
+      border: 1px solid rgba(161, 227, 255, 0.45);
+      border-radius: 16px;
+      padding: 22px;
+      box-shadow: 0 4px 20px rgba(44, 59, 144, 0.06);
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .badge-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 30px rgba(9, 131, 254, 0.16);
+      border-color: rgba(9, 131, 254, 0.4);
+    }
+
+    /* Chip huy hiệu tái hiện đúng màu của badge trên trang hồ sơ */
+    .badge-chip {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 7px 16px;
+      border-radius: 20px;
+      font-size: 0.92rem;
+      line-height: 1.2;
+      margin-bottom: 14px;
+      position: relative;
+    }
+
+    /* ALL IN YTC — vàng kim loại: ánh sáng phản chiếu + hào quang thở */
+    .badge-chip--gold {
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.55) 0%, rgba(255, 255, 255, 0) 52%),
+        linear-gradient(180deg, #ffe777 0%, #ffd744 30%, #ffc233 62%, #ffc62a 100%);
+      color: #ffffff;
+      border: 1px solid #ffe45c;
+      font-weight: 800;
+      letter-spacing: 0.03em;
+      text-shadow: 0 1px 2px rgba(120, 60, 0, 0.65), 0 0 1px rgba(120, 60, 0, 0.5);
+      box-shadow:
+        0 1px 0 rgba(255, 255, 255, 0.8) inset,
+        0 -2px 4px rgba(176, 92, 0, 0.35) inset,
+        0 0 0 3px rgba(255, 207, 58, 0.22),
+        0 6px 16px rgba(95, 52, 0, 0.28),
+        0 0 18px rgba(255, 200, 60, 0.35);
+      overflow: hidden;
+      animation: wiki-chip-gold-glow 2.6s ease-in-out infinite;
+    }
+
+    .badge-chip--gold::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 45%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.72), transparent);
+      transform: skewX(-20deg);
+      animation: wiki-chip-gold-shine 3s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    /* Chức vụ — xanh lam đặc biệt (cyan): ánh sáng lướt + hào quang thở */
+    .badge-chip--cyan {
+      background: linear-gradient(#44f9ffd3, #58e9ffcc, #58cdffcc);
+      color: #001ca6;
+      border: #1500ff 1px solid;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      box-shadow: 0 5px 14px rgba(0, 92, 95, 0.32), 0 0 0 3px rgba(58, 163, 255, 0.18);
+      overflow: hidden;
+      animation: wiki-chip-cyan-glow 2.4s ease-in-out infinite;
+    }
+
+    .badge-chip--cyan::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 45%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.55), transparent);
+      transform: skewX(-20deg);
+      animation: wiki-chip-cyan-shine 3.2s ease-in-out infinite;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* Sinh viên tiêu biểu — xanh dương đậm: 2 chấm sáng chạy quanh viền */
+    .badge-chip--blue {
+      background: linear-gradient(135deg, #051657, #0b4da3);
+      color: #ffffff;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      box-shadow: 0 6px 16px rgba(4, 34, 107, 0.32);
+    }
+
+    .badge-chip--blue::before,
+    .badge-chip--blue::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 4px;
+      margin-top: -2px;
+      margin-left: -2px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #ffffff 0%, #7cdbff 55%, transparent 100%);
+      box-shadow: 0 0 8px 2px #7cdbff, 0 0 3px #fff;
+      pointer-events: none;
+      offset-path: border-box;
+      offset-rotate: 0deg;
+      animation: wiki-chip-dot 6s linear infinite;
+    }
+
+    .badge-chip--blue::after {
+      animation-delay: -3s;
+    }
+
+    /* MC của UNETI & Đối tác — tím ánh sáng: vệt sáng lướt + hào quang thở */
+    .badge-chip--purple {
+      background: linear-gradient(135deg, #d3c9ff 0%, #f3e8ff 45%, #d3c9ff 100%);
+      color: #490085;
+      border: 1px solid rgba(109, 40, 217, 0.22);
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-shadow: 0 1px 0 rgba(255, 255, 255, 0.7);
+      box-shadow:
+        0 4px 14px rgba(109, 40, 217, 0.14),
+        0 0 0 1px rgba(255, 255, 255, 0.35) inset;
+      overflow: hidden;
+      animation: wiki-chip-purple-glow 2s ease-in-out infinite;
+    }
+
+    .badge-chip--purple::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 45%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+      transform: skewX(-20deg);
+      animation: wiki-chip-purple-shine 3s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    /* Nét đẹp văn nghệ — cam cháy: gradient chạy + hào quang thở */
+    .badge-chip--orange {
+      background: linear-gradient(
+        120deg,
+        #e63900 0%,
+        #ff5500 20%,
+        #ff9400 38%,
+        #ffb940 50%,
+        #ff9400 62%,
+        #ff5500 80%,
+        #e63900 100%
+      );
+      background-size: 300% 100%;
+      color: #ffffff;
+      border: 1.5px solid #ffc982;
+      font-weight: 700;
+      letter-spacing: 0.035em;
+      text-shadow: 0 1px 2px rgba(120, 28, 0, 0.5);
+      animation:
+        wiki-orange-move 3s linear infinite,
+        wiki-chip-orange-glow 2.2s ease-in-out infinite;
+    }
+
+    @keyframes wiki-orange-move {
+      0%   { background-position: 100% 50%; }
+      100% { background-position:   0% 50%; }
+    }
+
+    /* Shine riêng cho từng badge — không dùng chung */
+    @keyframes wiki-chip-gold-shine {
+      0%        { left: -100%; }
+      20%, 100% { left: 150%; }
+    }
+
+    @keyframes wiki-chip-purple-shine {
+      0%        { left: -100%; }
+      20%, 100% { left: 150%; }
+    }
+
+    @keyframes wiki-chip-cyan-shine {
+      0%        { left: -100%; }
+      20%, 100% { left: 150%; }
+    }
+
+    @keyframes wiki-chip-dot {
+      0%   { offset-distance: 0%; }
+      100% { offset-distance: 100%; }
+    }
+
+    @keyframes wiki-chip-gold-glow {
+      0%, 100% {
+        box-shadow:
+          0 1px 0 rgba(255, 255, 255, 0.8) inset,
+          0 -2px 4px rgba(176, 92, 0, 0.35) inset,
+          0 0 0 3px rgba(255, 207, 58, 0.22),
+          0 6px 16px rgba(95, 52, 0, 0.28),
+          0 0 18px rgba(255, 200, 60, 0.35);
+      }
+      50% {
+        box-shadow:
+          0 1px 0 rgba(255, 255, 255, 0.85) inset,
+          0 -2px 4px rgba(176, 92, 0, 0.35) inset,
+          0 0 0 3px rgba(255, 207, 58, 0.3),
+          0 7px 18px rgba(95, 52, 0, 0.4),
+          0 0 28px rgba(255, 205, 70, 0.55);
+      }
+    }
+
+    @keyframes wiki-chip-cyan-glow {
+      0%, 100% {
+        box-shadow: 0 5px 14px rgba(0, 92, 95, 0.32), 0 0 0 3px rgba(58, 163, 255, 0.18);
+      }
+      50% {
+        box-shadow:
+          0 5px 18px rgba(0, 92, 95, 0.42),
+          0 0 0 3px rgba(58, 163, 255, 0.28),
+          0 0 14px 3px rgba(72, 226, 255, 0.4);
+      }
+    }
+
+    @keyframes wiki-chip-purple-glow {
+      0%, 100% {
+        box-shadow:
+          0 4px 14px rgba(109, 40, 217, 0.14),
+          0 0 0 1px rgba(255, 255, 255, 0.35) inset;
+        border-color: rgba(109, 40, 217, 0.22);
+      }
+      50% {
+        box-shadow:
+          0 4px 18px rgba(109, 40, 217, 0.22),
+          0 0 0 1px rgba(255, 255, 255, 0.4) inset,
+          0 0 12px 3px rgba(109, 40, 217, 0.28);
+        border-color: rgba(109, 40, 217, 0.4);
+      }
+    }
+
+    @keyframes wiki-chip-orange-glow {
+      0%, 100% {
+        border-color: rgba(255, 224, 130, 0.7);
+        box-shadow:
+          0 0 0 1.5px rgba(255, 167, 38, 0.45),
+          0 0 10px rgba(255, 109, 0, 0.35),
+          0 4px 12px rgba(230, 57, 0, 0.25);
+      }
+      50% {
+        border-color: #ffba75;
+        box-shadow:
+          0 0 0 2px rgba(255, 193, 7, 0.9),
+          0 0 16px 3px rgba(255, 87, 34, 0.55),
+          0 4px 16px rgba(230, 57, 0, 0.4);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .badge-chip--orange,
+      .badge-chip--gold,
+      .badge-chip--cyan,
+      .badge-chip--purple {
+        animation: none;
+      }
+      .badge-chip--gold::after,
+      .badge-chip--cyan::after,
+      .badge-chip--purple::after,
+      .badge-chip--blue::before,
+      .badge-chip--blue::after {
+        animation: none;
+        display: none;
+      }
+    }
+
+    .badge-card__name {
+      font-size: 1.02rem;
+      font-weight: 700;
+      color: var(--blue-dark);
+      margin-bottom: 8px;
+      line-height: 1.4;
+    }
+
+    .badge-card__desc {
+      font-size: 0.92rem;
+      color: #475569;
+      line-height: 1.65;
+      margin: 0;
+    }
+
+    .badge-note {
+      max-width: 1000px;
+      margin: 20px auto 0;
+      background: #ffffff;
+      border: 1px solid rgba(161, 227, 255, 0.45);
+      border-radius: 16px;
+      padding: 16px 20px;
+      font-size: 0.92rem;
+      line-height: 1.7;
+      color: var(--text-main);
+      text-align: left;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      box-shadow: 0 4px 20px rgba(44, 59, 144, 0.06);
+    }
+
+    .badge-note strong {
+      color: var(--blue-dark);
+    }
+
+    .badge-note a {
+      color: var(--blue-accent);
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .badge-note a:hover {
+      text-decoration: underline;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 860px) {
+      .admin-grid,
+      .sitemap-grid,
+      .badge-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .hero {
+        padding: 40px 16px 32px;
+      }
+      .hero h1 {
+        font-size: 1.65rem;
+      }
+      .intro-showcase__content {
+        padding: 20px 16px;
+      }
+      .badge-chip {
+        font-size: 0.82rem;
+        padding: 6px 13px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="nav-placeholder"></div>
+
+  <!-- HERO HEADER -->
+  <header class="hero">
+    <div class="container">
+      <h1>Young Training Club Wiki</h1>
+      <p class="hero-subtitle">Tổng quan về Wiki • Trang web thông tin &amp; nội dung hữu ích về CLB Đào Tạo Kỹ Năng Trẻ (YTC) - UNETI</p>
+    </div>
+  </header>
+
+  <!-- BREADCRUMB -->
+  <div class="wiki-backnav">
+    <a href="about.html"><svg class="ico" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg> Quay lại trang Giới thiệu</a>
+    <span class="wiki-current"><svg class="ico" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg> Tổng quan về Wiki</span>
+  </div>
+
+  <!-- 1. TỔNG QUAN VỀ WIKI -->
+  <section class="wiki-section">
+    <div class="container fade-in">
+      <div class="section-header">
+        <h2 class="section-title">Tổng quan về Wiki</h2>
+        <p class="section-desc">Wiki của Young Training Club là gì, được xây dựng bởi ai và hướng đến điều gì</p>
+      </div>
+
+      <div class="intro-showcase">
+        <div class="intro-showcase__img-box">
+          <img src="Image/wiki_poster.png" class="intro-showcase__img" alt="Young Training Club Wiki">
+        </div>
+        <div class="intro-showcase__content">
+          <p class="intro-lead-text">
+            <strong>Young Training Club Wiki</strong> là trang web chứa <strong>thông tin, nội dung hữu ích về CLB Young Training Club</strong> (CLB Đào Tạo Kỹ Năng Trẻ - UNETI), được phát triển bởi <strong>Trần Đặng Bình Minh</strong> - thành viên <strong>Ban Kỹ thuật - Vận hành</strong>. Wiki ghi lại chân thực nhất hình ảnh con người, hoạt động, thành tựu và những câu chuyện của CLB qua từng thế hệ, giúp mọi thành viên - cũ và mới - cùng tìm hiểu, kết nối và tự hào về YTC.
+          </p>
+
+          <div class="intro-highlights">
+            <div class="highlight-box">
+              <div class="highlight-icon"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/><path d="M6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg></div>
+              <div class="highlight-info">
+                <h4>Nền tảng</h4>
+                <p>Trang web wiki chính thức của CLB Young Training Club</p>
+              </div>
+            </div>
+
+            <div class="highlight-box">
+              <div class="highlight-icon"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+              <div class="highlight-info">
+                <h4>Người phát triển</h4>
+                <p>Trần Đặng Bình Minh - Ban <a href="KTVH.html">Kỹ thuật - Vận hành</a></p>
+              </div>
+            </div>
+
+            <div class="highlight-box">
+              <div class="highlight-icon"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+              <div class="highlight-info">
+                <h4>Trực thuộc</h4>
+                <p>CLB Đào Tạo Kỹ Năng Trẻ - UNETI</p>
+              </div>
+            </div>
+
+            <div class="highlight-box">
+              <div class="highlight-icon"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></div>
+              <div class="highlight-info">
+                <h4>Mục đích</h4>
+                <p>Lưu giữ, chia sẻ kiến thức &amp; câu chuyện của các thế hệ YTC-er</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. ĐỘI NGŨ ADMIN -->
+  <section class="wiki-section">
+    <div class="container fade-in">
+      <div class="section-header">
+        <h2 class="section-title">Đội ngũ Admin</h2>
+        <p class="section-desc">Những người trực tiếp quản trị, biên soạn và phát triển nội dung Wiki</p>
+      </div>
+
+      <div class="admin-grid">
+        <a href="Member/TranDangBinhMinh_DHTI18A1CL.html" class="admin-card admin-head fade-in">
+          <div class="admin-avatar-wrap">
+            <img src="Member/Profile/TranDangBinhMinhDHTI18A1CL.jpg" alt="Trần Đặng Bình Minh">
+          </div>
+          <span class="admin-role-badge">Admin trưởng</span>
+          <h3 class="admin-name">Trần Đặng Bình Minh</h3>
+          <p class="admin-class">DHTI18A1CL</p>
+          <span class="admin-dept">Ban Kỹ thuật - Vận hành</span>
+          <span class="admin-card-action">Xem hồ sơ <svg class="ico" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </a>
+
+        <a href="Member/TranVanQuang_DHTI18A1CL.html" class="admin-card fade-in">
+          <div class="admin-avatar-wrap">
+            <img src="Member/Profile/TranVanQuangDHTI18A1CL.jpg" alt="Trần Văn Quang">
+          </div>
+          <span class="admin-role-badge">Admin phó</span>
+          <h3 class="admin-name">Trần Văn Quang</h3>
+          <p class="admin-class">DHTI18A1CL</p>
+          <span class="admin-dept">Ban Truyền thông</span>
+          <span class="admin-card-action">Xem hồ sơ <svg class="ico" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </a>
+
+        <a href="Member/NguyenHongThanh_DHMK18A1HN.html" class="admin-card fade-in">
+          <div class="admin-avatar-wrap">
+            <img src="Member/Profile/NguyenHongThanhDHMK18A1HN.jpg" alt="Nguyễn Hồng Thanh">
+          </div>
+          <span class="admin-role-badge">Admin phó</span>
+          <h3 class="admin-name">Nguyễn Hồng Thanh</h3>
+          <p class="admin-class">DHMK18A1HN</p>
+          <span class="admin-dept">Chủ Nhiệm CLB</span>
+          <span class="admin-card-action">Xem hồ sơ <svg class="ico" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </a>
+      </div>
+
+      <div class="admin-note fade-in">
+        <div class="highlight-icon" style="flex-shrink: 0;"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg></div>
+        <p><strong>Bạn muốn đóng góp nội dung cho Wiki?</strong> Hãy liên hệ với đội ngũ Admin qua các hồ sơ thành viên ở trên. Mọi đóng góp về tư liệu, hình ảnh, câu chuyện của các thế hệ YTC-er đều được trân trọng để Wiki ngày càng đầy đủ hơn.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. CÁC NỘI DUNG TRÊN TRANG WEB -->
+  <section class="wiki-section">
+    <div class="container fade-in">
+      <div class="section-header">
+        <h2 class="section-title">Các nội dung trên trang web</h2>
+        <p class="section-desc">Bản đồ nội dung Wiki - mỗi khu vực là một hành trình khám phá về Young Training Club</p>
+      </div>
+
+      <div class="sitemap-grid">
+        <a href="index.html" class="sitemap-card fade-in">
+          <div class="sitemap-card__header">
+            <div class="sitemap-card__icon"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+            <h3 class="sitemap-card__title">Trang chủ</h3>
+          </div>
+          <span class="sitemap-card__path">index.html</span>
+          <p class="sitemap-card__body">Cổng thông tin tổng hợp của CLB: công bố thành viên thế hệ mới "THE KEY IS YOU", hoạt động chính, kết quả cuộc thi gần đây, sự kiện nổi bật và gương mặt Sinh viên tiêu biểu UNETI.</p>
+          <span class="sitemap-card__more">Xem trang chủ <svg class="ico" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </a>
+
+        <a href="about.html" class="sitemap-card fade-in">
+          <div class="sitemap-card__header">
+            <div class="sitemap-card__icon"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"/></svg></div>
+            <h3 class="sitemap-card__title">Giới thiệu</h3>
+          </div>
+          <span class="sitemap-card__path">about.html</span>
+          <p class="sitemap-card__body">Sứ mệnh &amp; giá trị cốt lõi, lịch sử hình thành từ tiền thân "CLB Yêu Tài Chính" (2012), các phiên bản logo, thành tựu tiêu biểu, tầm nhìn phát triển và mạng lưới liên kết Tổ Đội - CLB.</p>
+          <span class="sitemap-card__more">Xem trang giới thiệu <svg class="ico" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </a>
+
+        <a href="contest_event.html" class="sitemap-card fade-in">
+          <div class="sitemap-card__header">
+            <div class="sitemap-card__icon"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg></div>
+            <h3 class="sitemap-card__title">Cuộc thi &amp; Sự kiện</h3>
+          </div>
+          <span class="sitemap-card__path">contest_event.html</span>
+          <p class="sitemap-card__body">Chuỗi cuộc thi Podcast &amp; Phim ngắn, cuộc thi MC - Giọng nói toàn trường và dấu ấn YTC tại các cuộc thi Đoàn - Hội &amp; ngoài trường; kèm công cụ tìm kiếm và bộ lọc danh mục tiện lợi.</p>
+          <span class="sitemap-card__more">Xem các cuộc thi <svg class="ico" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </a>
+
+        <a href="news.html" class="sitemap-card fade-in">
+          <div class="sitemap-card__header">
+            <div class="sitemap-card__icon"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8"/><path d="M15 18h-5"/><path d="M10 6h8v4h-8V6Z"/></svg></div>
+            <h3 class="sitemap-card__title">Nhật ký hoạt động</h3>
+          </div>
+          <span class="sitemap-card__path">news.html</span>
+          <p class="sitemap-card__body">Nhật ký hoạt động YTC: dã ngoại - teambuilding, sinh nhật CLB qua các dấu mốc tuổi, các chương trình - sự kiện và những khoảnh khắc đáng nhớ của các thế hệ YTC-er.</p>
+          <span class="sitemap-card__more">Xem nhật ký <svg class="ico" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </a>
+
+        <div class="sitemap-card fade-in">
+          <div class="sitemap-card__header">
+            <div class="sitemap-card__icon"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+            <h3 class="sitemap-card__title">Thành viên</h3>
+          </div>
+          <span class="sitemap-card__path">member.html</span>
+          <p class="sitemap-card__body">Cơ cấu tổ chức &amp; thành viên qua các thế hệ: Ban Thường trực Chủ nhiệm và 4 Ban Chuyên Môn, cùng giáo viên hướng dẫn đồng hành cùng CLB.</p>
+          <div class="sitemap-card__sub">
+            <strong>Trang Ban chuyên môn:</strong> <a href="ChuNhiem.html">Chủ nhiệm</a> • <a href="NSHC.html">Nhân sự - Hậu cần</a> • <a href="MCLT.html">MC - Lễ tân</a> • <a href="KTVH.html">Kỹ thuật - Vận hành</a> • <a href="TT.html">Truyền thông</a><br>
+            <strong>Hồ sơ cá nhân:</strong> mỗi thành viên có trang profile riêng với thông tin, kỹ năng, hành trình, thành tựu, huy hiệu và khoảnh khắc.
+          </div>
+          <a class="sitemap-card__more" href="member.html">Xem thành viên <svg class="ico" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></a>
+        </div>
+
+        <a href="joinus.html" class="sitemap-card fade-in">
+          <div class="sitemap-card__header">
+            <div class="sitemap-card__icon"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg></div>
+            <h3 class="sitemap-card__title">Tham gia</h3>
+          </div>
+          <span class="sitemap-card__path">joinus.html</span>
+          <p class="sitemap-card__body">Tất tần tật về đợt tuyển thành viên mới nhất "THE KEY IS YOU - Gen 15.1": timeline từ mở đơn đến công bố kết quả, giới thiệu 4 Ban Chuyên Môn để bạn tìm đúng hướng đi, cùng mục Q&amp;A giải đáp mọi thắc mắc trên hành trình trở thành YTC-er chính thức.</p>
+          <span class="sitemap-card__more">Xem thông tin tuyển thành viên <svg class="ico" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. HỆ THỐNG HUY HIỆU (BADGE) -->
+  <section class="wiki-section">
+    <div class="container fade-in">
+      <div class="section-header">
+        <h2 class="section-title">Hệ thống huy hiệu thành viên</h2>
+        <p class="section-desc">Các huy hiệu (badge) ghi nhận đóng góp, thành tích và dấu ấn cá nhân - hiển thị ngay đầu trang hồ sơ của mỗi thành viên</p>
+      </div>
+
+      <div class="badge-grid">
+        <div class="badge-card fade-in">
+          <span class="badge-chip badge-chip--gold">ALL IN YTC</span>
+          <h3 class="badge-card__name">ALL IN YTC</h3>
+          <p class="badge-card__desc">Thành viên đam mê gắn bó với YTC lâu dài.</p>
+        </div>
+
+        <div class="badge-card fade-in">
+          <span class="badge-chip badge-chip--blue">Sinh viên tiêu biểu</span>
+          <h3 class="badge-card__name">Sinh viên tiêu biểu</h3>
+          <p class="badge-card__desc">Thành viên được nhà trường vinh danh Sinh viên tiêu biểu UNETI.</p>
+        </div>
+
+        <div class="badge-card fade-in">
+          <span class="badge-chip badge-chip--cyan">Thầy cô phụ trách</span>
+          <h3 class="badge-card__name">Thầy cô phụ trách</h3>
+          <p class="badge-card__desc">Thầy cô đang giữ các chức vụ trong nhà trường phụ trách và hỗ trợ CLB.</p>
+        </div>
+
+        <div class="badge-card fade-in">
+          <span class="badge-chip badge-chip--purple">MC của UNETI</span>
+          <h3 class="badge-card__name">MC của UNETI</h3>
+          <p class="badge-card__desc">Gương mặt dẫn các chương trình của UNETI.</p>
+        </div>
+
+        <div class="badge-card fade-in">
+          <span class="badge-chip badge-chip--purple">Đối tác</span>
+          <h3 class="badge-card__name">Đối tác</h3>
+          <p class="badge-card__desc">Thành viên YTC là đối tác, đồng hành của các doanh nghiệp.</p>
+        </div>
+
+        <div class="badge-card fade-in">
+          <span class="badge-chip badge-chip--orange">Nét đẹp văn nghệ</span>
+          <h3 class="badge-card__name">Nét đẹp văn nghệ</h3>
+          <p class="badge-card__desc">Thành viên góp mặt trong các tiết mục văn nghệ có màn trình diễn xuất sắc.</p>
+        </div>
+      </div>
+
+      <div class="badge-note fade-in">
+        <div class="highlight-icon" style="flex-shrink: 0;"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5.5"/><path d="M8.6 10.7 5.5 3h4.2L12 8l2.3-5h4.2l-3.1 7.7"/><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/></svg></div>
+        <p><strong>Huy hiệu được gán cho thành viên nào?</strong> Hãy ghé thăm <a href="member.html">trang Thành viên</a> và mở trang hồ sơ cá nhân của từng YTC-er - các huy hiệu hiển thị ngay đầu trang hồ sơ, cạnh chức vụ hiện tại của thành viên.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div id="footer-placeholder"></div>
+  </footer>
+
+  <script src="Asset/script.js"></script>
+</body>
+</html>

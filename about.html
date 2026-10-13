@@ -787,10 +787,52 @@
         height: 40px;
       }
     }
+
+    /* ===== BREADCRUMB / BACK NAV ===== */
+    .wiki-backnav {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 14px 16px 0;
+    }
+
+    .wiki-backnav a,
+    .wiki-backnav span {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.86rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-decoration: none;
+      background: #ffffff;
+      border: 1.5px solid rgba(161, 227, 255, 0.5);
+      border-radius: 20px;
+      padding: 6px 14px;
+      transition: all 0.25s ease;
+    }
+
+    .wiki-backnav a:hover {
+      color: var(--blue-accent);
+      border-color: var(--blue-accent);
+      background: #f0f8ff;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(9, 131, 254, 0.2);
+    }
+
+    .wiki-backnav span.wiki-current {
+      color: var(--blue-main);
+      background: linear-gradient(135deg, #e0f2fe, #bae6fd);
+      border-color: rgba(9, 131, 254, 0.35);
+    }
+
   </style>
 </head>
 <body>
   <div id="nav-placeholder"></div>
+
 
   <!-- HERO HEADER -->
   <header class="hero">
@@ -799,6 +841,14 @@
       <p class="hero-subtitle">Young Training Club (YTC) • Trường Đại học Kinh tế - Kỹ thuật Công Nghiệp (UNETI)</p>
     </div>
   </header>
+
+  <!-- QUICK NAV -->
+  <div class="wiki-backnav">
+    <a href="wiki.html" class="about-nav-btn about-nav-btn--wiki">
+      <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+      Tổng quan về wiki
+    </a>
+  </div>
 
   <!-- 1. GIỚI THIỆU CHUNG -->
   <section class="about-section">

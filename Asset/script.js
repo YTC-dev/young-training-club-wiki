@@ -57,7 +57,14 @@ const navHTML = `
 
     <ul class="nav-links">
       <li><a href="${BASE}/index.html">Trang chủ</a></li>
-      <li><a href="${BASE}/about.html">Giới thiệu</a></li>
+      <li class="has-dropdown">
+        <a href="${BASE}/about.html">Giới thiệu</a>
+        <button type="button" class="dropdown-toggle" aria-label="Mở menu Giới thiệu" aria-expanded="false"></button>
+        <ul class="dropdown">
+          <li><a href="${BASE}/about.html">Tổng quan về CLB</a></li>
+          <li><a href="${BASE}/wiki.html">Tổng quan về Wiki</a></li>
+        </ul>
+      </li>
       <li class="has-dropdown">
         <a href="${BASE}/contest_event.html">Cuộc thi</a>
         <button type="button" class="dropdown-toggle" aria-label="Mở menu Cuộc thi" aria-expanded="false"></button>
@@ -148,14 +155,14 @@ const footerHTML = `
               <span>@ytc.uneti</span>
             </div>
           </a>
-          <a href="https://www.tiktok.com/@letanytc.uneti" target="_blank" rel="noopener" class="footer-social-item" title="TikTok Lễ Tân YTC">
-            <img src="${BASE}/Image/Tiktok.png" class="social-icon" alt="TikTok Lễ Tân">
+          <a href="https://www.tiktok.com/@letanytc.uneti" target="_blank" rel="noopener" class="footer-social-item" title="TikTok MC - Lễ Tân YTC">
+            <img src="${BASE}/Image/Tiktok.png" class="social-icon" alt="TikTok MC - Lễ Tân">
             <div class="social-info">
-              <strong>TikTok Lễ Tân YTC</strong>
+              <strong>TikTok MC - Lễ Tân YTC</strong>
               <span>@letanytc.uneti</span>
             </div>
           </a>
-          <a href="https://www.tiktok.com/@tr.ytc5" target="_blank" rel="noopener" class="footer-social-item" title="TikTok Lễ Tân YTC">
+          <a href="https://www.tiktok.com/@tr.ytc5" target="_blank" rel="noopener" class="footer-social-item" title="TikTok Trẻ YTC">
             <img src="${BASE}/Image/Tiktok.png" class="social-icon" alt="TikTok Trẻ YTC">
             <div class="social-info">
               <strong>TikTok Trẻ YTC</strong>

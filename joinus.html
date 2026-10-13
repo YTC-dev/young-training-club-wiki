@@ -417,6 +417,87 @@
       margin: 0 auto 20px;
     }
 
+    /* ===== Q&A - CÂU HỎI THƯỜNG GẶP ===== */
+    .qa-list {
+      max-width: 820px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .qa-item {
+      background: rgba(255, 255, 255, 0.92);
+      border: 1px solid rgba(9, 131, 254, 0.18);
+      border-radius: 16px;
+      box-shadow: 0 6px 18px rgba(44, 59, 144, 0.05);
+      overflow: hidden;
+      transition: border-color 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .qa-item[open] {
+      border-color: rgba(9, 131, 254, 0.45);
+      box-shadow: 0 10px 26px rgba(9, 131, 254, 0.12);
+    }
+
+    .qa-question {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 15px 18px;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--blue-dark);
+      list-style: none;
+      user-select: none;
+      transition: color 0.25s ease;
+    }
+
+    .qa-question::-webkit-details-marker { display: none; }
+
+    .qa-item[open] > .qa-question { color: var(--blue-accent); }
+
+    .qa-icon {
+      flex-shrink: 0;
+      width: 26px;
+      height: 26px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: #e0f2fe;
+      color: var(--blue-accent);
+      transition: transform 0.3s ease, background 0.3s ease, color 0.3s ease;
+    }
+
+    .qa-item[open] .qa-icon {
+      transform: rotate(45deg);
+      background: linear-gradient(135deg, var(--blue-accent), var(--blue-main));
+      color: #ffffff;
+    }
+
+    .qa-answer {
+      padding: 0 18px 16px;
+      font-size: 0.94rem;
+      line-height: 1.7;
+      color: var(--text-main);
+      animation: qa-fade 0.3s ease;
+    }
+
+    .qa-answer b { color: var(--blue-dark); }
+
+    @keyframes qa-fade {
+      from { opacity: 0; transform: translateY(-4px); }
+      to   { opacity: 1; transform: none; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .qa-icon { transition: none; }
+      .qa-answer { animation: none; }
+    }
+
     /* Mobile Responsive */
     @media (max-width: 860px) {
       .role-grid {
@@ -452,6 +533,13 @@
       }
       .department-card__body {
         padding: 16px;
+      }
+      .qa-question {
+        padding: 13px 14px;
+        font-size: 0.95rem;
+      }
+      .qa-answer {
+        padding: 0 14px 14px;
       }
     }
   </style>
@@ -547,6 +635,60 @@
             <p>Thông báo danh sách thành viên được tuyển chọn và chào đón các bạn gia nhập YTC.</p>
           </div>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 1.7. Q&A - CÂU HỎI THƯỜNG GẶP -->
+  <section class="joinus-section">
+    <div class="container fade-in">
+      <div class="section-header">
+        <h2 class="section-title">Câu hỏi thường gặp (Q&amp;A)</h2>
+        <p class="section-desc">Giải đáp nhanh những thắc mắc thường gặp của các bạn sinh viên trên hành trình ứng tuyển và trở thành YTC-er.</p>
+      </div>
+
+      <div class="qa-list">
+        <details class="qa-item" open>
+          <summary class="qa-question">Ai có thể ứng tuyển vào YTC?
+            <span class="qa-icon"><svg class="ico" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+          </summary>
+          <p class="qa-answer">Tất cả sinh viên UNETI đều có thể ứng tuyển, không giới hạn năm học hay ngành đào tạo. Chỉ cần bạn có <b>tinh thần học hỏi</b>, mong muốn rèn luyện kỹ năng mềm và sẵn sàng đồng hành cùng các hoạt động của CLB.</p>
+        </details>
+
+        <details class="qa-item">
+          <summary class="qa-question">Mình cần có kinh nghiệm (MC, kỹ thuật, truyền thông...) trước không?
+            <span class="qa-icon"><svg class="ico" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+          </summary>
+          <p class="qa-answer">Hoàn toàn không cần! YTC luôn chào đón các bạn <b>bắt đầu từ con số 0</b>. Sau khi trở thành thành viên chính thức, bạn sẽ được các anh chị đi trước và bạn bè cùng ban kèm cặp, hướng dẫn từ những điều cơ bản nhất.</p>
+        </details>
+
+        <details class="qa-item">
+          <summary class="qa-question">Quy trình tuyển thành viên gồm những bước nào?
+            <span class="qa-icon"><svg class="ico" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+          </summary>
+          <p class="qa-answer">Chỉ gồm 3 bước: <b>điền đơn ứng tuyển online → tham gia phỏng vấn trực tiếp → nhận kết quả công bố</b> trên Fanpage chính thức của CLB. Bạn có thể xem lại các mốc thời gian của đợt tuyển gần nhất ở mục "Timeline tuyển thành viên" phía trên.</p>
+        </details>
+
+        <details class="qa-item">
+          <summary class="qa-question">Ứng viên có được tự chọn Ban Chuyên Môn không?
+            <span class="qa-icon"><svg class="ico" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+          </summary>
+          <p class="qa-answer">Có! Khi điền đơn, bạn sẽ ghi nguyện vọng vào ban mình yêu thích. Buổi phỏng vấn cũng là dịp để hội đồng lắng nghe và tư vấn <b>ban phù hợp nhất với tính cách, thế mạnh</b> của từng bạn. Hãy tham khảo mục "Giới thiệu các Ban Chuyên Môn" bên dưới để chọn cho riêng mình một điểm đến ưng ý.</p>
+        </details>
+
+        <details class="qa-item">
+          <summary class="qa-question">YTC tuyển thành viên vào thời điểm nào trong năm?
+            <span class="qa-icon"><svg class="ico" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+          </summary>
+          <p class="qa-answer">YTC thường mở đợt tuyển thành viên lớn vào <b>đầu mỗi năm học</b>. Đợt tuyển gần nhất - "THE KEY IS YOU - Gen 15.1" - đã khép lại bằng buổi công bố thành viên mới. Hẹn gặp lại các bạn ở đợt đăng ký tiếp theo, nhớ theo dõi Fanpage của CLB để không bỏ lỡ thông tin mở đơn nhé!</p>
+        </details>
+
+        <details class="qa-item">
+          <summary class="qa-question">Tham gia YTC, mình nhận được gì?
+            <span class="qa-icon"><svg class="ico" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+          </summary>
+          <p class="qa-answer">Một môi trường <b>rèn luyện kỹ năng mềm thực chiến</b> (giao tiếp, làm việc nhóm, tổ chức sự kiện...), cơ hội trải nghiệm các vai trò cùng 4 Ban Chuyên Môn, những người bạn đồng hành trên khắp các khoa và vô vàn khoảnh khắc thanh xuân đáng nhớ trong quãng đời sinh viên.</p>
+        </details>
       </div>
     </div>
   </section>
@@ -666,8 +808,8 @@
       <!-- CTA CARD -->
       <div class="register-card fade-in">
         <h3>Sẵn sàng trở thành một phần của YTC?</h3>
-        <p>Đừng ngần ngại đăng ký ngay hôm nay để không bỏ lỡ cơ hội khám phá bản thân và cùng YTC tạo nên những kỷ niệm thời thanh xuân rực rỡ nhất!</p>
-        <p><b>Hẹn các bạn vào đợt đăng ký tiếp theo của Young Training Club!</b></p>
+        <p>Đợt tuyển "THE KEY IS YOU - Gen 15.1" đã khép lại với hàng loạt gương mặt mới rực rỡ. Hẹn gặp lại các bạn ở đợt đăng ký tiếp theo - hãy chuẩn bị sẵn sàng, vì chiếc chìa khóa tiếp theo rất có thể chính là bạn!</p>
+        <p><b>Theo dõi Fanpage của Young Training Club để cập nhật thông tin tuyển thành viên mới nhất!</b></p>
       </div>
 
     </div>
