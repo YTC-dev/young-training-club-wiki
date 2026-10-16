@@ -61,7 +61,6 @@ const navHTML = `
         <a href="${BASE}/about.html">Giới thiệu</a>
         <button type="button" class="dropdown-toggle" aria-label="Mở menu Giới thiệu" aria-expanded="false"></button>
         <ul class="dropdown">
-          <li><a href="${BASE}/about.html">Tổng quan về CLB</a></li>
           <li><a href="${BASE}/wiki.html">Tổng quan về Wiki</a></li>
         </ul>
       </li>
@@ -74,7 +73,13 @@ const navHTML = `
           <li><a href="${BASE}/contest_event.html#others-section">Các cuộc thi khác</a></li>
         </ul>
       </li>
-      <li><a href="${BASE}/news.html">Hoạt động</a></li>
+      <li class="has-dropdown">
+      <a href="${BASE}/news.html">Hoạt động</a>
+      <button type="button" class="dropdown-toggle" aria-label="Mở menu Hoạt động" aria-expanded="false"></button>
+        <ul class="dropdown">
+          <li><a href="${BASE}/GocVangVinhDanh.html">Góc vàng vinh danh</a></li>
+        </ul>
+      </li>
       <li class="has-dropdown">
         <a href="${BASE}/member.html">Thành viên</a>
         <button type="button" class="dropdown-toggle" aria-label="Mở menu Thành viên" aria-expanded="false"></button>
