@@ -115,8 +115,9 @@
       font-size: 0.95rem;
     }
 
-    /* Nút xem profile trong gallery caption */
-    .gallery-caption-btn {
+    /* Đường dẫn xem profile trong gallery caption */
+    .gallery-caption-btn,
+    .gallery-caption-btn:visited {
       position: absolute;
       left: 0;
       right: 0;
@@ -137,6 +138,7 @@
       align-items: flex-end;
       justify-content: space-between;
       gap: 8px;
+      text-decoration: none;
       transition: background 0.25s ease, color 0.25s ease;
     }
 
@@ -158,142 +160,7 @@
       border-radius: 12px;
       white-space: nowrap;
       flex-shrink: 0;
-    }
-
-    /* Modal xem Profile trực tiếp */
-    .profile-modal-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(4, 0, 107, 0.65);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      z-index: 99999;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 16px;
-      opacity: 0;
-      visibility: hidden;
-      transition: opacity 0.3s ease, visibility 0.3s ease;
-    }
-
-    .profile-modal-overlay.active {
-      opacity: 1;
-      visibility: visible;
-    }
-
-    .profile-modal-container {
-      background: #ffffff;
-      width: 100%;
-      max-width: 950px;
-      height: 90vh;
-      max-height: 850px;
-      border-radius: 20px;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-      transform: scale(0.94) translateY(15px);
-      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-      border: 2px solid rgba(212, 160, 23, 0.4);
-    }
-
-    .profile-modal-overlay.active .profile-modal-container {
-      transform: scale(1) translateY(0);
-    }
-
-    .profile-modal-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 14px 20px;
-      background: linear-gradient(135deg, #04006b, #1a2a80);
-      color: #ffffff;
-      border-bottom: 2px solid rgba(212, 160, 23, 0.5);
-    }
-
-    .profile-modal-title {
-      font-size: 1rem;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      color: #ffe066;
-    }
-
-    .profile-modal-actions {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .profile-modal-btn {
-      background: rgba(255, 255, 255, 0.15);
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      color: #ffffff;
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
       text-decoration: none;
-      transition: background 0.2s, transform 0.2s;
-    }
-
-    .profile-modal-btn:hover {
-      background: rgba(255, 255, 255, 0.3);
-      transform: scale(1.08);
-      color: #ffe066;
-    }
-
-    .profile-modal-btn.close-btn {
-      font-size: 18px;
-      line-height: 1;
-    }
-
-    .profile-modal-body {
-      flex: 1;
-      width: 100%;
-      height: 100%;
-      position: relative;
-      background: #f8fafc;
-    }
-
-    .profile-modal-body iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-      display: block;
-    }
-
-    .profile-modal-loading {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      background: #ffffff;
-      color: #0983fe;
-      font-weight: 600;
-      z-index: 1;
-      transition: opacity 0.2s ease;
-    }
-
-    .profile-modal-spinner {
-      width: 38px;
-      height: 38px;
-      border: 3.5px solid #e0f2fe;
-      border-top-color: #0983fe;
-      border-radius: 50%;
-      animation: spin 0.8s linear infinite;
-    }
-
-    @keyframes spin {
-      to { transform: rotate(360deg); }
     }
 
     /* Tùy chỉnh caption khi phóng to ảnh (Lightbox) */
@@ -306,7 +173,8 @@
       margin-top: 10px;
     }
 
-    .lightbox-profile-btn {
+    .lightbox-profile-btn,
+    .lightbox-profile-btn:visited {
       display: inline-flex;
       align-items: center;
       gap: 6px;
@@ -321,12 +189,14 @@
       cursor: pointer;
       box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
       transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+      text-decoration: none;
     }
 
     .lightbox-profile-btn:hover {
       transform: translateY(-2px) scale(1.05);
       filter: brightness(1.1);
       box-shadow: 0 6px 18px rgba(245, 158, 11, 0.5);
+      color: #04006b;
     }
 
     .lightbox-profile-btn svg {
@@ -416,34 +286,123 @@
             </div> -->
             <div class="gallery-item">
               <img src="Event/VinhDanh/NguyenHongThanhDHMK18A1HN.jpg" alt="Nguyễn Hồng Thanh">
-              <button type="button" class="gallery-caption gallery-caption-btn" data-profile="Member/NguyenHongThanh_DHMK18A1HN.html" data-name="Nguyễn Hồng Thanh">
+              <a href="Member/NguyenHongThanh_DHMK18A1HN.html" target="_blank" rel="noopener noreferrer" class="gallery-caption gallery-caption-btn" onclick="event.stopPropagation()">
                 <span>Nguyễn Hồng Thanh (DHMK18A1HN) — Chủ nhiệm</span>
                 <span class="view-profile-hint">
                   <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
                   Xem Profile
                 </span>
-              </button>
+              </a>
             </div>
             <div class="gallery-item">
               <img src="Event/VinhDanh/NguyenThanhLanDHLQ17A1HN.jpg" alt="Nguyễn Thanh Lan">
-              <button type="button" class="gallery-caption gallery-caption-btn" data-profile="Member/NguyenThanhLan_DHLQ17A1HN.html" data-name="Nguyễn Thanh Lan">
+              <a href="Member/NguyenThanhLan_DHLQ17A1HN.html" target="_blank" rel="noopener noreferrer" class="gallery-caption gallery-caption-btn" onclick="event.stopPropagation()">
                 <span>Nguyễn Thanh Lan (DHLQ17A1HN) — Phó chủ nhiệm</span>
                 <span class="view-profile-hint">
                   <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
                   Xem Profile
                 </span>
-              </button>
+              </a>
             </div>
             <div class="gallery-item">
-              <img src="Event/VinhDanh/LeHuyenDoanTrangDHLQ18A3HN.jpg" alt="Lê Huyền Đoan Trang
-              ">
-              <button type="button" class="gallery-caption gallery-caption-btn" data-profile="Member/LeHuyenDoanTrang_DHLQ18A3HN.html" data-name="Lê Huyền Đoan Trang">
+              <img src="Event/VinhDanh/LeHuyenDoanTrangDHLQ18A3HN.jpg" alt="Lê Huyền Đoan Trang">
+              <a href="Member/LeHuyenDoanTrang_DHLQ18A3HN.html" target="_blank" rel="noopener noreferrer" class="gallery-caption gallery-caption-btn" onclick="event.stopPropagation()">
                 <span>Lê Huyền Đoan Trang (DHLQ18A3HN) — Phó chủ nhiệm</span>
                 <span class="view-profile-hint">
                   <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
                   Xem Profile
                 </span>
-              </button>
+              </a>
+            </div>
+            <div class="gallery-item">
+              <img src="Event/VinhDanh/BuiQuangMinhDHDT19A3HN.JPG" alt="Bùi Quang Minh">
+              <a href="Member/BuiQuangMinh_DHDT19A3HN.html" target="_blank" rel="noopener noreferrer" class="gallery-caption gallery-caption-btn" onclick="event.stopPropagation()">
+                <span>Bùi Quang Minh (DHDT19A3HN) — Trưởng ban Nhân sự - Hậu cần</span>
+                <span class="view-profile-hint">
+                  <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                  Xem Profile
+                </span>
+              </a>
+            </div>
+            <div class="gallery-item">
+              <img src="Event/VinhDanh/DaoThiThuHangDHMA19A3HN.png" alt="Đào Thị Thu Hằng">
+              <a href="Member/DaoThiThuHang_DHMA19A3HN.html" target="_blank" rel="noopener noreferrer" class="gallery-caption gallery-caption-btn" onclick="event.stopPropagation()">
+                <span>Đào Thị Thu Hằng (DHMA19A3HN) — Phó ban Nhân sự - Hậu cần</span>
+                <span class="view-profile-hint">
+                  <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                  Xem Profile
+                </span>
+              </a>
+            </div>
+            <div class="gallery-item">
+              <img src="Event/VinhDanh/ToThuTrangDHTN19A3HN.jpg" alt="Tô Thu Trang">
+              <a href="Member/ToThuTrang_DHTN19A3HN.html" target="_blank" rel="noopener noreferrer" class="gallery-caption gallery-caption-btn" onclick="event.stopPropagation()">
+                <span>Tô Thu Trang (DHTN19A3HN) — Trưởng ban MC - Lễ tân</span>
+                <span class="view-profile-hint">
+                  <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                  Xem Profile
+                </span>
+              </a>
+            </div>
+            <div class="gallery-item">
+              <img src="Event/VinhDanh/NguyenMinhAnhDHQT19A1HN.png" alt="Nguyễn Minh Ánh">
+              <a href="Member/NguyenMinhAnh_DHQT19A1HN.html" target="_blank" rel="noopener noreferrer" class="gallery-caption gallery-caption-btn" onclick="event.stopPropagation()">
+                <span>Nguyễn Minh Ánh (DHQT19A1HN) — Phó ban MC - Lễ tân</span>
+                <span class="view-profile-hint">
+                  <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                  Xem Profile
+                </span>
+              </a>
+            </div>
+            <div class="gallery-item">
+              <img src="Event/VinhDanh/DangThiPhuongLinhDHTM19A1CL.jpg" alt="Đặng Thị Phương Linh">
+              <a href="Member/DangThiPhuongLinh_DHTM19A1CL.html" target="_blank" rel="noopener noreferrer" class="gallery-caption gallery-caption-btn" onclick="event.stopPropagation()">
+                <span>Đặng Thị Phương Linh (DHTM19A1CL) — Trưởng ban Kỹ thuật - Vận hành</span>
+                <span class="view-profile-hint">
+                  <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                  Xem Profile
+                </span>
+              </a>
+            </div>
+            <div class="gallery-item">
+              <img src="Event/VinhDanh/VuXuanNhatMinhDHMK18A1HN.jpg" alt="Vũ Xuân Nhật Minh">
+              <a href="Member/VuXuanNhatMinh_DHMK18A1HN.html" target="_blank" rel="noopener noreferrer" class="gallery-caption gallery-caption-btn" onclick="event.stopPropagation()">
+                <span>Vũ Xuân Nhật Minh (DHMK18A1HN) — Trưởng ban Truyền thông</span>
+                <span class="view-profile-hint">
+                  <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                  Xem Profile
+                </span>
+              </a>
+            </div>
+            <div class="gallery-item">
+              <img src="Event/VinhDanh/NguyenPhuongAnhDHTM18A2HN.png" alt="Nguyễn Phương Anh">
+              <a href="Member/NguyenPhuongAnh_DHTM18A2HN.html" target="_blank" rel="noopener noreferrer" class="gallery-caption gallery-caption-btn" onclick="event.stopPropagation()">
+                <span>Nguyễn Phương Anh (DHTM18A2HN) — Phó ban Truyền thông</span>
+                <span class="view-profile-hint">
+                  <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                  Xem Profile
+                </span>
+              </a>
+            </div>
+            <div class="gallery-item">
+              <img src="Event/VinhDanh/HoangThiHaLinhDHKT19A1HN.png" alt="Hoàng Thị Hà Linh">
+              <a href="Member/HoangThiHaLinh_DHKT19A1HN.html" target="_blank" rel="noopener noreferrer" class="gallery-caption gallery-caption-btn" onclick="event.stopPropagation()">
+                <span>Hoàng Thị Hà Linh (DHKT19A1HN) — Phó ban Truyền thông</span>
+                <span class="view-profile-hint">
+                  <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                  Xem Profile
+                </span>
+              </a>
+            </div>
+            <div class="gallery-item">
+              <img src="Event/VinhDanh/TranDangBinhMinhDHTI18A1CL.png" alt="Trần Đặng Bình Minh">
+              <a href="Member/TranDangBinhMinh_DHTI18A1CL.html" target="_blank" rel="noopener noreferrer" class="gallery-caption gallery-caption-btn" onclick="event.stopPropagation()">
+                <span>Trần Đặng Bình Minh (DHTI18A1CL) — Trưởng Admin Wiki</span>
+                <span class="view-profile-hint">
+                  <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                  Xem Profile
+                </span>
+              </a>
             </div>
             <div class="gallery-item">
               <div class="gallery-placeholder">
@@ -487,31 +446,6 @@
     </div>
   </section>
 
-  <!-- MODAL XEM PROFILE TRỰC TIẾP -->
-  <div class="profile-modal-overlay" id="profileModal" role="dialog" aria-modal="true" aria-label="Hồ sơ thành viên">
-    <div class="profile-modal-container" onclick="event.stopPropagation()">
-      <div class="profile-modal-header">
-        <div class="profile-modal-title">
-          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-          <span id="profileModalName">Hồ sơ thành viên</span>
-        </div>
-        <div class="profile-modal-actions">
-          <a href="#" id="profileModalExternalLink" target="_blank" class="profile-modal-btn" title="Mở trong tab mới" aria-label="Mở trong tab mới">
-            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-          </a>
-          <button type="button" class="profile-modal-btn close-btn" id="profileModalClose" title="Đóng" aria-label="Đóng">&#x2715;</button>
-        </div>
-      </div>
-      <div class="profile-modal-body">
-        <div class="profile-modal-loading" id="profileModalLoading">
-          <div class="profile-modal-spinner"></div>
-          <span>Đang tải thông tin thành viên...</span>
-        </div>
-        <iframe id="profileModalFrame" src="about:blank" title="Thông tin thành viên"></iframe>
-      </div>
-    </div>
-  </div>
-
   <!-- FOOTER -->
   <footer>
     <div id="footer-placeholder"></div>
@@ -521,59 +455,13 @@
   <script src="Contest/script_contest.js"></script>
   <script>
     (function() {
-      const modal = document.getElementById('profileModal');
-      const frame = document.getElementById('profileModalFrame');
-      const nameEl = document.getElementById('profileModalName');
-      const extLink = document.getElementById('profileModalExternalLink');
-      const closeBtn = document.getElementById('profileModalClose');
-      const loading = document.getElementById('profileModalLoading');
-
-      function openProfile(url, name) {
-        if (!url) return;
-        nameEl.textContent = name || 'Hồ sơ thành viên';
-        extLink.href = url;
-        loading.style.opacity = '1';
-        loading.style.display = 'flex';
-        frame.src = url;
-
-        frame.onload = function() {
-          loading.style.opacity = '0';
-          setTimeout(function() { loading.style.display = 'none'; }, 200);
-        };
-
-        modal.classList.add('active');
-        document.body.style.overflow = 'hidden';
-      }
-
-      function closeProfile() {
-        modal.classList.remove('active');
-        document.body.style.overflow = '';
-        setTimeout(function() {
-          frame.src = 'about:blank';
-        }, 300);
-      }
-
+      // Ngăn mở lightbox khi bấm trực tiếp vào đường dẫn profile ở caption
       document.addEventListener('click', function(e) {
-        const btn = e.target.closest('[data-profile]');
-        if (btn) {
-          e.preventDefault();
+        const link = e.target.closest('.gallery-caption-btn');
+        if (link) {
           e.stopPropagation();
-          const profileUrl = btn.getAttribute('data-profile');
-          const profileName = btn.getAttribute('data-name') || btn.textContent.trim();
-          openProfile(profileUrl, profileName);
         }
-      });
-
-      closeBtn.addEventListener('click', closeProfile);
-      modal.addEventListener('click', function(e) {
-        if (e.target === modal) closeProfile();
-      });
-
-      document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && modal.classList.contains('active')) {
-          closeProfile();
-        }
-      });
+      }, true);
 
       // Theo dõi và tùy biến caption trong lightbox phóng to ảnh
       const lbCaption = document.getElementById('lightboxCaption');
@@ -584,26 +472,25 @@
 
           // Tìm gallery-item có ảnh trùng với lightboxImg
           const items = document.querySelectorAll('.gallery-item');
-          let matchedBtn = null;
+          let matchedLink = null;
           items.forEach(function(item) {
             const img = item.querySelector('img');
             if (img && (img.currentSrc === lbImg.src || img.src === lbImg.src)) {
-              matchedBtn = item.querySelector('[data-profile]');
+              matchedLink = item.querySelector('.gallery-caption-btn');
             }
           });
 
-          if (matchedBtn) {
-            const profileUrl = matchedBtn.getAttribute('data-profile');
-            const profileName = matchedBtn.getAttribute('data-name') || '';
-            const captionSpan = matchedBtn.querySelector('span');
-            const captionText = captionSpan ? captionSpan.textContent.trim() : matchedBtn.textContent.trim();
+          if (matchedLink) {
+            const profileUrl = matchedLink.getAttribute('href');
+            const captionSpan = matchedLink.querySelector('span');
+            const captionText = captionSpan ? captionSpan.textContent.trim() : matchedLink.textContent.trim();
 
             lbCaption.innerHTML = `
               <span class="lightbox-caption-text">${captionText}</span>
-              <button type="button" class="lightbox-profile-btn" data-profile="${profileUrl}" data-name="${profileName}">
+              <a href="${profileUrl}" target="_blank" rel="noopener noreferrer" class="lightbox-profile-btn" onclick="event.stopPropagation()">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
                 Xem Profile
-              </button>
+              </a>
             `;
           }
         };
