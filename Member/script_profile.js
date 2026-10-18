@@ -449,3 +449,61 @@ function initBlueBadgeAnimation() {
     });
   });
 }
+
+function initJadeAchievementDialog() {
+  const badges = document.querySelectorAll('.profile-hero .jade-badge');
+  if (!badges.length) return;
+
+  const dialog = document.createElement('dialog');
+  dialog.className = 'jade-achievement-dialog';
+  dialog.id = 'jade-achievement-dialog';
+  dialog.setAttribute('aria-labelledby', 'jade-achievement-title');
+  dialog.innerHTML = `
+    <div class="jade-achievement-dialog__content">
+      <p class="jade-achievement-dialog__eyebrow">Thành tựu ẩn</p>
+      <h2 id="jade-achievement-title"></h2>
+      <p class="jade-achievement-dialog__description"></p>
+      <button class="jade-achievement-dialog__close" type="button">Đóng</button>
+    </div>
+  `;
+  document.body.appendChild(dialog);
+
+  if (typeof dialog.showModal !== 'function') {
+    throw new Error('Trình duyệt không hỗ trợ hộp thoại thành tựu Jade.');
+  }
+
+  const title = dialog.querySelector('#jade-achievement-title');
+  const description = dialog.querySelector('.jade-achievement-dialog__description');
+  const closeButton = dialog.querySelector('.jade-achievement-dialog__close');
+
+  badges.forEach(badge => {
+    if (badge.tagName !== 'BUTTON') {
+      badge.setAttribute('role', 'button');
+      badge.tabIndex = 0;
+    }
+    badge.setAttribute('aria-haspopup', 'dialog');
+    badge.setAttribute('aria-controls', dialog.id);
+
+    const openDialog = () => {
+      title.textContent = badge.dataset.achievementTitle || badge.textContent.trim();
+      description.textContent = badge.dataset.achievementDescription || 'Thông tin thành tựu đang được cập nhật.';
+      dialog.showModal();
+    };
+
+    badge.addEventListener('click', openDialog);
+    if (badge.tagName !== 'BUTTON') {
+      badge.addEventListener('keydown', event => {
+        if (event.key !== 'Enter' && event.key !== ' ') return;
+        event.preventDefault();
+        openDialog();
+      });
+    }
+  });
+
+  closeButton.addEventListener('click', () => dialog.close());
+  dialog.addEventListener('click', event => {
+    if (event.target === dialog) dialog.close();
+  });
+}
+
+initJadeAchievementDialog();

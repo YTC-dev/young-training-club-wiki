@@ -191,7 +191,7 @@
     }
 
     .profile-hero .badge,
-    .golden-badge, .blue-badge, .purple-badge, .cyan-badge, .orange-badge {
+    .golden-badge, .blue-badge, .purple-badge, .cyan-badge, .orange-badge, .jade-badge {
       margin-right: 8px;
     }
 
@@ -249,6 +249,126 @@
       animation:
         orange-gradient-move 3s linear infinite,
         orange-badge-glow 2.2s ease-in-out infinite;
+    }
+
+    @property --jade-border-angle {
+      syntax: "<angle>";
+      inherits: false;
+      initial-value: 0deg;
+    }
+
+    .profile-hero .jade-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      border-radius: var(--radius-full);
+      appearance: none;
+      isolation: isolate;
+      background: linear-gradient(135deg, #064e3b 0%, #059669 48%, #6ee7b7 100%);
+      background-clip: padding-box;
+      color: #ffffff;
+      border: 1px solid transparent;
+      font: inherit;
+      font-weight: 700;
+      text-align: center;
+      text-shadow: 0 1px 2px rgba(2, 44, 34, 0.55);
+      box-shadow: 0 4px 14px rgba(5, 150, 105, 0.3);
+      margin-bottom: 16px;
+      cursor: pointer;
+      transition: transform 0.35s ease, box-shadow 0.35s ease;
+    }
+
+    .profile-hero .jade-badge:focus-visible {
+      outline: 3px solid #d1fae5;
+      outline-offset: 3px;
+    }
+
+    .profile-hero .jade-badge::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      padding: 1px;
+      border-radius: inherit;
+      background: conic-gradient(from var(--jade-border-angle), #064e3b, #34d399, #d1fae5, #059669, #064e3b);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      mask-composite: exclude;
+      animation: jade-border-rotation 3s linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes jade-border-rotation {
+      to { --jade-border-angle: 1turn; }
+    }
+
+    .profile-hero .jade-badge:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(5, 150, 105, 0.42);
+    }
+
+    .jade-achievement-dialog {
+      width: min(440px, calc(100% - 32px));
+      max-height: min(80vh, 560px);
+      padding: 0;
+      margin: auto;
+      position: fixed;
+      inset: 0;
+      color: #064e3b;
+      border: 1px solid #a7f3d0;
+      border-radius: 20px;
+      background: linear-gradient(145deg, #ffffff, #ecfdf5);
+      box-shadow: 0 24px 70px rgba(2, 44, 34, 0.3);
+    }
+
+    .jade-achievement-dialog::backdrop {
+      background: rgba(2, 44, 34, 0.58);
+      backdrop-filter: blur(4px);
+    }
+
+    .jade-achievement-dialog__content {
+      padding: 30px;
+      text-align: center;
+    }
+
+    .jade-achievement-dialog__eyebrow {
+      margin-bottom: 8px;
+      color: #059669;
+      font-size: 0.8rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .jade-achievement-dialog h2 {
+      margin-bottom: 12px;
+      color: #064e3b;
+      font-size: 1.5rem;
+    }
+
+    .jade-achievement-dialog__description {
+      color: #334155;
+      line-height: 1.7;
+    }
+
+    .jade-achievement-dialog__close {
+      margin-top: 22px;
+      padding: 9px 18px;
+      display: block;
+      margin-inline: auto;
+      border: 0;
+      border-radius: var(--radius-full);
+      background: #047857;
+      color: #ffffff;
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .jade-achievement-dialog__close:hover {
+      background: #065f46;
     }
 
     /* Hiệu ứng Moving Gradient */
@@ -424,7 +544,8 @@
     .profile-hero .purple-badge,
     .profile-hero .golden-badge,
     .profile-hero .blue-badge,
-    .profile-hero .orange-badge {
+    .profile-hero .orange-badge,
+    .profile-hero .jade-badge {
       position: relative;
       z-index: 1;
     }
@@ -1236,12 +1357,14 @@
     @media (prefers-reduced-motion: reduce) {
       .profile-hero .badge,
       .profile-hero .cyan-badge,
-      .profile-hero .golden-badge {
+      .profile-hero .golden-badge,
+      .profile-hero .jade-badge {
         animation: none;
         transition: none;
       }
       .profile-hero .badge::after,
-      .profile-hero .cyan-badge::after {
+      .profile-hero .cyan-badge::after,
+      .profile-hero .jade-badge::before {
         animation: none;
         display: none;
       }

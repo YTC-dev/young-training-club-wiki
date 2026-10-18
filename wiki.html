@@ -719,6 +719,45 @@
         wiki-chip-orange-glow 2.2s ease-in-out infinite;
     }
 
+    @property --jade-border-angle {
+      syntax: "<angle>";
+      inherits: false;
+      initial-value: 0deg;
+    }
+
+    /* Jade — xanh ngọc bích */
+    .badge-chip--jade {
+      position: relative;
+      isolation: isolate;
+      background: linear-gradient(135deg, #064e3b 0%, #059669 48%, #6ee7b7 100%);
+      background-clip: padding-box;
+      color: #ffffff;
+      border: 1px solid transparent;
+      font-weight: 700;
+      text-shadow: 0 1px 2px rgba(2, 44, 34, 0.55);
+      box-shadow: 0 4px 14px rgba(5, 150, 105, 0.3);
+    }
+
+    .badge-chip--jade::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      padding: 1px;
+      border-radius: inherit;
+      background: conic-gradient(from var(--jade-border-angle), #064e3b, #34d399, #d1fae5, #059669, #064e3b);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      mask-composite: exclude;
+      animation: jade-border-rotation 3s linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes jade-border-rotation {
+      to { --jade-border-angle: 1turn; }
+    }
+
     @keyframes wiki-orange-move {
       0%   { background-position: 100% 50%; }
       100% { background-position:   0% 50%; }
@@ -813,12 +852,14 @@
       .badge-chip--orange,
       .badge-chip--gold,
       .badge-chip--cyan,
-      .badge-chip--purple {
+      .badge-chip--purple,
+      .badge-chip--jade {
         animation: none;
       }
       .badge-chip--gold::after,
       .badge-chip--cyan::after,
       .badge-chip--purple::after,
+      .badge-chip--jade::before,
       .badge-chip--blue::before,
       .badge-chip--blue::after {
         animation: none;
@@ -1139,6 +1180,12 @@
           <span class="badge-chip badge-chip--orange">Nét đẹp văn nghệ</span>
           <h3 class="badge-card__name">Nét đẹp văn nghệ</h3>
           <p class="badge-card__desc">Thành viên góp mặt trong các tiết mục văn nghệ có màn trình diễn xuất sắc.</p>
+        </div>
+
+        <div class="badge-card fade-in">
+          <span class="badge-chip badge-chip--jade">Bí mật</span>
+          <h3 class="badge-card__name">Thành tựu ẩn</h3>
+          <p class="badge-card__desc">Huy hiệu thành tựu ẩn có thể xuất hiện trên hồ sơ của các thành viên đạt dấu mốc đặc biệt. Nhấn vào badge để khám phá chi tiết thành tựu.</p>
         </div>
       </div>
 

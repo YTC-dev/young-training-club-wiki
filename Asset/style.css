@@ -902,7 +902,7 @@ select:focus {
   border: 1px solid rgba(9, 131, 254, 0.2);
 }
 
-.golden-badge, .blue-badge, .purple-badge, .cyan-badge, .orange-badge {
+.golden-badge, .blue-badge, .purple-badge, .cyan-badge, .orange-badge, .jade-badge {
   display: inline-flex;
   align-items: center;
   gap: 5px;
@@ -910,6 +910,14 @@ select:focus {
   border-radius: var(--radius-full);
   font-size: 0.82rem;
   font-weight: 700;
+}
+
+.jade-badge {
+  background: linear-gradient(135deg, #064e3b 0%, #059669 48%, #6ee7b7 100%);
+  color: #ffffff;
+  border: 1px solid #a7f3d0;
+  text-shadow: 0 1px 2px rgba(2, 44, 34, 0.55);
+  box-shadow: 0 3px 10px rgba(5, 150, 105, 0.3);
 }
 
 .orange-badge {
