@@ -1,0 +1,2491 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="../Image/YTC-Favicon.png">
+<title>YTC Quiz Race - Đua Về Đích</title>
+<style>
+/* ===== Reset & Base ===== */
+.ui-icon { width: 1.15em; height: 1.15em; display: inline-block; vertical-align: -0.18em; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+* { 
+  margin: 0; 
+  padding: 0; 
+  box-sizing: border-box; 
+  user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}
+:root {
+  --blue: #00bbfe;
+  --blue-dark: #273b93;
+  --blue-deep: #1a2966;
+  --blue-light: #5ed4ff;
+  --gold: #ffd24a;
+  --green: #2ed47a;
+  --red: #ff5670;
+  --bg-grad: linear-gradient(135deg, #1a2966 0%, #273b93 50%, #00bbfe 100%);
+  --card-bg: rgba(255, 255, 255, 0.97);
+  --shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+}
+html, body {
+  height: 100%;
+  font-family: 'Segoe UI', 'Roboto', 'Inter', system-ui, -apple-system, sans-serif;
+  background: var(--bg-grad);
+  background-attachment: fixed;
+  color: #1a2966;
+  overflow-x: hidden;
+}
+body { min-height: 100vh; padding: 12px; }
+
+/* ===== Screens ===== */
+.screen { display: none; max-width: 1180px; margin: 0 auto; }
+.screen.active { display: block; }
+
+/* ===== Start Screen ===== */
+#startScreen {
+  min-height: 96vh;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #fff;
+  padding: 20px;
+}
+#startScreen.active { display: flex; }
+.start-logo {
+  font-size: 14px;
+  letter-spacing: 4px;
+  background: rgba(255,255,255,0.15);
+  padding: 6px 18px;
+  border-radius: 50px;
+  margin-bottom: 18px;
+  border: 1px solid rgba(255,255,255,0.3);
+}
+.start-title {
+  font-size: clamp(40px, 7vw, 78px);
+  font-weight: 900;
+  line-height: 1.05;
+  text-shadow: 0 4px 20px rgba(0,0,0,0.4);
+  margin-bottom: 12px;
+}
+.start-title span { color: var(--gold); }
+.start-slogan {
+  font-size: clamp(14px, 2vw, 18px);
+  font-style: italic;
+  opacity: 0.9;
+  margin-bottom: 28px;
+  max-width: 600px;
+}
+.start-rules {
+  background: rgba(255,255,255,0.12);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 18px;
+  padding: 22px 28px;
+  margin-bottom: 28px;
+  max-width: 640px;
+  text-align: left;
+}
+.start-rules h3 { font-size: 16px; margin-bottom: 12px; color: var(--gold); }
+.start-rules ul { list-style: none; }
+.start-rules li {
+  font-size: 14px;
+  margin-bottom: 8px;
+  padding-left: 22px;
+  position: relative;
+  line-height: 1.5;
+}
+.start-rules li::before {
+  content: '▶';
+  position: absolute;
+  left: 0;
+  color: var(--blue-light);
+  font-size: 11px;
+  top: 3px;
+}
+.btn-start {
+  background: linear-gradient(135deg, var(--gold) 0%, #ffb730 100%);
+  color: var(--blue-deep);
+  font-size: 22px;
+  font-weight: 800;
+  padding: 16px 56px;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  box-shadow: 0 10px 30px rgba(255, 210, 74, 0.5);
+  transition: transform 0.2s, box-shadow 0.2s;
+  letter-spacing: 1px;
+}
+.btn-start:hover { transform: translateY(-3px); box-shadow: 0 14px 40px rgba(255, 210, 74, 0.7); }
+.btn-start:active { transform: translateY(0); }
+
+/* ===== Game Screen Layout ===== */
+#gameScreen { padding-bottom: 20px; }
+.topbar {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  background: rgba(255,255,255,0.95);
+  border-radius: 16px;
+  padding: 12px 18px;
+  margin-bottom: 14px;
+  box-shadow: var(--shadow);
+  flex-wrap: wrap;
+}
+.topbar-logo {
+  font-weight: 900;
+  font-size: 16px;
+  color: var(--blue-dark);
+  background: linear-gradient(135deg, var(--blue) 0%, var(--blue-dark) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  white-space: nowrap;
+}
+.topbar-stats { display: flex; gap: 10px; flex: 1; justify-content: flex-end; flex-wrap: wrap; }
+.stat-chip {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 6px 16px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--blue) 0%, var(--blue-dark) 100%);
+  color: #fff;
+  min-width: 80px;
+}
+.stat-chip .label { font-size: 10px; opacity: 0.85; text-transform: uppercase; letter-spacing: 1px; }
+.stat-chip .value { font-size: 20px; font-weight: 800; line-height: 1.1; }
+.stat-chip.timer-chip { background: linear-gradient(135deg, #ff7e5f 0%, #ff5670 100%); }
+.stat-chip.timer-chip.warning { animation: pulseWarn 0.5s infinite; }
+@keyframes pulseWarn { 0%,100% { transform: scale(1); } 50% { transform: scale(1.06); } }
+
+/* ===== Game Body ===== */
+.game-body {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 14px;
+  align-items: start;
+}
+@media (max-width: 880px) {
+  .game-body { grid-template-columns: 1fr; }
+}
+
+/* ===== Question Card ===== */
+.question-card {
+  background: var(--card-bg);
+  border-radius: 18px;
+  padding: 22px;
+  box-shadow: var(--shadow);
+  position: relative;
+  overflow: hidden;
+}
+.q-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.q-counter {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--blue-dark);
+  background: rgba(0, 187, 254, 0.12);
+  padding: 5px 14px;
+  border-radius: 50px;
+}
+.q-type-badge {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 5px 12px;
+  border-radius: 50px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.q-type-badge.choice { background: #e3f3ff; color: var(--blue-dark); }
+.q-type-badge.fill { background: #fff3d6; color: #b07d00; }
+.q-type-badge.word { background: #e8f8ef; color: #1c8050; }
+
+.timer-bar-wrap {
+  height: 6px;
+  background: rgba(0,0,0,0.08);
+  border-radius: 50px;
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+.timer-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--green) 0%, var(--blue) 50%, var(--red) 100%);
+  width: 100%;
+  transition: width 1s linear;
+  border-radius: 50px;
+}
+
+.q-text {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.45;
+  color: var(--blue-deep);
+  margin-bottom: 18px;
+  min-height: 60px;
+}
+
+/* Multiple choice options */
+.options { display: grid; gap: 10px; }
+.option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #f5f8ff;
+  border: 2px solid #e0e8f5;
+  border-radius: 12px;
+  padding: 14px 16px;
+  cursor: pointer;
+  transition: all 0.18s;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--blue-deep);
+  text-align: left;
+}
+.option:hover { border-color: var(--blue); background: #eaf6ff; transform: translateX(3px); }
+.option .letter {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: var(--blue-dark);
+  color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 800; flex-shrink: 0;
+}
+.option.correct { background: #d4f5e3; border-color: var(--green); }
+.option.correct .letter { background: var(--green); }
+.option.wrong { background: #ffe0e6; border-color: var(--red); }
+.option.wrong .letter { background: var(--red); }
+.option.disabled { pointer-events: none; opacity: 0.7; }
+
+/* Fill in blank */
+.fill-input-wrap {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  background: #f5f8ff;
+  border: 2px solid #e0e8f5;
+  border-radius: 12px;
+  padding: 4px 4px 4px 18px;
+  margin-bottom: 8px;
+}
+.fill-input-wrap:focus-within { border-color: var(--blue); background: #eaf6ff; }
+.fill-input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  padding: 14px 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--blue-deep);
+  outline: none;
+  font-family: inherit;
+}
+.btn-submit {
+  background: linear-gradient(135deg, var(--blue) 0%, var(--blue-dark) 100%);
+  color: #fff;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 10px;
+  font-weight: 700;
+  cursor: pointer;
+  font-size: 14px;
+  transition: transform 0.15s;
+}
+.btn-submit:hover { transform: translateY(-1px); }
+
+/* Word select */
+.word-pool {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 14px;
+  padding: 12px;
+  background: #f5f8ff;
+  border-radius: 12px;
+  border: 2px dashed #c5d8ee;
+}
+.word-chip {
+  background: #fff;
+  border: 2px solid var(--blue);
+  color: var(--blue-dark);
+  padding: 8px 16px;
+  border-radius: 50px;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.15s;
+  user-select: none;
+}
+.word-chip:hover { background: var(--blue); color: #fff; }
+.word-chip.used { opacity: 0.35; pointer-events: none; text-decoration: line-through; }
+.word-answer-slots {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 14px;
+  min-height: 50px;
+  padding: 10px;
+  background: #fff8e1;
+  border-radius: 12px;
+  border: 2px solid var(--gold);
+}
+.word-slot {
+  background: var(--gold);
+  color: var(--blue-deep);
+  padding: 8px 16px;
+  border-radius: 50px;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex; align-items: center; gap: 6px;
+}
+.word-slot-empty {
+  background: rgba(255, 210, 74, 0.2);
+  border: 2px dashed var(--gold);
+  color: var(--gold);
+  padding: 8px 14px;
+  border-radius: 50px;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+/* Feedback area */
+.feedback {
+  margin-top: 14px;
+  padding: 12px 16px;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 14px;
+  display: none;
+  text-align: center;
+}
+.feedback.show { display: block; animation: fadeUp 0.3s; }
+.feedback.correct { background: #d4f5e3; color: #1c8050; }
+.feedback.wrong { background: #ffe0e6; color: #b02040; }
+.feedback.info { background: #e3f3ff; color: var(--blue-dark); }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+.btn-next {
+  margin-top: 12px;
+  width: 100%;
+  background: linear-gradient(135deg, var(--gold) 0%, #ffb730 100%);
+  color: var(--blue-deep);
+  border: none;
+  padding: 14px;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 800;
+  cursor: pointer;
+  display: none;
+  letter-spacing: 0.5px;
+}
+.btn-next.show { display: block; animation: fadeUp 0.3s; }
+.btn-next:hover { transform: translateY(-1px); }
+
+/* ===== Side Panel: Board ===== */
+.side-panel { display: flex; flex-direction: column; gap: 14px; }
+.panel-card {
+  background: var(--card-bg);
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: var(--shadow);
+}
+.panel-title {
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--blue-dark);
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  margin-bottom: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.panel-title .step-now {
+  font-size: 14px;
+  background: linear-gradient(135deg, var(--blue) 0%, var(--blue-dark) 100%);
+  color: #fff;
+  padding: 3px 12px;
+  border-radius: 50px;
+}
+
+/* Board: serpentine 50 steps in 5 rows of 10 */
+.board {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 4px;
+}
+.board-row { display: flex; gap: 4px; }
+.board-row.reverse { flex-direction: row-reverse; }
+.cell {
+  flex: 1;
+  aspect-ratio: 1;
+  border-radius: 6px;
+  background: #e8eef9;
+  border: 1.5px solid #cdd8ec;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+  font-weight: 700;
+  color: #6c7fa8;
+  position: relative;
+  transition: all 0.3s;
+}
+.cell.start { background: linear-gradient(135deg, #b9e3ff, var(--blue)); color: #fff; border-color: var(--blue); }
+.cell.milestone-15 { background: linear-gradient(135deg, #ffe9a8, var(--gold)); color: var(--blue-deep); border-color: #d4a700; }
+.cell.milestone-30 { background: linear-gradient(135deg, #c8b5ff, #8a6dff); color: #fff; border-color: #6a4dd9; }
+.cell.finish {
+  background: linear-gradient(135deg, #ffd24a, #ff7e5f);
+  color: #fff; border-color: #d47000;
+  font-size: 11px;
+}
+.cell.player-here {
+  transform: scale(1.15);
+  z-index: 5;
+  box-shadow: 0 0 0 3px var(--blue), 0 4px 14px rgba(0,187,254,0.6);
+}
+.cell.bot-here { box-shadow: 0 0 0 3px var(--red), 0 4px 14px rgba(237,91,105,0.58); }
+.player-token {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  font-size: 16px;
+  z-index: 10;
+  transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+}
+.bot-token { position:absolute; top:24px; left:24px; z-index:11; font-size:16px; transition:all .5s cubic-bezier(.34,1.56,.64,1); filter:drop-shadow(0 2px 4px rgba(0,0,0,.3)); }
+.bot-icon { width:22px; height:22px; background:linear-gradient(135deg,#ff9a9e,#b52e46); border-radius:50%; border:2px solid #fff; display:flex; align-items:center; justify-content:center; color:#fff; font-weight:900; font-size:9px; box-shadow:0 2px 6px rgba(0,0,0,.3); }
+.player-icon {
+  width: 22px; height: 22px;
+  background: linear-gradient(135deg, var(--blue-light), var(--blue-dark));
+  border-radius: 50%;
+  border: 2px solid #fff;
+  display: flex; align-items: center; justify-content: center;
+  color: #fff; font-weight: 900; font-size: 11px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+}
+.companion-icons { display: flex; gap: 4px; position: absolute; top: -8px; right: -2px; }
+.companion-mini {
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  background: var(--gold);
+  border: 1.5px solid #fff;
+  font-size: 8px;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--blue-deep); font-weight: 800;
+}
+
+/* ===== Dice ===== */
+.dice-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 0;
+}
+.dice {
+  width: 64px; height: 64px;
+  background: linear-gradient(135deg, #fff 0%, #f0f4ff 100%);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  font-weight: 900;
+  color: var(--blue-dark);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.2), inset 0 -3px 0 rgba(0,0,0,0.08);
+  border: 2px solid #d6e0f5;
+  position: relative;
+}
+.dice.rolling { animation: rollDice 0.6s ease-out; }
+@keyframes rollDice {
+  0% { transform: rotate(0) scale(1); }
+  25% { transform: rotate(180deg) scale(1.15); }
+  50% { transform: rotate(360deg) scale(0.9); }
+  75% { transform: rotate(540deg) scale(1.1); }
+  100% { transform: rotate(720deg) scale(1); }
+}
+.dice-label { font-size: 12px; color: #6c7fa8; font-weight: 600; }
+.dice-result-text {
+  font-size: 12px;
+  color: var(--blue-dark);
+  font-weight: 700;
+  text-align: center;
+  min-height: 16px;
+}
+
+/* ===== Companions Display ===== */
+.companions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.companion-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  background: linear-gradient(135deg, #fff8e1, #ffecb3);
+  border-radius: 10px;
+  border-left: 4px solid var(--gold);
+}
+.companion-row.empty {
+  background: #f5f8ff;
+  border-left-color: #c5d8ee;
+  color: #8a9ab8;
+  font-style: italic;
+  font-size: 12px;
+  justify-content: center;
+}
+.companion-avatar {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--blue) 0%, var(--blue-dark) 100%);
+  color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 800; font-size: 13px;
+  flex-shrink: 0;
+}
+.companion-info { flex: 1; min-width: 0; }
+.companion-name { font-size: 13px; font-weight: 800; color: var(--blue-deep); line-height: 1.2; }
+.companion-ability { font-size: 11px; color: #6c7fa8; line-height: 1.3; margin-top: 2px; }
+
+/* ===== Character Select Modal ===== */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 25, 60, 0.75);
+  backdrop-filter: blur(6px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  padding: 16px;
+}
+.modal-overlay.show { display: flex; animation: fadeIn 0.25s; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+.modal-box {
+  background: #fff;
+  border-radius: 20px;
+  padding: 28px;
+  max-width: 720px;
+  width: 100%;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+  animation: scaleIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+@keyframes scaleIn { from { transform: scale(0.85); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+.modal-title {
+  text-align: center;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--blue-deep);
+  margin-bottom: 6px;
+}
+.modal-subtitle {
+  text-align: center;
+  font-size: 13px;
+  color: #6c7fa8;
+  margin-bottom: 22px;
+}
+.char-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 14px;
+}
+.char-card {
+  background: linear-gradient(160deg, #f5f8ff 0%, #e8f1ff 100%);
+  border: 2px solid #d6e4f7;
+  border-radius: 16px;
+  padding: 18px;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.char-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--blue), var(--blue-dark));
+}
+.char-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--blue);
+  box-shadow: 0 10px 28px rgba(0, 187, 254, 0.3);
+}
+.char-card.picked { opacity: 0.4; pointer-events: none; }
+.char-card.picked::after {
+  content: '✓ Đã chọn';
+  position: absolute;
+  top: 8px; right: 8px;
+  background: var(--green);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 50px;
+}
+.char-avatar-big {
+  width: 70px; height: 70px;
+  margin: 0 auto 12px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--blue) 0%, var(--blue-dark) 100%);
+  color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 24px; font-weight: 900;
+  border: 4px solid #fff;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+}
+.char-name { font-size: 16px; font-weight: 800; color: var(--blue-deep); margin-bottom: 4px; }
+.char-role { font-size: 11px; color: var(--blue); font-weight: 700; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.5px; }
+.char-ability {
+  font-size: 12px;
+  color: #4a5a7a;
+  line-height: 1.45;
+  background: rgba(255, 210, 74, 0.15);
+  padding: 8px 10px;
+  border-radius: 8px;
+  border-left: 3px solid var(--gold);
+  text-align: left;
+}
+
+/* ===== Game Over Modal ===== */
+.gameover-box { text-align: center; max-width: 480px; }
+.gameover-title {
+  font-size: 32px;
+  font-weight: 900;
+  background: linear-gradient(135deg, var(--blue) 0%, var(--blue-dark) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 8px;
+}
+.gameover-rank {
+  font-size: 14px;
+  color: #6c7fa8;
+  margin-bottom: 22px;
+}
+.gameover-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 22px;
+}
+.gameover-stat {
+  background: linear-gradient(135deg, #f5f8ff 0%, #e8f1ff 100%);
+  border-radius: 12px;
+  padding: 14px;
+}
+.gameover-stat .label { font-size: 11px; color: #6c7fa8; text-transform: uppercase; letter-spacing: 1px; }
+.gameover-stat .value { font-size: 26px; font-weight: 900; color: var(--blue-dark); }
+.gameover-stat .value.gold { color: #d4a700; }
+
+/* ===== Floating points popup ===== */
+.points-pop {
+  position: fixed;
+  font-size: 26px;
+  font-weight: 900;
+  color: var(--green);
+  pointer-events: none;
+  z-index: 200;
+  animation: floatUp 1.2s ease-out forwards;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+.points-pop.negative { color: var(--red); }
+@keyframes floatUp {
+  0% { transform: translateY(0) scale(0.5); opacity: 0; }
+  20% { transform: translateY(-10px) scale(1.2); opacity: 1; }
+  100% { transform: translateY(-80px) scale(1); opacity: 0; }
+}
+
+/* ===== Confetti ===== */
+.confetti {
+  position: fixed;
+  width: 10px; height: 10px;
+  pointer-events: none;
+  z-index: 150;
+}
+
+/* ===== Responsive tweaks ===== */
+@media (max-width: 600px) {
+  .start-title { font-size: 38px; }
+  .q-text { font-size: 17px; }
+  .option { padding: 12px; font-size: 14px; }
+  .topbar-stats { justify-content: space-between; }
+  .stat-chip { min-width: 70px; padding: 5px 10px; }
+  .stat-chip .value { font-size: 17px; }
+}
+/* ===== YTC QUIZ RACE — visual refresh (CSS only, no image assets) ===== */
+:root {
+  --blue: #13b8e8; --blue-dark: #123a70; --blue-deep: #10294f;
+  --blue-light: #76e2ff; --gold: #ffc94f; --green: #20b879; --red: #ed5b69;
+  --bg-grad: radial-gradient(ellipse at 14% 6%, rgba(28,149,213,.34), transparent 33%), radial-gradient(ellipse at 88% 82%, rgba(16,72,131,.5), transparent 35%), linear-gradient(145deg,#081a35 0%,#10294f 50%,#123c71 100%);
+  --card-bg: rgba(255,255,255,.98);
+  --shadow: 0 18px 50px rgba(3,15,36,.24), 0 2px 8px rgba(3,15,36,.08);
+}
+html { scroll-behavior: smooth; }
+body { padding: clamp(12px,2.2vw,28px); }
+button,input { font: inherit; }
+button:focus-visible,input:focus-visible,.word-chip:focus-visible { outline: 3px solid #ffbd38; outline-offset: 3px; }
+.screen { max-width: 1240px; }
+
+/* Opening screen: typographic hero and a CSS-built race motif. */
+#startScreen { position: relative; min-height: calc(100svh - 40px); gap: 0; padding: clamp(24px,5vw,64px) 20px; }
+#startScreen::before,#startScreen::after { content: ''; position: absolute; pointer-events: none; border: 1px solid rgba(255,255,255,.09); border-radius: 50%; width: 460px; height: 460px; z-index: -1; }
+#startScreen::before { top: 7%; right: -15%; box-shadow: 0 0 0 34px rgba(255,255,255,.025),0 0 0 68px rgba(255,255,255,.02); }
+#startScreen::after { width: 250px; height: 250px; left: -13%; bottom: 4%; box-shadow: 0 0 0 30px rgba(255,255,255,.025); }
+.start-logo { color: #d9f6ff; background: rgba(255,255,255,.08); border: 1px solid rgba(125,225,255,.3); font-size: 11px; font-weight: 800; letter-spacing: 2.6px; padding: 9px 16px; margin-bottom: 25px; backdrop-filter: blur(10px); }
+.start-title { font-size: clamp(48px,9vw,104px); letter-spacing: -.065em; line-height: .94; text-shadow: 0 10px 40px rgba(0,0,0,.27); margin-bottom: 17px; }
+.start-title span { color: var(--gold); }
+.start-slogan { color: #d5e9ff; font-size: clamp(14px,1.8vw,17px); line-height: 1.8; font-style: normal; opacity: .95; margin-bottom: 25px; }
+.start-rules { width: min(100%,720px); background: rgba(8,25,52,.52); border: 1px solid rgba(255,255,255,.15); border-radius: 20px; padding: 20px 24px; text-align: left; box-shadow: 0 15px 40px rgba(0,0,0,.14); backdrop-filter: blur(12px); }
+.start-rules h3 { color: var(--gold); font-size: 12px; letter-spacing: 1.7px; margin-bottom: 13px; }
+.start-rules ul { display: grid; grid-template-columns: 1fr 1fr; column-gap: 24px; }
+.start-rules li { color: #e2edff; font-size: 12px; margin-bottom: 10px; padding-left: 19px; }
+.start-rules li::before { content: '↗'; color: #65dafa; font-size: 14px; font-weight: 900; top: 0; }
+.btn-start { position: relative; overflow: hidden; margin-top: 23px; color: #182b45; background: linear-gradient(110deg,#ffe08a,#ffc13c); font-size: 15px; padding: 16px 38px; border-radius: 12px; letter-spacing: .7px; box-shadow: 0 10px 28px rgba(255,193,60,.25); transition: transform .2s,box-shadow .2s; }
+.btn-start:hover { transform: translateY(-3px); box-shadow: 0 15px 34px rgba(255,193,60,.36); }
+.start-actions,.gameover-actions { display: flex; align-items: center; justify-content: center; gap: 12px; flex-wrap: wrap; }
+.home-link { display: inline-flex; align-items: center; justify-content: center; gap: 8px; color: #eaf6ff; text-decoration: none; font-size: 14px; font-weight: 700; border: 1px solid rgba(214,239,255,.45); border-radius: 12px; padding: 14px 20px; background: rgba(255,255,255,.08); transition: transform .2s,background .2s,border-color .2s; }
+.home-link[onclick] { cursor: pointer; }
+.home-link:hover { transform: translateY(-2px); background: rgba(255,255,255,.16); border-color: rgba(214,239,255,.75); }
+.home-link:focus-visible { outline: 3px solid #ffbd38; outline-offset: 3px; }
+.start-actions .home-link { margin-top: 23px; }
+
+/* Compact, high-contrast game HUD. */
+#gameScreen { padding-bottom: 32px; }
+.topbar { position: sticky; top: 10px; z-index: 20; padding: 12px 16px; margin-bottom: 18px; border: 1px solid rgba(255,255,255,.65); border-radius: 16px; box-shadow: 0 12px 35px rgba(4,17,40,.2); backdrop-filter: blur(16px); }
+.topbar-logo { font-size: 14px; letter-spacing: .3px; }
+.topbar .home-link { flex-shrink: 0; color: #174c83; background: #f1f8ff; border-color: #d7e8f7; font-size: 12px; padding: 9px 12px; }
+.topbar .home-link:hover { background: #e5f4ff; border-color: #9ed9f1; }
+.stat-chip { min-width: 82px; padding: 7px 13px; border-radius: 10px; background: #edf6ff; color: var(--blue-deep); }
+.stat-chip .label { color: #617895; font-size: 9px; letter-spacing: 1.3px; }
+.stat-chip .value { font-size: 19px; font-variant-numeric: tabular-nums; }
+.stat-chip.timer-chip { color: white; background: linear-gradient(135deg,#f08c55,#df5263); }
+.stat-chip.timer-chip .label { color: rgba(255,255,255,.85); }
+.stat-chip.timer-chip.warning { animation: pulseWarn .7s infinite; }
+.game-body { grid-template-columns: minmax(0,1fr) minmax(320px,370px); gap: 18px; }
+.question-card,.panel-card { border: 1px solid rgba(255,255,255,.75); box-shadow: var(--shadow); }
+.question-card { padding: clamp(20px,3vw,34px); border-radius: 20px; }
+.q-header { margin-bottom: 17px; }
+.q-counter { color: #284d7c; background: #edf6ff; font-size: 12px; padding: 7px 12px; }
+.q-type-badge { font-size: 10px; letter-spacing: 1.1px; }
+.timer-bar-wrap { height: 7px; margin-bottom: 25px; background: #eef2f7; }
+.q-text { color: #132e53; font-size: clamp(19px,2.1vw,25px); line-height: 1.45; min-height: 0; margin-bottom: 22px; letter-spacing: -.025em; }
+.options { gap: 11px; }
+.option { min-height: 59px; padding: 12px 15px; border: 1.5px solid #e3eaf3; border-radius: 13px; background: #f8faff; font-size: 14px; line-height: 1.4; }
+.option:hover { border-color: #46bee5; background: #effaff; transform: translateX(4px); }
+.option .letter { width: 32px; height: 32px; border-radius: 10px; color: #fff; background: #214c80; font-size: 12px; }
+.option.correct { border-color: var(--green); background: #e9f9f1; }
+.option.wrong { border-color: var(--red); background: #fff0f1; }
+.fill-input-wrap { border-color: #e1eaf3; background: #f8faff; border-radius: 13px; }
+.fill-input-wrap:focus-within { border-color: #28b7e4; box-shadow: 0 0 0 4px rgba(40,183,228,.1); }
+.fill-input { min-width: 0; font-size: 15px; }
+.btn-submit { background: linear-gradient(135deg,#159ed0,#17518b); border-radius: 10px; padding: 13px 20px; }
+.btn-submit:hover { filter: brightness(1.08); transform: translateY(-1px); }
+.word-pool { background: #f7faff; border-color: #d7e4f1; }
+.word-chip { border-width: 1.5px; padding: 8px 14px; }
+.word-answer-slots { border: 1.5px solid #f0cf70; background: #fffaf0; }
+.feedback { border-radius: 12px; padding: 14px 16px; }
+.btn-next { color: #172f50; background: linear-gradient(110deg,#ffe08a,#ffc13c); border-radius: 12px; padding: 15px; transition: transform .18s,box-shadow .18s; }
+.btn-next:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(225,166,44,.2); }
+
+/* Race board and side cards. */
+.side-panel { gap: 16px; }
+.panel-card { border-radius: 17px; padding: 18px; }
+.panel-title { color: #304e73; font-size: 11px; letter-spacing: 1.35px; margin-bottom: 15px; }
+.panel-title .step-now { font-size: 12px; padding: 6px 11px; }
+.board { gap: 5px; padding: 11px; border-radius: 13px; background: linear-gradient(145deg,#f5f9ff,#edf3fa); border: 1px solid #e7edf5; }
+.board-row { gap: 5px; }
+.cell { border-radius: 7px; background: #e5ebf4; border: 1px solid #d6dfeb; color: #647790; font-size: clamp(8px,.8vw,10px); }
+.cell.start { background: linear-gradient(145deg,#7bd9fa,#149dce); border-color: #159ac8; }
+.cell.milestone-15 { background: linear-gradient(145deg,#ffedb2,#f5bd40); border-color: #e5b43f; }
+.cell.milestone-30 { background: linear-gradient(145deg,#c5b7ff,#7762df); border-color: #7966d9; }
+.cell.finish { background: linear-gradient(145deg,#ffd969,#f18c56); border-color: #e98b43; }
+.cell.player-here { transform: scale(1.12); box-shadow: 0 0 0 2px #fff,0 0 0 4px #159ed0,0 5px 15px rgba(0,130,190,.35); }
+.player-icon { width: 23px; height: 23px; background: linear-gradient(135deg,#44c8ed,#17518b); font-size: 8px; }
+.dice-area { padding: 5px 0 2px; }
+.dice { width: 68px; height: 68px; border-radius: 17px; color: #174c83; border: 1px solid #e1e9f3; box-shadow: 0 10px 25px rgba(18,58,112,.13),inset 0 -3px 0 rgba(18,58,112,.06); }
+.dice-label { color: #71829b; font-size: 11px; }
+.dice-result-text { color: #174c83; }
+.companion-row { border-left-width: 3px; border-radius: 12px; padding: 9px 11px; background: linear-gradient(135deg,#fffaf0,#fff2cf); }
+.companion-row.empty { border: 1px dashed #dbe5ef; background: #f8faff; border-left-width: 3px; }
+.companion-avatar { background: linear-gradient(135deg,#21b8dc,#214d86); }
+
+/* Dialogs, motion and small screens. */
+.modal-overlay { background: rgba(5,16,36,.78); backdrop-filter: blur(9px); }
+.countdown-overlay { position: fixed; inset: 0; z-index: 300; display: none; align-items: center; justify-content: center; flex-direction: column; gap: 12px; color: #fff; background: rgba(5,16,36,.88); backdrop-filter: blur(10px); }
+.countdown-overlay.show { display: flex; }
+.countdown-label { color: #cdeaff; font-size: 12px; font-weight: 800; letter-spacing: 3px; text-transform: uppercase; }
+.countdown-number { color: #ffd05c; font-size: clamp(100px,25vw,190px); font-weight: 950; line-height: 1; text-shadow: 0 8px 45px rgba(255,194,60,.28); animation: countPop .72s cubic-bezier(.2,.8,.2,1) both; }
+@keyframes countPop { from { opacity: 0; transform: scale(1.5); } to { opacity: 1; transform: scale(1); } }
+.loading-screen { position: fixed; inset: 0; z-index: 500; display: flex; align-items: center; justify-content: center; padding: 24px; color: #fff; background: radial-gradient(circle at 20% 18%, rgba(27,183,226,.28), transparent 32%), radial-gradient(circle at 82% 82%, rgba(47,91,185,.34), transparent 35%), linear-gradient(145deg,#06152d 0%,#10294f 52%,#123d71 100%); opacity: 1; visibility: visible; transition: opacity .55s ease, visibility .55s ease; }
+.loading-screen::before,.loading-screen::after { content: ''; position: absolute; border: 1px solid rgba(151,229,255,.16); border-radius: 50%; pointer-events: none; }
+.loading-screen::before { width: 58vw; height: 58vw; max-width: 620px; max-height: 620px; top: -24%; right: -15%; box-shadow: 0 0 0 34px rgba(151,229,255,.035),0 0 0 68px rgba(151,229,255,.025); }
+.loading-screen::after { width: 280px; height: 280px; left: -110px; bottom: -100px; box-shadow: 0 0 0 28px rgba(151,229,255,.035); }
+.loading-screen.is-hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+.loading-card { position: relative; z-index: 1; width: min(100%,390px); text-align: center; }
+.loading-mark { width: 76px; height: 76px; margin: 0 auto 22px; display: grid; place-items: center; border: 1px solid rgba(151,229,255,.38); border-radius: 24px; background: linear-gradient(145deg,rgba(116,224,255,.25),rgba(255,255,255,.06)); box-shadow: 0 18px 48px rgba(0,0,0,.22),inset 0 1px 0 rgba(255,255,255,.24); animation: loadingFloat 2.2s ease-in-out infinite; }
+.loading-mark svg { width: 38px; height: 38px; fill: none; stroke: #ffe08a; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.loading-kicker { margin-bottom: 8px; color: #9edff5; font-size: 11px; font-weight: 800; letter-spacing: 3px; text-transform: uppercase; }
+.loading-title { margin-bottom: 10px; color: #fff; font-size: clamp(30px,8vw,48px); font-weight: 950; letter-spacing: -.055em; line-height: .95; }
+.loading-title span { color: #ffd05c; }
+.loading-message { min-height: 22px; margin-bottom: 22px; color: #cdeaff; font-size: 13px; }
+.loading-track { height: 7px; overflow: hidden; border-radius: 999px; background: rgba(255,255,255,.13); box-shadow: inset 0 1px 2px rgba(0,0,0,.16); }
+.loading-progress { width: 0%; height: 100%; border-radius: inherit; background: linear-gradient(90deg,#47d5ef,#ffe08a); box-shadow: 0 0 16px rgba(71,213,239,.48); transition: width .6s cubic-bezier(.16,1,.3,1); }
+.loading-screen.is-preparing .loading-progress { width: 92%; }
+.loading-meta { display: flex; justify-content: space-between; margin-top: 10px; color: rgba(205,234,255,.68); font-size: 10px; letter-spacing: 1.2px; text-transform: uppercase; }
+@keyframes loadingFloat { 0%,100% { transform: translateY(0) rotate(-2deg); } 50% { transform: translateY(-8px) rotate(2deg); } }
+.modal-box { border: 1px solid rgba(255,255,255,.8); border-radius: 22px; padding: clamp(20px,4vw,32px); box-shadow: 0 25px 80px rgba(0,0,0,.35); }
+.modal-title { color: #142f55; font-size: 20px; }
+.gameover-actions .home-link { margin-top: 23px; color: #174c83; background: #f1f8ff; border-color: #d7e8f7; }
+.gameover-actions .home-link:hover { background: #e5f4ff; border-color: #9ed9f1; }
+.char-card { border-radius: 15px; background: linear-gradient(155deg,#f7fbff,#eef5ff); }
+.char-card:focus-visible { outline: 3px solid #ffbd38; outline-offset: 3px; }
+.char-avatar-big { background: linear-gradient(135deg,#22b7df,#234e8a); }
+.gameover-title { font-size: clamp(28px,6vw,38px); }
+@media (max-width:880px) {
+  .game-body { grid-template-columns: 1fr; }
+  .side-panel { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); align-items: start; }
+  .side-panel > .panel-card:first-child { grid-column: 1 / -1; }
+  .topbar { position: static; }
+}
+@media (max-width:600px) {
+  body { padding: 10px; }
+  .loading-card { width: min(100%,330px); }
+  .loading-mark { width: 66px; height: 66px; margin-bottom: 18px; border-radius: 20px; }
+  #startScreen { padding: 26px 8px; }
+  .start-title { font-size: clamp(43px,13vw,62px); }
+  .start-rules { padding: 18px; }
+  .start-rules ul { grid-template-columns: 1fr; }
+  .topbar { gap: 12px; padding: 13px; }
+  .topbar-logo { width: 100%; text-align: center; }
+  .topbar-stats { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 6px; width: 100%; }
+  .stat-chip { min-width: 0; padding: 7px 4px; }
+  .stat-chip .label { font-size: 8px; letter-spacing: .7px; }
+  .stat-chip .value { font-size: 16px; }
+  .question-card { padding: 19px 16px; }
+  .q-text { font-size: 18px; }
+  .option { padding: 10px; font-size: 13px; }
+  .fill-input-wrap { padding-left: 12px; }
+  .btn-submit { padding: 11px 13px; font-size: 12px; }
+  .side-panel { grid-template-columns: 1fr; }
+  .side-panel > .panel-card:first-child { grid-column: auto; }
+  .board { padding: 9px; gap: 4px; }
+  .board-row { gap: 4px; }
+}
+@media (prefers-reduced-motion:reduce) {
+  *,*::before,*::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}
+
+/* Mobile modal hardening: keep the character picker inside the viewport. */
+.modal-overlay {
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  padding: max(12px, env(safe-area-inset-top)) max(12px, env(safe-area-inset-right)) max(12px, env(safe-area-inset-bottom)) max(12px, env(safe-area-inset-left));
+}
+.modal-box {
+  max-height: calc(100dvh - 24px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+.char-grid { min-width: 0; }
+.char-card {
+  min-height: 44px;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+body.modal-open { overflow: hidden; }
+@media (max-width: 600px) {
+  .modal-overlay { align-items: flex-start; padding-top: max(10px, env(safe-area-inset-top)); padding-bottom: max(10px, env(safe-area-inset-bottom)); }
+  #charModal .modal-box { width: 100%; max-height: calc(100dvh - 20px); padding: 18px 14px; border-radius: 18px; }
+  #charModal .modal-title { font-size: 16px; line-height: 1.3; padding: 0 8px; }
+  #charModal .modal-subtitle { font-size: 12px; line-height: 1.4; margin: 6px 4px 14px; }
+  #charModal .char-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 9px; }
+  #charModal .char-card { padding: 12px 8px; border-radius: 12px; }
+  #charModal .char-avatar-big { width: 48px; height: 48px; margin-bottom: 7px; font-size: 18px; border-width: 3px; }
+  #charModal .char-name { font-size: 12px; line-height: 1.25; overflow-wrap: anywhere; }
+  #charModal .char-role { font-size: 9px; line-height: 1.25; margin-bottom: 7px; letter-spacing: .25px; }
+  #charModal .char-ability { font-size: 10px; line-height: 1.35; padding: 6px 7px; }
+  #charModal .char-card:hover { transform: none; box-shadow: none; }
+  #charModal .char-card:active { transform: scale(.98); border-color: var(--blue); }
+}
+@media (max-width: 360px) {
+  #charModal .char-grid { grid-template-columns: 1fr; }
+  #charModal .char-card { display: grid; grid-template-columns: 42px 1fr; column-gap: 9px; text-align: left; align-items: center; padding: 10px; }
+  #charModal .char-avatar-big { grid-row: 1 / span 3; margin: 0; width: 42px; height: 42px; font-size: 16px; }
+  #charModal .char-role, #charModal .char-ability { grid-column: 2; }
+}
+
+/* ===== Companion upgrade states ===== */
+.companion-row.companion-pending { border-left-color:#a76cff; background:linear-gradient(135deg,#f3eaff,#fff8e1); box-shadow:0 0 0 2px rgba(167,108,255,.12); }
+.char-card .char-ability { min-height:54px; }
+.question-card::before { content:''; position:absolute; inset:0 0 auto; height:4px; background:linear-gradient(90deg,#13b8e8,#ffc94f,#a76cff); opacity:.9; }
+.panel-card { transition:transform .22s ease, box-shadow .22s ease, border-color .22s ease; }
+.panel-card:hover { transform:translateY(-2px); border-color:rgba(19,184,232,.45); box-shadow:0 20px 42px rgba(3,15,36,.22),0 2px 8px rgba(3,15,36,.08); }
+.dice { transition:transform .2s ease, box-shadow .2s ease; }
+.dice:not(.rolling):hover { transform:translateY(-3px) rotate(-3deg); box-shadow:0 14px 28px rgba(18,58,112,.2),inset 0 -3px 0 rgba(18,58,112,.06); }
+.companion-row { transition:transform .2s ease, box-shadow .2s ease; }
+.companion-row:hover:not(.empty) { transform:translateX(3px); box-shadow:0 8px 18px rgba(18,58,112,.1); }
+@media (max-width:600px) { .start-rules ul { grid-template-columns:1fr; } .game-body { gap:12px; } .char-grid { grid-template-columns:1fr; } }
+
+/* ===== Records, testing note & character presentation refresh ===== */
+.test-note { width:min(100%,760px); margin:24px auto 0; padding:13px 17px; border:1px solid rgba(126,214,255,.28); border-left:3px solid #ffc94f; border-radius:13px; color:#d9eaff; background:rgba(9,28,57,.48); font-size:12px; line-height:1.6; text-align:left; box-shadow:0 10px 25px rgba(0,0,0,.12); }
+.test-note strong { color:#ffc94f; letter-spacing:1.3px; margin-right:6px; }
+.records-panel { width:min(100%,980px); margin:34px auto 0; padding:22px; border:1px solid rgba(255,255,255,.16); border-radius:22px; background:rgba(8,25,52,.62); box-shadow:0 18px 45px rgba(0,0,0,.18); backdrop-filter:blur(14px); text-align:left; }
+.records-heading { display:flex; align-items:flex-end; justify-content:space-between; gap:16px; margin-bottom:17px; }
+.records-kicker { color:#72dcf7; font-size:10px; font-weight:900; letter-spacing:1.8px; }
+.records-heading h2 { margin-top:4px; color:#fff; font-size:clamp(19px,3vw,26px); letter-spacing:-.03em; }
+.records-clear { border:1px solid rgba(255,201,79,.55); border-radius:10px; padding:9px 12px; color:#ffe5a3; background:rgba(255,201,79,.1); font-size:10px; font-weight:900; letter-spacing:.7px; cursor:pointer; transition:.2s ease; }
+.records-clear:hover { color:#182b45; background:#ffc94f; transform:translateY(-2px); }
+.records-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+.record-column { min-width:0; padding:15px; border:1px solid rgba(255,255,255,.11); border-radius:16px; background:rgba(255,255,255,.055); }
+.record-column h3 { margin-bottom:11px; color:#ffc94f; font-size:11px; letter-spacing:1.4px; }
+.highscore-list { list-style:none; display:grid; gap:7px; padding:0; margin:0; counter-reset:rank; }
+.highscore-list li { counter-increment:rank; display:grid; grid-template-columns:25px 1fr auto; align-items:center; gap:8px; color:#e4efff; font-size:12px; }
+.highscore-list li::before { content:counter(rank, decimal-leading-zero); color:#72dcf7; font-weight:900; }
+.highscore-list .record-score { color:#ffc94f; font-weight:900; font-variant-numeric:tabular-nums; }
+.history-list { display:grid; gap:7px; max-height:190px; overflow:auto; padding-right:3px; }
+.history-item { display:flex; justify-content:space-between; gap:10px; padding:8px 9px; border-radius:9px; color:#dceaff; background:rgba(255,255,255,.06); font-size:11px; }
+.history-item strong { color:#fff; font-size:12px; }
+.history-item span { color:#9db5d6; white-space:nowrap; }
+.history-mode { display:inline-block; margin:2px 0; padding:2px 6px; border-radius:5px; font-size:9px; letter-spacing:.7px; }
+.history-mode.classic { color:#143c70; background:#bdefff; }
+.history-mode.vs { color:#fff; background:#b34d68; }
+.record-empty { color:#9db5d6; font-size:12px; }
+.records-message { min-height:17px; margin:12px 0 0; color:#72dcf7; font-size:11px; font-weight:800; }
+.record-result { min-height:20px; margin:-8px 0 14px; color:#b06cff; font-size:13px; font-weight:900; }
+.char-card { text-align:left; padding:15px; background:linear-gradient(145deg,#f8fbff,#e8f2ff); }
+.char-card-head { display:flex; align-items:center; justify-content:space-between; margin-bottom:11px; }
+.char-index { color:#7892b2; font-size:10px; font-weight:900; letter-spacing:1px; }
+.char-tag { border-radius:999px; padding:4px 7px; color:#2864d7; background:#e1f3ff; font-size:9px; font-weight:900; letter-spacing:.5px; }
+.char-avatar-big.has-photo { width:78px; height:78px; overflow:hidden; background:#d9efff; }
+.char-avatar-big.has-photo img { width:100%; height:100%; object-fit:cover; }
+.char-card .char-name { font-size:15px; line-height:1.2; min-height:36px; }
+.char-card .char-role { min-height:28px; margin-bottom:8px; }
+.char-ability-label { display:block; margin-bottom:3px; color:#9b6b00; font-size:9px; font-weight:900; letter-spacing:1px; }
+.char-card .char-ability { min-height:66px; }
+@media (max-width:600px) { .records-panel { padding:16px; } .records-heading { align-items:flex-start; flex-direction:column; } .records-clear { width:100%; } .records-grid { grid-template-columns:1fr; } }
+
+/* ===== Companion avatar sizing fix, intro cards & sound feedback ===== */
+.companion-avatar.has-photo { width:36px; height:36px; min-width:36px; min-height:36px; overflow:hidden; padding:0; }
+.companion-avatar.has-photo img { display:block; width:100%; height:100%; max-width:none; object-fit:cover; object-position:center; }
+.companion-intro-panel { width:min(100%,980px); margin:24px auto 0; padding:22px; border:1px solid rgba(255,255,255,.16); border-radius:22px; background:rgba(8,25,52,.62); box-shadow:0 18px 45px rgba(0,0,0,.18); backdrop-filter:blur(14px); text-align:left; }
+.companion-intro-heading { display:flex; align-items:end; justify-content:space-between; gap:15px; margin-bottom:15px; }
+.companion-intro-heading h2 { color:#fff; font-size:clamp(19px,3vw,26px); letter-spacing:-.03em; }
+.companion-intro-heading p { margin-top:4px; color:#9db5d6; font-size:12px; }
+.companion-intro-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
+.intro-companion-card { display:grid; grid-template-columns:42px 1fr; gap:10px; align-items:center; min-width:0; padding:10px; border:1px solid rgba(255,255,255,.11); border-radius:13px; background:rgba(255,255,255,.055); transition:transform .2s ease, border-color .2s ease, background .2s ease; }
+.intro-companion-card:hover { transform:translateY(-3px); border-color:rgba(114,220,247,.55); background:rgba(114,220,247,.1); }
+.intro-companion-avatar { width:42px; height:42px; overflow:hidden; border-radius:50%; display:flex; align-items:center; justify-content:center; background:linear-gradient(135deg,#00bbfe,#273b93); color:#fff; font-size:12px; font-weight:900; border:2px solid rgba(255,255,255,.75); }
+.intro-companion-avatar img { display:block; width:100%; height:100%; object-fit:cover; }
+.intro-companion-name { color:#fff; font-size:11px; font-weight:900; line-height:1.2; }
+.intro-companion-role { margin-top:3px; color:#72dcf7; font-size:9px; font-weight:800; line-height:1.25; }
+.intro-companion-ability { grid-column:1 / -1; min-height:29px; color:#c8d9ef; font-size:10px; line-height:1.35; }
+.ui-icon { width:1em; height:1em; max-width:1em; max-height:1em; flex:0 0 auto; vertical-align:-.14em; }
+.sound-toggle { display:inline-flex; align-items:center; justify-content:center; gap:7px; min-width:132px; margin-top:23px; padding:14px 16px; border:1px solid rgba(214,239,255,.45); border-radius:12px; color:#eaf6ff; background:rgba(255,255,255,.08); font-size:13px; font-weight:800; cursor:pointer; transition:transform .2s,background .2s,border-color .2s; }
+.sound-toggle:hover { transform:translateY(-2px); background:rgba(255,255,255,.16); border-color:rgba(214,239,255,.75); }
+.sound-toggle.is-muted { color:#b7c9df; border-color:rgba(183,201,223,.28); background:rgba(255,255,255,.04); }
+.sound-toggle:focus-visible { outline:3px solid #ffbd38; outline-offset:3px; }
+.mode-switcher { display:flex; justify-content:center; gap:10px; margin:18px auto 0; flex-wrap:wrap; }
+.mode-btn { border:1px solid rgba(214,239,255,.45); border-radius:12px; padding:11px 18px; color:#eaf6ff; background:rgba(255,255,255,.08); font-weight:900; cursor:pointer; }
+.mode-btn.active,.mode-btn:hover { color:#142f55; background:#ffe08a; border-color:#ffe08a; }
+.vs-setup { position:fixed; inset:0; z-index:420; display:none; align-items:center; justify-content:center; padding:20px; background:rgba(5,16,36,.86); backdrop-filter:blur(10px); }
+.vs-setup.show { display:flex; }
+.vs-setup-card { width:min(100%,760px); max-height:90vh; overflow:auto; padding:26px; border-radius:22px; color:#eaf6ff; background:linear-gradient(145deg,#10294f,#123c71); box-shadow:0 24px 80px rgba(0,0,0,.4); }
+.vs-setup-card h2 { color:#ffd05c; margin-bottom:8px; }
+.vs-setup-card p { color:#cdeaff; font-size:13px; line-height:1.5; }
+.vs-companion-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin:18px 0; }
+.vs-companion-choice { padding:14px; border:1px solid rgba(255,255,255,.18); border-radius:15px; background:rgba(255,255,255,.07); cursor:pointer; }
+.vs-companion-choice img { display:block; width:64px; height:64px; margin:0 auto 10px; border-radius:50%; object-fit:cover; border:2px solid rgba(255,208,92,.65); }
+.vs-companion-choice.selected { border-color:#ffd05c; background:rgba(255,208,92,.18); box-shadow:0 0 0 2px rgba(255,208,92,.2); }
+.vs-companion-choice strong { display:block; color:#fff; margin-bottom:5px; }
+.vs-companion-choice small { display:block; color:#b9d5ef; line-height:1.4; }
+.vs-setup-actions { display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
+.coin-result { min-height:28px; color:#ffd05c; font-weight:900; }
+.vs-skill-card { display:none; }
+.vs-mode .vs-skill-card { display:block; }
+.vs-result-stat { display:none; }
+.vs-mode .vs-result-stat { display:block; }
+.vs-guide { display:none; max-width:760px; margin:18px auto 0; padding:18px 20px; border:1px solid rgba(255,208,92,.42); border-radius:18px; color:#eaf6ff; background:linear-gradient(135deg,rgba(255,208,92,.12),rgba(0,187,254,.10)); text-align:left; }
+.vs-mode .vs-guide { display:block; }
+.vs-guide h3 { margin:0 0 10px; color:#ffd05c; font-size:16px; letter-spacing:.04em; }
+.vs-guide ul { margin:0; padding-left:20px; color:#cdeaff; font-size:13px; line-height:1.65; }
+.vs-guide strong { color:#fff0b2; }
+.vs-skill-btn { width:100%; margin-top:8px; padding:10px; border:0; border-radius:10px; color:#142f55; background:#ffd05c; font-weight:900; cursor:pointer; }
+.vs-skill-btn:disabled { opacity:.45; cursor:not-allowed; }
+.vs-status { display:none; color:#1b75a8; font-size:11px; font-weight:900; }
+.vs-mode .vs-status { display:block; }
+@media(max-width:600px){.vs-companion-grid{grid-template-columns:1fr}.vs-setup-card{padding:20px}.mode-btn{width:100%}}
+
+@media (max-width:760px) { .companion-intro-grid { grid-template-columns:repeat(2,1fr); } }
+@media (max-width:500px) { .companion-intro-panel { padding:16px; } .companion-intro-grid { grid-template-columns:1fr; } .companion-intro-heading { align-items:flex-start; flex-direction:column; } .sound-toggle { width:100%; margin-top:12px; } }
+
+/* ===== Action log ===== */
+.main-col { display:flex; flex-direction:column; gap:14px; min-width:0; }
+.action-log { list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:7px; }
+.action-log li { display:flex; align-items:flex-start; gap:9px; padding:8px 11px; border-radius:11px; background:#f4f8ff; border-left:3px solid #00bbfe; font-size:13px; line-height:1.4; color:#1a2966; animation:logIn .25s ease; }
+.action-log li.bot { background:#fff3f4; border-left-color:#ed5b69; }
+.action-log li.sys { background:#f3eaff; border-left-color:#a76cff; }
+.action-log li.action-log-empty { background:transparent; border-left-color:#dbe5ef; color:#8a9bb8; }
+.action-log li:first-child:not(.action-log-empty) { font-weight:700; box-shadow:0 2px 8px rgba(18,58,112,.08); }
+.action-log .log-who { flex:0 0 auto; min-width:46px; text-align:center; padding:2px 7px; border-radius:999px; font-size:10px; font-weight:900; letter-spacing:.5px; text-transform:uppercase; color:#fff; background:#00bbfe; }
+.action-log li.bot .log-who { background:#ed5b69; }
+.action-log li.sys .log-who { background:#a76cff; }
+.action-log .log-text::first-letter { text-transform:uppercase; }
+.action-log .log-text { flex:1; min-width:0; overflow-wrap:anywhere; }
+@keyframes logIn { from { opacity:0; transform:translateY(-6px); } to { opacity:1; transform:none; } }
+</style>
+</head>
+<body>
+
+<!-- ====================== LOADING SCREEN ====================== -->
+<div id="loadingScreen" class="loading-screen" role="status" aria-live="polite" aria-label="Đang tải YTC Quiz Race">
+  <div class="loading-card">
+    <div class="loading-mark" aria-hidden="true">
+      <svg viewBox="0 0 24 24"><path d="M5 21V4m0 1h14l-3 4 3 4H5"/><path d="M9 5v4m4-4v4m-4 0v4m4-4v4"/></svg>
+    </div>
+    <div class="loading-kicker">YTC • YOUNG TRAINING CLUB</div>
+    <h1 class="loading-title">QUIZ <span>RACE</span></h1>
+    <p class="loading-message" id="loadingMessage">Đang nạp đường đua...</p>
+    <div class="loading-track" aria-hidden="true"><div class="loading-progress" id="loadingProgress"></div></div>
+    <div class="loading-meta"><span>Chuẩn bị xuất phát</span><span id="loadingPercent">0%</span></div>
+  </div>
+</div>
+
+<!-- ====================== START SCREEN ====================== -->
+<section id="startScreen" class="screen active">
+  <div class="start-logo">YTC • YOUNG TRAINING CLUB</div>
+  <h1 class="start-title">QUIZ <span>RACE</span><br>ĐUA VỀ ĐÍCH</h1>
+  <p class="start-slogan">"Ý tưởng lớn - Tài năng trẻ - Chung niềm tin"<br>Trả lời đúng — Tung xúc xắc — Tiến về vạch đích!</p>
+  <div class="mode-switcher" role="group" aria-label="Chọn chế độ chơi"><button class="mode-btn active" id="classicModeBtn" type="button" onclick="setGameMode('classic')">CLASSIC</button><button class="mode-btn" id="vsModeBtn" type="button" onclick="setGameMode('vs')">VS MODE</button></div>
+  <section class="vs-guide" aria-labelledby="vsGuideTitle">
+    <h3 id="vsGuideTitle">HƯỚNG DẪN VS MODE</h3>
+    <ul>
+      <li>Chọn <strong>VS MODE</strong>, chọn người đồng hành rồi tung đồng xu để quyết định ai đi trước.</li>
+      <li>Mỗi bên có lượt riêng: trả lời đúng được điểm và tung xúc xắc để tiến trên đường đua.</li>
+      <li>Trả lời sai sẽ tạo cơ hội cho <strong>đối thủ cướp câu hỏi</strong>. Nếu người cướp trả lời đúng sẽ được điểm và tung xúc xắc; nếu sai thì chuyển sang câu tiếp theo.</li>
+      <li>Bạn và bot có thể chọn cùng một người đồng hành. Hãy bấm <strong>DÙNG KỸ NĂNG</strong> khi kỹ năng đã sẵn sàng.</li>
+      <li>Đạt <strong>ô 15</strong> và <strong>ô 30</strong>: bạn được chọn thêm 1 đồng hành trong danh sách (trừ 3 nhân vật VS: Nguyễn Hồng Thanh, Nguyễn Thanh Lan, Lê Huyền Đoan Trang).</li>
+      <li><strong>Nguyễn Hồng Thanh:</strong> đúng 3 lượt liên tiếp khiến bot mất lượt; <strong>Nguyễn Thanh Lan:</strong> làm bot lùi bước; <strong>Lê Huyền Đoan Trang:</strong> cướp 1/4 điểm bot.</li>
+      <li>Kỹ năng có cooldown. Khi một bên về đích trước, điểm của bên đó ở các câu tiếp theo được nhân <strong>x2</strong>.</li>
+      <li>Trò chơi kết thúc khi hết câu hỏi hoặc cả hai cùng về đích. Ai có tổng điểm cao hơn là người chiến thắng.</li>
+    </ul>
+  </section>
+
+  <div class="start-rules">
+    <h3><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2zM9 8h6M9 12h6M9 16h3"/></svg> LUẬT CHƠI</h3>
+    <ul>
+      <li>20 câu hỏi ngẫu nhiên: Trắc nghiệm · Điền khuyết · Chọn từ</li>
+      <li>Mỗi câu tối đa 15 giây. Trả lời đúng càng nhanh — điểm càng cao</li>
+      <li>Đúng 1 câu được tung xúc xắc 4 mặt (1→4 bước) để tiến trên đường đua 50 ô</li>
+      <li>Về đích (ô 50) nhận thưởng +500 điểm</li>
+      <li>Ô 15 và ô 30: chọn 1 nhân vật đồng hành — mỗi người một năng lực đặc biệt</li>
+      <li>Hãy chinh phục cuộc đua này và đạt nhiều điểm số hơn nha!</li>
+    </ul>
+  </div>
+
+  <div class="start-actions">
+    <button class="btn-start" onclick="startGame()">BẮT ĐẦU ▶</button>
+    <button class="sound-toggle" id="soundToggle" type="button" onclick="toggleSound()" aria-pressed="true"><span aria-hidden="true">🔊</span> ÂM THANH: BẬT</button>
+    <a class="home-link" href="index.html"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-6v-7h-4v7H4a1 1 0 0 1-1-1z"/></svg> VỀ TRANG CHỦ</a>
+  </div>
+
+  <div class="test-note" role="note">
+    <strong>NOTE GAME</strong> Đây là phiên bản kiểm thử trò chơi minigame của trang web này. Các thông tin, nội dung có thể thay đổi trong phiên bản ra mắt.
+  </div>
+
+  <section class="records-panel" aria-labelledby="recordsTitle">
+    <div class="records-heading">
+      <div><span class="records-kicker">YTC QUIZ RACE</span><h2 id="recordsTitle">THÀNH TÍCH CỦA BẠN</h2></div>
+      <button class="records-clear" type="button" onclick="clearRecords()">XÓA KỶ LỤC</button>
+    </div>
+    <div class="records-grid">
+      <div class="record-column"><h3>HIGHSCORE</h3><ol id="highscoreList" class="highscore-list"><li class="record-empty">Chưa có kỷ lục</li></ol></div>
+      <div class="record-column"><h3>LỊCH SỬ CHƠI</h3><div id="historyList" class="history-list"><div class="record-empty">Chưa có lượt chơi</div></div></div>
+    </div>
+    <p class="records-message" id="recordsMessage" aria-live="polite"></p>
+  </section>
+
+  <section class="companion-intro-panel" aria-labelledby="companionIntroTitle">
+    <div class="companion-intro-heading">
+      <div><h2 id="companionIntroTitle">NGƯỜI ĐỒNG HÀNH</h2><p>Chọn đúng người, phát huy đúng năng lực trên đường đua YTC.</p></div>
+    </div>
+    <div id="companionIntroGrid" class="companion-intro-grid"></div>
+  </section>
+</section>
+
+<!-- ====================== GAME SCREEN ====================== -->
+<section id="gameScreen" class="screen">
+  <!-- Top bar -->
+  <div class="topbar">
+    <div class="topbar-logo"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 21V4m0 1h14l-3 4 3 4H5"/><path d="M9 5v4m4-4v4m-4 0v4m4-4v4"/></svg> YTC QUIZ RACE</div>
+    <button class="home-link" type="button" onclick="restartGame()" aria-label="Chơi lại"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11a8 8 0 1 0 1 4"/><path d="M20 4v7h-7"/></svg> Chơi lại</button>
+    <div class="topbar-stats">
+      <div class="stat-chip">
+        <div class="label">Điểm</div>
+        <div class="value" id="scoreVal">0</div>
+      </div>
+      <div class="stat-chip">
+        <div class="label">Ô</div>
+        <div class="value" id="stepVal">0/50</div>
+      </div>
+      <div class="stat-chip vs-status"><div class="label">Lượt</div><div class="value" id="turnVal">Bạn</div></div>
+      <div class="stat-chip vs-status"><div class="label">Bot điểm</div><div class="value" id="botScoreVal">0</div></div>
+      <div class="stat-chip timer-chip" id="timerChip">
+        <div class="label">Giây</div>
+        <div class="value" id="timerVal">15</div>
+      </div>
+      <div class="stat-chip">
+        <div class="label">Câu</div>
+        <div class="value" id="qNumVal">0/20</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="game-body">
+    <div class="main-col">
+    <!-- Question card -->
+    <div class="question-card">
+      <div class="q-header">
+        <div class="q-counter" id="qCounter">Câu 1 / 20</div>
+        <div class="q-type-badge choice" id="qTypeBadge">Trắc nghiệm</div>
+      </div>
+      <div class="timer-bar-wrap"><div class="timer-bar" id="timerBar"></div></div>
+      <div class="q-text" id="qText">Câu hỏi sẽ hiển thị ở đây...</div>
+      <div id="answerArea"></div>
+      <div class="feedback" id="feedback"></div>
+      <button class="btn-next" id="btnNext" onclick="goNext()">CÂU TIẾP THEO ▶</button>
+    </div>
+
+    <!-- Action log -->
+    <div class="panel-card action-log-card">
+      <div class="panel-title"><span>Nhật Ký Hành Động</span><span class="step-now" id="actionLogCount">7 gần nhất</span></div>
+      <ul class="action-log" id="actionLog" aria-live="polite"><li class="action-log-empty">Chưa có hành động nào.</li></ul>
+    </div>
+    </div>
+
+    <!-- Side panel -->
+    <div class="side-panel">
+      <!-- Board -->
+      <div class="panel-card">
+        <div class="panel-title">
+          <span><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 21V4m0 1h14l-3 4 3 4H5"/><path d="M9 5v4m4-4v4m-4 0v4m4-4v4"/></svg> Đường Đua</span>
+          <span class="step-now" id="stepNowBadge">Ô 0</span>
+        </div>
+        <div class="board" id="board"></div>
+      </div>
+
+      <!-- Dice -->
+      <div class="panel-card">
+        <div class="panel-title"><span><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M8 8h.01M16 8h.01M12 12h.01M8 16h.01M16 16h.01"/></svg> Xúc Xắc (4 mặt)</span></div>
+        <div class="dice-area">
+          <div class="dice" id="dice">?</div>
+          <div class="dice-label">Chờ trả lời đúng để tung</div>
+          <div class="dice-result-text" id="diceResult"></div>
+        </div>
+      </div>
+
+      <div class="panel-card vs-skill-card"><div class="panel-title">KỸ NĂNG VS</div><div id="vsCompanionLabel" class="companion-ability">Chưa chọn</div><button class="vs-skill-btn" id="vsSkillBtn" type="button" onclick="useVSSkill()">DÙNG KỸ NĂNG</button><div id="vsCooldown" class="dice-result-text"></div><div id="vsBotCompanions" class="companion-ability" style="margin-top:8px;border-top:1px dashed #e0e8f5;padding-top:8px"></div></div>
+
+      <!-- Companions -->
+      <div class="panel-card">
+        <div class="panel-title"><span><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m8 12 3 3a2 2 0 0 0 3 0l4-4M4 9l4-4 4 2 4-2 4 4-3 3-4-1-3 2-5-4"/><path d="m4 9-2 2 3 4 2-2m13-4 2 2-3 4-2-2"/></svg> Đồng Hành</span></div>
+        <div class="companions-list" id="companionsList">
+          <div class="companion-row empty">Chưa có đồng hành — đạt ô 15 để chọn</div>
+          <div class="companion-row empty">Ô thứ 2 mở ở ô 30</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="countdown-overlay" id="countdownOverlay" aria-live="assertive" aria-atomic="true">
+  <div class="countdown-label">Chuẩn bị xuất phát</div>
+  <div class="countdown-number" id="countdownNumber">3</div>
+  <div class="countdown-label">YTC QUIZ RACE</div>
+</div>
+
+<!-- ====================== VS SETUP MODAL ====================== -->
+<div class="vs-setup" id="vsSetup"><div class="vs-setup-card"><h2>VS MODE — ĐUA CÙNG BOT</h2><p>Chọn người đồng hành cho bạn. Bot cũng có thể chọn cùng nhân vật. Sau đó tung đồng xu để quyết định ai đi trước.</p><div id="vsCompanionChoices" class="vs-companion-grid"></div><div class="vs-setup-actions"><button class="btn-start" type="button" onclick="tossCoin()">TUNG ĐỒNG XU</button><button class="home-link" type="button" onclick="closeVSSetup()">HUỶ</button><span class="coin-result" id="coinResult"></span></div></div></div>
+
+<!-- ====================== CHARACTER SELECT MODAL ====================== -->
+<div class="modal-overlay" id="charModal">
+  <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="charModalTitle">
+    <h2 class="modal-title" id="charModalTitle"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10h18v11H3zM2 6h20v4H2zM12 6v15M12 6H7a2 2 0 1 1 2-2c0 2 3 2 3 2zm0 0h5a2 2 0 1 0-2-2c0 2-3 2-3 2z"/></svg> CHỌN NHÂN VẬT ĐỒNG HÀNH</h2>
+    <p class="modal-subtitle" id="charModalSubtitle">Bạn vừa đạt ô 15 — chọn 1 trong các đồng hành bên dưới</p>
+    <div class="char-grid" id="charGrid"></div>
+  </div>
+</div>
+
+<!-- ====================== GAME OVER MODAL ====================== -->
+<div class="modal-overlay" id="gameOverModal">
+  <div class="modal-box gameover-box">
+    <h2 class="gameover-title" id="gameOverTitle"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 21V4m0 1h14l-3 4 3 4H5"/><path d="M9 5v4m4-4v4m-4 0v4m4-4v4"/></svg> KẾT THÚC!</h2>
+    <p class="gameover-rank" id="gameOverRank"></p>
+    <div class="gameover-stats">
+      <div class="gameover-stat">
+        <div class="label">Tổng điểm</div>
+        <div class="value gold" id="finalScore">0</div>
+      </div>
+      <div class="gameover-stat">
+        <div class="label">Ô đạt được</div>
+        <div class="value" id="finalStep">0/50</div>
+      </div>
+      <div class="gameover-stat">
+        <div class="label">Câu đúng</div>
+        <div class="value" id="finalCorrect">0/20</div>
+      </div>
+      <div class="gameover-stat">
+        <div class="label">Đồng hành</div>
+        <div class="value" id="finalCompanions" style="font-size:14px;">0</div>
+      </div>
+      <div class="gameover-stat vs-result-stat">
+        <div class="label">Điểm Bot</div>
+        <div class="value" id="finalBotScore">—</div>
+      </div>
+      <div class="gameover-stat vs-result-stat">
+        <div class="label">Ô Bot đạt được</div>
+        <div class="value" id="finalBotStep">—</div>
+      </div>
+      <div class="gameover-stat vs-result-stat">
+        <div class="label">Câu đúng của Bot</div>
+        <div class="value" id="finalBotCorrect">—</div>
+      </div>
+      <div class="gameover-stat vs-result-stat">
+        <div class="label">Câu cướp của bạn</div>
+        <div class="value" id="finalSteals">—</div>
+      </div>
+      <div class="gameover-stat vs-result-stat">
+        <div class="label">Câu cướp của Bot</div>
+        <div class="value" id="finalBotSteals">—</div>
+      </div>
+      <div class="gameover-stat vs-result-stat">
+        <div class="label">Đồng hành của Bot</div>
+        <div class="value" id="finalBotCompanions" style="font-size:13px;">—</div>
+      </div>
+    </div>
+    <div class="record-result" id="recordResult" aria-live="polite"></div>
+    <div class="gameover-actions">
+      <button class="btn-start" onclick="restartGame()">CHƠI LẠI ↻</button>
+      <a class="home-link" href="index.html"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-6v-7h-4v7H4a1 1 0 0 1-1-1z"/></svg> VỀ TRANG CHỦ</a>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   QUESTION POOL — Easy to edit/add more questions
+   Each question: { type, q, ... }
+   type: 'choice' | 'fill' | 'word'
+   ============================================================ */
+const QUESTIONS = [
+  // ----- Multiple Choice -----
+  { type: 'choice', q: 'YTC (Young Training Club) có màu chủ đạo là màu gì?',
+    options: ['xanh dương','đỏ','vàng','xanh lá'], answer: 0 },
+  { type: 'choice', q: 'YTC trực thuộc trường đại học nào?',
+    options: ['HAUI','UNETI','Bách Khoa','NEU'], answer: 1 },
+  { type: 'choice', q: 'Slogan của YTC là gì?',
+    options: ['Tuổi trẻ năng động','Ý tưởng lớn - Tài năng trẻ - Chung niềm tin','Tiếp lửa đam mê','Kết nối trí tuệ'], answer: 1 },
+  { type: 'choice', q: 'Quán quân cuộc thi Rising Voice 2025 là ai?',
+    options: ['Nguyễn Thị Thanh Hoa','Nguyễn Ngọc Như Quỳnh','Tô Thu Trang','Ngô Hạnh Nguyên'], answer: 2 },
+  { type: 'choice', q: 'Chủ nhiệm CLB YTC (năm học 2025-2026) là ai?',
+    options: ['Nguyễn Hồng Thanh','Đào Thị Thu Hằng','Tô Thu Trang','Nguyễn Thanh Lan'], answer: 0 },
+  { type: 'choice', q: 'Email liên hệ chính thức của YTC?',
+    options: ['ytc@gmail.com','genz.ytc@gmail.com','contact.ytc@uneti.vn','ytc.uneti@gmail.com'], answer: 1 },
+  { type: 'choice', q: 'Đến năm 2026, YTC đã có bao nhiêu thế hệ (Gen)?',
+    options: ['12','14','15','20'], answer: 2 },
+  { type: 'choice', q: 'Cơ sở Lĩnh Nam, Hà Nội của UNETI nằm ở đường nào?',
+    options: ['218 Lĩnh Nam','353 Trần Hưng Đạo','1 Đại Cồ Việt','144 Xuân Thuỷ'], answer: 0 },
+  { type: 'choice', q: 'Giải nhất cuộc thi ONE-TAKE Gen 14.2 thuộc nhóm nào?',
+    options: ['OneTeam','ShineOn','Donald Trump','Rising Stars'], answer: 2 },
+  { type: 'choice', q: 'YTC trực thuộc tổ chức nào của UNETI?',
+    options: ['Đoàn TNCS Hồ Chí Minh','Hội Sinh viên','Ban Giám hiệu','Phòng Công tác Sinh viên'], answer: 0 },
+  { type: 'choice', q: 'Ai là Trưởng ban MC - Lễ tân (năm 2025-2026)?',
+    options: ['Nguyễn Minh Ánh','Tô Thu Trang','Nguyễn Thuỳ Trang','Lê Thị Phương Anh'], answer: 1 },
+  { type: 'choice', q: 'Cuộc thi nào của YTC tập trung vào kỹ năng dẫn chương trình?',
+    options: ['ONE-TAKE','Rising Voice','Podcast & Phim','Team Building'], answer: 1 },
+  { type: 'choice', q: 'Sinh viên UNETI tiêu biểu "Nguyễn Hồng Thanh" học lớp nào?',
+    options: ['DHLQ18A3HN','DHMK18A1HN','DHKT17A6HN','DHLQ17A1HN'], answer: 1 },
+    { type: 'choice', q: 'Sinh viên UNETI tiêu biểu "Nguyễn Thanh Lan" học lớp nào?',
+    options: ['DHLQ18A3HN','DHMK18A1HN','DHKT17A6HN','DHLQ17A1HN'], answer: 3 },
+  { type: 'choice', q: 'Cơ sở Nam Định, Ninh Bình của UNETI nằm ở đâu?',
+    options: ['218 Lĩnh Nam','353 Trần Hưng Đạo','451 Tôn Đức Thắng','12 Nguyễn Văn Cừ'], answer: 1 },
+  { type: 'choice', q: 'YTC có khoảng bao nhiêu thành viên (đến 2026)?',
+    options: ['50+','100+','200+','500+'], answer: 2 },
+  { type: 'choice', q: 'Cuộc thi ONE-TAKE thuộc mảng nào của YTC?',
+    options: ['MC - Giọng nói','Sáng tạo & Media','Tình nguyện','Team Building'], answer: 1 },
+  { type: 'choice', q: 'Phạm Thị Thảo Anh giữ vai trò gì trong YTC?',
+    options: ['Trưởng ban MC','Phó ban Nhân sự - Hậu cần','Chủ nhiệm','Truyền thông'], answer: 1 },
+  { type: 'choice', q: 'Đào Thị Thu Hằng giữ vai trò gì trong YTC?',
+    options: ['Phó ban Nhân sự - Hậu cần','Trưởng ban MC','Kỹ thuật','Truyền thông'], answer: 0 },
+  { type: 'choice', q: 'Nguyễn Minh Ánh đạt giải gì trong Rising Voice 2025?',
+    options: ['Quán quân','Á quân 1','Á quân 2','Yêu thích nhất'], answer: 2 },
+    { type: 'choice', q: 'Tiêu đề của chuỗi sự kiện "Sinh nhật lần thứ 14 của YTC" là gì?',
+    options: ['Fourteen','Chuyến tàu thời gian','Những dòng ký ức','Rising Voice'], answer: 1 },
+
+  // ----- Fill in the blank -----
+  { type: 'fill', q: 'YTC là viết tắt của cụm từ nào? (tiếng Anh)', answer: 'Young Training Club',
+    accept: ['young training club','youngtrainingclub'] },
+  { type: 'fill', q: 'Hoàn thành slogan: "Ý tưởng lớn - Tài năng trẻ - ___ niềm tin"', answer: 'Chung',
+    accept: ['chung'] },
+  { type: 'fill', q: 'UNETI là trường Đại học Kinh tế - ___ Công Nghiệp', answer: 'Kỹ thuật',
+    accept: ['kỹ thuật','ky thuat'] },
+  { type: 'fill', q: 'Email YTC có phần tên (trước @gmail.com) là gì?', answer: 'genz.ytc',
+    accept: ['genz.ytc','genzytc'] },
+  { type: 'fill', q: 'Tô Thu Trang là quán quân cuộc thi ___ 2025', answer: 'Rising Voice',
+    accept: ['rising voice','risingvoice'] },
+  { type: 'fill', q: 'Nguyễn Minh Ánh là á quân 2 cuộc thi ___ 2025', answer: 'Rising Voice',
+    accept: ['rising voice','risingvoice'] },
+  { type: 'fill', q: 'Ở đây có bao nhiêu bước trên đường đua này? (số)', answer: '50',
+    accept: ['50','năm mươi'] },
+  { type: 'fill', q: 'Slogan của YTC gồm bao nhiêu chữ "c" (Tính cả chữ viết hoa)?', answer: '3',
+    accept: ['ba','3'] },
+  { type: 'fill', q: 'Ô số ___ và ___ trên đường đua cho phép chọn đồng hành (viết theo thứ tự, cách nhau bởi dấu phẩy)', answer: '15, 30',
+    accept: ['15, 30','15,30','15 30','15-30'] },
+  { type: 'fill', q: 'Nguyễn Hồng Thanh là ___ CLB YTC (chức vụ)', answer: 'Chủ nhiệm',
+    accept: ['chủ nhiệm','chu nhiem'] },
+
+  // ----- Word select / arrange -----
+  { type: 'word', q: 'Sắp xếp các từ để tạo thành slogan của YTC:',
+    pool: ['Ý tưởng lớn','Tài năng trẻ','Chung niềm tin'], answer: ['Ý tưởng lớn','Tài năng trẻ','Chung niềm tin'] },
+  { type: 'word', q: 'Sắp xếp 3 từ sau theo đúng thứ tự để ghép thành tên CLB (tiếng Anh):',
+    pool: ['Club','Young','Training'], answer: ['Young','Training','Club'] },
+  { type: 'word', q: 'Sắp xếp các ban chuyên môn theo thứ tự bảng chữ cái:',
+    pool: ['MC - Lễ tân','Nhân sự - Hậu cần','Kỹ thuật - Vận hành','Truyền thông'], answer: ['Kỹ thuật - Vận hành','MC - Lễ tân','Nhân sự - Hậu cần','Truyền thông'] },
+  { type: 'word', q: 'Sắp xếp các giải ONE-TAKE Gen 14.2 theo thứ tự: Nhất → Nhì → Ba:',
+    pool: ['ShineOn','OneTeam','Donald Trump'], answer: ['Donald Trump','OneTeam','ShineOn'] },
+  { type: 'word', q: 'Sắp xếp thứ tự các cuộc thi đã tổ chức từ cũ đến mới:',
+    pool: ['One Take','Rewrite Destiny','Rising Voice'], answer: ['Rewrite Destiny','Rising Voice','One Take'] },
+  { type: 'word', q: 'Sắp xếp các thế hệ Gen theo thứ tự từ cũ đến mới:',
+    pool: ['Gen 14','Gen 15.1','Gen 13'], answer: ['Gen 13','Gen 14','Gen 15.1'] },
+  { type: 'word', q: 'Sắp xếp: ______ là _____ ______',
+    pool: ['Phó ban','Lê Thị Phương Anh','MC - Lễ tân'], answer: ['Lê Thị Phương Anh','Phó ban','MC - Lễ tân'] },
+
+  // ----- hehehe-----
+  { type: 'choice', q: 'YTC tạo cơ hội cho sinh viên rèn luyện những kỹ năng nào?',
+    options: ['Kỹ năng mềm, tư duy sáng tạo và làm việc nhóm','Chỉ kỹ năng lập trình','Chỉ kỹ năng ngoại ngữ','Kỹ năng kế toán chuyên sâu'], answer: 0 },
+  { type: 'choice', q: 'Cuộc thi ONE-TAKE Gen 14.2: nhóm nào giành giải nhì?',
+    options: ['OneTeam','Donald Trump','ShineOn','Rising Stars'], answer: 0 },
+  { type: 'fill', q: 'YTC trực thuộc Đoàn TNCS Hồ Chí Minh của Trường Đại học Kinh tế - Kỹ thuật ___', answer: 'Công Nghiệp', accept: ['công nghiệp','cong nghiep'] },
+
+  // ----- Câu hỏi mở rộng từ thông tin YTC công khai -----
+  { type: 'choice', q: 'YTC được thành lập vào ngày nào?', options: ['23/04/2012','01/06/2013','15/09/2014','20/10/2015'], answer: 0 },
+  { type: 'choice', q: 'Tài khoản TikTok được giới thiệu trên kênh chính thức của YTC là tài khoản nào?', options: ['@ytc.uneti','@youngtrainingclub','@ytc.hanoi','@uneti.ytc'], answer: 0 },
+  { type: 'choice', q: 'YTC có khoảng bao nhiêu sự kiện mỗi năm?', options: ['5+','15+','30+','100+'], answer: 2 },
+  { type: 'choice', q: 'Địa chỉ được giới thiệu của CLB Đào Tạo Kỹ Năng Trẻ là gì?', options: ['218 Lĩnh Nam, Hoàng Mai, Hà Nội','144 Xuân Thuỷ, Cầu Giấy, Hà Nội','353 Trần Hưng Đạo, Nam Định','1 Đại Cồ Việt, Hai Bà Trưng'], answer: 0 },
+  { type: 'choice', q: 'Nội dung nào là một hoạt động chính của YTC?', options: ['Cuộc thi MC - Giọng nói','Đua xe địa hình','Thi đấu cờ vua quốc tế','Triển lãm robot'], answer: 0 },
+  { type: 'choice', q: 'Mỗi năm YTC tổ chức khoảng bao nhiêu mùa Podcast & Phim?', options: ['1 mùa','2 mùa','5 mùa','8 mùa'], answer: 1 },
+  { type: 'choice', q: 'Cuộc thi Rewrite Destiny thuộc Gen nào của YTC?', options: ['Gen 12.1','Gen 13.2','Gen 14.1','Gen 15.1'], answer: 2 },
+  { type: 'choice', q: 'Đội giành giải nhất cuộc thi Rewrite Destiny là đội nào?', options: ['Good Vibes Tribe','Together We Rise','THE INNOVATORS','OneTeam'], answer: 0 },
+  { type: 'choice', q: 'Đội giành giải nhất cuộc thi Voice Your Mind là đội nào?', options: ['Crew 1718','Biệt Đội Xanh','Good Vibes Tribe','Together We Rise'], answer: 3 },
+  { type: 'choice', q: 'Tô Thu Trang đạt thành tích nào tại UNETI GOT TALENT 2026?', options: ['Top 20 Chung Kết','Giải nhất','Giải nhì','Giải yêu thích nhất'], answer: 0 },
+  { type: 'choice', q: 'Đội thi của Nguyễn Thị Hồng Quyên tại MARKET MAKER 2026 có tên là gì?', options: ['WINX','YoungBoost','FinFin Mind','THE LIGHT'], answer: 0 },
+  { type: 'fill', q: 'Chuyến dã ngoại YTC 2026 diễn ra từ ngày ___ đến 01/07/2026.', answer: '30/06', accept: ['30/06','30-06','30 tháng 6'] },
+  { type: 'fill', q: '“Chuyến tàu thời gian” là đêm sinh nhật lần thứ mấy của YTC?', answer: '14', accept: ['14','mười bốn'] },
+  { type: 'choice', q: 'YTC đồng hành cùng chương trình nào dành cho thí sinh trong kỳ thi tốt nghiệp THPT năm 2026?', options: ['Tiếp Sức Mùa Thi','UNETI CUP','Rising Voice','Market Maker'], answer: 0 },
+  { type: 'choice', q: 'Ai được bình chọn là thí sinh được yêu thích nhất tại Rising Voice 2025?', options: ['Tô Thu Trang','Nguyễn Minh Ánh','Ngô Hạnh Nguyên','Nguyễn Thị Thanh Hoa'], answer: 2 },
+  { type: 'choice', q: 'Hoạt động nào thuộc nhóm “Gắn kết & Trải nghiệm” của YTC?', options: ['Dã ngoại và team building','Thi đấu bóng đá chuyên nghiệp','Triển lãm công nghệ','Câu lạc bộ ngoại ngữ'], answer: 0 },
+  { type: 'choice', q: 'Bài đăng gần đây trên Facebook YTC nhắc đến lễ phát động cuộc thi về chủ đề nào?', options: ['Sử dụng năng lượng tiết kiệm và hiệu quả','Khởi nghiệp sinh viên','Nhiếp ảnh trẻ','Văn nghệ học đường'], answer: 0 },
+
+  // ----- Câu hỏi mới, không lặp nội dung cũ -----
+  { type: 'choice', q: 'Trang Facebook Young Training Club hiện giới thiệu khoảng bao nhiêu người theo dõi?', options: ['860','2,6 nghìn','8,6 nghìn','86 nghìn'], answer: 2 },
+  { type: 'choice', q: 'Hoạt động nào được xếp vào nhóm “Nhiệt huyết & Cống hiến”?', options: ['Hỗ trợ hoạt động phong trào và chiến dịch tình nguyện','Cuộc thi MC - Giọng nói','Workshop thiết kế đồ hoạ','Cuộc thi Podcast - Phim'], answer: 0 },
+  { type: 'fill', q: 'Tên cuộc thi video có cụm “ONE - ___” là gì?', answer: 'TAKE', accept: ['take'] },
+  { type: 'word', q: 'Sắp xếp các mốc sự kiện theo thời gian từ sớm đến muộn:', pool: ['15/09/2026','25/09/2026','28/09/2026','08/10/2026'], answer: ['15/09/2026','25/09/2026','28/09/2026','08/10/2026'] },
+];
+
+/* ============================================================
+   COMPANIONS
+   ============================================================ */
+const COMPANION_IMAGES = {
+  minh: 'Image/BCN Gen14/BuiQuangMinh.jpg', hang: 'Image/BCN Gen14/DaoThiThuHang.jpg', thoanh: 'Image/BCN Gen14/PhamThiThaoAnh.jpg', trang: 'Image/BCN Gen14/ToThuTrang.jpg', phuonglinh: 'Image/BCN Gen14/DangThiPhuongLinh.jpg', dung: 'Image/BCN Gen14/TranManhDung.jpg', anh: 'Image/BCN Gen14/NguyenMinhAnh.jpg', phuonganh: 'Image/BCN Gen14/LeThiPhuongAnh.jpg', nhatminh: 'Image/BCN Gen14/VuXuanNhatMinh.jpg', nguyenphuonganh: 'Image/BCN Gen14/NguyenPhuongAnh.jpg', halinh: 'Image/BCN Gen14/HoangThiHaLinh.jpg', hongthanh: 'Image/BCN Gen14/NguyenHongThanh.jpg', thanhlan: 'Image/BCN Gen14/NguyenThanhLan.jpg', doantrang: 'Image/BCN Gen14/LeHuyenDoanTrang.jpg'
+};
+
+const COMPANIONS = [
+  { id: 'minh',   name: 'Bùi Quang Minh',     role: 'Đồng hành thời gian',   avatar: 'M',
+    ability: '+10 giây cho mỗi câu hỏi (tăng từ 15s → 25s)' },
+  { id: 'hang',   name: 'Đào Thị Thu Hằng',   role: 'Đồng hành bước tiến',   avatar: 'H',
+    ability: '+2 bước tiến thêm sau mỗi câu trả lời đúng' },
+  { id: 'thoanh', name: 'Phạm Thị Thảo Anh',  role: 'Đồng hành tốc độ',      avatar: 'A',
+    ability: 'Trả lời đúng trong 5s đầu: thưởng x2 điểm câu đó' },
+  { id: 'trang', name: 'Tô Thu Trang', role: 'Đồng hành xúc xắc', avatar: 'T',
+    ability: 'Tung ra 3: nhân x1,2 điểm hiện tại; ra 4: nhân x1,3 điểm hiện tại' },
+  { id: 'phuonglinh', name: 'Đặng Thị Phương Linh', role: 'Đồng hành bước tiến', avatar: 'L',
+    ability: 'Mỗi ô đi qua: +100 điểm' },
+  { id: 'dung', name: 'Trần Mạnh Dũng', role: 'Đồng hành về đích', avatar: 'D',
+    ability: 'Về đích: +5.000 điểm; chưa về đích: +75 điểm mỗi bước đã đi' },
+  { id: 'anh', name: 'Nguyễn Minh Ánh', role: 'Đồng hành streak', avatar: 'Á',
+    ability: 'Giữ chuỗi trả lời đúng để cộng điểm; trả lời sai sẽ mất hiệu lực chuỗi' },
+  { id: 'phuonganh', name: 'Lê Thị Phương Anh', role: 'Đồng hành cơ hội', avatar: 'P',
+    ability: 'Mỗi câu sai được thêm 1 lần trả lời, kể cả khi đang cướp câu' },
+  { id: 'nhatminh', name: 'Vũ Xuân Nhật Minh', role: 'Đồng hành may mắn', avatar: 'N', ability: 'Xúc xắc ra 1: cộng thêm 500 điểm' },
+  { id: 'nguyenphuonganh', name: 'Nguyễn Phương Anh', role: 'Đồng hành bứt phá', avatar: 'PA', ability: 'Sau mỗi lần trả lời sai, câu đúng kế tiếp được x2 bước và x2 điểm câu hỏi' },
+  { id: 'halinh', name: 'Hoàng Thị Hà Linh', role: 'Đồng hành lặp lại', avatar: 'HL', ability: 'Trả lời đúng: câu vừa làm sẽ xuất hiện lại; kích hoạt tối đa 1 lần mỗi 3 vòng câu hỏi' },
+];
+
+/* ============================================================
+   GAME STATE
+   ============================================================ */
+const TOTAL_QUESTIONS = 20;
+const BOARD_SIZE = 50;
+const BASE_TIME = 15;
+const MILESTONES = [15, 30];
+const POINTS_BASE = 100;
+const POINTS_TIME_BONUS = 100;        // extra if answered fast
+const POINTS_FINISH_BONUS = 500;
+const EARLY_WINDOW = 5;               // seconds for Thảo Anh's bonus
+const DICE_ONE_BONUS = 500;           // Nhật Minh: bonus when dice shows 1
+const FINISH_BONUS_WITH_DUNG = 5000;
+const DISTANCE_BONUS_WITH_DUNG = 75;
+
+let state = {};
+let selectedGameMode = 'classic';
+const VS_COMPANIONS = [
+  { id:'hongthanh', name:'Nguyễn Hồng Thanh', ability:'Kỹ năng: đúng 2 lượt liên tiếp, bấm nút để làm choáng bot. Cooldown 4 lượt.' },
+  { id:'thanhlan', name:'Nguyễn Thanh Lan', ability:'Kỹ năng: tung xúc xắc để bot lùi số bước. Cooldown 3 lượt.' },
+  { id:'doantrang', name:'Lê Huyền Đoan Trang', ability:'Kỹ năng: cướp 1/4 điểm của bot. Cooldown 3 lượt.' }
+];
+
+function resetState() {
+  state = {
+    log: [],
+    mode: 'classic',
+    score: 0,
+    step: 0,
+    qIndex: 0,
+    questions: [],
+    currentQ: null,
+    timeLeft: BASE_TIME,
+    timer: null,
+    countdownTimer: null,
+    answered: false,
+    companions: [],          // picked companion ids
+    passedMilestones: new Set(),
+    correctCount: 0,
+    streak: 0,
+    retryUsed: false,
+    phuongAnhBoostPending: false,
+    haLinhCooldown: 0,
+    pendingRepeatQuestion: null,
+    isRepeatQuestion: false,
+    reachedFinish: false,
+    selectedWords: [],
+    pendingNext: false,
+    resolvingTurn: false,
+    sessionId: 0,
+    finished: false,
+    vs: { botScore:0, botStep:0, botCorrect:0, playerCompanion:null, botCompanion:null, botCompanions:[], botStreak:0, botHongCooldown:0, botSkillCooldowns:{ thanhlan:0, doantrang:0 }, playerStunned:false, stealOpportunities:0, stealCorrect:0, botStealOpportunities:0, botStealCorrect:0, botPassedMilestones:new Set(), playerTurn:true, stealMode:false, stealQuestion:false, botQuestion:null, cooldowns:{ hongthanh:0, thanhlan:0, doantrang:0 }, streak:0, playerFinished:false, botFinished:false, playerFinishedBonus:false, botFinishedBonus:false, botSkipped:false, passedMilestones:new Set(), pendingFinish:null }
+  };
+}
+
+function shuffle(arr) {
+  const a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+// Chọn 20 câu theo tỷ lệ 10 trắc nghiệm / 6 điền khuyết / 4 sắp xếp.
+// Nếu sau này một dạng chưa đủ câu, tự bù từ các dạng còn lại.
+function buildQuestionDeck() {
+  const quota = { choice: 10, fill: 6, word: 4 };
+  const groups = Object.fromEntries(Object.keys(quota).map(type => [type, shuffle(QUESTIONS.filter(q => q.type === type))]));
+  const selected = [];
+  for (const type of Object.keys(quota)) selected.push(...groups[type].splice(0, quota[type]));
+  const chosen = new Set(selected);
+  const remaining = shuffle(QUESTIONS.filter(q => !chosen.has(q)));
+  while (selected.length < Math.min(TOTAL_QUESTIONS, QUESTIONS.length) && remaining.length) selected.push(remaining.pop());
+  return shuffle(selected).map(question => {
+    const copy = { ...question };
+    if (question.options) {
+      const answerText = question.options[question.answer];
+      copy.options = shuffle(question.options);
+      copy.answer = copy.options.indexOf(answerText);
+    }
+    if (question.pool) copy.pool = question.pool.slice();
+    if (question.answer && Array.isArray(question.answer)) copy.answer = question.answer.slice();
+    if (question.accept) copy.accept = question.accept.slice();
+    return copy;
+  });
+}
+
+
+/* ============================================================
+   SOUND EFFECTS — Web Audio, no external files required
+   ============================================================ */
+let ytcAudioContext = null;
+let ytcSoundEnabled = localStorage.getItem('ytcSoundEnabled') !== '0';
+function getAudioContext() { if (!ytcAudioContext) { const AudioCtx = window.AudioContext || window.webkitAudioContext; if (AudioCtx) ytcAudioContext = new AudioCtx(); } if (ytcAudioContext && ytcAudioContext.state === 'suspended') ytcAudioContext.resume(); return ytcAudioContext; }
+function playSound(type) {
+  if (!ytcSoundEnabled) return;
+  const ctx = getAudioContext(); if (!ctx) return;
+  const patterns = { start:[[392,.08,'sine',0],[523,.12,'sine',.09],[659,.16,'sine',.22]], correct:[[523,.09,'sine',0],[659,.12,'sine',.1],[784,.18,'sine',.22]], wrong:[[220,.14,'sawtooth',0],[165,.2,'sawtooth',.14]], dice:[[180,.05,'square',0],[240,.05,'square',.07],[300,.05,'square',.14]], select:[[392,.08,'triangle',0],[587,.16,'triangle',.09]], click:[[660,.035,'sine',0]], word:[[520,.035,'triangle',0],[700,.045,'triangle',.05]], timeout:[[130,.18,'sawtooth',0],[90,.25,'sawtooth',.16]], milestone:[[440,.08,'sine',0],[660,.1,'sine',.1],[880,.18,'sine',.22]], modal:[[330,.06,'triangle',0],[494,.1,'triangle',.08]], diceTick:[[150,.025,'square',0]], gameover:[[392,.12,'sine',0],[330,.14,'sine',.14],[262,.25,'sine',.3]], countdown:[[330,.08,'triangle',0],[440,.1,'triangle',.1]], finish:[[523,.1,'sine',0],[659,.1,'sine',.11],[784,.1,'sine',.22],[1046,.28,'sine',.34]] };
+  const notes = patterns[type] || patterns.select;
+  const now = ctx.currentTime;
+  notes.forEach(([frequency,duration,wave,offset]) => { const osc = ctx.createOscillator(); const gain = ctx.createGain(); osc.type = wave; osc.frequency.setValueAtTime(frequency, now + offset); gain.gain.setValueAtTime(.0001, now + offset); gain.gain.exponentialRampToValueAtTime(.09, now + offset + .01); gain.gain.exponentialRampToValueAtTime(.0001, now + offset + duration); osc.connect(gain); gain.connect(ctx.destination); osc.start(now + offset); osc.stop(now + offset + duration + .02); });
+}
+function updateSoundToggle() { const button = document.getElementById('soundToggle'); if (!button) return; button.classList.toggle('is-muted', !ytcSoundEnabled); button.setAttribute('aria-pressed', String(ytcSoundEnabled)); button.innerHTML = `<span aria-hidden="true">${ytcSoundEnabled ? '🔊' : '🔇'}</span> ÂM THANH: ${ytcSoundEnabled ? 'BẬT' : 'TẮT'}`; }
+function toggleSound() { ytcSoundEnabled = !ytcSoundEnabled; localStorage.setItem('ytcSoundEnabled', ytcSoundEnabled ? '1' : '0'); updateSoundToggle(); if (ytcSoundEnabled) playSound('select'); }
+window.addEventListener('DOMContentLoaded', updateSoundToggle, { once: true });
+
+function setGameMode(mode) { selectedGameMode = mode; document.body.classList.toggle('vs-mode', mode === 'vs'); document.getElementById('classicModeBtn').classList.toggle('active', mode === 'classic'); document.getElementById('vsModeBtn').classList.toggle('active', mode === 'vs'); }
+function openVSCompanionMilestone(milestone){const modal=document.getElementById('charModal');const subtitle=document.getElementById('charModalSubtitle');subtitle.textContent=`Bạn vừa đạt ô ${milestone} — chọn kỹ năng VS tiếp theo`;const grid=document.getElementById('charGrid');grid.innerHTML='';VS_COMPANIONS.forEach(c=>{const card=document.createElement('div');card.className='char-card';card.setAttribute('role','button');card.setAttribute('tabindex','0');const image=COMPANION_IMAGES[c.id];card.innerHTML=`<div class="char-card-head"><span class="char-index">VS / ${c.id.toUpperCase()}</span><span class="char-tag">VS MODE</span></div><div class="char-avatar-big${image?' has-photo':''}">${image?`<img src="${image}" alt="${c.name}" loading="lazy">`:c.name.slice(0,2)}</div><div class="char-name">${c.name}</div><div class="char-role">Đồng hành VS mode</div><div class="char-ability"><span class="char-ability-label">KỸ NĂNG</span>${c.ability}</div>`;card.onclick=()=>pickVSCompanion(c.id);card.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();pickVSCompanion(c.id);}};grid.appendChild(card);});modal.classList.add('show');document.body.classList.add('modal-open');playSound('modal');}
+function pickVSCompanion(id){if(state.finished||state.mode!=='vs')return;state.vs.playerCompanion=id;document.getElementById('charModal').classList.remove('show');document.body.classList.remove('modal-open');state.resolvingTurn=false;updateVSHUD();const pending=state.vs.pendingFinish;state.vs.pendingFinish=null;if(pending!==null)finishVSRound(pending);}
+function openVSClassicMilestone(milestone){const EXCLUDED_VS_IDS=VS_COMPANIONS.map(c=>c.id);const availableCompanions=COMPANIONS.filter(c=>!EXCLUDED_VS_IDS.includes(c.id));const modal=document.getElementById('charModal');const subtitle=document.getElementById('charModalSubtitle');subtitle.textContent=`Bạn vừa đạt ô ${milestone} — chọn 1 trong các đồng hành bên dưới (trừ 3 nhân vật VS)`;const grid=document.getElementById('charGrid');grid.innerHTML='';availableCompanions.forEach(c=>{const picked=state.companions.includes(c.id);const card=document.createElement('div');card.className='char-card'+(picked?' picked':'');card.setAttribute('role','button');card.setAttribute('tabindex',picked?'-1':'0');card.setAttribute('aria-label',picked?`${c.name}, đã chọn`:`Chọn ${c.name}`);const image=COMPANION_IMAGES[c.id];card.innerHTML=`<div class="char-card-head"><span class="char-index">YTC / ${String(COMPANIONS.indexOf(c)+1).padStart(2,'0')}</span><span class="char-tag">ĐỒNG HÀNH</span></div><div class="char-avatar-big${image?' has-photo':''}">${image?`<img src="${image}" alt="${c.name}" loading="lazy">`:c.avatar}</div><div class="char-name">${c.name}</div><div class="char-role">${c.role}</div><div class="char-ability"><span class="char-ability-label">NĂNG LỰC</span>${c.ability}</div>`;if(!picked){card.onclick=()=>pickCompanion(c.id);card.onkeydown=event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();pickCompanion(c.id);}};}grid.appendChild(card);});modal.classList.add('show');document.body.classList.add('modal-open');playSound('modal');requestAnimationFrame(()=>{const firstAvailable=grid.querySelector('.char-card:not(.picked)');if(firstAvailable&&window.matchMedia('(min-width: 601px)').matches)firstAvailable.focus();});}
+function checkVSMilestone(fromStep,target){if(state.mode!=='vs'||!state.vs)return;if(state.companions.length>=2)return;for(const m of MILESTONES){if(fromStep<m&&target>=m&&!state.vs.passedMilestones.has(m)){state.vs.passedMilestones.add(m);setTimeout(()=>{if(!state.finished&&!document.getElementById('charModal').classList.contains('show')&&state.companions.length<2){state.resolvingTurn=true;openVSClassicMilestone(m);}},450);break;}}}
+function openVSSetup() { const grid=document.getElementById('vsCompanionChoices'); grid.innerHTML=''; window.vsSetupChoice=null; VS_COMPANIONS.forEach(c=>{const card=document.createElement('button'); card.type='button'; card.className='vs-companion-choice'; const image=COMPANION_IMAGES[c.id]; card.innerHTML=`${image?`<img src="${image}" alt="${c.name}" loading="lazy">`:''}<strong>${c.name}</strong><small>${c.ability}</small>`; card.onclick=()=>{window.vsSetupChoice=c.id; document.querySelectorAll('.vs-companion-choice').forEach(x=>x.classList.remove('selected')); card.classList.add('selected');}; grid.appendChild(card)}); document.getElementById('coinResult').textContent=''; document.getElementById('vsSetup').classList.add('show'); }
+function closeVSSetup(){document.getElementById('vsSetup').classList.remove('show');}
+function tossCoin(){ if(!window.vsSetupChoice){document.getElementById('coinResult').textContent='Hãy chọn người đồng hành trước.'; return;} const playerFirst=Math.random()<.5; document.getElementById('coinResult').textContent='Đồng xu: '+(playerFirst?'Bạn đi trước!':'Bot đi trước!'); setTimeout(()=>beginVSGame(playerFirst),900); }
+function beginVSGame(playerFirst){ closeVSSetup(); playSound('start'); showLoading('Đang chuẩn bị VS mode...'); setTimeout(()=>{resetState(); renderActionLog(); logAction(playerFirst?'Đồng xu: bạn đi trước':'Đồng xu: Bot đi trước','sys'); state.mode='vs'; state.vs.playerCompanion=window.vsSetupChoice; state.vs.botCompanion=VS_COMPANIONS[Math.floor(Math.random()*VS_COMPANIONS.length)].id; state.vs.botCompanions=[...shuffle(COMPANIONS)].slice(0,1).map(c=>c.id); state.vs.playerTurn=playerFirst; state.sessionId=(window.__ytcSessionId||0)+1; window.__ytcSessionId=state.sessionId; state.questions=buildQuestionDeck(); document.getElementById('startScreen').classList.remove('active'); document.getElementById('gameScreen').classList.add('active'); buildBoard(); renderCompanions(); updateTopbar(); updateVSHUD(); loadQuestion(false); runStartCountdown(); hideLoading(); },720); }
+function startGame() {
+  if(selectedGameMode==='vs'){ openVSSetup(); return; }
+  playSound('start');
+  showLoading('Đang chuẩn bị đường đua...');
+  setTimeout(() => {
+    resetState();
+    renderActionLog();
+    logAction('Bắt đầu đường đua', 'sys');
+    state.sessionId = (window.__ytcSessionId || 0) + 1;
+    window.__ytcSessionId = state.sessionId;
+    state.questions = buildQuestionDeck();
+    document.getElementById('startScreen').classList.remove('active');
+    document.getElementById('gameScreen').classList.add('active');
+    buildBoard();
+    renderCompanions();
+    updateTopbar();
+    loadQuestion(false);
+    hideLoading();
+    runStartCountdown();
+  }, 720);
+}
+
+function showLoading(message = 'Đang tải...') {
+  const screen = document.getElementById('loadingScreen');
+  const messageEl = document.getElementById('loadingMessage');
+  const progress = document.getElementById('loadingProgress');
+  const percentEl = document.getElementById('loadingPercent');
+  if (!screen) return;
+  screen.classList.remove('is-hidden');
+  screen.classList.add('is-preparing');
+  if (progress) progress.style.width = '';
+  if (messageEl) messageEl.textContent = message;
+  if (percentEl) percentEl.textContent = '92%';
+}
+
+function hideLoading() {
+  const screen = document.getElementById('loadingScreen');
+  const percentEl = document.getElementById('loadingPercent');
+  if (!screen) return;
+  screen.classList.remove('is-preparing');
+  screen.classList.add('is-hidden');
+  if (percentEl) percentEl.textContent = '100%';
+}
+
+function finishInitialLoading() {
+  const progress = document.getElementById('loadingProgress');
+  const percentEl = document.getElementById('loadingPercent');
+  if (progress) progress.style.width = '100%';
+  if (percentEl) percentEl.textContent = '100%';
+  setTimeout(hideLoading, 420);
+}
+
+if (document.readyState === 'complete') {
+  setTimeout(finishInitialLoading, 520);
+} else {
+  window.addEventListener('load', () => setTimeout(finishInitialLoading, 320), { once: true });
+}
+
+function runStartCountdown() {
+  const overlay = document.getElementById('countdownOverlay');
+  const number = document.getElementById('countdownNumber');
+  let count = 3;
+  const sessionId = state.sessionId;
+  overlay.classList.add('show');
+  number.textContent = count;
+  playSound('countdown');
+  state.countdownTimer = setInterval(() => {
+    if (sessionId !== state.sessionId || state.finished) {
+      clearInterval(state.countdownTimer);
+      overlay.classList.remove('show');
+      return;
+    }
+    count--;
+    if (count > 0) {
+      number.textContent = count;
+      playSound('countdown');
+      number.style.animation = 'none';
+      void number.offsetWidth;
+      number.style.animation = '';
+      return;
+    }
+    clearInterval(state.countdownTimer);
+    number.textContent = 'XUẤT PHÁT!';
+    number.style.fontSize = 'clamp(44px,10vw,82px)';
+    setTimeout(() => {
+      if (sessionId !== state.sessionId || state.finished) return;
+      overlay.classList.remove('show');
+      number.style.fontSize = '';
+      if (state.mode === 'vs' && !state.vs.playerTurn) botTurn();
+      else startTimer();
+      const input = document.getElementById('fillInput');
+      if (input) input.focus();
+    }, 650);
+  }, 900);
+}
+
+function restartGame() {
+  clearInterval(state.timer);
+  clearInterval(state.countdownTimer);
+  document.getElementById('countdownOverlay').classList.remove('show');
+  state.finished = true;
+  document.getElementById('charModal').classList.remove('show');
+  document.getElementById('gameOverModal').classList.remove('show');
+  document.body.classList.remove('modal-open');
+  hideLoading();
+  document.getElementById('gameScreen').classList.remove('active');
+  document.getElementById('startScreen').classList.add('active');
+}
+
+/* ============================================================
+   BOARD RENDERING
+   ============================================================ */
+function buildBoard() {
+  const board = document.getElementById('board');
+  board.innerHTML = '';
+  // 5 rows of 10, serpentine. Bottom row left-to-right = steps 1..10,
+  // next row right-to-left = 11..20, etc. Display column-reverse so row 1 (steps 1-10) is at bottom.
+  const rows = 5, cols = 10;
+  for (let r = 0; r < rows; r++) {
+    const row = document.createElement('div');
+    row.className = 'board-row' + (r % 2 === 1 ? ' reverse' : '');
+    for (let c = 0; c < cols; c++) {
+      const stepNum = r * cols + c + 1;
+      const cell = document.createElement('div');
+      cell.className = 'cell';
+      cell.dataset.step = stepNum;
+      if (stepNum === BOARD_SIZE) cell.classList.add('finish');
+      else if (MILESTONES.includes(stepNum)) cell.classList.add('milestone-' + stepNum);
+      let label = stepNum;
+      if (stepNum === BOARD_SIZE) label = '<svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 21h8m-4-4v4M7 4h10v5a5 5 0 0 1-10 0zm10 2h4v2a4 4 0 0 1-4 4M7 6H3v2a4 4 0 0 0 4 4"/></svg>';
+      else if (MILESTONES.includes(stepNum)) label = '<svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10h18v11H3zM2 6h20v4H2zM12 6v15M12 6H7a2 2 0 1 1 2-2c0 2 3 2 3 2zm0 0h5a2 2 0 1 0-2-2c0 2-3 2-3 2z"/></svg>' + stepNum;
+      cell.innerHTML = label;
+      cell.id = 'cell-' + stepNum;
+      row.appendChild(cell);
+    }
+    board.appendChild(row);
+  }
+  updatePlayerToken();
+  updateBotToken();
+}
+
+function updatePlayerToken() {
+  // Remove existing
+  document.querySelectorAll('.player-token').forEach(t => t.remove());
+  document.querySelectorAll('.cell.player-here').forEach(c => c.classList.remove('player-here'));
+
+  if (state.step === 0) {
+    // Show at start area (cell 0 doesn't exist, highlight start)
+    return;
+  }
+  const cell = document.getElementById('cell-' + state.step);
+  if (!cell) return;
+  cell.classList.add('player-here');
+
+  const token = document.createElement('div');
+  token.className = 'player-token';
+  token.innerHTML = `<div class="player-icon">YOU</div>`;
+  // companion mini icons
+  if (state.companions.length) {
+    const wrap = document.createElement('div');
+    wrap.className = 'companion-icons';
+    state.companions.forEach(cid => {
+      const c = COMPANIONS.find(x => x.id === cid);
+      const m = document.createElement('div');
+      m.className = 'companion-mini';
+      m.textContent = c.avatar;
+      wrap.appendChild(m);
+    });
+    token.appendChild(wrap);
+  }
+  cell.appendChild(token);
+}
+
+function updateBotToken() {
+  document.querySelectorAll('.bot-token').forEach(t => t.remove());
+  document.querySelectorAll('.cell.bot-here').forEach(c => c.classList.remove('bot-here'));
+  if (state.mode !== 'vs' || !state.vs || state.vs.botStep === 0) return;
+  const cell = document.getElementById('cell-' + state.vs.botStep);
+  if (!cell) return;
+  cell.classList.add('bot-here');
+  const token = document.createElement('div');
+  token.className = 'bot-token';
+  token.innerHTML = '<div class="bot-icon">BOT</div>';
+  cell.appendChild(token);
+}
+
+/* ============================================================
+   COMPANIONS UI
+   ============================================================ */
+function renderCompanions() {
+  const list = document.getElementById('companionsList');
+  list.innerHTML = '';
+  if (state.companions.length === 0) {
+    list.innerHTML = `
+      <div class="companion-row empty">Chưa có đồng hành — đạt ô 15 để chọn</div>
+      <div class="companion-row empty">Ô thứ 2 mở ở ô 30</div>`;
+    return;
+  }
+  state.companions.forEach(cid => {
+    const c = COMPANIONS.find(x => x.id === cid);
+    const row = document.createElement('div');
+    row.className = 'companion-row';
+    const image = COMPANION_IMAGES[c.id];
+    row.innerHTML = `
+      <div class="companion-avatar${image ? ' has-photo' : ''}">${image ? `<img src="${image}" alt="${c.name}" loading="lazy">` : c.avatar}</div>
+      <div class="companion-info">
+        <div class="companion-name">${c.name}</div>
+        <div class="companion-ability">${c.ability}</div>
+      </div>`;
+    list.appendChild(row);
+  });
+  // Fill remaining slot
+  const pickedCount = state.companions.length;
+  if (pickedCount < 2) {
+    const empty = document.createElement('div');
+    empty.className = 'companion-row empty';
+    empty.textContent = pickedCount === 0
+      ? 'Đạt ô 15 để chọn đồng hành đầu tiên'
+      : 'Đạt ô 30 để chọn đồng hành thứ hai';
+    list.appendChild(empty);
+  }
+}
+
+/* ============================================================
+   QUESTION LOADING
+   ============================================================ */
+function loadQuestion(startClock = true) {
+  if (state.qIndex >= state.questions.length || state.reachedFinish) {
+    endGame();
+    return;
+  }
+  state.answered = false;
+  state.retryUsed = false;
+  state.selectedWords = [];
+  state.currentQ = state.questions[state.qIndex];
+  state.isRepeatQuestion = Boolean(state.currentQ.isRepeatQuestion);
+  state.timeLeft = state.companions.includes('minh') ? BASE_TIME + 10 : BASE_TIME;
+
+  const q = state.currentQ;
+  document.getElementById('qCounter').textContent = `Câu ${state.qIndex + 1} / ${state.questions.length}`;
+  document.getElementById('qNumVal').textContent = `${state.qIndex + 1}/${state.questions.length}`;
+  const badge = document.getElementById('qTypeBadge');
+  if (q.type === 'choice') { badge.textContent = 'Trắc nghiệm'; badge.className = 'q-type-badge choice'; }
+  else if (q.type === 'fill') { badge.textContent = 'Điền khuyết'; badge.className = 'q-type-badge fill'; }
+  else { badge.textContent = 'Chọn từ'; badge.className = 'q-type-badge word'; }
+
+  document.getElementById('qText').textContent = q.q;
+  document.getElementById('feedback').className = 'feedback';
+  document.getElementById('btnNext').classList.remove('show');
+
+  renderAnswerArea(q);
+  if (startClock) startTimer();
+}
+
+function renderAnswerArea(q) {
+  const area = document.getElementById('answerArea');
+  area.innerHTML = '';
+
+  if (q.type === 'choice') {
+    const wrap = document.createElement('div');
+    wrap.className = 'options';
+    q.options.forEach((opt, i) => {
+      const btn = document.createElement('button');
+      btn.className = 'option';
+      btn.innerHTML = `<span class="letter">${String.fromCharCode(65+i)}</span><span>${opt}</span>`;
+      btn.onclick = () => handleChoiceAnswer(i, btn);
+      wrap.appendChild(btn);
+    });
+    area.appendChild(wrap);
+  } else if (q.type === 'fill') {
+    const wrap = document.createElement('div');
+    wrap.className = 'fill-input-wrap';
+    wrap.innerHTML = `
+      <input type="text" class="fill-input" id="fillInput" placeholder="Nhập câu trả lời của bạn..." autocomplete="off">
+      <button class="btn-submit" onclick="submitFill()">XÁC NHẬN</button>`;
+    area.appendChild(wrap);
+    setTimeout(() => document.getElementById('fillInput').focus(), 50);
+    document.getElementById('fillInput').addEventListener('keydown', e => {
+      if (e.key === 'Enter') submitFill();
+    });
+  } else if (q.type === 'word') {
+    // Answer slots
+    const slots = document.createElement('div');
+    slots.className = 'word-answer-slots';
+    slots.id = 'wordSlots';
+    q.answer.forEach((_, i) => {
+      const slot = document.createElement('div');
+      slot.className = 'word-slot-empty';
+      slot.textContent = `___`;
+      slot.dataset.slot = i;
+      slot.onclick = () => removeWord(i);
+      slots.appendChild(slot);
+    });
+    area.appendChild(slots);
+
+    // Word pool
+    const pool = document.createElement('div');
+    pool.className = 'word-pool';
+    // Shuffle pool for variety
+    shuffle(q.pool).forEach(w => {
+      const chip = document.createElement('div');
+      chip.className = 'word-chip';
+      chip.textContent = w;
+      chip.dataset.word = w;
+      chip.onclick = () => addWord(w, chip);
+      pool.appendChild(chip);
+    });
+    area.appendChild(pool);
+
+    const submit = document.createElement('button');
+    submit.className = 'btn-submit';
+    submit.style.width = '100%';
+    submit.textContent = 'XÁC NHẬN';
+    submit.onclick = submitWord;
+    area.appendChild(submit);
+  }
+}
+
+/* ============================================================
+   TIMER
+   ============================================================ */
+function startTimer() {
+  clearInterval(state.timer);
+  const max = state.timeLeft;
+  updateTimerUI(max);
+  state.timer = setInterval(() => {
+    state.timeLeft--;
+    updateTimerUI(max);
+    if (state.timeLeft <= 0) {
+      clearInterval(state.timer);
+      handleTimeout();
+    }
+  }, 1000);
+}
+
+function updateTimerUI(max) {
+  document.getElementById('timerVal').textContent = state.timeLeft;
+  const bar = document.getElementById('timerBar');
+  bar.style.width = Math.max(0, (state.timeLeft / max) * 100) + '%';
+  const chip = document.getElementById('timerChip');
+  if (state.timeLeft <= 5) chip.classList.add('warning');
+  else chip.classList.remove('warning');
+}
+
+function handleTimeout() {
+  if (state.answered) return;
+  playSound('timeout');
+  clearInterval(state.timer);
+  registerWrongAnswer();
+  if (offerRetry()) return;
+  state.answered = true;
+  // Disable inputs
+  document.querySelectorAll('.option, .word-chip, .btn-submit').forEach(b => b.classList.add('disabled'));
+  const fb = document.getElementById('feedback');
+  fb.className = 'feedback wrong show';
+  fb.innerHTML = `<svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg> Hết giờ! Đáp án: ${getCorrectAnswerText(state.currentQ)}`;
+  document.getElementById('btnNext').classList.add('show');
+}
+
+/* ============================================================
+   ANSWER HANDLERS
+   ============================================================ */
+function registerWrongAnswer() {
+  state.streak = 0;
+  if (state.companions.includes('nguyenphuonganh')) state.phuongAnhBoostPending = true;
+}
+
+function revealNextButtonAfterCorrect() {
+  const button = document.getElementById('btnNext');
+  const sessionId = state.sessionId;
+  button.classList.remove('show');
+  setTimeout(() => {
+    if (sessionId !== state.sessionId || state.finished) return;
+    button.classList.add('show');
+  }, 1500);
+}
+
+function handleChoiceAnswer(picked, btn) {
+  if (state.answered) return;
+  state.answered = true;
+  clearInterval(state.timer);
+  const q = state.currentQ;
+  const correct = picked === q.answer;
+  if (!correct && offerRetry()) return;
+  const allOptions = document.querySelectorAll('.option');
+  allOptions.forEach(o => o.classList.add('disabled'));
+  allOptions[q.answer].classList.add('correct');
+  if (!correct) btn.classList.add('wrong');
+
+  showFeedback(correct);
+  if (state.mode === 'vs') { resolveVSPlayerAnswer(correct); return; }
+  if (correct) { onCorrectAnswer(); revealNextButtonAfterCorrect(); }
+  else { registerWrongAnswer();
+    const fb = document.getElementById('feedback');
+    fb.textContent += ` — Đáp án đúng: ${q.options[q.answer]}`;
+    document.getElementById('btnNext').classList.add('show');
+  }
+}
+
+function submitFill() {
+  if (state.answered) return;
+  const input = document.getElementById('fillInput');
+  const normalizeFillAnswer = value => String(value ?? '')
+    .normalize('NFKC')
+    .trim()
+    .toLocaleLowerCase('vi-VN')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[“”"'`]/g, '')
+    .replace(/\s+/g, ' ')
+    .replace(/\s*[,;|/]\s*/g, ',')
+    .replace(/\s*-\s*/g, '-')
+    .trim();
+  const val = normalizeFillAnswer(input.value);
+  if (!val) return;
+  state.answered = true;
+  clearInterval(state.timer);
+  input.disabled = true;
+
+  const q = state.currentQ;
+  const accepts = (q.accept || [q.answer]).map(normalizeFillAnswer);
+  const correct = accepts.some(answer => answer === val);
+  if (!correct && offerRetry()) return;
+  showFeedback(correct);
+  if (state.mode === 'vs') { resolveVSPlayerAnswer(correct); return; }
+  if (correct) { onCorrectAnswer(); revealNextButtonAfterCorrect(); }
+  else { state.streak = 0;
+    const fb = document.getElementById('feedback');
+    fb.textContent += ` — Đáp án đúng: ${q.answer}`;
+    document.getElementById('btnNext').classList.add('show');
+  }
+}
+
+function addWord(word, chip) {
+  if (state.answered) return;
+  // Find first empty slot
+  const slots = document.querySelectorAll('#wordSlots .word-slot-empty');
+  if (slots.length === 0) return;
+  const slot = slots[0];
+  slot.className = 'word-slot';
+  slot.textContent = word + ' ✕';
+  slot.dataset.word = word;
+  chip.classList.add('used');
+  state.selectedWords.push(word);
+  playSound('word');
+}
+
+function removeWord(slotIndex) {
+  if (state.answered) return;
+  const slot = document.querySelectorAll('#wordSlots > div')[slotIndex];
+  if (!slot || !slot.classList.contains('word-slot')) return;
+  const word = slot.dataset.word;
+  slot.className = 'word-slot-empty';
+  slot.textContent = '___';
+  slot.removeAttribute('data-word');
+  state.selectedWords.splice(state.selectedWords.indexOf(word), 1);
+  // Re-enable chip
+  const chip = document.querySelector(`.word-chip[data-word="${word}"]`);
+  if (chip) chip.classList.remove('used');
+  playSound('word');
+}
+
+function submitWord() {
+  if (state.answered) return;
+  const visibleWords = Array.from(document.querySelectorAll('#wordSlots .word-slot'))
+    .map(slot => slot.dataset.word || slot.textContent.replace(/\s+✕\s*$/, '').trim())
+    .filter(Boolean);
+  if (visibleWords.length !== state.currentQ.answer.length) {
+    const fb = document.getElementById('feedback');
+    fb.className = 'feedback info show';
+    fb.textContent = `Hãy chọn đủ ${state.currentQ.answer.length} từ trước khi xác nhận.`;
+    return;
+  }
+  state.selectedWords = visibleWords;
+  state.answered = true;
+  clearInterval(state.timer);
+  document.querySelectorAll('.word-chip, .word-slot').forEach(b => b.classList.add('disabled'));
+
+  const q = state.currentQ;
+  const normalizeWord = value => String(value).normalize('NFKC').replace(/\s+/g, ' ').trim().toLocaleLowerCase('vi-VN');
+  const correct = state.selectedWords.length === q.answer.length
+    && state.selectedWords.every((word, i) => normalizeWord(word) === normalizeWord(q.answer[i]));
+  if (!correct && offerRetry()) return;
+  showFeedback(correct);
+  if (state.mode === 'vs') { resolveVSPlayerAnswer(correct); return; }
+  if (correct) { onCorrectAnswer(); revealNextButtonAfterCorrect(); }
+  else { state.streak = 0;
+    const fb = document.getElementById('feedback');
+    fb.textContent += ` — Đáp án đúng: ${q.answer.join(' → ')}`;
+    document.getElementById('btnNext').classList.add('show');
+  }
+}
+
+function updateVSHUD(){if(state.mode!=='vs')return; const v=state.vs; document.getElementById('botScoreVal').textContent=v.botScore.toLocaleString('vi-VN'); document.getElementById('turnVal').textContent=v.playerTurn?'Bạn':'Bot'; const c=VS_COMPANIONS.find(x=>x.id===v.playerCompanion); document.getElementById('vsCompanionLabel').textContent=c?c.name+' — '+c.ability:'Chưa chọn'; const cd=v.cooldowns[v.playerCompanion]||0; const thanhReady=v.playerCompanion==='hongthanh'&&v.streak>=2&&!cd; document.getElementById('vsCooldown').textContent=v.playerCompanion==='hongthanh'&&!cd&&!thanhReady?'Cần đúng 2 lượt liên tiếp':cd?'Cooldown: '+cd+' lượt': 'Sẵn sàng'; const btn=document.getElementById('vsSkillBtn'); btn.textContent=v.playerCompanion==='hongthanh'?'LÀM CHOÁNG BOT':'DÙNG KỸ NĂNG'; btn.disabled=Boolean(cd)||!v.playerTurn||state.finished||(v.playerCompanion==='hongthanh'&&!thanhReady); const botList=document.getElementById('vsBotCompanions'); if(botList){const names=v.botCompanions.map(id=>{const bc=COMPANIONS.find(x=>x.id===id); return bc?bc.name:'';}).filter(Boolean); const botSkill=VS_COMPANIONS.find(x=>x.id===v.botCompanion); botList.textContent='Đồng hành của Bot: '+(names.length?names.join(', '):'chưa có')+(botSkill?' · Kỹ năng: '+botSkill.name:'');}}
+function moveVS(who,steps){const v=state.vs; if(who==='player'){const fromStep=state.step; let totalSteps=steps; if(state.companions.includes('hang')){totalSteps+=2; showFloatingPoints('Thu Hằng · +2 bước', true, '#d19a00');} state.step=Math.min(BOARD_SIZE,state.step+totalSteps); v.playerFinished=state.step>=BOARD_SIZE; logAction('tiến '+(state.step-fromStep)+' bước → ô '+state.step,'player'); if(state.companions.includes('phuonglinh')){const bonus=Math.max(0,state.step-fromStep)*100; if(bonus>0){ state.score+=bonus; showFloatingPoints('Phương Linh · +'+bonus+' ('+(state.step-fromStep)+' ô)', true, '#d19a00'); } } if(v.playerFinished && !v.playerFinishedBonus){ v.playerFinishedBonus=true; playSound('finish'); const finishBonus=state.companions.includes('dung')?FINISH_BONUS_WITH_DUNG:POINTS_FINISH_BONUS; state.score+=finishBonus; showFloatingPoints('VỀ ĐÍCH! +'+finishBonus+' điểm', false, '#ffd24a'); launchConfetti(); } updatePlayerToken(); checkVSMilestone(fromStep,state.step); }else{const fromStep=v.botStep; let totalSteps=steps; if(v.botCompanions.includes('hang')){totalSteps+=2; showFloatingPoints('Bot / Thu Hằng · +2 bước', false, '#ed5b69');} v.botStep=Math.min(BOARD_SIZE,v.botStep+totalSteps); v.botFinished=v.botStep>=BOARD_SIZE; logAction('tiến '+(v.botStep-fromStep)+' bước → ô '+v.botStep,'bot'); if(v.botCompanions.includes('phuonglinh')){const bonus=Math.max(0,v.botStep-fromStep)*100; if(bonus>0){ v.botScore+=bonus; showFloatingPoints('Bot / Phương Linh · +'+bonus+' ('+(v.botStep-fromStep)+' ô)', false, '#ed5b69'); } } if(v.botFinished && !v.botFinishedBonus){ v.botFinishedBonus=true; const finishBonus=v.botCompanions.includes('dung')?FINISH_BONUS_WITH_DUNG:POINTS_FINISH_BONUS; v.botScore+=finishBonus; showFloatingPoints('Bot về đích! +'+finishBonus+' điểm', false, '#ed5b69'); } checkVSBotMilestone(fromStep,v.botStep); } updateBotToken(); updateTopbar(); updateVSHUD(); }
+function checkVSBotMilestone(fromStep,target){const v=state.vs; if(v.botCompanions.length>=2) return; const EXCLUDED_VS_IDS=VS_COMPANIONS.map(c=>c.id); for(const m of MILESTONES){ if(fromStep<m && target>=m && !v.botPassedMilestones.has(m)){ v.botPassedMilestones.add(m); const available=COMPANIONS.filter(c=>!EXCLUDED_VS_IDS.includes(c.id) && !v.botCompanions.includes(c.id)); if(available.length){ const pick=available[Math.floor(Math.random()*available.length)]; v.botCompanions.push(pick.id); showFloatingPoints('Bot chọn đồng hành: '+pick.name, false, '#ed5b69'); } break; } } }
+function awardVSPlayer(){const v=state.vs; const bonus=v.playerFinished&&!v.botFinished?2:1; const timeUsed=(state.companions.includes('minh')?BASE_TIME+10:BASE_TIME)-state.timeLeft; let pts=(POINTS_BASE+Math.round(POINTS_TIME_BONUS*(state.timeLeft/BASE_TIME)))*bonus; let thaoAnhBonus=0; if(state.companions.includes('thoanh')&&timeUsed<=EARLY_WINDOW){thaoAnhBonus=pts; pts+=thaoAnhBonus;} let streakBonus=0; if(state.companions.includes('anh')){streakBonus=v.streak*50; pts+=streakBonus;} state.score+=pts; showFloatingPoints('Bạn +'+pts+(bonus===2?' (x2 về đích)':'')+(thaoAnhBonus?' (Thảo Anh x2)':'')+(streakBonus?' (streak +'+streakBonus+')':''),true); updateTopbar(); return rollDice().then(steps=>{ if(state.companions.includes('trang')&&(steps===3||steps===4)){const multiplier=steps===3?1.2:1.5; const bPts=Math.round(state.score*(multiplier-1)); state.score+=bPts; showFloatingPoints('Tô Thu Trang x'+multiplier+' · +'+bPts, true, '#d19a00'); document.getElementById('diceResult').textContent+=' · điểm x'+multiplier; } if(state.companions.includes('nhatminh')&&steps===1){state.score+=DICE_ONE_BONUS; showFloatingPoints('Nhật Minh · xúc 1 · +'+DICE_ONE_BONUS, true, '#d19a00'); document.getElementById('diceResult').textContent+=' · +'+DICE_ONE_BONUS+' điểm';} updateTopbar(); moveVS('player',steps); });}
+function awardVSBot(){const v=state.vs; const multiplier=v.botFinished&&!v.playerFinished?2:1; let pts=(POINTS_BASE+Math.floor(Math.random()*101))*multiplier; v.botStreak++; let streakBonus=0; if(v.botCompanions.includes('anh')){streakBonus=v.botStreak*50; pts+=streakBonus;} v.botScore+=pts; v.botCorrect++; if(v.botCompanion==='hongthanh'&&v.botStreak>=2&&v.botHongCooldown===0){v.playerStunned=true;v.botStreak=0;v.botHongCooldown=4;showFloatingPoints('Bot / Hồng Thanh: bạn bị làm choáng!',false,'#ed5b69');} showFloatingPoints('Bot +'+pts+(multiplier===2?' (x2 về đích)':'')+(streakBonus?' (streak +'+streakBonus+')':''),false,'#ed5b69'); updateTopbar(); return rollDice('bot').then(steps=>{ if(v.botCompanions.includes('trang')&&(steps===3||steps===4)){const m=steps===3?1.2:1.5; const bPts=Math.round(v.botScore*(m-1)); v.botScore+=bPts; showFloatingPoints('Bot / Tô Thu Trang x'+m+' · +'+bPts, false, '#ed5b69');} if(v.botCompanions.includes('nhatminh')&&steps===1){v.botScore+=DICE_ONE_BONUS; showFloatingPoints('Bot / Nhật Minh · xúc 1 · +'+DICE_ONE_BONUS, false, '#ed5b69');} updateTopbar(); moveVS('bot',steps); const id=v.botCompanion; if(id==='thanhlan'&&v.botSkillCooldowns.thanhlan===0&&Math.random()<.65){const n=Math.floor(Math.random()*4)+1;state.step=Math.max(0,state.step-n);updatePlayerToken();v.botSkillCooldowns.thanhlan=3;showFloatingPoints('Bot / Thanh Lan: bạn lùi '+n+' bước · Cooldown 3 lượt',false,'#ed5b69');} if(id==='doantrang'&&v.botSkillCooldowns.doantrang===0&&Math.random()<.65){const stolen=Math.floor(state.score/4);state.score=Math.max(0,state.score-stolen);v.botScore+=stolen;v.botSkillCooldowns.doantrang=3;showFloatingPoints('Bot / Đoan Trang: cướp '+stolen+' điểm · Cooldown 3 lượt',false,'#ed5b69');} updateTopbar();});}
+async function resolveVSPlayerAnswer(correct){const v=state.vs; if(v.stealMode){v.stealMode=false; if(correct){state.correctCount++;v.stealCorrect++;await awardVSPlayer();} else {showFeedback(false);} finishVSRound(true); return;} if(correct){state.correctCount++;v.streak++; await awardVSPlayer(); finishVSRound(false);} else {v.streak=0; setTimeout(()=>botStealPlayerQuestion(),700);}}
+function botStealPlayerQuestion(){if(state.finished)return; const v=state.vs; v.botStealOpportunities++; v.playerTurn=false; updateVSHUD(); document.getElementById('answerArea').innerHTML=''; document.getElementById('qText').textContent='Bot đang cướp câu hỏi của bạn...'; const fb=document.getElementById('feedback'); fb.className='feedback info show'; fb.innerHTML='⚠ Bot cướp câu hỏi! Bot đang suy nghĩ...'; playSound('modal'); setTimeout(()=>{if(state.finished)return; const correct=Math.random()<.78; if(correct){v.botStealCorrect++;fb.className='feedback wrong show'; fb.innerHTML='<svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M15 9l-6 6M9 9l6 6"/></svg> Bot cướp thành công! Bot trả lời đúng và tung xúc xắc.'; awardVSBot().then(()=>finishVSRound(true));}else{v.botStreak=0; fb.className='feedback correct show'; fb.innerHTML='<svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 12 2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg> Bot cướp thất bại! Câu này không ai ghi điểm. Đáp án đúng: '+getCorrectAnswerText(state.currentQ); finishVSRound(true);}},1200);}
+function advanceVSQuestion(){if(state.finished)return; const v=state.vs; state.qIndex+=v.stealQuestion?2:1; v.stealQuestion=false; if(state.qIndex>=state.questions.length|| (v.playerFinished&&v.botFinished)){endVSGame();return;} state.resolvingTurn=false; if(v.cooldowns.hongthanh>0)v.cooldowns.hongthanh--; if(v.cooldowns.thanhlan>0)v.cooldowns.thanhlan--; if(v.cooldowns.doantrang>0)v.cooldowns.doantrang--; if(v.botHongCooldown>0)v.botHongCooldown--; if(v.botSkillCooldowns.thanhlan>0)v.botSkillCooldowns.thanhlan--; if(v.botSkillCooldowns.doantrang>0)v.botSkillCooldowns.doantrang--; v.botSkipped=false; if(v.playerStunned){v.playerStunned=false;v.playerTurn=false;loadQuestion(true);updateVSHUD();setTimeout(()=>botTurn(false),450);return;} v.playerTurn=true; loadQuestion(true); updateVSHUD();}
+function finishVSRound(fromBot=false){state.resolvingTurn=true; updateVSHUD(); setTimeout(()=>{if(state.finished)return; if(document.getElementById('charModal').classList.contains('show')){state.vs.pendingFinish=fromBot;return;} if(!fromBot&&!state.vs.botSkipped){botTurn(false);return;} if(!fromBot&&state.vs.botSkipped){showFloatingPoints('Bot mất lượt!',true,'#b06cff');} advanceVSQuestion();},fromBot?1200:700);}
+function botTurn(fromSteal=false){if(state.finished)return; const v=state.vs; v.playerTurn=false; updateVSHUD(); document.getElementById('answerArea').innerHTML=''; document.getElementById('qText').textContent='Lượt của Bot — đang suy nghĩ...'; document.getElementById('feedback').className='feedback info show'; document.getElementById('feedback').textContent='Bot đang trả lời câu hỏi riêng.'; setTimeout(()=>{if(state.finished)return; const correct=Math.random()<.82; if(correct){document.getElementById('feedback').textContent='Bot trả lời đúng và tung xúc xắc.'; logAction('trả lời đúng','bot'); awardVSBot().then(()=>finishVSRound(true));}else{logAction('trả lời sai — bạn được quyền cướp câu','bot'); v.playerTurn=true;v.stealMode=true;v.stealQuestion=true;v.stealOpportunities++;state.currentQ=state.questions[(state.qIndex+1)%state.questions.length]; state.answered=false; state.timeLeft=BASE_TIME; document.getElementById('qCounter').textContent=`Câu ${state.qIndex + 2} / ${state.questions.length} — CƯỚP CÂU`; document.getElementById('qNumVal').textContent=`${state.qIndex + 2}/${state.questions.length}`; document.getElementById('qText').textContent=state.currentQ.q; const badge=document.getElementById('qTypeBadge'); if(state.currentQ.type==='choice'){badge.textContent='Trắc nghiệm';badge.className='q-type-badge choice';}else if(state.currentQ.type==='fill'){badge.textContent='Điền khuyết';badge.className='q-type-badge fill';}else{badge.textContent='Chọn từ';badge.className='q-type-badge word';} document.getElementById('feedback').textContent='Bot trả lời sai — bạn được quyền cướp câu hỏi!'; renderAnswerArea(state.currentQ); startTimer();}},900);}
+function useVSSkill(){const v=state.vs; const id=v.playerCompanion; if(!id||v.cooldowns[id]||!v.playerTurn||state.finished)return; if(id==='hongthanh'){if(v.streak<2)return;v.botSkipped=true;v.cooldowns[id]=4;v.streak=0;showFloatingPoints('Hồng Thanh: Bot bị làm choáng!',true,'#b06cff');}else if(id==='thanhlan'){const n=Math.floor(Math.random()*4)+1;v.botStep=Math.max(0,v.botStep-n);updateBotToken();v.cooldowns[id]=3;showFloatingPoints('Thanh Lan: Bot lùi '+n+' bước',true,'#b06cff');}else if(id==='doantrang'){const stolen=Math.floor(v.botScore/4);v.botScore-=stolen;state.score+=stolen;v.cooldowns[id]=3;showFloatingPoints('Đoan Trang: cướp '+stolen+' điểm',true,'#b06cff');} updateTopbar();updateVSHUD();}
+function endVSGame(){state.finished=true; clearInterval(state.timer); if(!state.vs.playerFinished&&state.companions.includes('dung')){const distanceBonus=state.step*100; state.score+=distanceBonus; if(distanceBonus>0) showFloatingPoints('Mạnh Dũng · +'+distanceBonus+' điểm theo '+state.step+' bước', true, '#d19a00');} if(!state.vs.botFinished&&state.vs.botCompanions.includes('dung')){const distanceBonus=state.vs.botStep*100; state.vs.botScore+=distanceBonus; if(distanceBonus>0) showFloatingPoints('Bot / Mạnh Dũng · +'+distanceBonus+' điểm theo '+state.vs.botStep+' bước', false, '#ed5b69');} updateTopbar(); saveRunRecord(); const winner=state.score===state.vs.botScore?'Hòa!':state.score>state.vs.botScore?'Bạn chiến thắng!':'Bot chiến thắng!'; document.getElementById('gameOverTitle').textContent=winner; document.getElementById('gameOverRank').textContent='Bạn '+state.score.toLocaleString('vi-VN')+' điểm — Bot '+state.vs.botScore.toLocaleString('vi-VN'); document.getElementById('finalScore').textContent=state.score.toLocaleString('vi-VN'); document.getElementById('finalStep').textContent=state.step+'/50'; document.getElementById('finalCorrect').textContent=state.correctCount+'/'+state.questions.length; document.getElementById('finalBotScore').textContent=state.vs.botScore.toLocaleString('vi-VN'); document.getElementById('finalBotStep').textContent=state.vs.botStep+'/50'; document.getElementById('finalBotCorrect').textContent=state.vs.botCorrect+'/'+state.questions.length; document.getElementById('finalSteals').textContent=state.vs.stealCorrect+'/'+state.vs.stealOpportunities; document.getElementById('finalBotSteals').textContent=state.vs.botStealCorrect+'/'+state.vs.botStealOpportunities; const names=state.companions.map(id=>{const c=COMPANIONS.find(x=>x.id===id); return c?c.name:'';}).filter(Boolean).join(', '); const botNames=state.vs.botCompanions.map(id=>{const c=COMPANIONS.find(x=>x.id===id); return c?c.name:'';}).filter(Boolean).join(', '); const botSkill=VS_COMPANIONS.find(x=>x.id===state.vs.botCompanion); const playerSkill=VS_COMPANIONS.find(x=>x.id===state.vs.playerCompanion); document.getElementById('finalCompanions').textContent=[names,playerSkill?playerSkill.name:''].filter(Boolean).join(' + ')||'Chưa chọn'; document.getElementById('finalBotCompanions').textContent=(botNames||'Chưa chọn')+(botSkill?' + '+botSkill.name:''); document.getElementById('gameOverModal').classList.add('show'); playSound('gameover');}
+
+function getCorrectAnswerText(q) {
+  if (q.type === 'choice') return q.options[q.answer];
+  if (q.type === 'fill') return q.answer;
+  return q.answer.join(' → ');
+}
+
+function offerRetry() {
+  if (!state.companions.includes('phuonganh') || state.retryUsed) return false;
+  state.retryUsed = true;
+  state.answered = false;
+  state.selectedWords = [];
+  state.timeLeft = Math.max(state.timeLeft, Math.floor(BASE_TIME / 2));
+  document.getElementById('feedback').className = 'feedback info show';
+  document.getElementById('feedback').textContent = 'Lê Thị Phương Anh: bạn còn 1 cơ hội nữa — streak vẫn được giữ!';
+  document.getElementById('btnNext').classList.remove('show');
+  // Reset the answer controls while preserving remaining time and the current question.
+  renderAnswerArea(state.currentQ);
+  startTimer();
+  return true;
+}
+
+function showFeedback(correct) {
+  playSound(correct ? 'correct' : 'wrong');
+  logAction(correct ? 'trả lời đúng' : 'trả lời sai / hết giờ', 'player');
+  const fb = document.getElementById('feedback');
+  fb.className = 'feedback ' + (correct ? 'correct' : 'wrong') + ' show';
+  fb.textContent = correct ? '✓ Chính xác!' : '✗ Chưa đúng';
+}
+
+/* ============================================================
+   CORRECT ANSWER → SCORE & DICE
+   ============================================================ */
+function onCorrectAnswer() {
+  state.resolvingTurn = true;
+  state.correctCount++;
+  if (state.companions.includes('halinh') && !state.isRepeatQuestion && state.haLinhCooldown === 0) {
+    state.pendingRepeatQuestion = JSON.parse(JSON.stringify(state.currentQ));
+    state.pendingRepeatQuestion.isRepeatQuestion = true;
+    state.haLinhCooldown = 4;
+    document.getElementById('feedback').innerHTML += '<br>Hà Linh: câu hỏi này sẽ xuất hiện lại ở lượt kế tiếp.';
+  }
+  const timeUsed = (state.companions.includes('minh') ? BASE_TIME + 10 : BASE_TIME) - state.timeLeft;
+  let earned = POINTS_BASE + Math.round(POINTS_TIME_BONUS * (state.timeLeft / (state.companions.includes('minh') ? BASE_TIME + 10 : BASE_TIME)));
+  state.streak++;
+  let streakBonus = 0;
+  if (state.companions.includes('anh')) { streakBonus = state.streak * 50; earned += streakBonus; }
+  const phuongAnhBoost = state.companions.includes('nguyenphuonganh') && state.phuongAnhBoostPending;
+
+  // Phạm Thị Thảo Anh bonus: x2 if answered within EARLY_WINDOW seconds
+  let thaoAnhBonus = 0;
+  if (state.companions.includes('thoanh') && timeUsed <= EARLY_WINDOW) {
+    thaoAnhBonus = earned; // double
+    earned += thaoAnhBonus;
+  }
+
+  if (phuongAnhBoost) earned *= 2;
+  state.score += earned;
+  if (phuongAnhBoost) state.phuongAnhBoostPending = false;
+  if (phuongAnhBoost) showFloatingPoints(`Nguyễn Phương Anh x2 điểm · +${earned}`, true, '#b06cff');
+  showFloatingPoints('+' + earned + (streakBonus ? ` (streak +${streakBonus})` : ''), thaoAnhBonus > 0 || streakBonus > 0 || phuongAnhBoost);
+  updateTopbar();
+
+  // Roll dice
+  const sessionId = state.sessionId;
+  rollDice().then(steps => {
+    if (sessionId !== state.sessionId || state.finished) return;
+    let totalSteps = steps;
+    if (state.companions.includes('nguyenphuonganh') && phuongAnhBoost) {
+      totalSteps *= 2;
+      showFloatingPoints(`Nguyễn Phương Anh x2 bước · +${totalSteps}`, true, '#b06cff');
+    }
+    if (state.companions.includes('nhatminh') && steps === 1) {
+      state.score += DICE_ONE_BONUS;
+      updateTopbar();
+      showFloatingPoints(`Nhật Minh · xúc 1 · +${DICE_ONE_BONUS}`, true, '#d19a00');
+      document.getElementById('diceResult').textContent += ` · +${DICE_ONE_BONUS} điểm`;
+    }
+    if (state.companions.includes('trang') && (steps === 3 || steps === 4)) {
+      const multiplier = steps === 3 ? 1.2 : 1.3;
+      const bonus = Math.round(state.score * (multiplier - 1));
+      state.score += bonus; updateTopbar();
+      showFloatingPoints(`Tô Thu Trang x${multiplier} · +${bonus}`, true, '#d19a00');
+      document.getElementById('diceResult').textContent += ` · điểm x${multiplier}`;
+    }
+    // Đào Thị Thu Hằng: +2
+    if (state.companions.includes('hang')) totalSteps += 2;
+    movePlayer(totalSteps, steps);
+  });
+}
+
+function rollDice(who = 'player') {
+  playSound('dice');
+  return new Promise(resolve => {
+    const dice = document.getElementById('dice');
+    dice.classList.add('rolling');
+    let counter = 0;
+    const interval = setInterval(() => {
+      dice.textContent = Math.floor(Math.random() * 4) + 1;
+      if (counter % 2 === 0) playSound('diceTick');
+      counter++;
+      if (counter > 8) {
+        clearInterval(interval);
+        const result = Math.floor(Math.random() * 4) + 1;
+        dice.textContent = result;
+        dice.classList.remove('rolling');
+        document.getElementById('diceResult').textContent = `Được ${result} bước`;
+        logAction(`tung xúc xắc: ra ${result}`, who);
+        resolve(result);
+      }
+    }, 70);
+  });
+}
+
+function movePlayer(totalSteps, diceVal) {
+  if (state.finished) return;
+  let waitingForCompanion = false;
+  const fromStep = state.step;
+  let target = Math.min(fromStep + totalSteps, BOARD_SIZE);
+  state.step = target;
+  logAction(`tiến ${target - fromStep} bước → ô ${target}`, 'player');
+  updatePlayerToken();
+  updateTopbar();
+
+  // Đặng Thị Phương Linh: +100 điểm cho mỗi ô đi qua.
+  if (state.companions.includes('phuonglinh')) {
+    const bonus = Math.max(0, target - fromStep) * 100;
+    if (bonus > 0) {
+      state.score += bonus;
+      showFloatingPoints(`Phương Linh · +${bonus} (${target - fromStep} ô)`, true, '#d19a00');
+    }
+  }
+  updateTopbar();
+
+  // Show floating steps
+  showFloatingPoints('<svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M8 8h.01M16 8h.01M12 12h.01M8 16h.01M16 16h.01"/></svg> +' + totalSteps + ' bước', false, '#00bbfe');
+
+  // Check finish
+  if (target >= BOARD_SIZE && !state.reachedFinish) {
+    state.reachedFinish = true;
+    playSound('finish');
+    state.score += state.companions.includes('dung') ? FINISH_BONUS_WITH_DUNG : POINTS_FINISH_BONUS;
+    updateTopbar();
+    setTimeout(() => {
+      showFloatingPoints('<svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 21h8m-4-4v4M7 4h10v5a5 5 0 0 0 4 4M7 6H3v2a4 4 0 0 0 4 4"/></svg> +' + (state.companions.includes('dung') ? '5.000' : '500') + ' VỀ ĐÍCH!', false, '#ffd24a');
+      launchConfetti();
+      const fb = document.getElementById('feedback');
+      fb.className = 'feedback info show';
+      fb.innerHTML = fb.textContent + '<br>CHÚC MỪNG! Bạn đã về đích và nhận +' + (state.companions.includes('dung') ? '5.000' : '500') + ' điểm thưởng!';
+      // Disable next button (game will end after a delay)
+      document.getElementById('btnNext').textContent = 'XEM KẾT QUẢ ▶';
+      state.resolvingTurn = false;
+    }, 600);
+    return;
+  }
+
+  // Check milestones (only if not already triggered for this milestone and we passed it)
+  for (const m of MILESTONES) {
+    if (fromStep < m && target >= m && !state.passedMilestones.has(m)) {
+      state.passedMilestones.add(m);
+      // Mỗi người chơi Classic có tối đa 2 slot đồng hành: ô 15 và ô 30.
+      if (state.mode !== 'vs' && state.companions.length < 2 && !document.getElementById('charModal').classList.contains('show')) {
+        waitingForCompanion = true;
+        setTimeout(() => {
+          if (!state.finished && state.mode !== 'vs' && state.companions.length < 2 && !document.getElementById('charModal').classList.contains('show')) {
+            playSound('milestone');
+            openCharModal(m);
+          }
+        }, 450);
+      }
+      break; // Only one modal at a time
+    }
+  }
+  if (!waitingForCompanion) state.resolvingTurn = false;
+}
+
+/* ============================================================
+   CHARACTER SELECT MODAL
+   ============================================================ */
+function openCharModal(milestone) {
+  const modal = document.getElementById('charModal');
+  const subtitle = document.getElementById('charModalSubtitle');
+  subtitle.textContent = `Bạn vừa đạt ô ${milestone} — chọn 1 đồng hành còn lại`;
+  const grid = document.getElementById('charGrid');
+  grid.innerHTML = '';
+  COMPANIONS.forEach(c => {
+    const picked = state.companions.includes(c.id);
+    const card = document.createElement('div');
+    card.className = 'char-card' + (picked ? ' picked' : '');
+    card.setAttribute('role', 'button');
+    card.setAttribute('tabindex', picked ? '-1' : '0');
+    card.setAttribute('aria-label', picked ? `${c.name}, đã chọn` : `Chọn ${c.name}`);
+      const image = COMPANION_IMAGES[c.id];
+      card.innerHTML = `
+        <div class="char-card-head"><span class="char-index">YTC / ${String(COMPANIONS.indexOf(c) + 1).padStart(2, '0')}</span><span class="char-tag">ĐỒNG HÀNH</span></div>
+        <div class="char-avatar-big${image ? ' has-photo' : ''}">${image ? `<img src="${image}" alt="${c.name}" loading="lazy">` : c.avatar}</div>
+        <div class="char-name">${c.name}</div>
+        <div class="char-role">${c.role}</div>
+        <div class="char-ability"><span class="char-ability-label">NĂNG LỰC</span>${c.ability}</div>`;
+    if (!picked) {
+      card.onclick = () => pickCompanion(c.id);
+      card.onkeydown = event => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          pickCompanion(c.id);
+        }
+      };
+    }
+    grid.appendChild(card);
+  });
+  modal.classList.add('show');
+  playSound('modal');
+  document.body.classList.add('modal-open');
+  requestAnimationFrame(() => {
+    const firstAvailable = grid.querySelector('.char-card:not(.picked)');
+    if (firstAvailable && window.matchMedia('(min-width: 601px)').matches) firstAvailable.focus();
+  });
+}
+
+function pickCompanion(id) {
+  if (state.finished || state.companions.includes(id)) return;
+  const pendingVSFinish = state.mode === 'vs' ? state.vs.pendingFinish : null;
+  playSound('select');
+  state.companions.push(id);
+  const c = COMPANIONS.find(x => x.id === id);
+  document.getElementById('charModal').classList.remove('show');
+  document.body.classList.remove('modal-open');
+  renderCompanions();
+  updatePlayerToken();
+  showFloatingPoints('<svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m8 12 3 3a2 2 0 0 0 3 0l4-4M4 9l4-4 4 2 4-2 4 4-3 3-4-1-3 2-5-4"/><path d="m4 9-2 2 3 4 2-2m13-4 2 2-3 4-2-2"/></svg> ' + c.name, false, '#ffd24a');
+  state.resolvingTurn = false;
+  if (pendingVSFinish !== null) { state.vs.pendingFinish = null; finishVSRound(pendingVSFinish); }
+}
+
+/* ============================================================
+   NAVIGATE TO NEXT QUESTION
+   ============================================================ */
+function goNext() {
+  if (state.mode === 'vs') return;
+  if (!state.answered || state.resolvingTurn || state.finished) return;
+  playSound('click');
+  if (!state.isRepeatQuestion && state.haLinhCooldown > 0) state.haLinhCooldown--;
+  state.qIndex++;
+  if (state.pendingRepeatQuestion) {
+    state.questions.splice(state.qIndex, 0, state.pendingRepeatQuestion);
+    state.pendingRepeatQuestion = null;
+  }
+  // Reset next button text
+  document.getElementById('btnNext').textContent = 'CÂU TIẾP THEO ▶';
+  // If character modal is showing, wait — but flow continues
+  if (state.qIndex >= state.questions.length || state.reachedFinish) {
+    endGame();
+    return;
+  }
+  loadQuestion();
+}
+
+
+/* ============================================================
+   LOCAL RECORDS — highscore & play history
+   ============================================================ */
+const HIGHSCORE_KEY = 'ytcQuizRaceHighscores';
+const HISTORY_KEY = 'ytcQuizRaceHistory';
+function readRecords(key) { try { const value = JSON.parse(localStorage.getItem(key) || '[]'); return Array.isArray(value) ? value : []; } catch { return []; } }
+function writeRecords(key, value) { localStorage.setItem(key, JSON.stringify(value)); }
+function formatRecordDate(iso) { try { return new Intl.DateTimeFormat('vi-VN', { day:'2-digit', month:'2-digit', year:'numeric', hour:'2-digit', minute:'2-digit' }).format(new Date(iso)); } catch { return iso; } }
+function renderRecords() {
+  const highscore = readRecords(HIGHSCORE_KEY).sort((a,b) => b.score - a.score || b.step - a.step || b.correct - a.correct).slice(0, 5);
+  const history = readRecords(HISTORY_KEY).sort((a,b) => new Date(b.playedAt) - new Date(a.playedAt)).slice(0, 8);
+  const highscoreList = document.getElementById('highscoreList');
+  const historyList = document.getElementById('historyList');
+  if (!highscoreList || !historyList) return;
+  highscoreList.innerHTML = highscore.length ? highscore.map(item => `<li><span>${item.correct}/${item.total} đúng</span><span class="record-score">${Number(item.score).toLocaleString('vi-VN')} điểm</span></li>`).join('') : '<li class="record-empty">Chưa có kỷ lục</li>';
+  historyList.innerHTML = history.length ? history.map(item => `<div class="history-item"><span><strong>${Number(item.score).toLocaleString('vi-VN')} điểm</strong><br><b class="history-mode ${(item.mode || 'classic') === 'vs' ? 'vs' : 'classic'}">${(item.mode || 'classic') === 'vs' ? 'VS MODE' : 'CLASSIC'}</b> · ${item.step}/50 ô · ${item.correct}/${item.total} đúng</span><span>${formatRecordDate(item.playedAt)}</span></div>`).join('') : '<div class="record-empty">Chưa có lượt chơi</div>';
+}
+
+function renderCompanionIntro() {
+  const grid = document.getElementById('companionIntroGrid'); if (!grid) return;
+  const vsIntroCompanions = VS_COMPANIONS.map(c => ({ ...c, role: 'Đồng hành VS mode', avatar: c.name.split(' ').map(part => part[0]).slice(-2).join('') }));
+  const introCompanions = [...COMPANIONS, ...vsIntroCompanions];
+  grid.innerHTML = introCompanions.map(c => { const image = COMPANION_IMAGES[c.id]; return `<article class="intro-companion-card"><div class="intro-companion-avatar">${image ? `<img src="${image}" alt="${c.name}" loading="lazy">` : c.avatar}</div><div><div class="intro-companion-name">${c.name}</div><div class="intro-companion-role">${c.role}</div></div><div class="intro-companion-ability">${c.ability}</div></article>`; }).join('');
+}
+
+function saveRunRecord() {
+  const record = { score: state.score, step: state.step, correct: state.correctCount, total: state.questions.length, mode: state.mode, botScore: state.mode === 'vs' ? state.vs.botScore : null, botCorrect: state.mode === 'vs' ? state.vs.botCorrect : null, stealCorrect: state.mode === 'vs' ? state.vs.stealCorrect : null, stealOpportunities: state.mode === 'vs' ? state.vs.stealOpportunities : null, botStealCorrect: state.mode === 'vs' ? state.vs.botStealCorrect : null, botStealOpportunities: state.mode === 'vs' ? state.vs.botStealOpportunities : null, reachedFinish: state.reachedFinish, companions: state.companions.slice(), botCompanion: state.mode === 'vs' ? state.vs.botCompanion : null, botCompanions: state.mode === 'vs' ? state.vs.botCompanions.slice() : [], playedAt: new Date().toISOString() };
+  const history = [record, ...readRecords(HISTORY_KEY)].slice(0, 20);
+  const highscore = [record, ...readRecords(HIGHSCORE_KEY)].sort((a,b) => b.score - a.score || b.step - a.step || b.correct - a.correct).slice(0, 10);
+  writeRecords(HISTORY_KEY, history); writeRecords(HIGHSCORE_KEY, highscore); renderRecords();
+  const best = highscore[0] && highscore[0].playedAt === record.playedAt && highscore[0].score === record.score;
+  const result = document.getElementById('recordResult');
+  if (result) result.textContent = best ? 'KỶ LỤC MỚI — Bạn đang đứng đầu bảng điểm trên thiết bị này.' : 'Kết quả đã được lưu vào lịch sử chơi trên thiết bị này.';
+}
+function clearRecords() {
+  if (!confirm('Xóa toàn bộ highscore và lịch sử chơi trên thiết bị này?')) return;
+  localStorage.removeItem(HIGHSCORE_KEY); localStorage.removeItem(HISTORY_KEY); renderRecords();
+  const message = document.getElementById('recordsMessage'); if (message) message.textContent = 'Đã xóa highscore và lịch sử chơi.';
+  const result = document.getElementById('recordResult'); if (result) result.textContent = '';
+}
+
+/* ============================================================
+   END GAME
+   ============================================================ */
+function endGame() {
+  if (state.finished) return;
+  state.finished = true;
+  state.resolvingTurn = false;
+  clearInterval(state.timer);
+  // Trần Mạnh Dũng: nếu hết câu hỏi trước khi về đích, mỗi bước được quy đổi thành 100 điểm.
+  if (!state.reachedFinish && state.companions.includes('dung')) {
+    const distanceBonus = state.step * 100;
+    state.score += distanceBonus;
+    if (distanceBonus > 0) showFloatingPoints(`Mạnh Dũng · +${distanceBonus} điểm theo ${state.step} bước`, true, '#d19a00');
+  }
+  document.getElementById('finalScore').textContent = state.score.toLocaleString('vi-VN');
+  document.getElementById('finalStep').textContent = state.step + '/50';
+  document.getElementById('finalCorrect').textContent = state.correctCount + '/' + state.questions.length;
+  document.getElementById('finalCompanions').textContent = state.companions.length + ' người';
+  saveRunRecord();
+
+  let rank = 'Cố gắng lần sau!';
+  if (state.score >= 10000) rank = '<svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 21h8m-4-4v4M7 4h10v5a5 5 0 0 1-10 0zm10 2h4v2a4 4 0 0 1-4 4M7 6H3v2a4 4 0 0 0 4 4"/></svg> HUYỀN THOẠI YTC!';
+  else if (state.score >= 5000) rank = '<svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="14" r="7"/><path d="M9 3h6l2 4H7zM12 10l1.2 2.5 2.8.4-2 1.9.5 2.8-2.5-1.3-2.5 1.3.5-2.8-2-1.9 2.8-.4z"/></svg> BẬC THẦY QUIZ!';
+  else if (state.score >= 2000) rank = '<svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="14" r="7"/><path d="M9 3h6l2 4H7zM9.5 12a2.5 2.5 0 1 1 4 2L10 18h4"/></svg> XUẤT SẮC!';
+  else if (state.score >= 1000) rank = '<svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="14" r="7"/><path d="M9 3h6l2 4H7zM9.5 12a2.5 2.5 0 1 1 2.5 2m0 0a2.5 2.5 0 1 1-2.5 2"/></svg> KHÁ TỐT!';
+  if (state.reachedFinish) rank = '<svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 21V4m0 1h14l-3 4 3 4H5"/><path d="M9 5v4m4-4v4m-4 0v4m4-4v4"/></svg> VỀ ĐÍCH! ' + rank;
+  document.getElementById('gameOverRank').innerHTML = rank;
+  document.getElementById('gameOverTitle').innerHTML = state.reachedFinish ? '<svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 21h8m-4-4v4M7 4h10v5a5 5 0 0 1-10 0zm10 2h4v2a4 4 0 0 1-4 4M7 6H3v2a4 4 0 0 0 4 4"/></svg> VỀ ĐÍCH!' : '<svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 21V4m0 1h14l-3 4 3 4H5"/><path d="M9 5v4m4-4v4m-4 0v4m4-4v4"/></svg> KẾT THÚC!';
+  document.getElementById('gameOverModal').classList.add('show');
+  playSound('gameover');
+  if (state.reachedFinish) launchConfetti();
+}
+
+/* ============================================================
+   UI HELPERS
+   ============================================================ */
+function updateTopbar() {
+  document.getElementById('scoreVal').textContent = state.score.toLocaleString('vi-VN');
+  document.getElementById('stepVal').textContent = state.step + '/50';
+  document.getElementById('stepNowBadge').textContent = 'Ô ' + state.step;
+  if (state.mode === 'vs') updateVSHUD();
+}
+
+/* ===== Action log (7 hoạt động gần nhất) ===== */
+const ACTION_LOG_LIMIT = 7;
+function renderActionLog() {
+  const el = document.getElementById('actionLog');
+  if (!el) return;
+  const items = (state && state.log) || [];
+  el.innerHTML = '';
+  if (!items.length) {
+    const li = document.createElement('li');
+    li.className = 'action-log-empty';
+    li.textContent = 'Chưa có hành động nào.';
+    el.appendChild(li);
+    return;
+  }
+  items.slice(0, ACTION_LOG_LIMIT).forEach(item => {
+    const li = document.createElement('li');
+    li.className = item.who;
+    const who = document.createElement('span');
+    who.className = 'log-who';
+    who.textContent = item.who === 'bot' ? 'Bot' : item.who === 'sys' ? 'Game' : 'Bạn';
+    const txt = document.createElement('span');
+    txt.className = 'log-text';
+    txt.textContent = item.text;
+    li.append(who, txt);
+    el.appendChild(li);
+  });
+}
+function logAction(text, who = 'player') {
+  try {
+    if (!state) return;
+    if (!Array.isArray(state.log)) state.log = [];
+    state.log.unshift({ text: String(text), who });
+    if (state.log.length > ACTION_LOG_LIMIT) state.log.length = ACTION_LOG_LIMIT;
+    renderActionLog();
+  } catch (e) { /* log không được làm hỏng game */ }
+}
+function autoLogPopup(text, color) {
+  if (typeof text !== 'string') return;
+  if (text.includes('rect x="3" y="3"')) return; // popup xúc xắc: đã log riêng khi tung / di chuyển
+  if (text.includes('m8 12 3 3')) { logAction('Chọn đồng hành:' + text.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').replace(/\s+$/, ''), 'player'); return; }
+  let plain = text.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
+  if (!plain) return;
+  const bot = color === '#ed5b69' || /^Bot\b/.test(plain);
+  plain = plain.replace(/^(Bạn|Bot) \+(\d+)/, '$1 được cộng $2 điểm');
+  if (/^\+\d/.test(plain) && !/bước/.test(plain)) plain = plain.replace(/^\+(\d+)/, 'Bạn được cộng $1 điểm');
+  plain = plain.replace(/^(Bạn|Bot)( \/)? /, '');
+  logAction(plain, bot ? 'bot' : 'player');
+}
+
+function showFloatingPoints(text, isBonus, color) {
+  autoLogPopup(text, color);
+  const pop = document.createElement('div');
+  pop.className = 'points-pop';
+  pop.innerHTML = text;
+  if (color) pop.style.color = color;
+  // Position near top center
+  pop.style.left = '50%';
+  pop.style.top = '120px';
+  pop.style.transform = 'translateX(-50%)';
+  document.body.appendChild(pop);
+  setTimeout(() => pop.remove(), 1300);
+}
+
+function launchConfetti() {
+  const colors = ['#00bbfe', '#273b93', '#ffd24a', '#2ed47a', '#ff7e5f'];
+  for (let i = 0; i < 80; i++) {
+    const c = document.createElement('div');
+    c.className = 'confetti';
+    c.style.background = colors[Math.floor(Math.random() * colors.length)];
+    c.style.left = Math.random() * 100 + 'vw';
+    c.style.top = '-20px';
+    c.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+    c.style.transform = `rotate(${Math.random() * 360}deg)`;
+    document.body.appendChild(c);
+    const fall = c.animate([
+      { transform: `translate(0,0) rotate(0deg)`, opacity: 1 },
+      { transform: `translate(${(Math.random()-0.5)*200}px, ${window.innerHeight + 50}px) rotate(${Math.random()*720}deg)`, opacity: 0 }
+    ], { duration: 2000 + Math.random() * 1500, easing: 'cubic-bezier(0.3, 0.7, 0.4, 1)' });
+    fall.onfinish = () => c.remove();
+  }
+}
+
+renderRecords();
+renderCompanionIntro();
+</script>
+</body>
+</html>

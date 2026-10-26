@@ -91,6 +91,7 @@ const navHTML = `
           <li><a href="${BASE}/TT.html">Truyền thông</a></li>
         </ul>
       </li>
+      <li><a href="${BASE}/quiz-game.html" target="_blank" rel="noopener">Minigame</a></li>
       <li><a href="${BASE}/joinus.html"><b>Tham gia</b></a></li>
     </ul>
 
@@ -132,6 +133,7 @@ const footerHTML = `
           <li><a href="${BASE}/news.html">${icon("newspaper")} Nhật ký hoạt động</a></li>
           <li><a href="${BASE}/member.html">${icon("users")} Thành viên</a></li>
           <li><a href="${BASE}/joinus.html" class="footer-highlight-link">${icon("rocket")} Thành viên Gen 15.1</a></li>
+          <li><a href="${BASE}/quiz-game.html" target="_blank" rel="noopener">${icon("sparkles")} Minigame</a></li>
         </ul>
       </div>
 

@@ -1830,19 +1830,6 @@
   to { transform: scale(2.6); opacity: 0; }
 }
 
-/* ---------- THANH TIẾN TRÌNH CUỘN TRANG ---------- */
-.ytc-scroll-progress {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 4px;
-  width: 0%;
-  background: linear-gradient(90deg, var(--blue-accent), var(--blue-light));
-  box-shadow: 0 0 8px rgba(9, 131, 254, 0.6);
-  z-index: 100000;
-  transition: width 0.12s ease-out;
-}
-
 /* ---------- NÚT VỀ ĐẦU TRANG ---------- */
 .ytc-back-to-top {
   position: fixed;

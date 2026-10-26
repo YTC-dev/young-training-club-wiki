@@ -1,9 +1,9 @@
-(function () {
-  const track = document.getElementById('galleryTrack');
-  const wrapper = document.getElementById('galleryWrapper');
-  const progressHost = document.getElementById('galleryDots');
-  const prevBtn = document.getElementById('galPrev');
-  const nextBtn = document.getElementById('galNext');
+function initGallery({ trackId, wrapperId, dotsId, prevId, nextId }) {
+  const track = document.getElementById(trackId);
+  const wrapper = document.getElementById(wrapperId);
+  const progressHost = document.getElementById(dotsId);
+  const prevBtn = document.getElementById(prevId);
+  const nextBtn = document.getElementById(nextId);
   if (!track || !wrapper) return;
 
   const items = Array.from(track.querySelectorAll('.gallery-item'));
@@ -355,7 +355,25 @@
   measure();
   goTo(0, true);
   window.addEventListener('load', () => { measure(); goTo(current, true); });
-})();
+}
+
+
+// ===== Khoi tao cac gallery =====
+initGallery({
+  trackId:   'galleryTrack-design',
+  wrapperId: 'galleryWrapper-design',
+  dotsId:    'galleryDots-design',
+  prevId:    'galPrev-design',
+  nextId:    'galNext-design'
+});
+
+initGallery({
+  trackId:   'galleryTrack-moments',
+  wrapperId: 'galleryWrapper-moments',
+  dotsId:    'galleryDots-moments',
+  prevId:    'galPrev-moments',
+  nextId:    'galNext-moments'
+});
 
 // =========================
 // BADGE SPARKLE EFFECT
