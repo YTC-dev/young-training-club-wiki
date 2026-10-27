@@ -1483,7 +1483,7 @@ body.name-gate-open { overflow: hidden; }
    ============================================================ */
 const DB_KEY = 'ytcQuizRaceDB_v2';
 // Khi API đã deploy, đặt window.YTC_QUIZ_API_BASE_URL trước script game.
-const QUIZ_API_BASE_URL = String(window.YTC_QUIZ_API_BASE_URL || '').replace(/\/$/, '');
+const QUIZ_API_BASE_URL = String(window.YTC_QUIZ_API_BASE_URL || 'https://young-training-club-wiki.onrender.com').replace(/\/$/, '');
 const LEGACY = { profile:'ytcQuizRacePlayerProfile', profiles:'ytcQuizRacePlayerProfiles', history:'ytcQuizRaceHistory', highscores:'ytcQuizRaceHighscores', idb:'ytcQuizRaceDatabase' };
 const MAX_RESULTS = 100;
 let profileStartPending = false;
