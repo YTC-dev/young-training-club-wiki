@@ -1237,7 +1237,7 @@ body.name-gate-open { overflow: hidden; }
 </div>
 
 <!-- ====================== REQUIRED PLAYER NAME POPUP ====================== -->
-<div class="player-gate" id="playerGate" role="dialog" aria-modal="true" aria-labelledby="playerGateTitle"><div class="player-gate-card"><div class="player-gate-kicker">YTC • YOUNG TRAINING CLUB</div><h1 id="playerGateTitle">YTC QUIZ RACE</h1><p>Xin chào các bạn đến với YTC QUIZ RACE.<br>Nhập tên để chơi mới, hoặc nhập ID đã có để vào lại.</p><div class="gate-last-player" id="gateLastPlayer"></div><form class="player-gate-form" onsubmit="submitPlayerGate(event)" autocomplete="off"><input id="gatePlayerIdInput" class="player-name-input player-id-input" type="text" maxlength="40" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="ID đã có (nếu vào lại)" aria-label="ID người chơi đã có"><input id="gatePlayerNameInput" class="player-name-input" type="text" maxlength="40" autocomplete="off" placeholder="Tên người chơi" aria-label="Tên người chơi"><button class="profile-save" type="submit">TIẾP TỤC ▶</button></form><div class="player-resume-hint">Vào lại bằng ID (kèm tên nếu muốn) hoặc chỉ bằng tên đã dùng — ID, tên và kỷ lục sẽ được khôi phục. Dữ liệu lưu theo từng thiết bị: thiết bị chưa có dữ liệu sẽ bắt đầu lại từ đầu.</div><div class="player-gate-message" id="playerGateMessage" aria-live="polite"></div></div></div>
+<div class="player-gate" id="playerGate" role="dialog" aria-modal="true" aria-labelledby="playerGateTitle"><div class="player-gate-card"><div class="player-gate-kicker">YTC • YOUNG TRAINING CLUB</div><h1 id="playerGateTitle">YTC QUIZ RACE</h1><p>Xin chào các bạn đến với YTC QUIZ RACE.<br>Nhập tên để chơi mới, hoặc nhập ID đã có để vào lại.</p><div class="gate-last-player" id="gateLastPlayer"></div><form class="player-gate-form" onsubmit="submitPlayerGate(event)" autocomplete="off"><input id="gatePlayerIdInput" class="player-name-input player-id-input" type="text" maxlength="40" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="ID đã có (để vào lại / đổi thiết bị)" aria-label="ID người chơi đã có"><input id="gatePlayerNameInput" class="player-name-input" type="text" maxlength="40" autocomplete="off" placeholder="Tên người chơi" aria-label="Tên người chơi"><button class="profile-save" type="submit">TIẾP TỤC ▶</button></form><div class="player-resume-hint">Vào lại bằng ID trên bất kỳ thiết bị nào: hệ thống sẽ tự động khôi phục tên và lịch sử điểm số từ máy chủ!</div><div class="player-gate-message" id="playerGateMessage" aria-live="polite"></div></div></div>
 
 <!-- ====================== START SCREEN ====================== -->
 <section id="startScreen" class="screen active">
@@ -1419,7 +1419,7 @@ body.name-gate-open { overflow: hidden; }
 </div>
 
 <!-- ====================== PLAYER PROFILE MODAL ====================== -->
-<div class="profile-modal" id="profileModal" role="dialog" aria-modal="true" aria-labelledby="profileTitle"><div class="profile-card"><h2 id="profileTitle">PROFILE NGƯỜI CHƠI</h2><p>ID, tên và kết quả của bạn được lưu trên thiết bị này. Hãy ghi nhớ ID để vào lại lần sau.</p><form class="profile-form" onsubmit="savePlayerProfileAndContinue(event)"><input id="profileNameInput" class="player-name-input" type="text" maxlength="40" autocomplete="name" placeholder="Tên người chơi" aria-label="Tên người chơi trong profile"><button class="profile-save" type="submit">LƯU TÊN</button></form><div class="profile-message" id="profileMessage" aria-live="polite"></div><div class="profile-summary"><div class="profile-summary-item"><small>ID người chơi</small><strong id="profilePlayerId">—</strong></div><div class="profile-summary-item"><small>Tên người chơi</small><strong id="profilePlayerName">Chưa đặt tên</strong></div><div class="profile-summary-item"><small>Số lượt chơi</small><strong id="profilePlayCount">0</strong></div><div class="profile-summary-item"><small>Điểm cao nhất</small><strong id="profileBestScore">0</strong></div></div><div class="profile-id-actions"><button class="profile-btn" type="button" onclick="copyPlayerId()">SAO CHÉP ID</button><button class="profile-btn" type="button" onclick="switchPlayer()">ĐỔI NGƯỜI CHƠI</button></div><h3>KẾT QUẢ ĐÃ LƯU</h3><div class="profile-results" id="profileResults"><div class="record-empty">Chưa có kết quả nào.</div></div><div class="profile-actions"><button class="profile-close" type="button" onclick="closeProfile()">ĐÓNG</button><button class="profile-save" type="button" onclick="startFromProfile()">LƯU & BẮT ĐẦU</button></div></div></div>
+<div class="profile-modal" id="profileModal" role="dialog" aria-modal="true" aria-labelledby="profileTitle"><div class="profile-card"><h2 id="profileTitle">PROFILE NGƯỜI CHƠI</h2><p>ID, tên và kết quả của bạn được lưu trên thiết bị này. Hãy ghi nhớ ID để vào lại lần sau.</p><form class="profile-form" onsubmit="savePlayerProfileAndContinue(event)"><input id="profileNameInput" class="player-name-input" type="text" maxlength="40" autocomplete="name" placeholder="Tên người chơi" aria-label="Tên người chơi trong profile"><button class="profile-save" type="submit">LƯU TÊN</button></form><div class="profile-message" id="profileMessage" aria-live="polite"></div><div class="profile-summary"><div class="profile-summary-item"><small>ID người chơi</small><strong id="profilePlayerId">—</strong></div><div class="profile-summary-item"><small>Tên người chơi</small><strong id="profilePlayerName">Chưa đặt tên</strong></div><div class="profile-summary-item"><small>Số lượt chơi</small><strong id="profilePlayCount">0</strong></div><div class="profile-summary-item"><small>Điểm cao nhất</small><strong id="profileBestScore">0</strong></div></div><div class="profile-id-actions"><button class="profile-btn" type="button" onclick="copyPlayerId()">SAO CHÉP ID</button><button class="profile-btn" type="button" onclick="syncPlayerFromCloud()">ĐỒNG BỘ MÁY CHỦ</button><button class="profile-btn" type="button" onclick="switchPlayer()">ĐỔI NGƯỜI CHƠI</button></div><h3>KẾT QUẢ ĐÃ LƯU</h3><div class="profile-results" id="profileResults"><div class="record-empty">Chưa có kết quả nào.</div></div><div class="profile-actions"><button class="profile-close" type="button" onclick="closeProfile()">ĐÓNG</button><button class="profile-save" type="button" onclick="startFromProfile()">LƯU & BẮT ĐẦU</button></div></div></div>
 
 <!-- ====================== GAME OVER MODAL ====================== -->
 <div class="modal-overlay" id="gameOverModal">
@@ -1700,14 +1700,95 @@ function finishLogin(p, status) {
   refreshPlayerUI();
 }
 function continueAsLastPlayer() { const p = currentPlayer(); if (p) finishLogin(p, 'restored'); }
+
+async function syncPlayerFromCloud() {
+  const p = currentPlayer(), m = document.getElementById('profileMessage');
+  if (!p) return;
+  if (!QUIZ_API_BASE_URL) { if (m) m.textContent = 'Chưa cấu hình API online.'; return; }
+  if (m) m.textContent = 'Đang đồng bộ dữ liệu từ máy chủ...';
+  try {
+    const resp = await fetch(`${QUIZ_API_BASE_URL}/api/results/player/${encodeURIComponent(p.id)}`);
+    if (!resp.ok) throw new Error('HTTP ' + resp.status);
+    const data = await resp.json();
+    if (Array.isArray(data.results)) {
+      data.results.forEach(rec => mergeResult(p, rec));
+      trimResults(p, MAX_RESULTS);
+      p.updatedAt = nowIso();
+      savePlayerDb();
+      refreshPlayerUI();
+      if (m) m.textContent = `Đồng bộ thành công! Hiện có ${p.results.length} kết quả.`;
+    }
+  } catch (err) {
+    if (m) m.textContent = 'Không thể đồng bộ từ máy chủ (vui lòng kiểm tra mạng).';
+  }
+}
+
+function syncPlayerBackground(p) {
+  if (!p || !p.id || !QUIZ_API_BASE_URL) return;
+  fetch(`${QUIZ_API_BASE_URL}/api/results/player/${encodeURIComponent(p.id)}`)
+    .then(r => r.ok ? r.json() : null)
+    .then(data => {
+      if (data && Array.isArray(data.results) && data.results.length > 0) {
+        let changed = false;
+        data.results.forEach(rec => {
+          const key = r => r.recordId || (p.id + '|' + r.playedAt);
+          if (!p.results.some(r => key(r) === key(rec))) {
+            p.results.push({ ...rec, playerId: p.id });
+            changed = true;
+          }
+        });
+        if (changed) {
+          trimResults(p, MAX_RESULTS);
+          savePlayerDb();
+          refreshPlayerUI();
+        }
+      }
+    })
+    .catch(() => {});
+}
+
 async function submitPlayerGate(e) {
   e?.preventDefault();
   const idI = document.getElementById('gatePlayerIdInput'), nameI = document.getElementById('gatePlayerNameInput'), m = document.getElementById('playerGateMessage');
   await playerDbReady;
-  const r = loginPlayer(idI?.value, nameI?.value);
+  const rawId = idI?.value || '';
+  const rawName = nameI?.value || '';
+  const normId = normalizeId(rawId);
+  const normName = cleanName(rawName);
+
+  // Nếu người dùng nhập ID và máy này chưa có dữ liệu -> Tra cứu hồ sơ từ máy chủ online
+  if (normId && !playerDb.players[normId] && QUIZ_API_BASE_URL) {
+    if (m) m.textContent = 'Đang tìm kiếm hồ sơ trên máy chủ...';
+    try {
+      const resp = await fetch(`${QUIZ_API_BASE_URL}/api/results/player/${encodeURIComponent(normId)}`);
+      if (resp.ok) {
+        const data = await resp.json();
+        if (Array.isArray(data.results) && data.results.length > 0) {
+          const playerName = normName || data.results[0].playerName || 'Người chơi';
+          const p = ensureMigratedPlayer(normId, playerName);
+          data.results.forEach(rec => mergeResult(p, rec));
+          savePlayerDb();
+          finishLogin(p, 'restored');
+          return;
+        }
+      }
+    } catch (err) {
+      console.warn('Lỗi kiểm tra ID online:', err);
+    }
+  }
+
+  // Nếu người dùng chủ động đặt cả ID và tên mới
+  if (normId && !playerDb.players[normId] && normName.length >= 2) {
+    const p = ensureMigratedPlayer(normId, normName);
+    savePlayerDb();
+    finishLogin(p, 'created-custom-id');
+    return;
+  }
+
+  const r = loginPlayer(rawId, rawName);
   const errors = {
     'need-name': 'Vui lòng nhập tên người chơi (ít nhất 2 ký tự).',
-    'unknown-id': 'Thiết bị này không có dữ liệu cho ID đó. Kiểm tra lại ID, hoặc nhập tên để bắt đầu từ đầu với ID mới.',
+    'unknown-id': 'Không tìm thấy dữ liệu cho ID đó trên thiết bị hoặc máy chủ. Vui lòng kiểm tra lại ID, hoặc nhập tên để bắt đầu.',
     'mismatch': 'ID này có trên thiết bị nhưng tên không khớp. Hãy nhập đúng tên hoặc để trống ô tên.',
     'ambiguous': 'Có nhiều người chơi trùng tên trên thiết bị này. Hãy nhập thêm ID để vào đúng hồ sơ.'
   };
@@ -1731,6 +1812,7 @@ function autoEnterLastPlayer() {
   const status = document.getElementById('recordsMessage');
   if (status) status.textContent = 'Chào mừng ' + (p.name || 'bạn') + ' quay lại — ID: ' + p.id;
   refreshPlayerUI();
+  syncPlayerBackground(p);
 }
 
 /* ============================================================
