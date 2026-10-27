@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
@@ -1822,6 +1822,8 @@ function autoEnterLastPlayer() {
    ============================================================ */
 const QUESTIONS = [
   // ----- Multiple Choice -----
+  { type: 'choice', q: 'Số ban của CLB YTC là bao nhiêu?',
+    options: ['3','5','4','6'], answer: 2 },
   { type: 'choice', q: 'YTC (Young Training Club) có màu chủ đạo là màu gì?',
     options: ['xanh dương','đỏ','vàng','xanh lá'], answer: 0 },
   { type: 'choice', q: 'YTC trực thuộc trường đại học nào?',
@@ -1862,8 +1864,12 @@ const QUESTIONS = [
     options: ['MC - Giọng nói','Sáng tạo & Media','Tình nguyện','Team Building'], answer: 1 },
   { type: 'choice', q: 'Phạm Thị Thảo Anh giữ vai trò gì trong YTC?',
     options: ['Trưởng ban MC - Lễ tân','Phó ban Nhân sự - Hậu cần','Chủ nhiệm','Trưởng ban Truyền thông'], answer: 1 },
+  { type: 'choice', q: 'Bùi Quang Minh giữ vai trò gì trong YTC?',
+    options: ['Phó ban MC - Lễ tân','Phó ban Nhân sự - Hậu cần','Chủ nhiệm','Trưởng ban Nhân sự - Hậu cần'], answer: 3 },
+  { type: 'choice', q: 'Hoàng Thị Hà Linh giữ vai trò gì trong YTC?',
+    options: ['Trưởng ban Kỹ thuật - Vận hành','Phó ban Nhân sự - Hậu cần','Phó ban Truyền thông','Trưởng ban Nhân sự - Hậu cần'], answer: 2 },
   { type: 'choice', q: 'Đào Thị Thu Hằng giữ vai trò gì trong YTC?',
-    options: ['Phó ban Nhân sự - Hậu cần','Trưởng ban MC - Lễ tân','Kỹ thuật','Phó ban Truyền thông'], answer: 0 },
+    options: ['Phó ban Nhân sự - Hậu cần','Trưởng ban MC - Lễ tân','Phó ban Kỹ thuật - Vận hành','Phó ban Truyền thông'], answer: 0 },
   { type: 'choice', q: 'Nguyễn Minh Ánh đạt giải gì trong Rising Voice 2025?',
     options: ['Quán quân','Á quân 1','Á quân 2','Yêu thích nhất'], answer: 2 },
   { type: 'choice', q: 'Tiêu đề của chuỗi sự kiện "Sinh nhật lần thứ 14 của YTC" là gì?',
@@ -1918,6 +1924,11 @@ const QUESTIONS = [
     pool: ['Gen 14','Gen 15.1','Gen 13'], answer: ['Gen 13','Gen 14','Gen 15.1'] },
   { type: 'word', q: 'Sắp xếp: ______ là _____ ______',
     pool: ['Phó ban','Lê Thị Phương Anh','MC - Lễ tân'], answer: ['Lê Thị Phương Anh','Phó ban','MC - Lễ tân'] },
+  { type: 'word', q: 'Sắp xếp: ______ là _____ ______',
+    pool: ['Phó ban','Nguyễn Phương Anh','Truyền thông'], answer: ['Nguyễn Phương Anh','Phó ban','Truyền thông'] },
+  { type: 'word', q: 'Sắp xếp: Phó Chủ nhiệm là _____ ______ _____',
+    pool: ['Thanh','Nguyễn','Lan'], answer: ['Nguyễn','Thanh','Lan'] },
+
 
   // ----- hehehe-----
   { type: 'choice', q: 'YTC tạo cơ hội cho sinh viên rèn luyện những kỹ năng nào?',
