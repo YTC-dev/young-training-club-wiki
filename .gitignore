@@ -1,0 +1,18 @@
+# Dependencies
+node_modules/
+
+# Environment and secrets (TUYỆT ĐỐI KHÔNG PUSH .env)
+.env
+.env.*
+!.env.example
+
+# IDE & Editor
+.vscode/
+.idea/
+
+# OS generated
+Thumbs.db
+.DS_Store
+
+# Temporary work and backup files
+.work/

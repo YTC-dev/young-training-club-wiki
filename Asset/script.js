@@ -55,7 +55,7 @@ const navHTML = `
       </a>
     </div>
 
-    <ul class="nav-links">
+    <ul class="nav-links" id="primary-navigation">
       <li><a href="${BASE}/index.html">Trang chủ</a></li>
       <li class="has-dropdown">
         <a href="${BASE}/about.html">Giới thiệu</a>
@@ -232,16 +232,27 @@ if (navPlaceholder) {
   const navLinks = document.querySelector(".nav-links");
 
   if (hamburger && navLinks) {
+    const closeMenu = () => {
+      hamburger.classList.remove("active");
+      navLinks.classList.remove("active");
+      hamburger.setAttribute("aria-expanded", "false");
+      hamburger.setAttribute("aria-label", "Mở menu điều hướng");
+      document.body.classList.remove("nav-open");
+    };
+
     hamburger.addEventListener("click", () => {
-      hamburger.classList.toggle("active");
-      navLinks.classList.toggle("active");
+      const isOpen = !navLinks.classList.contains("active");
+      hamburger.classList.toggle("active", isOpen);
+      navLinks.classList.toggle("active", isOpen);
+      hamburger.setAttribute("aria-expanded", String(isOpen));
+      hamburger.setAttribute("aria-label", isOpen ? "Đóng menu điều hướng" : "Mở menu điều hướng");
+      document.body.classList.toggle("nav-open", isOpen);
     });
 
     // Đóng menu mobile khi bấm vào một liên kết
     navLinks.querySelectorAll("a").forEach(link => {
       link.addEventListener("click", () => {
-        hamburger.classList.remove("active");
-        navLinks.classList.remove("active");
+        closeMenu();
         navLinks.querySelectorAll(".has-dropdown.open").forEach(li => {
           li.classList.remove("open");
           li.querySelector(".dropdown-toggle")?.setAttribute("aria-expanded", "false");
@@ -268,6 +279,16 @@ if (navPlaceholder) {
         });
       }
     });
+
+    document.addEventListener("keydown", e => {
+      if (e.key === "Escape") {
+        closeMenu();
+      }
+    });
+
+    window.addEventListener("resize", () => {
+      if (window.innerWidth > 1080) closeMenu();
+    }, { passive: true });
   }
 }
 
