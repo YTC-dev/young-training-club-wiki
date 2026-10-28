@@ -65,6 +65,21 @@ app.post('/api/results', async (req, res, next) => {
 app.get('/api/results', async (req, res, next) => {
   try {
     const limit = Math.min(Math.max(parseInt(req.query.limit, 10) || 50, 1), 100);
+    if (req.query.view === 'leaderboard') {
+      const leaderboard = await GameResult.aggregate([
+        { $sort: { playedAt: -1, _id: 1 } },
+        { $group: {
+          _id: '$playerId',
+          playerName: { $first: '$playerName' },
+          maxScore: { $max: '$score' },
+          totalGamesPlayed: { $sum: 1 }
+        } },
+        { $sort: { maxScore: -1, playerName: 1, _id: 1 } },
+        { $limit: limit },
+        { $project: { _id: 0, playerId: '$_id', playerName: 1, maxScore: 1, totalGamesPlayed: 1 } }
+      ]);
+      return res.json({ leaderboard });
+    }
     const results = await GameResult.find().sort({ score: -1, playedAt: -1 }).limit(limit).lean();
     return res.json({ results });
   } catch (error) { return next(error); }

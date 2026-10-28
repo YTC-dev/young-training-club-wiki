@@ -969,6 +969,18 @@ body.modal-open { overflow: hidden; }
 .history-mode.vs { color:#fff; background:#b34d68; }
 .record-empty { color:#9db5d6; font-size:12px; }
 .records-message { min-height:17px; margin:12px 0 0; color:#72dcf7; font-size:11px; font-weight:800; }
+.leaderboard-column { grid-column:1 / -1; }
+.leaderboard-heading { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:11px; }
+.leaderboard-heading h3 { margin:0; }
+.leaderboard-refresh { border:1px solid rgba(114,220,247,.35); border-radius:8px; padding:6px 9px; color:#bdefff; background:rgba(114,220,247,.08); font-size:9px; font-weight:900; letter-spacing:.5px; cursor:pointer; }
+.leaderboard-list { list-style:none; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:7px; padding:0; margin:0; counter-reset:leaderboard-rank; }
+.leaderboard-list li { counter-increment:leaderboard-rank; display:grid; grid-template-columns:28px minmax(0,1fr) auto; align-items:center; gap:8px; min-width:0; padding:9px 10px; border:1px solid rgba(255,255,255,.08); border-radius:10px; color:#e4efff; background:rgba(255,255,255,.055); font-size:12px; }
+.leaderboard-list li::before { content:counter(leaderboard-rank,decimal-leading-zero); color:#72dcf7; font-weight:900; }
+.leaderboard-list .leaderboard-name { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-weight:800; }
+.leaderboard-list .record-score { color:#ffc94f; font-weight:900; white-space:nowrap; font-variant-numeric:tabular-nums; }
+.leaderboard-list .record-empty { display:block; grid-column:1 / -1; }
+.leaderboard-status { min-height:15px; margin:9px 0 0; color:#9db5d6; font-size:10px; }
+@media (max-width:600px) { .leaderboard-list { grid-template-columns:1fr; } }
 .record-result { min-height:20px; margin:-8px 0 14px; color:#b06cff; font-size:13px; font-weight:900; }
 .char-card { text-align:left; padding:15px; background:linear-gradient(145deg,#f8fbff,#e8f2ff); }
 .char-card-head { display:flex; align-items:center; justify-content:space-between; margin-bottom:11px; }
@@ -1328,6 +1340,11 @@ body.name-gate-open { overflow: hidden; }
     <div class="records-grid">
       <div class="record-column"><h3>HIGHSCORE</h3><ol id="highscoreList" class="highscore-list"><li class="record-empty">Chưa có kỷ lục</li></ol></div>
       <div class="record-column"><h3>LỊCH SỬ CHƠI</h3><div id="historyList" class="history-list"><div class="record-empty">Chưa có lượt chơi</div></div></div>
+      <div class="record-column leaderboard-column">
+        <div class="leaderboard-heading"><h3>LEADERBOARD TOÀN GAME</h3><button class="leaderboard-refresh" type="button" onclick="loadLeaderboard()" aria-label="Làm mới bảng xếp hạng">LÀM MỚI</button></div>
+        <ol id="leaderboardList" class="leaderboard-list"><li class="record-empty">Đang tải bảng xếp hạng…</li></ol>
+        <p id="leaderboardStatus" class="leaderboard-status" aria-live="polite"></p>
+      </div>
     </div>
     <p class="records-message" id="recordsMessage" aria-live="polite"></p>
   </section>
@@ -3230,6 +3247,25 @@ function goNext() {
    LOCAL RECORDS — highscore & play history
    ============================================================ */
 function formatRecordDate(iso) { try { return new Intl.DateTimeFormat('vi-VN', { day:'2-digit', month:'2-digit', year:'numeric', hour:'2-digit', minute:'2-digit' }).format(new Date(iso)); } catch { return iso; } }
+async function loadLeaderboard() {
+  const list = document.getElementById('leaderboardList');
+  const status = document.getElementById('leaderboardStatus');
+  if (!list) return;
+  list.innerHTML = '<li class="record-empty">Đang tải bảng xếp hạng…</li>';
+  if (status) status.textContent = '';
+  try {
+    const response = await fetch(`${QUIZ_API_BASE_URL}/api/results?view=leaderboard&limit=20`, { cache:'no-store' });
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    const data = await response.json();
+    const entries = Array.isArray(data.leaderboard) ? data.leaderboard : [];
+    list.innerHTML = entries.length ? entries.map(item => `<li><span class="leaderboard-name" title="${escapeHtml(item.playerName || 'Người chơi')}">${escapeHtml(item.playerName || 'Người chơi')}</span><span class="record-score">${Number(item.maxScore || 0).toLocaleString('vi-VN')} điểm</span></li>`).join('') : '<li class="record-empty">Chưa có kết quả online</li>';
+    if (status) status.textContent = entries.length ? `Top ${entries.length} người chơi · gồm ${entries.reduce((sum, item) => sum + Number(item.totalGamesPlayed || 0), 0).toLocaleString('vi-VN')} ván đã ghi nhận` : 'Bảng xếp hạng sẽ hiện khi có kết quả được đồng bộ.';
+  } catch (error) {
+    console.warn('Không tải được leaderboard:', error);
+    list.innerHTML = '<li class="record-empty">Chưa tải được bảng xếp hạng.</li>';
+    if (status) status.textContent = 'Kiểm tra kết nối máy chủ rồi bấm Làm mới.';
+  }
+}
 function renderRecords() {
   const p = currentPlayer(), list = p ? p.results : [], name = p && p.name ? p.name : 'Người chơi';
   const highscore = rankResults(list).slice(0, 5);
@@ -3268,6 +3304,7 @@ function saveRunRecord() {
     }).then(async response => {
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
       if (result) result.textContent += ' Đã lưu online.';
+      loadLeaderboard();
     }).catch(error => {
       console.warn('Không đồng bộ được kết quả lên API:', error);
       if (result) result.textContent += ' Chưa đồng bộ online; bản local vẫn được giữ.';
@@ -3413,6 +3450,7 @@ function launchConfetti() {
 
 renderRecords();
 renderCompanionIntro();
+loadLeaderboard();
 </script>
 </body>
 </html>
