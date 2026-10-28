@@ -1194,6 +1194,9 @@ body.pause-open { overflow: hidden; }
 .profile-summary-item small { display: block; color: #a9c8e2; font-size: 10px; text-transform: uppercase; letter-spacing: .08em; }
 .profile-summary-item strong { display: block; margin-top: 3px; color: #fff; font-size: 16px; overflow-wrap: anywhere; }
 .profile-results { display: grid; gap: 8px; max-height: 300px; overflow: auto; }
+.profile-results-toggle { justify-self: start; padding: 7px 0; border: 0; color: #ffd05c; background: transparent; font: inherit; font-size: 12px; font-weight: 900; cursor: pointer; }
+.profile-results-toggle:hover { color: #ffe08a; text-decoration: underline; }
+.profile-results-toggle:focus-visible { outline: 2px solid #ffd05c; outline-offset: 3px; border-radius: 3px; }
 .profile-result-row { display: flex; justify-content: space-between; gap: 12px; align-items: center; padding: 11px 12px; border-radius: 12px; background: rgba(255,255,255,.08); border-left: 3px solid #16c4e8; font-size: 12px; }
 .profile-result-row strong { color: #fff0a8; }
 .profile-result-row span:last-child { color: #b9d5ef; text-align: right; white-space: nowrap; }
@@ -1474,7 +1477,7 @@ body.name-gate-open { overflow: hidden; }
 </div>
 
 <!-- ====================== PLAYER PROFILE MODAL ====================== -->
-<div class="profile-modal" id="profileModal" role="dialog" aria-modal="true" aria-labelledby="profileTitle"><div class="profile-card"><h2 id="profileTitle">PROFILE NGƯỜI CHƠI</h2><p>ID, tên và kết quả của bạn được lưu trên thiết bị này. Hãy ghi nhớ ID để vào lại lần sau.</p><form class="profile-form" onsubmit="savePlayerProfileAndContinue(event)"><input id="profileNameInput" class="player-name-input" type="text" maxlength="40" autocomplete="name" placeholder="Tên người chơi" aria-label="Tên người chơi trong profile"><button class="profile-save" type="submit">LƯU TÊN</button></form><div class="profile-message" id="profileMessage" aria-live="polite"></div><div class="profile-summary"><div class="profile-summary-item"><small>ID người chơi</small><strong id="profilePlayerId">—</strong></div><div class="profile-summary-item"><small>Tên người chơi</small><strong id="profilePlayerName">Chưa đặt tên</strong></div><div class="profile-summary-item"><small>Số lượt chơi</small><strong id="profilePlayCount">0</strong></div><div class="profile-summary-item"><small>Điểm cao nhất</small><strong id="profileBestScore">0</strong></div></div><div class="profile-id-actions"><button class="profile-btn" type="button" onclick="copyPlayerId()">SAO CHÉP ID</button><button class="profile-btn" type="button" onclick="syncPlayerFromCloud()">ĐỒNG BỘ MÁY CHỦ</button><button class="profile-btn" type="button" onclick="switchPlayer()">ĐỔI NGƯỜI CHƠI</button></div><h3>KẾT QUẢ ĐÃ LƯU</h3><div class="profile-results" id="profileResults"><div class="record-empty">Chưa có kết quả nào.</div></div><div class="profile-actions"><button class="profile-close" type="button" onclick="closeProfile()">ĐÓNG</button><button class="profile-save" type="button" onclick="startFromProfile()">LƯU & BẮT ĐẦU</button></div></div></div>
+<div class="profile-modal" id="profileModal" role="dialog" aria-modal="true" aria-labelledby="profileTitle"><div class="profile-card"><h2 id="profileTitle">PROFILE NGƯỜI CHƠI</h2><p>ID, tên và kết quả của bạn được lưu trên thiết bị này. Hãy ghi nhớ ID để vào lại lần sau.</p><form class="profile-form" onsubmit="savePlayerProfileAndContinue(event)"><input id="profileNameInput" class="player-name-input" type="text" maxlength="40" autocomplete="name" placeholder="Tên người chơi" aria-label="Tên người chơi trong profile"><button class="profile-save" type="submit">LƯU TÊN</button></form><div class="profile-message" id="profileMessage" aria-live="polite"></div><div class="profile-summary"><div class="profile-summary-item"><small>ID người chơi</small><strong id="profilePlayerId">—</strong></div><div class="profile-summary-item"><small>Tên người chơi</small><strong id="profilePlayerName">Chưa đặt tên</strong></div><div class="profile-summary-item"><small>Số lượt chơi</small><strong id="profilePlayCount">0</strong></div><div class="profile-summary-item"><small>Điểm cao nhất</small><strong id="profileBestScore">0</strong></div></div><div class="profile-id-actions"><button class="profile-btn" type="button" onclick="copyPlayerId()">SAO CHÉP ID</button><button class="profile-btn" type="button" onclick="syncPlayerFromCloud()">ĐỒNG BỘ MÁY CHỦ</button><button class="profile-btn" type="button" onclick="switchPlayer()">ĐỔI NGƯỜI CHƠI</button></div><h3>KẾT QUẢ ĐÃ LƯU</h3><div class="profile-results" id="profileResults"><div class="record-empty">Chưa có kết quả nào.</div></div><button class="profile-results-toggle" id="profileResultsToggle" type="button" aria-controls="profileResults" aria-expanded="false" onclick="toggleProfileHistory()" hidden>XEM THÊM</button><div class="profile-actions"><button class="profile-close" type="button" onclick="closeProfile()">ĐÓNG</button><button class="profile-save" type="button" onclick="startFromProfile()">LƯU & BẮT ĐẦU</button></div></div></div>
 
 <!-- ====================== GAME OVER MODAL ====================== -->
 <div class="modal-overlay" id="gameOverModal">
@@ -1673,9 +1676,18 @@ function refreshPlayerUI() {
 }
 function renderProfileRows(records) {
   const t = document.getElementById('profileResults'); if (!t) return;
-  const a = records.slice().sort((x, y) => new Date(y.playedAt) - new Date(x.playedAt)).slice(0, 20);
+  const sorted = records.slice().sort((x, y) => new Date(y.playedAt) - new Date(x.playedAt));
+  const toggle = document.getElementById('profileResultsToggle');
+  if (toggle) {
+    toggle.hidden = sorted.length <= 3;
+    toggle.textContent = profileHistoryExpanded ? 'THU GỌN' : 'XEM THÊM';
+    toggle.setAttribute('aria-expanded', String(profileHistoryExpanded));
+  }
+  const a = profileHistoryExpanded ? sorted : sorted.slice(0, 3);
   t.innerHTML = a.length ? a.map(i => '<div class="profile-result-row"><span><strong>' + Number(i.score || 0).toLocaleString('vi-VN') + ' điểm</strong> · ' + ((i.mode || 'classic') === 'vs' ? 'VS MODE' : 'CLASSIC') + ' · ' + (i.step || 0) + '/50 ô · ' + (i.correct || 0) + '/' + (i.total || 0) + ' đúng</span><span>' + formatRecordDate(i.playedAt) + '</span></div>').join('') : '<div class="record-empty">Chưa có kết quả nào.</div>';
 }
+let profileHistoryExpanded = false;
+function toggleProfileHistory() { profileHistoryExpanded = !profileHistoryExpanded; renderProfile(); }
 function renderProfile() {
   const p = currentPlayer(), list = p ? p.results : [];
   const set = (id, v) => { const el = document.getElementById(id); if (el) el.textContent = v; };
@@ -1687,6 +1699,7 @@ function renderProfile() {
 }
 function openProfile(o = {}) {
   profileStartPending = Boolean(o.forStart);
+  profileHistoryExpanded = false;
   refreshPlayerUI();
   const m = document.getElementById('profileMessage'); if (m) m.textContent = '';
   document.getElementById('profileModal').classList.add('show'); document.body.classList.add('modal-open');
@@ -1909,8 +1922,10 @@ const QUESTIONS = [
     options: ['ONE-TAKE','Rising Voice','Podcast & Phim','Team Building'], answer: 1 },
   { type: 'choice', q: 'Sinh viên UNETI tiêu biểu "Nguyễn Hồng Thanh" học lớp nào?',
     options: ['DHLQ18A3HN','DHMK18A1HN','DHKT17A6HN','DHLQ17A1HN'], answer: 1 },
-    { type: 'choice', q: 'Sinh viên UNETI tiêu biểu "Nguyễn Thanh Lan" học lớp nào?',
+  { type: 'choice', q: 'Sinh viên UNETI tiêu biểu "Nguyễn Thanh Lan" học lớp nào?',
     options: ['DHLQ18A3HN','DHMK18A1HN','DHKT17A6HN','DHLQ17A1HN'], answer: 3 },
+  { type: 'choice', q: 'Sinh viên UNETI tiêu biểu "Lê Huyền Đoan Trang" học lớp nào?',
+    options: ['DHLQ18A3HN','DHMK18A2HN','DHLQ18A1HN','DHLQ18A1CL'], answer: 0 },
   { type: 'choice', q: 'Cơ sở Nam Định, Ninh Bình của UNETI nằm ở đâu?',
     options: ['218 Lĩnh Nam','353 Trần Hưng Đạo','451 Tôn Đức Thắng','12 Nguyễn Văn Cừ'], answer: 1 },
   { type: 'choice', q: 'YTC có khoảng bao nhiêu thành viên (đến 2026)?',
@@ -1983,7 +1998,8 @@ const QUESTIONS = [
     pool: ['Phó ban','Nguyễn Phương Anh','Truyền thông'], answer: ['Nguyễn Phương Anh','Phó ban','Truyền thông'] },
   { type: 'word', q: 'Sắp xếp: Phó Chủ nhiệm là _____ ______ _____',
     pool: ['Thanh','Nguyễn','Lan'], answer: ['Nguyễn','Thanh','Lan'] },
-
+  { type: 'word', q: 'Sắp xếp: Phó ban Truyền thông là _____ ______ _____',
+    pool: ['Hà','Hoàng','Linh','Thị'], answer: ['Hoàng','Thị','Hà','Linh'] },
 
   // ----- hehehe-----
   { type: 'choice', q: 'YTC tạo cơ hội cho sinh viên rèn luyện những kỹ năng nào?',
