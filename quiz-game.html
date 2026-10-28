@@ -873,7 +873,7 @@ button:focus-visible,input:focus-visible,.word-chip:focus-visible { outline: 3px
   .start-rules ul { grid-template-columns: 1fr; }
   .topbar { gap: 12px; padding: 13px; }
   .topbar-logo { width: 100%; text-align: center; }
-  .topbar-stats { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 6px; width: 100%; }
+  .topbar-stats { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 6px; width: 100%; }
   .stat-chip { min-width: 0; padding: 7px 4px; }
   .stat-chip .label { font-size: 8px; letter-spacing: .7px; }
   .stat-chip .value { font-size: 16px; }
@@ -1218,6 +1218,44 @@ body.name-gate-open { overflow: hidden; }
 .gate-last-player span { overflow-wrap: anywhere; }
 .gate-last-player .profile-save { padding: 9px 14px; }
 .profile-id-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 18px; }
+
+/* Mobile text alignment and topbar spacing */
+@media (max-width: 600px) {
+  .topbar-actions {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    width: 100%;
+    min-width: 0;
+    gap: 7px;
+  }
+  .topbar-actions > button {
+    min-width: 0;
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+    white-space: nowrap;
+  }
+  .topbar-actions .game-player-chip span {
+    display: inline-block;
+    min-width: 0;
+    max-width: 14ch;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: bottom;
+  }
+  .question-card, .main-col { min-width: 0; }
+  .q-text {
+    text-align: left;
+    overflow-wrap: anywhere;
+    line-height: 1.5;
+  }
+  .question-hint { text-wrap: pretty; }
+}
+@media (max-width: 380px) {
+  .topbar-actions { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .topbar-actions .game-player-chip { grid-column: 1 / -1; }
+  .topbar-actions .game-player-chip span { max-width: 22ch; }
+}
 </style>
 </head>
 <body>
@@ -3378,3 +3416,4 @@ renderCompanionIntro();
 </script>
 </body>
 </html>
+
