@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
@@ -1038,6 +1038,11 @@ body.modal-open { overflow: hidden; }
 .vs-mode .vs-guide { display:block; }
 .vs-guide h3 { margin:0 0 10px; color:#ffd05c; font-size:16px; letter-spacing:.04em; }
 .vs-guide ul { margin:0; padding-left:20px; color:#cdeaff; font-size:13px; line-height:1.65; }
+.vs-guide { margin-bottom:20px; padding:20px 22px; }
+.vs-guide ul { line-height:1.7; }
+.vs-guide li { padding-left:3px; margin-bottom:5px; }
+.vs-guide li:last-child { margin-bottom:0; }
+.vs-guide + .start-rules { margin-top:0; }
 .vs-guide strong { color:#fff0b2; }
 .vs-skill-btn { width:100%; margin-top:8px; padding:10px; border:0; border-radius:10px; color:#142f55; background:#ffd05c; font-weight:900; cursor:pointer; }
 .vs-skill-btn:disabled { opacity:.45; cursor:not-allowed; }
@@ -1477,7 +1482,7 @@ body.name-gate-open { overflow: hidden; }
 </div>
 
 <!-- ====================== PLAYER PROFILE MODAL ====================== -->
-<div class="profile-modal" id="profileModal" role="dialog" aria-modal="true" aria-labelledby="profileTitle"><div class="profile-card"><h2 id="profileTitle">PROFILE NGƯỜI CHƠI</h2><p>ID, tên và kết quả của bạn được lưu trên thiết bị này. Hãy ghi nhớ ID để vào lại lần sau.</p><form class="profile-form" onsubmit="savePlayerProfileAndContinue(event)"><input id="profileNameInput" class="player-name-input" type="text" maxlength="40" autocomplete="name" placeholder="Tên người chơi" aria-label="Tên người chơi trong profile"><button class="profile-save" type="submit">LƯU TÊN</button></form><div class="profile-message" id="profileMessage" aria-live="polite"></div><div class="profile-summary"><div class="profile-summary-item"><small>ID người chơi</small><strong id="profilePlayerId">—</strong></div><div class="profile-summary-item"><small>Tên người chơi</small><strong id="profilePlayerName">Chưa đặt tên</strong></div><div class="profile-summary-item"><small>Số lượt chơi</small><strong id="profilePlayCount">0</strong></div><div class="profile-summary-item"><small>Điểm cao nhất</small><strong id="profileBestScore">0</strong></div></div><div class="profile-id-actions"><button class="profile-btn" type="button" onclick="copyPlayerId()">SAO CHÉP ID</button><button class="profile-btn" type="button" onclick="syncPlayerFromCloud()">ĐỒNG BỘ MÁY CHỦ</button><button class="profile-btn" type="button" onclick="switchPlayer()">ĐỔI NGƯỜI CHƠI</button></div><h3>KẾT QUẢ ĐÃ LƯU</h3><div class="profile-results" id="profileResults"><div class="record-empty">Chưa có kết quả nào.</div></div><button class="profile-results-toggle" id="profileResultsToggle" type="button" aria-controls="profileResults" aria-expanded="false" onclick="toggleProfileHistory()" hidden>XEM THÊM</button><div class="profile-actions"><button class="profile-close" type="button" onclick="closeProfile()">ĐÓNG</button><button class="profile-save" type="button" onclick="startFromProfile()">LƯU & BẮT ĐẦU</button></div></div></div>
+<div class="profile-modal" id="profileModal" role="dialog" aria-modal="true" aria-labelledby="profileTitle"><div class="profile-card"><h2 id="profileTitle">PROFILE NGƯỜI CHƠI</h2><p>ID, tên và kết quả của bạn được lưu trên thiết bị này. Hãy ghi nhớ ID để vào lại lần sau.</p><form class="profile-form" onsubmit="savePlayerProfileAndContinue(event)"><input id="profileNameInput" class="player-name-input" type="text" maxlength="40" autocomplete="name" placeholder="Tên người chơi" aria-label="Tên người chơi trong profile"><button class="profile-save" type="submit">LƯU TÊN</button></form><div class="profile-message" id="profileMessage" aria-live="polite"></div><div class="profile-summary"><div class="profile-summary-item"><small>ID người chơi</small><strong id="profilePlayerId">—</strong></div><div class="profile-summary-item"><small>Tên người chơi</small><strong id="profilePlayerName">Chưa đặt tên</strong></div><div class="profile-summary-item"><small>Số lượt chơi</small><strong id="profilePlayCount">0</strong></div><div class="profile-summary-item"><small>Điểm cao nhất</small><strong id="profileBestScore">0</strong></div></div><div class="profile-id-actions"><button class="profile-btn" type="button" onclick="copyPlayerId()">SAO CHÉP ID</button><button class="profile-btn" type="button" onclick="syncPlayerFromCloud()">ĐỒNG BỘ MÁY CHỦ</button><button class="profile-btn" type="button" onclick="logoutPlayer()">ĐĂNG XUẤT</button></div><h3>KẾT QUẢ ĐÃ LƯU</h3><div class="profile-results" id="profileResults"><div class="record-empty">Chưa có kết quả nào.</div></div><button class="profile-results-toggle" id="profileResultsToggle" type="button" aria-controls="profileResults" aria-expanded="false" onclick="toggleProfileHistory()" hidden>XEM THÊM</button><div class="profile-actions"><button class="profile-close" type="button" onclick="closeProfile()">ĐÓNG</button><button class="profile-save" type="button" onclick="startFromProfile()">LƯU & BẮT ĐẦU</button></div></div></div>
 
 <!-- ====================== GAME OVER MODAL ====================== -->
 <div class="modal-overlay" id="gameOverModal">
@@ -1730,12 +1735,15 @@ function copyPlayerId() {
   const fail = () => { if (m) m.textContent = 'ID của bạn: ' + p.id + ' (hãy ghi lại để vào lại lần sau).'; };
   try { navigator.clipboard.writeText(p.id).then(done, fail); } catch { fail(); }
 }
-function switchPlayer() {
+function logoutPlayer() {
   if (document.getElementById('gameScreen').classList.contains('active')) {
-    const m = document.getElementById('profileMessage'); if (m) m.textContent = 'Hãy kết thúc ván chơi và về màn hình chính trước khi đổi người chơi.';
+    const m = document.getElementById('profileMessage'); if (m) m.textContent = 'Hãy kết thúc ván chơi và về màn hình chính trước khi đăng xuất.';
     return;
   }
-  closeProfile(); openPlayerGate();
+  playerDb.currentId = null;
+  savePlayerDb();
+  closeProfile();
+  openPlayerGate();
 }
 function ensurePlayerName() {
   if (currentPlayer()) return true;
@@ -3470,4 +3478,3 @@ loadLeaderboard();
 </script>
 </body>
 </html>
-
