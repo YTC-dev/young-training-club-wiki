@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
@@ -2008,6 +2008,8 @@ const QUESTIONS = [
     pool: ['Thanh','Nguyễn','Lan'], answer: ['Nguyễn','Thanh','Lan'] },
   { type: 'word', q: 'Sắp xếp: Phó ban Truyền thông là _____ ______ _____',
     pool: ['Hà','Hoàng','Linh','Thị'], answer: ['Hoàng','Thị','Hà','Linh'] },
+  { type: 'word', q: 'Sắp xếp các MC đã training cho các thí sinh cuộc thi Rising Voice 2025 từ trước đến sau:',
+    pool: ['Chị Thanh Chúc','MC Phạm Liên Anh','MC Nguyễn Minh Đức'], answer: ['Chị Thanh Chúc','MC Nguyễn Minh Đức','MC Phạm Liên Anh'] },
 
   // ----- hehehe-----
   { type: 'choice', q: 'YTC tạo cơ hội cho sinh viên rèn luyện những kỹ năng nào?',
@@ -2032,10 +2034,11 @@ const QUESTIONS = [
   { type: 'choice', q: 'YTC đồng hành cùng chương trình nào dành cho thí sinh trong kỳ thi tốt nghiệp THPT năm 2026?', options: ['Tiếp Sức Mùa Thi','UNETI CUP','Rising Voice','Market Maker'], answer: 0 },
   { type: 'choice', q: 'Ai được bình chọn là thí sinh được yêu thích nhất tại Rising Voice 2025?', options: ['Tô Thu Trang','Nguyễn Minh Ánh','Ngô Hạnh Nguyên','Nguyễn Thị Thanh Hoa'], answer: 2 },
   { type: 'choice', q: 'Hoạt động nào thuộc nhóm “Gắn kết & Trải nghiệm” của YTC?', options: ['Dã ngoại và team building','Thi đấu bóng đá chuyên nghiệp','Triển lãm công nghệ','Câu lạc bộ ngoại ngữ'], answer: 0 },
-  { type: 'choice', q: 'Bài đăng ngày 24/10/2026 trên Facebook YTC nhắc đến lễ phát động cuộc thi về chủ đề nào?', options: ['Sử dụng năng lượng tiết kiệm và hiệu quả','Khởi nghiệp sinh viên','Nhiếp ảnh trẻ','Văn nghệ học đường'], answer: 0 },
+  { type: 'choice', q: 'Bài đăng ngày 24/10/2026 trên Facebook YTC nhắc đến lễ phát động cuộc thi về chủ đề nào?', options: ['Tìm hiểu phát luật về sử dụng năng lượng tiết kiệm và hiệu quả','Ý tưởng sáng tạo khởi nghiệp sinh viên','Phong trào thi đua “Sáng kiến mỗi ngày”','Đại sứ văn hoá học đường sinh viên năm 2026'], answer: 0 },
 
   // ----- Câu hỏi mới, không lặp nội dung cũ -----
-  { type: 'choice', q: 'Trang Facebook Young Training Club hiện giới thiệu khoảng bao nhiêu người theo dõi?', options: ['860','2,6 nghìn','8,6 nghìn','86 nghìn'], answer: 2 },
+  { type: 'choice', q: 'Trang Facebook Young Training Club hiện tại có khoảng bao nhiêu người theo dõi?', options: ['860','2,6 nghìn','8,6 nghìn','86 nghìn'], answer: 2 },
+  { type: 'choice', q: 'Tiktok Young Training Club hiện tại có khoảng bao nhiêu follower?', options: ['560','1,6 nghìn','5,6 nghìn','16 nghìn'], answer: 2 },
   { type: 'choice', q: 'Hoạt động nào được xếp vào nhóm “Nhiệt huyết & Cống hiến”?', options: ['Hỗ trợ hoạt động phong trào và chiến dịch tình nguyện','Cuộc thi MC - Giọng nói','Workshop thiết kế đồ hoạ','Cuộc thi Podcast - Phim'], answer: 0 },
   { type: 'fill', q: 'Tên cuộc thi video có cụm “ONE - ___” là gì?', answer: 'TAKE', accept: ['take'] },
   { type: 'word', q: 'Sắp xếp các mốc sự kiện theo thời gian từ sớm đến muộn:', pool: ['15/09/2026','25/09/2026','28/09/2026','08/10/2026'], answer: ['15/09/2026','25/09/2026','28/09/2026','08/10/2026'] },
@@ -2047,6 +2050,7 @@ const QUESTIONS = [
   { type: 'choice', q: 'MC trong CLB YTC dẫn chương trình “Kỷ niệm 76 năm ngày Truyền thống sinh viên - Hội Sinh Viên VN” (Ngày 9/1/2026) là ai?', options: ['Tô Thu Trang','Nguyễn Minh Ánh','Nguyễn Thuỳ Trang','Lê Huyền Đoan Trang'], answer: 1 },
   { type: 'choice', q: 'MC trong CLB YTC dẫn chương trình “Giải bóng đá sinh viên UNETI CUP 2026” (Ngày 29/3/2026) là ai?', options: ['Tô Thu Trang','Nguyễn Minh Ánh','Lê Thị Phương Anh','Nguyễn Thuỳ Trang'], answer: 2 },
   { type: 'choice', q: 'MC trong CLB YTC dẫn chương trình “Tập huấn chăm sóc sức khỏe dành cho sinh viên” (Ngày 16/4/2026) là ai?', options: ['Tô Thu Trang','Nguyễn Minh Ánh','Lê Huyền Đoan Trang','Nguyễn Thuỳ Trang'], answer: 3 },
+  { type: 'choice', q: 'MC trong CLB YTC dẫn chương trình “Nâng cao năng lực số chủ động nhận diện, phòng ngừa lừa đảo trên không gian số” (Ngày 15/10/2026) là ai?', options: ['Nguyễn Hữu Thanh Liêm','Nguyễn Minh Ánh','Lê Thị Phương Anh','Nguyễn Thuỳ Trang'], answer: 1 },
 ];
 
 /* ============================================================

@@ -2059,6 +2059,7 @@ footer {
   overflow: hidden;
   cursor: grab;
   user-select: none;
+  touch-action: pan-y;
   border-radius: var(--radius-md);
 }
 
@@ -2068,6 +2069,14 @@ footer {
   display: flex;
   gap: 22px;
   transition: transform .4s cubic-bezier(.4, 0, .2, 1);
+}
+
+.department-gallery-track.is-dragging {
+  transition: none;
+}
+
+.department-gallery-wrapper.is-grabbing {
+  cursor: grabbing;
 }
 
 .department-gallery-card {
@@ -2118,14 +2127,16 @@ footer {
   font-size: 1.15rem;
 }
 
-.department-gallery-nav {
+.department-gallery-controls {
   display: flex;
-  justify-content: center;
-  gap: 8px;
-  margin-top: 14px;
+  align-items: center;
+  gap: 18px;
+  margin-top: 16px;
 }
 
-.department-gallery-nav button,
+.department-gallery-controls[hidden] { display: none; }
+
+.department-gallery-arrow,
 .department-lightbox-nav,
 .department-lightbox-close {
   display: flex;
@@ -2139,39 +2150,71 @@ footer {
   transition: var(--transition-fast);
 }
 
-.department-gallery-nav button {
-  width: 34px;
-  height: 34px;
-  font-size: 1.1rem;
+.department-gallery-arrow {
+  flex: none;
+  width: 56px;
+  height: 56px;
+  padding: 0;
+  box-shadow: 0 2px 8px rgba(44, 59, 144, .1);
 }
 
-.department-gallery-nav button:hover {
+.department-gallery-arrow svg {
+  width: 22px;
+  height: 22px;
+}
+
+.department-gallery-arrow:hover {
   color: #fff;
   background: var(--blue-accent);
 }
 
-.department-gallery-dots {
+.department-gallery-card:focus-visible,
+.department-gallery-arrow:focus-visible,
+.department-gallery-progress:focus-visible,
+.department-lightbox button:focus-visible {
+  outline: 3px solid var(--blue-accent);
+  outline-offset: 3px;
+}
+
+.department-gallery-progress-wrap {
+  flex: 1;
   display: flex;
-  justify-content: center;
-  gap: 6px;
-  margin-top: 10px;
+  align-items: center;
+  gap: 18px;
+  min-width: 0;
 }
 
-.department-gallery-dot {
-  width: 8px;
-  height: 8px;
-  padding: 0;
+.department-gallery-controls[hidden],
+.department-gallery-progress-wrap[hidden] {
+  display: none;
+}
+
+.department-gallery-progress {
+  flex: 1;
+  height: 5px;
+  overflow: hidden;
   cursor: pointer;
-  background: var(--light-soft);
-  border: 1px solid #c0c8dd;
-  border-radius: 50%;
+  background: rgba(9, 131, 254, .15);
+  border-radius: 99px;
 }
 
-.department-gallery-dot.active {
-  width: 20px;
-  background: var(--blue-accent);
-  border-color: var(--blue-accent);
-  border-radius: 4px;
+.department-gallery-progress-fill {
+  display: block;
+  width: var(--progress, 0%);
+  height: 100%;
+  background: linear-gradient(90deg, var(--blue-main, #2c3b90), var(--blue-accent, #0983fe));
+  border-radius: inherit;
+  transition: width .7s cubic-bezier(.22, 1, .36, 1);
+}
+
+.department-gallery-counter {
+  flex: none;
+  min-width: 68px;
+  color: var(--blue-main, #2c3b90);
+  font-size: 16px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
 }
 
 .department-lightbox {
@@ -2242,6 +2285,14 @@ footer {
 
 .department-lightbox-prev { left: -56px; }
 .department-lightbox-next { right: -56px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .department-gallery-track,
+  .department-gallery-card,
+  .department-gallery-card__image {
+    transition-duration: .01ms;
+  }
+}
 
 /* ==========================================
    RESPONSIVE MEDIA QUERIES
