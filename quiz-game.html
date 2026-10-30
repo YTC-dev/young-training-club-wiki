@@ -1556,6 +1556,52 @@ function nowIso() { return new Date().toISOString(); }
 function escapeHtml(v) { return String(v ?? '').replace(/[&<>'"]/g, c => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', "'":'&#39;', '"':'&quot;' }[c])); }
 function cleanName(v) { return String(v || '').trim().replace(/\s+/g, ' '); }
 function normalizeName(v) { return cleanName(v).toLocaleLowerCase('vi-VN'); }
+const INAPPROPRIATE_NAME_WORDS = new Set([
+  'dit', 'ditme', 'ditmemay', 'ditconme', 'ditcu', 'deo', 'deoconme', 'lon', 'cac', 'buoi',
+  'daucu', 'ditcha', 'ditbo', 'dume', 'duma', 'damdang', 'choho', 'choch', 'sucvat',
+  'matday', 'matlon', 'matcac', 'ngu', 'nguhoc', 'occho', 'thangcho', 'concho', 'thangngu',
+  'conngu', 'khonnan',
+  'ditconme', 'ditmechungmay', 'ditmechungbay', 'ditmechungno', 'ditchungmay',
+  'ditchungbay', 'ditchungno', 'daucat', 'dauboi', 'daucho', 'daubuoi', 'daucu',
+  'condiem', 'diemchua', 'conmatlon', 'lonme', 'lonma', 'cacme', 'caccho',
+  'cutme', 'cutcha', 'cutbo', 'cuccut', 'cucshit', 'nhucc', 'nhucac', 'nhucuc',
+  'dm', 'dme', 'dmm', 'dms', 'dmcs', 'dcm', 'dcmay', 'dcmn', 'dcmml', 'dclmm', 'dklm', 'dkm',
+  'dkmm', 'dmmay', 'vcl', 'vkl', 'vcc', 'clgt', 'clmm',
+  'fuck', 'fck', 'fuk', 'fucker', 'fuckyou', 'motherfucker', 'shit', 'shitty', 'bullshit',
+  'bitch', 'bitches', 'sonofabitch', 'ass', 'asshole', 'bastard', 'dick', 'dickhead',
+  'cock', 'cocksucker', 'pussy', 'cunt', 'whore', 'slut', 'hoe', 'porn', 'xxx',
+  'nigger', 'nigga', 'fag', 'faggot', 'retard', 'rape', 'rapist',
+  'blyat', 'blyad', 'bliat', 'блять', 'блядь',
+  'puta', 'puto', 'mierda', 'joder', 'coño', 'cabron', 'cabrón',
+  'merde', 'putain', 'scheisse', 'arschloch', 'kurwa', 'chuj', 'suka', 'сука', 'хуй'
+]);
+const INAPPROPRIATE_NAME_FRAGMENTS = [
+  'ditmemay', 'ditconme', 'ditme', 'deoconme', 'motherfucker', 'cocksucker',
+  'ditmechung', 'ditchung', 'condiem', 'daubuoi', 'dauboi', 'daucat', 'nhucc', 'nhucac',
+  'fuck', 'bitch', 'asshole', 'lon', 'bastard', 'dickhead', 'blyat', 'blyad', 'bliat',
+  'блять', 'блядь', 'puta', 'puto', 'mierda', 'joder', 'cabron', 'cabrón',
+  'merde', 'putain', 'scheisse', 'arschloch', 'kurwa', 'chuj', 'сука', 'хуй'
+];
+const INAPPROPRIATE_NAME_SUFFIXES = ['nhucc'];
+function hasInappropriateNameWord(v) {
+  const normalized = cleanName(v).toLocaleLowerCase('vi-VN').normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '');
+  return normalized.split(/\s+/).some(word => {
+    const rawToken = word.replace(/[^a-z0-9đа-яёñ]/g, '');
+    const token = rawToken
+      .replace(/[013457@$]/g, char => ({ '0':'o', '1':'i', '3':'e', '4':'a', '5':'s', '7':'t', '@':'a', '$':'s' }[char]))
+      .replace(/(.)\1+/g, (match, char) => char === 'c' ? match : char);
+    const alternateToken = rawToken.replace(/1/g, 'l')
+      .replace(/[03547@$]/g, char => ({ '0':'o', '3':'e', '4':'a', '5':'s', '7':'t', '@':'a', '$':'s' }[char]))
+      .replace(/(.)\1+/g, (match, char) => char === 'c' ? match : char);
+    return [token, alternateToken].some(candidate =>
+      INAPPROPRIATE_NAME_WORDS.has(candidate) ||
+      INAPPROPRIATE_NAME_WORDS.has(candidate.replace(/đ/g, 'd')) ||
+      INAPPROPRIATE_NAME_FRAGMENTS.some(fragment => candidate.includes(fragment)) ||
+      INAPPROPRIATE_NAME_SUFFIXES.some(suffix => candidate.length > suffix.length && candidate.endsWith(suffix))
+    );
+  });
+}
 function normalizeId(v) { return String(v || '').trim().replace(/\s+/g, '').toUpperCase(); }
 
 function loadPlayerDb() {
@@ -1713,19 +1759,21 @@ function openProfile(o = {}) {
 function closeProfile() { document.getElementById('profileModal').classList.remove('show'); document.body.classList.remove('modal-open'); profileStartPending = false; }
 function savePlayerName(name) {
   const p = currentPlayer(), n = cleanName(name);
-  if (!p || n.length < 2) return false;
+  if (!p || n.length < 2 || hasInappropriateNameWord(n)) return false;
   p.name = n; p.updatedAt = nowIso(); savePlayerDb(); refreshPlayerUI();
   return true;
 }
 function savePlayerProfileAndContinue(e) {
   e?.preventDefault();
   const i = document.getElementById('profileNameInput'), m = document.getElementById('profileMessage');
+  if (hasInappropriateNameWord(i?.value)) { if (m) m.textContent = 'Ký tự của bạn có nội dung không phù hợp, vui lòng nhập lại để đổi tên người dùng!'; return; }
   if (!savePlayerName(i?.value)) { if (m) m.textContent = 'Vui lòng nhập tên người chơi (ít nhất 2 ký tự).'; return; }
   if (m) m.textContent = 'Đã lưu tên vào hồ sơ.';
   if (profileStartPending) { profileStartPending = false; closeProfile(); startGame(); }
 }
 function startFromProfile() {
   const i = document.getElementById('profileNameInput');
+  if (hasInappropriateNameWord(i?.value)) { document.getElementById('profileMessage').textContent = 'Ký tự của bạn có nội dung không phù hợp, vui lòng nhập lại để đổi tên người dùng!'; return; }
   if (!savePlayerName(i?.value)) { document.getElementById('profileMessage').textContent = 'Vui lòng nhập tên người chơi (ít nhất 2 ký tự).'; return; }
   closeProfile(); startGame();
 }
@@ -1831,6 +1879,11 @@ async function submitPlayerGate(e) {
   const rawName = nameI?.value || '';
   const normId = normalizeId(rawId);
   const normName = cleanName(rawName);
+  if (normName && hasInappropriateNameWord(normName)) {
+    if (m) m.textContent = 'Ký tự của bạn có nội dung không phù hợp, vui lòng nhập lại để bắt đầu game!';
+    nameI?.focus();
+    return;
+  }
 
   // Nếu người dùng nhập ID và máy này chưa có dữ liệu -> Tra cứu hồ sơ từ máy chủ online
   if (normId && !playerDb.players[normId] && QUIZ_API_BASE_URL) {
