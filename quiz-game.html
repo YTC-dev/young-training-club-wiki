@@ -1422,7 +1422,15 @@ html, body { font-family: var(--font-body); background: var(--asphalt); backgrou
 /* ---------- Hộp thoại ---------- */
 .modal-box { border: 0; border-radius: 24px; }
 .modal-title { font-weight: 700; letter-spacing: .02em; }
-.gameover-box { position: relative; overflow: hidden; }
+.gameover-box { position: relative; overflow-x: hidden; overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; }
+/* Giữ 2 nút luôn nhìn thấy dù bảng kết quả dài (VS mode có 10 ô số liệu) */
+.gameover-box .gameover-actions { position: sticky; bottom: -1px; z-index: 2; margin: 0 -4px -4px; padding: 12px 4px 8px; background: linear-gradient(180deg, rgba(255,255,255,0), #fff 28%); }
+.gameover-box .gameover-actions .home-link, .gameover-box .gameover-actions .btn-start { margin-top: 0; }
+@media (max-height: 760px) {
+  .gameover-stats { gap: 8px; margin-bottom: 14px; }
+  .gameover-stat { padding: 9px 10px; }
+  .gameover-stat .value { font-size: 21px; }
+}
 .gameover-box::before { content: ''; position: absolute; inset: 0 0 auto; height: 9px; background: var(--checker); background-size: 18px 18px; }
 .gameover-title { font-weight: 900; padding-top: 8px; }
 .gameover-stat { border-radius: 14px; }
