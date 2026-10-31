@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#07142d">
 <link rel="icon" type="image/png" href="../Image/YTC-Favicon.png">
 <title>YTC Quiz Race - Đua Về Đích</title>
 <style>
@@ -1276,9 +1277,175 @@ body.name-gate-open { overflow: hidden; }
   .topbar-actions .game-player-chip { grid-column: 1 / -1; }
   .topbar-actions .game-player-chip span { max-width: 22ch; }
 }
+
+/* =====================================================================
+   VISUAL OVERHAUL — "Ngày đua": đường đua tối, vạch đích ca-rô, số liệu dạng bảng điểm
+   ===================================================================== */
+:root {
+  --asphalt: #06122a;
+  --track: #0d2550;
+  --lane: #19c3ee;
+  --flag: #ffc94f;
+  --kerb: #ed5b69;
+  --font-display: 'Segoe UI', 'Roboto', 'Inter', system-ui, -apple-system, sans-serif;
+  --font-body: 'Segoe UI', 'Roboto', 'Inter', system-ui, -apple-system, sans-serif;
+  --checker: conic-gradient(#fff 25%, #0a1a36 0 50%, #fff 0 75%, #0a1a36 0) 0 0 / 12px 12px;
+}
+html, body { font-family: var(--font-body); background: var(--asphalt); background-attachment: scroll; }
+
+/* Nền: ánh đèn đường đua, vạch tốc độ chéo và dải ca-rô dưới chân trang */
+.ambient {
+  position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden;
+  background:
+    radial-gradient(60% 50% at 10% -5%, rgba(25,195,238,.24), transparent 70%),
+    radial-gradient(55% 50% at 100% 100%, rgba(39,59,147,.6), transparent 70%),
+    repeating-linear-gradient(112deg, transparent 0 58px, rgba(255,255,255,.026) 58px 60px),
+    linear-gradient(180deg, #07142d 0%, #0a1f44 60%, #0d2a58 100%);
+}
+.ambient::after {
+  content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 12px;
+  background: var(--checker); opacity: .15;
+}
+.screen { position: relative; z-index: 1; }
+
+/* ---------- Chữ ---------- */
+.start-title, .modal-title, .pause-card h2, .vs-setup-card h2, .profile-card h2,
+.player-gate-card h1, .loading-title, .gameover-title, .countdown-number,
+.records-heading h2, .companion-intro-heading h2 { font-family: var(--font-display); }
+.start-title {
+  font-weight: 800; text-transform: uppercase;
+  font-size: clamp(44px, 8.2vw, 94px); letter-spacing: -.01em; line-height: 1;
+  text-shadow: 0 3px 0 rgba(0,0,0,.28), 0 14px 44px rgba(25,195,238,.28);
+  text-wrap: balance;
+}
+.start-slogan { font-size: clamp(14px, 1.7vw, 17px); line-height: 1.75; }
+.start-logo { font-family: var(--font-display); font-weight: 600; letter-spacing: .22em; }
+
+/* ---------- Nút ---------- */
+.btn-start, .btn-next {
+  font-family: var(--font-display); font-weight: 700; letter-spacing: .07em; color: #1b2b45;
+  background: linear-gradient(180deg, #ffe596 0%, #ffc13c 100%);
+  box-shadow: 0 5px 0 #b87d0b, 0 14px 30px rgba(255,193,60,.26), inset 0 1px 0 rgba(255,255,255,.75);
+  transition: transform .12s ease, box-shadow .12s ease;
+}
+.btn-start { font-size: 17px; padding: 16px 42px; border-radius: 14px; }
+.btn-start:hover, .btn-next:hover { transform: translateY(-2px); box-shadow: 0 7px 0 #b87d0b, 0 18px 34px rgba(255,193,60,.36), inset 0 1px 0 rgba(255,255,255,.75); }
+.btn-start:active, .btn-next:active { transform: translateY(5px); box-shadow: 0 0 0 #b87d0b, 0 5px 12px rgba(255,193,60,.25), inset 0 1px 0 rgba(255,255,255,.75); }
+.btn-next { font-size: 16px; border-radius: 14px; box-shadow: 0 4px 0 #b87d0b, 0 10px 22px rgba(255,193,60,.24), inset 0 1px 0 rgba(255,255,255,.75); }
+.btn-submit { font-family: var(--font-display); font-weight: 700; letter-spacing: .05em; box-shadow: 0 3px 0 #0c3566; }
+.btn-submit:active { transform: translateY(3px); box-shadow: none; }
+
+.mode-switcher { display: flex; flex-wrap: nowrap; width: max-content; max-width: 100%; gap: 4px; padding: 4px; border: 1px solid rgba(140,210,255,.22); border-radius: 15px; background: rgba(5,16,36,.5); }
+.mode-btn { border: 0; background: transparent; color: #b9d6f2; font-family: var(--font-display); font-weight: 700; font-size: 13px; letter-spacing: .1em; padding: 10px 24px; border-radius: 11px; transition: background .18s, color .18s; }
+.mode-btn:hover { background: rgba(255,255,255,.1); color: #fff; }
+.mode-btn.active { color: #14294a; background: linear-gradient(180deg,#ffe596,#ffc13c); box-shadow: 0 2px 0 #b87d0b; }
+
+/* ---------- Luật chơi: gạch đầu dòng là ô ca-rô ---------- */
+.start-rules { border-radius: 20px; border-color: rgba(140,210,255,.2); }
+.start-rules h3 { font-family: var(--font-display); font-size: 16px; letter-spacing: .06em; }
+.start-rules li { font-size: 13px; line-height: 1.6; padding-left: 22px; }
+.start-rules li::before {
+  content: ''; width: 10px; height: 10px; top: .5em; font-size: 0;
+  background: var(--checker); background-size: 10px 10px; border: 1px solid rgba(255,255,255,.55); border-radius: 2px;
+}
+.records-panel, .companion-intro-panel { border-color: rgba(140,210,255,.18); }
+
+/* ---------- Thanh trạng thái: bảng điểm ---------- */
+.topbar {
+  background: linear-gradient(180deg, rgba(15,38,78,.94), rgba(8,24,52,.94));
+  border: 1px solid rgba(120,200,255,.2);
+  box-shadow: 0 16px 42px rgba(2,10,28,.5), inset 0 1px 0 rgba(255,255,255,.08);
+}
+.topbar-logo { font-family: var(--font-display); font-size: 16px; letter-spacing: .05em; color: #8fe7ff; background: linear-gradient(90deg,#8fe7ff,#ffe08a); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+.stat-chip { background: rgba(255,255,255,.06); border: 1px solid rgba(140,210,255,.16); color: #fff; border-radius: 11px; }
+.stat-chip .label { color: #8fb4d9; text-transform: none; font-size: 11px; font-weight: 600; letter-spacing: .03em; }
+.stat-chip .value { font-family: var(--font-display); font-weight: 700; font-size: 22px; color: #fff; }
+#scoreVal { color: var(--flag); }
+.stat-chip.vs-status .value { color: #8fe7ff; }
+.stat-chip.timer-chip { background: linear-gradient(135deg,#ff8a4c,#e8475f); border-color: rgba(255,255,255,.28); }
+.stat-chip.timer-chip .label, .stat-chip.timer-chip .value { color: #fff; }
+.topbar .home-link, .topbar .pause-btn, .topbar .game-player-chip { color: #d6ecff; background: rgba(255,255,255,.07); border: 1px solid rgba(140,210,255,.24); }
+.topbar .home-link:hover, .topbar .pause-btn:hover:not(:disabled), .topbar .game-player-chip:hover { color: #fff; background: rgba(255,255,255,.15); border-color: rgba(140,210,255,.5); }
+
+/* ---------- Thẻ câu hỏi ---------- */
+.question-card { border: 0; border-radius: 22px; box-shadow: 0 26px 64px rgba(2,10,28,.5); }
+.question-card::before { height: 5px; background: linear-gradient(90deg, var(--lane), var(--flag)); }
+.q-counter { font-family: var(--font-display); font-weight: 700; font-size: 14px; color: #12335f; background: #e8f3ff; }
+.q-type-badge { text-transform: none; letter-spacing: .02em; font-size: 12px; }
+.q-text { font-weight: 700; letter-spacing: -.005em; line-height: 1.5; font-size: clamp(19px, 2vw, 24px); }
+.timer-bar-wrap { position: relative; height: 10px; border-radius: 6px; background: #e6edf7; }
+.timer-bar { border-radius: 0; box-shadow: inset 0 -2px 0 rgba(0,0,0,.12); }
+.timer-bar-wrap::after { content: ''; position: absolute; inset: 0; pointer-events: none; background: repeating-linear-gradient(90deg, transparent 0, transparent calc(100% / 15 - 2px), #fff calc(100% / 15 - 2px), #fff calc(100% / 15)); }
+
+.option { border: 1.5px solid #dce6f2; background: #f7faff; border-radius: 14px; font-weight: 600; transition: transform .15s ease, border-color .15s ease, background .15s ease, box-shadow .15s ease; }
+.option:hover { box-shadow: 0 8px 18px rgba(18,58,112,.12); }
+.option .letter { font-family: var(--font-display); font-weight: 700; font-size: 15px; border-radius: 9px; background: linear-gradient(160deg,#2b5fa3,#12335f); box-shadow: 0 3px 0 #0a2144; }
+.option.correct { background: #e4f8ee; border-color: var(--green); animation: okPop .35s ease; }
+.option.wrong { background: #ffeef0; border-color: var(--red); animation: nudge .38s ease; }
+.option.correct .letter { background: linear-gradient(160deg,#37d594,#14966a); box-shadow: 0 3px 0 #0b6b4a; }
+.option.wrong .letter { background: linear-gradient(160deg,#ff7d8c,#d63e54); box-shadow: 0 3px 0 #96202f; }
+.option.correct::after, .option.wrong::after { margin-left: auto; font-size: 19px; font-weight: 900; line-height: 1; }
+.option.correct::after { content: '✓'; color: var(--green); }
+.option.wrong::after { content: '✕'; color: var(--red); }
+.option.disabled.correct, .option.disabled.wrong { opacity: 1; }
+@keyframes nudge { 20% { transform: translateX(-7px); } 40% { transform: translateX(6px); } 60% { transform: translateX(-4px); } 80% { transform: translateX(2px); } }
+@keyframes okPop { 50% { transform: scale(1.015); } }
+.word-chip { font-family: var(--font-body); }
+.word-chip:hover { box-shadow: 0 4px 10px rgba(19,184,232,.3); }
+.feedback { font-weight: 700; }
+
+/* ---------- Bảng đường đua ---------- */
+.panel-card { border: 0; border-radius: 20px; box-shadow: 0 20px 48px rgba(2,10,28,.42); }
+.panel-title { font-family: var(--font-display); font-weight: 700; font-size: 16px; text-transform: none; letter-spacing: .02em; color: #12335f; }
+.panel-title .step-now { font-family: var(--font-display); font-size: 13px; background: #0d2550; color: var(--flag); letter-spacing: .03em; }
+.board {
+  gap: 5px; padding: 12px; border-radius: 14px; border: 1px solid #1a3f78;
+  background: radial-gradient(120% 80% at 50% 0%, rgba(25,195,238,.12), transparent 60%), linear-gradient(165deg,#0b1f45,#06142c);
+  box-shadow: inset 0 3px 14px rgba(0,0,0,.55);
+}
+.cell { background: #12305c; border: 1px solid #1f4784; color: #7ea6d6; font-family: var(--font-display); font-weight: 600; border-radius: 6px; transition: background .35s, border-color .35s, box-shadow .35s, transform .3s; }
+.cell.passed { background: linear-gradient(160deg,#25b0e0,#1478ac); border-color: #62d9f8; color: #fff; box-shadow: 0 0 10px rgba(25,195,238,.3); }
+.cell.milestone-15 { background: linear-gradient(160deg,#ffe38f,#f2b432); border-color: #ffeab0; color: #3a2800; }
+.cell.milestone-30 { background: linear-gradient(160deg,#a894ff,#6247d6); border-color: #cabfff; color: #fff; }
+.cell.finish { background: var(--checker); background-size: 50% 50%; border-color: #fff; color: #2a1c00; }
+.cell.finish .ui-icon { width: 1.6em; height: 1.6em; max-width: none; max-height: none; padding: .28em; border-radius: 50%; background: var(--flag); color: #2a1c00; box-shadow: 0 1px 4px rgba(0,0,0,.4); }
+.cell.player-here { transform: scale(1.18); z-index: 5; box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--flag), 0 6px 18px rgba(255,201,79,.55); }
+.cell.bot-here { box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--kerb), 0 6px 18px rgba(237,91,105,.55); }
+.player-icon { width: 24px; height: 24px; font-family: var(--font-display); font-weight: 700; font-size: 8.5px; color: #2a1c00; background: linear-gradient(160deg,#ffe596,#f5b32e); border: 2px solid #fff; }
+.bot-icon { font-family: var(--font-display); font-weight: 700; }
+
+/* ---------- Xúc xắc ---------- */
+.dice-area { padding: 16px 0 12px; border-radius: 14px; background: radial-gradient(circle at 50% 38%, #e8f2ff, #fff 72%); }
+.dice { width: 78px; height: 78px; border: 0; border-radius: 19px; font-family: var(--font-display); font-weight: 700; font-size: 40px; color: #0d2550; background: linear-gradient(145deg,#fff,#e1ebf8); box-shadow: 0 6px 0 #b6c8e2, 0 16px 28px rgba(13,37,80,.28), inset 0 2px 0 #fff; }
+.dice-label { font-size: 12px; }
+
+/* ---------- Hộp thoại ---------- */
+.modal-box { border: 0; border-radius: 24px; }
+.modal-title { font-weight: 700; letter-spacing: .02em; }
+.gameover-box { position: relative; overflow: hidden; }
+.gameover-box::before { content: ''; position: absolute; inset: 0 0 auto; height: 9px; background: var(--checker); background-size: 18px 18px; }
+.gameover-title { font-weight: 900; padding-top: 8px; }
+.gameover-stat { border-radius: 14px; }
+.gameover-stat .label { text-transform: none; font-size: 12px; letter-spacing: .02em; }
+.gameover-stat .value { font-family: var(--font-display); font-weight: 700; }
+.countdown-number { font-weight: 950; }
+.pause-card, .vs-setup-card, .profile-card, .player-gate-card { border-radius: 24px; }
+.char-card { transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease; }
+.char-name { font-family: var(--font-display); }
+
+/* ---------- Điện thoại ---------- */
+@media (max-width: 600px) {
+  .stat-chip .label { font-size: 10px; }
+  .stat-chip .value { font-size: 18px; }
+  .mode-switcher { width: 100%; }
+  .mode-btn { flex: 1; width: auto; padding-inline: 10px; }
+  .btn-start { padding: 15px 28px; }
+}
+@media (prefers-reduced-motion: reduce) { .option.correct, .option.wrong { animation: none; } }
 </style>
 </head>
 <body>
+<div class="ambient" aria-hidden="true"></div>
 
 <!-- ====================== LOADING SCREEN ====================== -->
 <div id="loadingScreen" class="loading-screen" role="status" aria-live="polite" aria-label="Đang tải YTC Quiz Race">
@@ -3532,6 +3699,26 @@ function launchConfetti() {
 renderRecords();
 renderCompanionIntro();
 loadLeaderboard();
+</script>
+<script>
+/* ===== Visual overhaul helpers (chỉ trang trí, không thay đổi logic game) ===== */
+(function () {
+  // Ô đã đi qua sáng lên trên đường đua
+  function markPassed() {
+    try {
+      var s = (typeof state !== 'undefined' && state) ? state.step : 0;
+      document.querySelectorAll('#board .cell').forEach(function (c) {
+        c.classList.toggle('passed', Number(c.dataset.step) <= s);
+      });
+    } catch (e) {}
+  }
+  ['updatePlayerToken', 'buildBoard'].forEach(function (name) {
+    var orig = window[name];
+    if (typeof orig !== 'function') return;
+    window[name] = function () { var r = orig.apply(this, arguments); markPassed(); return r; };
+  });
+
+})();
 </script>
 </body>
 </html>
