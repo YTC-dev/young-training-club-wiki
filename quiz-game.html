@@ -1467,10 +1467,115 @@ html, body { font-family: var(--font-body); background: var(--asphalt); backgrou
   .btn-start { padding: 15px 28px; }
 }
 @media (prefers-reduced-motion: reduce) { .option.correct, .option.wrong { animation: none; } }
+.credits-trigger {
+  position: fixed;
+  right: max(18px, env(safe-area-inset-right));
+  bottom: max(18px, env(safe-area-inset-bottom));
+  z-index: 710;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 46px;
+  padding: 0 17px;
+  border: 1px solid rgba(255,255,255,.55);
+  border-radius: 999px;
+  color: #12335f;
+  background: linear-gradient(135deg, #fff, #e8f6ff);
+  box-shadow: 0 8px 26px rgba(3,18,48,.3);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 900;
+  cursor: pointer;
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+.credits-trigger:hover { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(3,18,48,.38); }
+.credits-trigger:focus-visible, .credits-close:focus-visible { outline: 3px solid #ffd05c; outline-offset: 3px; }
+.credits-trigger .ui-icon { color: #168dbd; }
+.credits-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 800;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+  background: rgba(5,16,36,.82);
+  backdrop-filter: blur(9px);
+}
+.credits-overlay.is-open { display: flex; animation: fadeIn .2s ease; }
+.credits-card {
+  position: relative;
+  width: min(100%, 520px);
+  max-height: min(88vh, 680px);
+  overflow-y: auto;
+  padding: clamp(24px, 5vw, 36px);
+  border: 1px solid rgba(255,255,255,.75);
+  border-radius: 24px;
+  color: #17385f;
+  background: linear-gradient(155deg, #fff, #f1f8ff);
+  box-shadow: 0 25px 80px rgba(0,0,0,.4);
+  text-align: center;
+}
+.credits-kicker { color: #168dbd; font-size: 11px; font-weight: 900; letter-spacing: .16em; }
+.credits-title { margin: 8px 0 5px; color: #142f55; font-size: clamp(24px, 6vw, 32px); font-weight: 950; }
+.credits-subtitle { margin-bottom: 22px; color: #71829b; font-size: 13px; }
+.credits-list { display: grid; gap: 9px; list-style: none; text-align: left; }
+.credits-list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 14px;
+  border: 1px solid #e1ebf5;
+  border-radius: 12px;
+  background: #f7fbff;
+}
+.credits-role { color: #71829b; font-size: 13px; }
+.credits-name { color: #174c83; font-size: 14px; font-weight: 800; text-align: right; }
+.credits-thanks { margin: 20px 0; color: #365574; font-size: 14px; line-height: 1.6; }
+.credits-close {
+  min-height: 42px;
+  padding: 0 24px;
+  border: 0;
+  border-radius: 999px;
+  color: #fff;
+  background: linear-gradient(135deg, #22b7df, #234e8a);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 900;
+  cursor: pointer;
+}
+@media (max-width: 480px) {
+  .credits-trigger { right: max(12px, env(safe-area-inset-right)); bottom: max(12px, env(safe-area-inset-bottom)); min-height: 42px; padding: 0 14px; }
+  .credits-card { padding: 24px 18px; }
+  .credits-list li { align-items: flex-start; flex-direction: column; gap: 3px; }
+  .credits-name { text-align: left; }
+}
 </style>
 </head>
 <body>
 <div class="ambient" aria-hidden="true"></div>
+<button class="credits-trigger" id="creditsTrigger" type="button" aria-controls="creditsOverlay" aria-expanded="false" onclick="openCredits()">
+  <svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v18M5 8h14M5 16h14"/><circle cx="12" cy="12" r="9"/></svg>
+  Đội ngũ
+</button>
+<div class="credits-overlay" id="creditsOverlay" role="presentation" onclick="if (event.target === this) closeCredits()">
+  <section class="credits-card" role="dialog" aria-modal="true" aria-labelledby="creditsTitle" aria-describedby="creditsThanks">
+    <div class="credits-kicker">YOUNG TRAINING CLUB</div>
+    <h2 class="credits-title" id="creditsTitle">ĐỘI NGŨ YTC QUIZ RACE</h2>
+    <p class="credits-subtitle">Những người đã tạo nên đường đua này</p>
+    <ul class="credits-list">
+      <li><span class="credits-role">Người sáng lập</span><span class="credits-name">Trần Đặng Bình Minh</span></li>
+      <li><span class="credits-role">Lập trình</span><span class="credits-name">Trần Đặng Bình Minh</span></li>
+      <li><span class="credits-role">Đồ hoạ</span><span class="credits-name">Trần Đặng Bình Minh</span></li>
+      <li><span class="credits-role">Phụ trách content</span><span class="credits-name">Nguyễn Hồng Thanh</span></li>
+      <li><span class="credits-role">Nền tảng câu hỏi</span><span class="credits-name">Nguyễn Hồng Thanh</span></li>
+      <li><span class="credits-role">Kiểm thử</span><span class="credits-name">Nguyễn Hồng Thanh</span></li>
+    </ul>
+    <p class="credits-thanks" id="creditsThanks">Cảm ơn các bạn đã đồng hành Young Training Club và YTC Quiz Race!</p>
+    <button class="credits-close" id="creditsClose" type="button" onclick="closeCredits()">ĐÓNG</button>
+  </section>
+</div>
 
 <!-- ====================== LOADING SCREEN ====================== -->
 <div id="loadingScreen" class="loading-screen" role="status" aria-live="polite" aria-label="Đang tải YTC Quiz Race">
@@ -3938,6 +4043,37 @@ loadLeaderboard();
   });
 
 })();
+</script>
+<script>
+function openCredits() {
+  const overlay = document.getElementById('creditsOverlay');
+  overlay.classList.add('is-open');
+  document.getElementById('creditsTrigger').setAttribute('aria-expanded', 'true');
+  document.getElementById('creditsClose').focus();
+}
+
+function closeCredits() {
+  const overlay = document.getElementById('creditsOverlay');
+  if (!overlay.classList.contains('is-open')) return;
+  overlay.classList.remove('is-open');
+  document.getElementById('creditsTrigger').setAttribute('aria-expanded', 'false');
+  document.getElementById('creditsTrigger').focus();
+}
+
+window.addEventListener('keydown', event => {
+  const overlay = document.getElementById('creditsOverlay');
+  if (!overlay?.classList.contains('is-open')) return;
+  if (event.key === 'Escape') {
+    event.preventDefault();
+    event.stopImmediatePropagation();
+    closeCredits();
+    return;
+  }
+  if (event.key !== 'Tab') return;
+  const closeButton = document.getElementById('creditsClose');
+  event.preventDefault();
+  closeButton.focus();
+}, true);
 </script>
 </body>
 </html>
