@@ -1,10 +1,11 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#07142d">
-<link rel="icon" type="image/png" href="../Image/YTC-Favicon.png?v=2">
+<link rel="icon" type="image/png" sizes="32x32" href="Image/YTC-Favicon.png?v=3">
+<link rel="shortcut icon" type="image/png" href="Image/YTC-Favicon.png?v=3">
 <title>YTC Quiz Race - Đua Về Đích</title>
 <style>
 /* ===== Reset & Base ===== */
@@ -445,6 +446,7 @@ body { min-height: 100vh; padding: 12px; }
 .cell.start { background: linear-gradient(135deg, #b9e3ff, var(--blue)); color: #fff; border-color: var(--blue); }
 .cell.milestone-15 { background: linear-gradient(135deg, #ffe9a8, var(--gold)); color: var(--blue-deep); border-color: #d4a700; }
 .cell.milestone-30 { background: linear-gradient(135deg, #c8b5ff, #8a6dff); color: #fff; border-color: #6a4dd9; }
+.cell.milestone-45 { background: linear-gradient(135deg, #ffa9a9, #ed5b69); color: #fff; border-color: #c83a48; }
 .cell.finish {
   background: linear-gradient(135deg, #ffd24a, #ff7e5f);
   color: #fff; border-color: #d47000;
@@ -815,6 +817,7 @@ button:focus-visible,input:focus-visible,.word-chip:focus-visible { outline: 3px
 .cell.start { background: linear-gradient(145deg,#7bd9fa,#149dce); border-color: #159ac8; }
 .cell.milestone-15 { background: linear-gradient(145deg,#ffedb2,#f5bd40); border-color: #e5b43f; }
 .cell.milestone-30 { background: linear-gradient(145deg,#c5b7ff,#7762df); border-color: #7966d9; }
+.cell.milestone-45 { background: linear-gradient(145deg,#ffb3b3,#ed5b69); border-color: #c83a48; }
 .cell.finish { background: linear-gradient(145deg,#ffd969,#f18c56); border-color: #e98b43; }
 .cell.player-here { transform: scale(1.12); box-shadow: 0 0 0 2px #fff,0 0 0 4px #159ed0,0 5px 15px rgba(0,130,190,.35); }
 .player-icon { width: 23px; height: 23px; background: linear-gradient(135deg,#44c8ed,#17518b); font-size: 8px; }
@@ -968,6 +971,7 @@ body.modal-open { overflow: hidden; }
 .history-mode { display:inline-block; margin:2px 0; padding:2px 6px; border-radius:5px; font-size:9px; letter-spacing:.7px; }
 .history-mode.classic { color:#143c70; background:#bdefff; }
 .history-mode.vs { color:#fff; background:#b34d68; }
+.history-mode.expert { color:#fff; background:#a76cff; }
 .record-empty { color:#9db5d6; font-size:12px; }
 .records-message { min-height:17px; margin:12px 0 0; color:#72dcf7; font-size:11px; font-weight:800; }
 .leaderboard-column { grid-column:1 / -1; }
@@ -1045,6 +1049,18 @@ body.modal-open { overflow: hidden; }
 .vs-guide li:last-child { margin-bottom:0; }
 .vs-guide + .start-rules { margin-top:0; }
 .vs-guide strong { color:#fff0b2; }
+
+/* ===== Expert mode guide ===== */
+.expert-guide { display:none; max-width:780px; margin:18px auto 0; padding:18px 20px; border:1px solid rgba(167,108,255,.5); border-radius:18px; color:#eaf6ff; background:linear-gradient(135deg,rgba(167,108,255,.14),rgba(237,91,105,.10)); text-align:left; }
+.expert-mode .expert-guide { display:block; }
+.expert-guide { margin-bottom:20px; padding:20px 22px; }
+.expert-guide h3 { margin:0 0 10px; color:#d9b3ff; font-size:16px; letter-spacing:.04em; }
+.expert-guide ul { margin:0; padding-left:20px; color:#e6d9ff; font-size:13px; line-height:1.7; }
+.expert-guide li { padding-left:3px; margin-bottom:5px; }
+.expert-guide li:last-child { margin-bottom:0; }
+.expert-guide + .start-rules { margin-top:0; }
+.expert-guide strong { color:#f0d9ff; }
+.expert-badge { display:inline-block; padding:1px 7px; border-radius:5px; font-size:10px; letter-spacing:.5px; color:#fff; background:#a76cff; font-weight:900; }
 .vs-skill-btn { width:100%; margin-top:8px; padding:10px; border:0; border-radius:10px; color:#142f55; background:#ffd05c; font-weight:900; cursor:pointer; }
 .vs-skill-btn:disabled { opacity:.45; cursor:not-allowed; }
 .vs-status { display:none; color:#1b75a8; font-size:11px; font-weight:900; }
@@ -1407,6 +1423,7 @@ html, body { font-family: var(--font-body); background: var(--asphalt); backgrou
 .cell.passed { background: linear-gradient(160deg,#25b0e0,#1478ac); border-color: #62d9f8; color: #fff; box-shadow: 0 0 10px rgba(25,195,238,.3); }
 .cell.milestone-15 { background: linear-gradient(160deg,#ffe38f,#f2b432); border-color: #ffeab0; color: #3a2800; }
 .cell.milestone-30 { background: linear-gradient(160deg,#a894ff,#6247d6); border-color: #cabfff; color: #fff; }
+.cell.milestone-45 { background: linear-gradient(160deg,#ffa9a9,#ed5b69); border-color: #ffc4c4; color: #fff; }
 .cell.finish { background: var(--checker); background-size: 50% 50%; border-color: #fff; color: #2a1c00; }
 .cell.finish .ui-icon { width: 1.6em; height: 1.6em; max-width: none; max-height: none; padding: .28em; border-radius: 50%; background: var(--flag); color: #2a1c00; box-shadow: 0 1px 4px rgba(0,0,0,.4); }
 .cell.player-here { transform: scale(1.18); z-index: 5; box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--flag), 0 6px 18px rgba(255,201,79,.55); }
@@ -1478,7 +1495,7 @@ html, body { font-family: var(--font-body); background: var(--asphalt); backgrou
   <h1 class="start-title">QUIZ <span>RACE</span><br>ĐUA VỀ ĐÍCH</h1>
   <p class="start-slogan">"Ý tưởng lớn - Tài năng trẻ - Chung niềm tin"<br>Trả lời đúng — Tung xúc xắc — Tiến về vạch đích!</p>
   <button class="profile-btn" type="button" onclick="openProfile()">XEM PROFILE NGƯỜI CHƠI</button>
-  <div class="mode-switcher" role="group" aria-label="Chọn chế độ chơi"><button class="mode-btn active" id="classicModeBtn" type="button" aria-pressed="true" onclick="setGameMode('classic')">CLASSIC</button><button class="mode-btn" id="vsModeBtn" type="button" aria-pressed="false" onclick="setGameMode('vs')">VS MODE</button></div>
+  <div class="mode-switcher" role="group" aria-label="Chọn chế độ chơi"><button class="mode-btn active" id="classicModeBtn" type="button" aria-pressed="true" onclick="setGameMode('classic')">CLASSIC</button><button class="mode-btn" id="expertModeBtn" type="button" aria-pressed="false" onclick="setGameMode('expert')">EXPERT</button><button class="mode-btn" id="vsModeBtn" type="button" aria-pressed="false" onclick="setGameMode('vs')">VS MODE</button></div>
   <section class="vs-guide" aria-labelledby="vsGuideTitle">
     <h3 id="vsGuideTitle">HƯỚNG DẪN VS MODE</h3>
     <ul>
@@ -1493,14 +1510,27 @@ html, body { font-family: var(--font-body); background: var(--asphalt); backgrou
     </ul>
   </section>
 
+  <section class="expert-guide" aria-labelledby="expertGuideTitle">
+    <h3 id="expertGuideTitle"><span class="expert-badge">EXPERT</span> HƯỚNG DẪN EXPERT MODE</h3>
+    <ul>
+      <li>Expert là phiên bản nâng cấp của <strong>Classic</strong>: <strong>30 câu hỏi</strong> và đường đua kéo dài <strong>70 ô</strong>.</li>
+      <li>Đạt <strong>ô 15</strong>, <strong>ô 30</strong> và <strong>ô 45</strong>: bạn được chọn thêm 1 nhân vật đồng hành (tối đa 3 đồng hành mỗi ván).</li>
+      <li><strong>Từ ô 50 trở lên</strong>: trả lời sai sẽ <strong>trừ điểm</strong> — càng gần đích, mức phạt càng nặng (cơ bản 150 điểm, mỗi ô vượt quá 50 cộng thêm 10 điểm).</li>
+      <li>Về đích (ô 70) nhận thưởng <strong>+1.000 điểm</strong>. Xin nhớ: ô 50 → 70 là vùng "nguy hiểm" — cần cẩn thận từng câu!</li>
+      <li>Mỗi câu vẫn tối đa 15 giây, xúc xắc 4 mặt (1→4 bước). Mọi năng lực của đồng hành vẫn áp dụng.</li>
+      <li>Hãy chinh phục đường đua Expert để trở thành Huyền thoại YTC!</li>
+    </ul>
+  </section>
+
   <div class="start-rules">
     <h3><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2zM9 8h6M9 12h6M9 16h3"/></svg> LUẬT CHƠI</h3>
     <ul>
-      <li>20 câu hỏi ngẫu nhiên: Trắc nghiệm · Điền khuyết · Chọn từ</li>
+      <li>Classic: 20 câu · 50 ô — Expert: 30 câu · 70 ô (3 dạng: Trắc nghiệm · Điền khuyết · Chọn từ)</li>
       <li>Mỗi câu tối đa 15 giây. Trả lời đúng càng nhanh — điểm càng cao</li>
-      <li>Đúng 1 câu được tung xúc xắc 4 mặt (1→4 bước) để tiến trên đường đua 50 ô</li>
-      <li>Về đích (ô 50) nhận thưởng +500 điểm</li>
-      <li>Ô 15 và ô 30: chọn 1 nhân vật đồng hành — mỗi người một năng lực đặc biệt</li>
+      <li>Đúng 1 câu được tung xúc xắc 4 mặt (1→4 bước) để tiến trên đường đua</li>
+      <li>Về đích nhận thưởng điểm (Classic: +500 · Expert: +1.000)</li>
+      <li>Ô 15, 30 (Classic) — Ô 15, 30, 45 (Expert): chọn nhân vật đồng hành — mỗi người một năng lực đặc biệt</li>
+      <li><span class="expert-badge">EXPERT</span> Từ ô 50 trở lên: trả lời sai sẽ bị <strong>trừ điểm</strong>!</li>
       <li>Hãy chinh phục cuộc đua này và đạt nhiều điểm số hơn nha!</li>
     </ul>
   </div>
@@ -1910,7 +1940,11 @@ function renderProfileRows(records) {
     toggle.setAttribute('aria-expanded', String(profileHistoryExpanded));
   }
   const a = profileHistoryExpanded ? sorted : sorted.slice(0, 3);
-  t.innerHTML = a.length ? a.map(i => '<div class="profile-result-row"><span><strong>' + Number(i.score || 0).toLocaleString('vi-VN') + ' điểm</strong> · ' + ((i.mode || 'classic') === 'vs' ? 'VS MODE' : 'CLASSIC') + ' · ' + (i.step || 0) + '/50 ô · ' + (i.correct || 0) + '/' + (i.total || 0) + ' đúng</span><span>' + formatRecordDate(i.playedAt) + '</span></div>').join('') : '<div class="record-empty">Chưa có kết quả nào.</div>';
+  t.innerHTML = a.length ? a.map(i => {
+    const modeTag = modeTagFor(i.mode);
+    const totalSteps = modeStepsFor(i.mode);
+    return '<div class="profile-result-row"><span><strong>' + Number(i.score || 0).toLocaleString('vi-VN') + ' điểm</strong> · <b class="history-mode ' + modeTag.cls + '">' + modeTag.label + '</b> · ' + (i.step || 0) + '/' + totalSteps + ' ô · ' + (i.correct || 0) + '/' + (i.total || 0) + ' đúng</span><span>' + formatRecordDate(i.playedAt) + '</span></div>';
+  }).join('') : '<div class="record-empty">Chưa có kết quả nào.</div>';
 }
 let profileHistoryExpanded = false;
 function toggleProfileHistory() { profileHistoryExpanded = !profileHistoryExpanded; renderProfile(); }
@@ -2207,11 +2241,11 @@ const QUESTIONS = [
   { type: 'fill', q: 'Nguyễn Minh Ánh là á quân 2 cuộc thi ___ 2025', answer: 'Rising Voice',
     accept: ['rising voice','risingvoice'] },
   { type: 'fill', q: 'Ở đây có bao nhiêu bước trên đường đua này? (số)', answer: '50',
-    accept: ['50','năm mươi'] },
+    accept: ['50','năm mươi'], modeAware: 'boardSize' },
   { type: 'fill', q: 'Slogan của YTC gồm bao nhiêu chữ "c" (Tính cả chữ viết hoa)?', answer: '3',
     accept: ['ba','3'] },
-  { type: 'fill', q: 'Ô số ___ và ___ trên đường đua cho phép chọn đồng hành (viết theo thứ tự, cách nhau bởi dấu phẩy)', answer: '15, 30',
-    accept: ['15, 30','15,30','15 30','15-30'] },
+  { type: 'fill', q: 'Ô số ___ trên đường đua cho phép chọn đồng hành (viết theo thứ tự, cách nhau bởi dấu phẩy)', answer: '15, 30',
+    accept: ['15, 30','15,30','15 30','15-30'], modeAware: 'milestones' },
   { type: 'fill', q: 'Nguyễn Hồng Thanh là ___ CLB YTC (chức vụ)', answer: 'Chủ nhiệm',
     accept: ['chủ nhiệm','chu nhiem'] },
 
@@ -2313,10 +2347,10 @@ const COMPANIONS = [
 /* ============================================================
    GAME STATE
    ============================================================ */
-const TOTAL_QUESTIONS = 20;
-const BOARD_SIZE = 50;
+const TOTAL_QUESTIONS = 20;          // default for classic/vs
+const BOARD_SIZE = 50;               // default for classic/vs
 const BASE_TIME = 15;
-const MILESTONES = [15, 30];
+const MILESTONES = [15, 30];         // default for classic/vs
 const POINTS_BASE = 100;
 const POINTS_TIME_BONUS = 100;        // extra if answered fast
 const POINTS_FINISH_BONUS = 500;
@@ -2324,6 +2358,51 @@ const EARLY_WINDOW = 5;               // seconds for Thảo Anh's bonus
 const DICE_ONE_BONUS = 500;           // Nhật Minh: bonus when dice shows 1
 const FINISH_BONUS_WITH_DUNG = 5000;
 const DISTANCE_BONUS_WITH_DUNG = 75;
+
+/* ===== EXPERT MODE CONFIG ===== */
+// Expert nâng cấp từ Classic: 30 câu, 70 ô, 3 mốc đồng hành (15/30/45),
+// từ ô 50 trở lên nếu trả lời sai sẽ bị trừ điểm.
+const EXPERT_TOTAL_QUESTIONS = 30;
+const EXPERT_BOARD_SIZE = 70;
+const EXPERT_MILESTONES = [15, 30, 45];
+const EXPERT_FINISH_BONUS = 1000;
+const EXPERT_PENALTY_THRESHOLD = 50;   // ô từ 50 trở lên sẽ trừ điểm khi sai
+const EXPERT_PENALTY_BASE = 150;       // phạt cơ bản
+const EXPERT_PENALTY_PER_STEP = 10;    // cộng thêm cho mỗi ô vượt ngưỡng 50
+
+// Trả về cấu hình phù hợp với chế độ chơi hiện tại của state.
+// Hàm này giúp các logic dùng BOARD_SIZE / MILESTONES / TOTAL_QUESTIONS
+// hoạt động đúng với cả classic, expert và vs.
+function getGameConfig(mode) {
+  const m = mode || (state && state.mode) || selectedGameMode || 'classic';
+  if (m === 'expert') {
+    return {
+      totalQuestions: EXPERT_TOTAL_QUESTIONS,
+      boardSize: EXPERT_BOARD_SIZE,
+      milestones: EXPERT_MILESTONES,
+      finishBonus: EXPERT_FINISH_BONUS,
+      maxCompanions: 3,
+      penaltyThreshold: EXPERT_PENALTY_THRESHOLD,
+    };
+  }
+  return {
+    totalQuestions: TOTAL_QUESTIONS,
+    boardSize: BOARD_SIZE,
+    milestones: MILESTONES,
+    finishBonus: POINTS_FINISH_BONUS,
+    maxCompanions: 2,
+    penaltyThreshold: Infinity, // classic không có ô phạt
+  };
+}
+// Helper để các hàm cũ tham chiếu nhanh.
+function currentBoardSize() { return getGameConfig().boardSize; }
+function currentMilestones() { return getGameConfig().milestones; }
+function currentMaxCompanions() { return getGameConfig().maxCompanions; }
+// Tính điểm phạt khi trả lời sai ở expert (từ ô 50 trở lên).
+function expertPenaltyAt(step) {
+  if (step < EXPERT_PENALTY_THRESHOLD) return 0;
+  return EXPERT_PENALTY_BASE + (step - EXPERT_PENALTY_THRESHOLD) * EXPERT_PENALTY_PER_STEP;
+}
 
 let state = {};
 let selectedGameMode = 'classic';
@@ -2333,10 +2412,11 @@ const VS_COMPANIONS = [
   { id:'doantrang', name:'Lê Huyền Đoan Trang', ability:'Kỹ năng: cướp 1/4 điểm của bot. Cooldown 3 lượt.' }
 ];
 
-function resetState() {
+function resetState(mode) {
+  const initialMode = mode || (selectedGameMode === 'vs' ? 'vs' : (selectedGameMode === 'expert' ? 'expert' : 'classic'));
   state = {
     log: [],
-    mode: 'classic',
+    mode: initialMode,
     score: 0,
     step: 0,
     qIndex: 0,
@@ -2363,6 +2443,9 @@ function resetState() {
     resolvingTurn: false,
     sessionId: 0,
     finished: false,
+    // Số ô phạt đã áp dụng (để hiển thị)
+    penaltyAppliedCount: 0,
+    totalPenalty: 0,
     vs: { botScore:0, botStep:0, botCorrect:0, playerCompanion:null, botCompanion:null, botCompanions:[], botStreak:0, botHongCooldown:0, botSkillCooldowns:{ thanhlan:0, doantrang:0 }, playerStunned:false, stealOpportunities:0, stealCorrect:0, botStealOpportunities:0, botStealCorrect:0, botPassedMilestones:new Set(), playerTurn:true, stealMode:false, stealQuestion:false, botQuestion:null, cooldowns:{ hongthanh:0, thanhlan:0, doantrang:0 }, streak:0, playerFinished:false, botFinished:false, playerFinishedBonus:false, botFinishedBonus:false, botSkipped:false, passedMilestones:new Set(), pendingFinish:null }
   };
 }
@@ -2376,16 +2459,47 @@ function shuffle(arr) {
   return a;
 }
 
-// Chọn 20 câu theo tỷ lệ 10 trắc nghiệm / 6 điền khuyết / 4 sắp xếp.
-// Nếu sau này một dạng chưa đủ câu, tự bù từ các dạng còn lại.
-function buildQuestionDeck() {
-  const quota = { choice: 10, fill: 6, word: 4 };
+// Chọn câu theo tỷ lệ phù hợp với chế độ.
+// Classic/VS: 20 câu (10 trắc nghiệm / 6 điền khuyết / 4 sắp xếp).
+// Expert: 30 câu (15 trắc nghiệm / 9 điền khuyết / 6 sắp xếp).
+// Nếu một dạng chưa đủ câu, tự bù từ các dạng còn lại.
+function buildQuestionDeck(mode) {
+  const m = mode || (state && state.mode) || selectedGameMode || 'classic';
+  const isExpert = m === 'expert';
+  const targetTotal = isExpert ? EXPERT_TOTAL_QUESTIONS : TOTAL_QUESTIONS;
+  const quota = isExpert
+    ? { choice: 15, fill: 9, word: 6 }
+    : { choice: 10, fill: 6, word: 4 };
   const groups = Object.fromEntries(Object.keys(quota).map(type => [type, shuffle(QUESTIONS.filter(q => q.type === type))]));
   const selected = [];
   for (const type of Object.keys(quota)) selected.push(...groups[type].splice(0, quota[type]));
   const chosen = new Set(selected);
   const remaining = shuffle(QUESTIONS.filter(q => !chosen.has(q)));
-  while (selected.length < Math.min(TOTAL_QUESTIONS, QUESTIONS.length) && remaining.length) selected.push(remaining.pop());
+  while (selected.length < Math.min(targetTotal, QUESTIONS.length) && remaining.length) selected.push(remaining.pop());
+
+  // Cấu hình theo mode để điều chỉnh đáp án cho các câu có đánh dấu modeAware.
+  const cfg = getGameConfig(m);
+  const boardSizeStr = String(cfg.boardSize);
+  const milestonesStr = cfg.milestones.join(', ');
+  // Các biến thể viết khác nhau cho accepted answers.
+  const boardSizeAccepts = (function () {
+    const s = String(cfg.boardSize);
+    const set = new Set([s]);
+    if (s === '50') set.add('năm mươi');
+    if (s === '70') set.add('bảy mươi');
+    return Array.from(set);
+  })();
+  const milestonesAccepts = (function () {
+    const base = cfg.milestones.join(', ');
+    const set = new Set([
+      base,
+      cfg.milestones.join(','),
+      cfg.milestones.join(' '),
+      cfg.milestones.join('-'),
+    ]);
+    return Array.from(set);
+  })();
+
   return shuffle(selected).map(question => {
     const copy = { ...question };
     if (question.options) {
@@ -2396,6 +2510,15 @@ function buildQuestionDeck() {
     if (question.pool) copy.pool = question.pool.slice();
     if (question.answer && Array.isArray(question.answer)) copy.answer = question.answer.slice();
     if (question.accept) copy.accept = question.accept.slice();
+
+    // Áp dụng đáp án theo chế độ cho các câu có modeAware.
+    if (question.modeAware === 'boardSize') {
+      copy.answer = boardSizeStr;
+      copy.accept = boardSizeAccepts.slice();
+    } else if (question.modeAware === 'milestones') {
+      copy.answer = milestonesStr;
+      copy.accept = milestonesAccepts.slice();
+    }
     return copy;
   });
 }
@@ -2419,7 +2542,26 @@ function updateSoundToggle() { const button = document.getElementById('soundTogg
 function toggleSound() { ytcSoundEnabled = !ytcSoundEnabled; localStorage.setItem('ytcSoundEnabled', ytcSoundEnabled ? '1' : '0'); updateSoundToggle(); if (ytcSoundEnabled) playSound('select'); }
 window.addEventListener('DOMContentLoaded', updateSoundToggle, { once: true });
 
-function setGameMode(mode) { selectedGameMode = mode; document.body.classList.toggle('vs-mode', mode === 'vs'); document.getElementById('classicModeBtn').classList.toggle('active', mode === 'classic'); document.getElementById('vsModeBtn').classList.toggle('active', mode === 'vs'); document.getElementById('classicModeBtn').setAttribute('aria-pressed', String(mode === 'classic')); document.getElementById('vsModeBtn').setAttribute('aria-pressed', String(mode === 'vs')); }
+function setGameMode(mode) {
+  selectedGameMode = mode;
+  document.body.classList.toggle('vs-mode', mode === 'vs');
+  document.body.classList.toggle('expert-mode', mode === 'expert');
+  document.getElementById('classicModeBtn').classList.toggle('active', mode === 'classic');
+  document.getElementById('expertModeBtn').classList.toggle('active', mode === 'expert');
+  document.getElementById('vsModeBtn').classList.toggle('active', mode === 'vs');
+  document.getElementById('classicModeBtn').setAttribute('aria-pressed', String(mode === 'classic'));
+  document.getElementById('expertModeBtn').setAttribute('aria-pressed', String(mode === 'expert'));
+  document.getElementById('vsModeBtn').setAttribute('aria-pressed', String(mode === 'vs'));
+  // Cập nhật số ô / câu hiển thị trên màn hình start khi đổi chế độ
+  updateModeDisplay();
+}
+function updateModeDisplay() {
+  const cfg = getGameConfig(selectedGameMode);
+  const stepVal = document.getElementById('stepVal');
+  const qNumVal = document.getElementById('qNumVal');
+  if (stepVal) stepVal.textContent = '0/' + cfg.boardSize;
+  if (qNumVal) qNumVal.textContent = '0/' + cfg.totalQuestions;
+}
 function openVSCompanionMilestone(milestone){const modal=document.getElementById('charModal');const subtitle=document.getElementById('charModalSubtitle');subtitle.textContent=`Bạn vừa đạt ô ${milestone} — chọn kỹ năng VS tiếp theo`;const grid=document.getElementById('charGrid');grid.innerHTML='';VS_COMPANIONS.forEach(c=>{const card=document.createElement('div');card.className='char-card';card.setAttribute('role','button');card.setAttribute('tabindex','0');const image=COMPANION_IMAGES[c.id];card.innerHTML=`<div class="char-card-head"><span class="char-index">VS / ${c.id.toUpperCase()}</span><span class="char-tag">VS MODE</span></div><div class="char-avatar-big${image?' has-photo':''}">${image?`<img src="${image}" alt="${c.name}" loading="lazy">`:c.name.slice(0,2)}</div><div class="char-name">${c.name}</div><div class="char-role">Đồng hành VS mode</div><div class="char-ability"><span class="char-ability-label">KỸ NĂNG</span>${c.ability}</div>`;card.onclick=()=>pickVSCompanion(c.id);card.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();pickVSCompanion(c.id);}};grid.appendChild(card);});modal.classList.add('show');document.body.classList.add('modal-open');playSound('modal');}
 function pickVSCompanion(id){if(state.finished||state.mode!=='vs')return;state.vs.playerCompanion=id;document.getElementById('charModal').classList.remove('show');document.body.classList.remove('modal-open');state.resolvingTurn=false;updateVSHUD();const pending=state.vs.pendingFinish;state.vs.pendingFinish=null;if(pending!==null)finishVSRound(pending);}
 function openVSClassicMilestone(milestone){const EXCLUDED_VS_IDS=VS_COMPANIONS.map(c=>c.id);const availableCompanions=COMPANIONS.filter(c=>!EXCLUDED_VS_IDS.includes(c.id));const modal=document.getElementById('charModal');const subtitle=document.getElementById('charModalSubtitle');subtitle.textContent=`Bạn vừa đạt ô ${milestone} — chọn 1 trong các đồng hành bên dưới (trừ 3 nhân vật VS)`;const grid=document.getElementById('charGrid');grid.innerHTML='';availableCompanions.forEach(c=>{const picked=state.companions.includes(c.id);const card=document.createElement('div');card.className='char-card'+(picked?' picked':'');card.setAttribute('role','button');card.setAttribute('tabindex',picked?'-1':'0');card.setAttribute('aria-label',picked?`${c.name}, đã chọn`:`Chọn ${c.name}`);const image=COMPANION_IMAGES[c.id];card.innerHTML=`<div class="char-card-head"><span class="char-index">YTC / ${String(COMPANIONS.indexOf(c)+1).padStart(2,'0')}</span><span class="char-tag">ĐỒNG HÀNH</span></div><div class="char-avatar-big${image?' has-photo':''}">${image?`<img src="${image}" alt="${c.name}" loading="lazy">`:c.avatar}</div><div class="char-name">${c.name}</div><div class="char-role">${c.role}</div><div class="char-ability"><span class="char-ability-label">NĂNG LỰC</span>${c.ability}</div>`;if(!picked){card.onclick=()=>pickCompanion(c.id);card.onkeydown=event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();pickCompanion(c.id);}};}grid.appendChild(card);});modal.classList.add('show');document.body.classList.add('modal-open');playSound('modal');requestAnimationFrame(()=>{const firstAvailable=grid.querySelector('.char-card:not(.picked)');if(firstAvailable&&window.matchMedia('(min-width: 601px)').matches)firstAvailable.focus();});}
@@ -2432,14 +2574,15 @@ function startGame() {
   if (!ensurePlayerName()) return;
   if(selectedGameMode==='vs'){ openVSSetup(); return; }
   playSound('start');
-  showLoading('Đang chuẩn bị đường đua...');
+  const isExpert = selectedGameMode === 'expert';
+  showLoading(isExpert ? 'Đang chuẩn bị đường đua EXPERT...' : 'Đang chuẩn bị đường đua...');
   setTimeout(() => {
-    resetState();
+    resetState(isExpert ? 'expert' : 'classic');
     renderActionLog();
-    logAction('Bắt đầu đường đua', 'sys');
+    logAction(isExpert ? 'Bắt đầu đường đua EXPERT (70 ô)' : 'Bắt đầu đường đua', 'sys');
     state.sessionId = (window.__ytcSessionId || 0) + 1;
     window.__ytcSessionId = state.sessionId;
-    state.questions = buildQuestionDeck();
+    state.questions = buildQuestionDeck(state.mode);
     document.getElementById('startScreen').classList.remove('active');
     document.getElementById('gameScreen').classList.add('active');
     buildBoard();
@@ -2550,22 +2693,26 @@ function restartGame() {
 function buildBoard() {
   const board = document.getElementById('board');
   board.innerHTML = '';
-  // 5 rows of 10, serpentine. Bottom row left-to-right = steps 1..10,
-  // next row right-to-left = 11..20, etc. Display column-reverse so row 1 (steps 1-10) is at bottom.
-  const rows = 5, cols = 10;
+  // Serpentine: hàng dưới cùng trái→phải là bước 1..cols, hàng kế ngược lại, v.v.
+  // Số cột cố định 10, số hàng = ceil(boardSize/10) — Expert: 7 hàng x 10 = 70 ô.
+  const cols = 10;
+  const boardSize = currentBoardSize();
+  const rows = Math.ceil(boardSize / cols);
+  const milestones = currentMilestones();
   for (let r = 0; r < rows; r++) {
     const row = document.createElement('div');
     row.className = 'board-row' + (r % 2 === 1 ? ' reverse' : '');
     for (let c = 0; c < cols; c++) {
       const stepNum = r * cols + c + 1;
+      if (stepNum > boardSize) break; // an toàn nếu boardSize không chia hết cho 10
       const cell = document.createElement('div');
       cell.className = 'cell';
       cell.dataset.step = stepNum;
-      if (stepNum === BOARD_SIZE) cell.classList.add('finish');
-      else if (MILESTONES.includes(stepNum)) cell.classList.add('milestone-' + stepNum);
+      if (stepNum === boardSize) cell.classList.add('finish');
+      else if (milestones.includes(stepNum)) cell.classList.add('milestone-' + stepNum);
       let label = stepNum;
-      if (stepNum === BOARD_SIZE) label = '<svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 21h8m-4-4v4M7 4h10v5a5 5 0 0 1-10 0zm10 2h4v2a4 4 0 0 1-4 4M7 6H3v2a4 4 0 0 0 4 4"/></svg>';
-      else if (MILESTONES.includes(stepNum)) label = '<svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10h18v11H3zM2 6h20v4H2zM12 6v15M12 6H7a2 2 0 1 1 2-2c0 2 3 2 3 2zm0 0h5a2 2 0 1 0-2-2c0 2-3 2-3 2z"/></svg>' + stepNum;
+      if (stepNum === boardSize) label = '<svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 21h8m-4-4v4M7 4h10v5a5 5 0 0 1-10 0zm10 2h4v2a4 4 0 0 1-4 4M7 6H3v2a4 4 0 0 0 4 4"/></svg>';
+      else if (milestones.includes(stepNum)) label = '<svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10h18v11H3zM2 6h20v4H2zM12 6v15M12 6H7a2 2 0 1 1 2-2c0 2 3 2 3 2zm0 0h5a2 2 0 1 0-2-2c0 2-3 2-3 2z"/></svg>' + stepNum;
       cell.innerHTML = label;
       cell.id = 'cell-' + stepNum;
       row.appendChild(cell);
@@ -2627,10 +2774,12 @@ function updateBotToken() {
 function renderCompanions() {
   const list = document.getElementById('companionsList');
   list.innerHTML = '';
+  const maxCompanions = currentMaxCompanions();
+  const milestones = currentMilestones();
   if (state.companions.length === 0) {
-    list.innerHTML = `
-      <div class="companion-row empty">Chưa có đồng hành — đạt ô 15 để chọn</div>
-      <div class="companion-row empty">Ô thứ 2 mở ở ô 30</div>`;
+    // Hiển thị gợi ý slot theo mốc của chế độ hiện tại.
+    const hints = milestones.map(m => `Đạt ô ${m} để chọn đồng hành`);
+    list.innerHTML = hints.map(h => `<div class="companion-row empty">${h}</div>`).join('');
     return;
   }
   state.companions.forEach(cid => {
@@ -2646,14 +2795,15 @@ function renderCompanions() {
       </div>`;
     list.appendChild(row);
   });
-  // Fill remaining slot
+  // Fill remaining slots (the next milestone the player has not reached)
   const pickedCount = state.companions.length;
-  if (pickedCount < 2) {
+  if (pickedCount < maxCompanions) {
     const empty = document.createElement('div');
     empty.className = 'companion-row empty';
-    empty.textContent = pickedCount === 0
-      ? 'Đạt ô 15 để chọn đồng hành đầu tiên'
-      : 'Đạt ô 30 để chọn đồng hành thứ hai';
+    const nextMilestone = milestones[pickedCount];
+    empty.textContent = nextMilestone
+      ? `Đạt ô ${nextMilestone} để chọn đồng hành thứ ${pickedCount + 1}`
+      : `Còn ${maxCompanions - pickedCount} slot đồng hành`;
     list.appendChild(empty);
   }
 }
@@ -2883,6 +3033,8 @@ function handleTimeout() {
   if (offerRetry()) return;
   state.answered = true;
   updatePauseButton();
+  // Expert: hết giờ cũng coi như trả lời sai → áp dụng phạt nếu đang ở vùng nguy hiểm.
+  applyExpertPenalty();
   // Disable inputs
   document.querySelectorAll('.option, .word-chip, .btn-submit').forEach(b => b.classList.add('disabled'));
   const fb = document.getElementById('feedback');
@@ -2901,6 +3053,23 @@ function handleTimeout() {
 function registerWrongAnswer() {
   state.streak = 0;
   if (state.companions.includes('nguyenphuonganh')) state.phuongAnhBoostPending = true;
+}
+
+// Expert mode: từ ô 50 trở lên, trả lời sai sẽ bị trừ điểm.
+// Càng gần đích, mức phạt càng nặng (150 + 10 cho mỗi ô vượt 50).
+// Chỉ áp dụng cho chế độ expert và không áp dụng khi đang ở lượt cướp câu (vs steal) hoặc câu lặp (Hà Linh).
+function applyExpertPenalty() {
+  if (state.mode !== 'expert') return;
+  if (state.isRepeatQuestion) return; // câu lặp không phạt
+  if (state.step < EXPERT_PENALTY_THRESHOLD) return;
+  const penalty = expertPenaltyAt(state.step);
+  if (penalty <= 0) return;
+  state.score = Math.max(0, state.score - penalty);
+  state.penaltyAppliedCount = (state.penaltyAppliedCount || 0) + 1;
+  state.totalPenalty = (state.totalPenalty || 0) + penalty;
+  showFloatingPoints('−' + penalty + ' điểm (ô ' + state.step + ' · EXPERT)', false, '#ed5b69');
+  logAction('trả lời sai ở ô ' + state.step + ' · trừ ' + penalty + ' điểm', 'sys');
+  playSound('wrong');
 }
 
 function revealNextButtonAfterCorrect() {
@@ -2930,6 +3099,7 @@ function handleChoiceAnswer(picked, btn) {
   if (state.mode === 'vs') { resolveVSPlayerAnswer(correct); return; }
   if (correct) { onCorrectAnswer(); revealNextButtonAfterCorrect(); }
   else { registerWrongAnswer();
+    applyExpertPenalty();
     const fb = document.getElementById('feedback');
     fb.textContent += ` — Đáp án đúng: ${q.options[q.answer]}`;
     document.getElementById('btnNext').classList.add('show');
@@ -2965,6 +3135,7 @@ function submitFill() {
   if (state.mode === 'vs') { resolveVSPlayerAnswer(correct); return; }
   if (correct) { onCorrectAnswer(); revealNextButtonAfterCorrect(); }
   else { state.streak = 0;
+    applyExpertPenalty();
     const fb = document.getElementById('feedback');
     fb.textContent += ` — Đáp án đúng: ${q.answer}`;
     document.getElementById('btnNext').classList.add('show');
@@ -3034,6 +3205,7 @@ function submitWord() {
   if (state.mode === 'vs') { resolveVSPlayerAnswer(correct); return; }
   if (correct) { onCorrectAnswer(); revealNextButtonAfterCorrect(); }
   else { state.streak = 0;
+    applyExpertPenalty();
     const fb = document.getElementById('feedback');
     fb.textContent += ` — Đáp án đúng: ${q.answer.join(' → ')}`;
     document.getElementById('btnNext').classList.add('show');
@@ -3224,10 +3396,10 @@ function endVSGame() {
   document.getElementById('gameOverTitle').textContent = winner;
   document.getElementById('gameOverRank').textContent = 'Bạn ' + state.score.toLocaleString('vi-VN') + ' điểm — Bot ' + state.vs.botScore.toLocaleString('vi-VN');
   document.getElementById('finalScore').textContent = state.score.toLocaleString('vi-VN');
-  document.getElementById('finalStep').textContent = state.step + '/50';
+  document.getElementById('finalStep').textContent = state.step + '/' + currentBoardSize();
   document.getElementById('finalCorrect').textContent = state.correctCount + '/' + state.questions.length;
   document.getElementById('finalBotScore').textContent = state.vs.botScore.toLocaleString('vi-VN');
-  document.getElementById('finalBotStep').textContent = state.vs.botStep + '/50';
+  document.getElementById('finalBotStep').textContent = state.vs.botStep + '/' + currentBoardSize();
   document.getElementById('finalBotCorrect').textContent = state.vs.botCorrect + '/' + state.questions.length;
   document.getElementById('finalSteals').textContent = state.vs.stealCorrect + '/' + state.vs.stealOpportunities;
   document.getElementById('finalBotSteals').textContent = state.vs.botStealCorrect + '/' + state.vs.botStealOpportunities;
@@ -3359,7 +3531,11 @@ function movePlayer(totalSteps, diceVal) {
   if (state.finished) return;
   let waitingForCompanion = false;
   const fromStep = state.step;
-  let target = Math.min(fromStep + totalSteps, BOARD_SIZE);
+  const boardSize = currentBoardSize();
+  const milestones = currentMilestones();
+  const maxCompanions = currentMaxCompanions();
+  const cfg = getGameConfig();
+  let target = Math.min(fromStep + totalSteps, boardSize);
   state.step = target;
   logAction(`tiến ${target - fromStep} bước → ô ${target}`, 'player');
   updatePlayerToken();
@@ -3379,17 +3555,22 @@ function movePlayer(totalSteps, diceVal) {
   showFloatingPoints('<svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M8 8h.01M16 8h.01M12 12h.01M8 16h.01M16 16h.01"/></svg> +' + totalSteps + ' bước', false, '#00bbfe');
 
   // Check finish
-  if (target >= BOARD_SIZE && !state.reachedFinish) {
+  if (target >= boardSize && !state.reachedFinish) {
     state.reachedFinish = true;
     playSound('finish');
-    state.score += state.companions.includes('dung') ? FINISH_BONUS_WITH_DUNG : POINTS_FINISH_BONUS;
+    // Expert: thưởng về đích riêng (1.000 điểm); Classic: 500 (hoặc 5.000 với Mạnh Dũng).
+    const finishBonus = state.companions.includes('dung')
+      ? FINISH_BONUS_WITH_DUNG
+      : (state.mode === 'expert' ? cfg.finishBonus : POINTS_FINISH_BONUS);
+    state.score += finishBonus;
     updateTopbar();
+    const bonusLabel = state.companions.includes('dung') ? '5.000' : (state.mode === 'expert' ? '1.000' : '500');
     setTimeout(() => {
-      showFloatingPoints('<svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 21h8m-4-4v4M7 4h10v5a5 5 0 0 0 4 4M7 6H3v2a4 4 0 0 0 4 4"/></svg> +' + (state.companions.includes('dung') ? '5.000' : '500') + ' VỀ ĐÍCH!', false, '#ffd24a');
+      showFloatingPoints('<svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 21h8m-4-4v4M7 4h10v5a5 5 0 0 0 4 4M7 6H3v2a4 4 0 0 0 4 4"/></svg> +' + bonusLabel + ' VỀ ĐÍCH!', false, '#ffd24a');
       launchConfetti();
       const fb = document.getElementById('feedback');
       fb.className = 'feedback info show';
-      fb.innerHTML = fb.textContent + '<br>CHÚC MỪNG! Bạn đã về đích và nhận +' + (state.companions.includes('dung') ? '5.000' : '500') + ' điểm thưởng!';
+      fb.innerHTML = fb.textContent + '<br>CHÚC MỪNG! Bạn đã về đích và nhận +' + bonusLabel + ' điểm thưởng!';
       // Disable next button (game will end after a delay)
       document.getElementById('btnNext').textContent = 'XEM KẾT QUẢ ▶';
       state.resolvingTurn = false;
@@ -3398,14 +3579,14 @@ function movePlayer(totalSteps, diceVal) {
   }
 
   // Check milestones (only if not already triggered for this milestone and we passed it)
-  for (const m of MILESTONES) {
+  for (const m of milestones) {
     if (fromStep < m && target >= m && !state.passedMilestones.has(m)) {
       state.passedMilestones.add(m);
-      // Mỗi người chơi Classic có tối đa 2 slot đồng hành: ô 15 và ô 30.
-      if (state.mode !== 'vs' && state.companions.length < 2 && !document.getElementById('charModal').classList.contains('show')) {
+      // Classic/Expert có tối đa maxCompanions slot đồng hành theo các mốc.
+      if (state.mode !== 'vs' && state.companions.length < maxCompanions && !document.getElementById('charModal').classList.contains('show')) {
         waitingForCompanion = true;
         setTimeout(() => {
-          if (!state.finished && state.mode !== 'vs' && state.companions.length < 2 && !document.getElementById('charModal').classList.contains('show')) {
+          if (!state.finished && state.mode !== 'vs' && state.companions.length < maxCompanions && !document.getElementById('charModal').classList.contains('show')) {
             playSound('milestone');
             openCharModal(m);
           }
@@ -3529,8 +3710,26 @@ function renderRecords() {
   const highscoreList = document.getElementById('highscoreList');
   const historyList = document.getElementById('historyList');
   if (!highscoreList || !historyList) return;
-  highscoreList.innerHTML = highscore.length ? highscore.map(item => `<li><span>${escapeHtml(name)} · ${item.correct}/${item.total} đúng</span><span class="record-score">${Number(item.score).toLocaleString('vi-VN')} điểm</span></li>`).join('') : '<li class="record-empty">Chưa có kỷ lục</li>';
-  historyList.innerHTML = history.length ? history.map(item => `<div class="history-item"><span><strong>${escapeHtml(name)} · ${Number(item.score).toLocaleString('vi-VN')} điểm</strong><br><b class="history-mode ${(item.mode || 'classic') === 'vs' ? 'vs' : 'classic'}">${(item.mode || 'classic') === 'vs' ? 'VS MODE' : 'CLASSIC'}</b> · ${item.step}/50 ô · ${item.correct}/${item.total} đúng</span><span>${formatRecordDate(item.playedAt)}</span></div>`).join('') : '<div class="record-empty">Chưa có lượt chơi</div>';
+  highscoreList.innerHTML = highscore.length ? highscore.map(item => {
+    const modeTag = modeTagFor(item.mode);
+    return `<li><span>${escapeHtml(name)} · ${item.correct}/${item.total} đúng · <b class="history-mode ${modeTag.cls}">${modeTag.label}</b></span><span class="record-score">${Number(item.score).toLocaleString('vi-VN')} điểm</span></li>`;
+  }).join('') : '<li class="record-empty">Chưa có kỷ lục</li>';
+  historyList.innerHTML = history.length ? history.map(item => {
+    const modeTag = modeTagFor(item.mode);
+    const totalSteps = modeStepsFor(item.mode);
+    return `<div class="history-item"><span><strong>${escapeHtml(name)} · ${Number(item.score).toLocaleString('vi-VN')} điểm</strong><br><b class="history-mode ${modeTag.cls}">${modeTag.label}</b> · ${item.step}/${totalSteps} ô · ${item.correct}/${item.total} đúng</span><span>${formatRecordDate(item.playedAt)}</span></div>`;
+  }).join('') : '<div class="record-empty">Chưa có lượt chơi</div>';
+}
+// Helper: trả về class/label cho badge chế độ
+function modeTagFor(mode) {
+  if (mode === 'vs') return { cls: 'vs', label: 'VS MODE' };
+  if (mode === 'expert') return { cls: 'expert', label: 'EXPERT' };
+  return { cls: 'classic', label: 'CLASSIC' };
+}
+// Helper: số ô tối đa theo chế độ (để hiển thị lịch sử đúng)
+function modeStepsFor(mode) {
+  if (mode === 'expert') return EXPERT_BOARD_SIZE;
+  return BOARD_SIZE;
 }
 
 function renderCompanionIntro() {
@@ -3543,7 +3742,7 @@ function renderCompanionIntro() {
 function saveRunRecord() {
   const profile = currentPlayer();
   if (!profile) return;
-  const record = { recordId: profile.id + '-' + Date.now() + '-' + Math.random().toString(36).slice(2,7), playerId: profile.id, playerName: profile.name || 'Người chơi', score: state.score, step: state.step, correct: state.correctCount, total: state.questions.length, mode: state.mode, botScore: state.mode === 'vs' ? state.vs.botScore : null, botCorrect: state.mode === 'vs' ? state.vs.botCorrect : null, stealCorrect: state.mode === 'vs' ? state.vs.stealCorrect : null, stealOpportunities: state.mode === 'vs' ? state.vs.stealOpportunities : null, botStealCorrect: state.mode === 'vs' ? state.vs.botStealCorrect : null, botStealOpportunities: state.mode === 'vs' ? state.vs.botStealOpportunities : null, reachedFinish: state.reachedFinish, companions: state.companions.slice(), botCompanion: state.mode === 'vs' ? state.vs.botCompanion : null, botCompanions: state.mode === 'vs' ? state.vs.botCompanions.slice() : [], playedAt: new Date().toISOString() };
+  const record = { recordId: profile.id + '-' + Date.now() + '-' + Math.random().toString(36).slice(2,7), playerId: profile.id, playerName: profile.name || 'Người chơi', score: state.score, step: state.step, correct: state.correctCount, total: state.questions.length, mode: state.mode, botScore: state.mode === 'vs' ? state.vs.botScore : null, botCorrect: state.mode === 'vs' ? state.vs.botCorrect : null, stealCorrect: state.mode === 'vs' ? state.vs.stealCorrect : null, stealOpportunities: state.mode === 'vs' ? state.vs.stealOpportunities : null, botStealCorrect: state.mode === 'vs' ? state.vs.botStealCorrect : null, botStealOpportunities: state.mode === 'vs' ? state.vs.botStealOpportunities : null, reachedFinish: state.reachedFinish, companions: state.companions.slice(), botCompanion: state.mode === 'vs' ? state.vs.botCompanion : null, botCompanions: state.mode === 'vs' ? state.vs.botCompanions.slice() : [], penaltyCount: state.mode === 'expert' ? (state.penaltyAppliedCount || 0) : null, totalPenalty: state.mode === 'expert' ? (state.totalPenalty || 0) : null, boardSize: currentBoardSize(), playedAt: new Date().toISOString() };
   profile.results.push(record);
   trimResults(profile, MAX_RESULTS);
   profile.updatedAt = nowIso();
@@ -3552,6 +3751,10 @@ function saveRunRecord() {
   const best = rankResults(profile.results)[0] === record;
   const result = document.getElementById('recordResult');
   if (result) result.textContent = !saved ? 'Không lưu được kết quả (bộ nhớ trình duyệt đầy hoặc bị chặn).' : best ? 'KỶ LỤC MỚI — Đã lưu trên thiết bị này.' : 'Kết quả đã được lưu vào hồ sơ trên thiết bị này.';
+  if (state.mode === 'expert' && result) {
+    const pen = state.totalPenalty || 0;
+    if (pen > 0) result.textContent += ' (Expert: đã bị trừ ' + pen.toLocaleString('vi-VN') + ' điểm do ' + (state.penaltyAppliedCount || 0) + ' lần sai ở vùng nguy hiểm.)';
+  }
   if (saved && QUIZ_API_BASE_URL) {
     if (result) result.textContent += ' Đang đồng bộ lên máy chủ…';
     fetch(`${QUIZ_API_BASE_URL}/api/results`, {
@@ -3594,16 +3797,24 @@ function endGame() {
     if (distanceBonus > 0) showFloatingPoints(`Mạnh Dũng · +${distanceBonus} điểm theo ${state.step} bước`, true, '#d19a00');
   }
   document.getElementById('finalScore').textContent = state.score.toLocaleString('vi-VN');
-  document.getElementById('finalStep').textContent = state.step + '/50';
+  document.getElementById('finalStep').textContent = state.step + '/' + currentBoardSize();
   document.getElementById('finalCorrect').textContent = state.correctCount + '/' + state.questions.length;
   document.getElementById('finalCompanions').textContent = state.companions.map(id => { const c = COMPANIONS.find(x => x.id === id); return c ? c.name : ''; }).filter(Boolean).join(', ') || '[Không có]';
   saveRunRecord();
 
   let rank = 'Cố gắng lần sau!';
-  if (state.score >= 10000) rank = '<svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 21h8m-4-4v4M7 4h10v5a5 5 0 0 1-10 0zm10 2h4v2a4 4 0 0 1-4 4M7 6H3v2a4 4 0 0 0 4 4"/></svg> HUYỀN THOẠI YTC!';
-  else if (state.score >= 5000) rank = '<svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="14" r="7"/><path d="M9 3h6l2 4H7zM12 10l1.2 2.5 2.8.4-2 1.9.5 2.8-2.5-1.3-2.5 1.3.5-2.8-2-1.9 2.8-.4z"/></svg> BẬC THẦY QUIZ!';
-  else if (state.score >= 2000) rank = '<svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="14" r="7"/><path d="M9 3h6l2 4H7zM9.5 12a2.5 2.5 0 1 1 4 2L10 18h4"/></svg> XUẤT SẮC!';
-  else if (state.score >= 1000) rank = '<svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="14" r="7"/><path d="M9 3h6l2 4H7zM9.5 12a2.5 2.5 0 1 1 2.5 2m0 0a2.5 2.5 0 1 1-2.5 2"/></svg> KHÁ TỐT!';
+  if (state.mode === 'expert') {
+    // Ngưỡng rank cao hơn cho expert vì có nhiều câu và phạt điểm
+    if (state.score >= 15000) rank = '<svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 21h8m-4-4v4M7 4h10v5a5 5 0 0 1-10 0zm10 2h4v2a4 4 0 0 1-4 4M7 6H3v2a4 4 0 0 0 4 4"/></svg> HUYỀN THOẠI EXPERT!';
+    else if (state.score >= 8000) rank = '<svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="14" r="7"/><path d="M9 3h6l2 4H7zM12 10l1.2 2.5 2.8.4-2 1.9.5 2.8-2.5-1.3-2.5 1.3.5-2.8-2-1.9 2.8-.4z"/></svg> BẬC THẦY EXPERT!';
+    else if (state.score >= 3500) rank = '<svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="14" r="7"/><path d="M9 3h6l2 4H7zM9.5 12a2.5 2.5 0 1 1 4 2L10 18h4"/></svg> XUẤT SẮC!';
+    else if (state.score >= 1500) rank = '<svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="14" r="7"/><path d="M9 3h6l2 4H7zM9.5 12a2.5 2.5 0 1 1 2.5 2m0 0a2.5 2.5 0 1 1-2.5 2"/></svg> KHÁ TỐT!';
+  } else {
+    if (state.score >= 10000) rank = '<svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 21h8m-4-4v4M7 4h10v5a5 5 0 0 1-10 0zm10 2h4v2a4 4 0 0 1-4 4M7 6H3v2a4 4 0 0 0 4 4"/></svg> HUYỀN THOẠI YTC!';
+    else if (state.score >= 5000) rank = '<svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="14" r="7"/><path d="M9 3h6l2 4H7zM12 10l1.2 2.5 2.8.4-2 1.9.5 2.8-2.5-1.3-2.5 1.3.5-2.8-2-1.9 2.8-.4z"/></svg> BẬC THẦY QUIZ!';
+    else if (state.score >= 2000) rank = '<svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="14" r="7"/><path d="M9 3h6l2 4H7zM9.5 12a2.5 2.5 0 1 1 4 2L10 18h4"/></svg> XUẤT SẮC!';
+    else if (state.score >= 1000) rank = '<svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="14" r="7"/><path d="M9 3h6l2 4H7zM9.5 12a2.5 2.5 0 1 1 2.5 2m0 0a2.5 2.5 0 1 1-2.5 2"/></svg> KHÁ TỐT!';
+  }
   if (state.reachedFinish) rank = '<svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 21V4m0 1h14l-3 4 3 4H5"/><path d="M9 5v4m4-4v4m-4 0v4m4-4v4"/></svg> VỀ ĐÍCH! ' + rank;
   document.getElementById('gameOverRank').innerHTML = rank;
   document.getElementById('gameOverTitle').innerHTML = state.reachedFinish ? '<svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 21h8m-4-4v4M7 4h10v5a5 5 0 0 1-10 0zm10 2h4v2a4 4 0 0 1-4 4M7 6H3v2a4 4 0 0 0 4 4"/></svg> VỀ ĐÍCH!' : '<svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 21V4m0 1h14l-3 4 3 4H5"/><path d="M9 5v4m4-4v4m-4 0v4m4-4v4"/></svg> KẾT THÚC!';
@@ -3617,7 +3828,7 @@ function endGame() {
    ============================================================ */
 function updateTopbar() {
   document.getElementById('scoreVal').textContent = state.score.toLocaleString('vi-VN');
-  document.getElementById('stepVal').textContent = state.step + '/50';
+  document.getElementById('stepVal').textContent = state.step + '/' + currentBoardSize();
   document.getElementById('stepNowBadge').textContent = 'Ô ' + state.step;
   if (state.mode === 'vs') updateVSHUD();
 }
