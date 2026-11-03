@@ -5,6 +5,7 @@ const cors = require('cors');
 const helmet = require('helmet');
 const { rateLimit } = require('express-rate-limit');
 const GameResult = require('./models/GameResult');
+const PlayerProgress = require('./models/PlayerProgress');
 
 const app = express();
 const PORT = Number(process.env.PORT) || 3000;
@@ -93,6 +94,48 @@ app.get('/api/results/player/:playerId', async (req, res, next) => {
     return res.json({ results });
   } catch (error) { return next(error); }
 });
+
+function validPlayerId(value) { return /^[A-Za-z0-9_-]{3,40}$/.test(String(value || '').trim()); }
+
+// EXP progress is stored as a replaceable snapshot. The browser remains local-first;
+// this endpoint makes the same progress available across devices and for the leaderboard.
+app.post('/api/exp/progress', async (req, res, next) => {
+  try {
+    const b = req.body || {};
+    const playerId = typeof b.playerId === 'string' ? b.playerId.trim().slice(0, 40) : '';
+    const playerName = typeof b.playerName === 'string' ? b.playerName.trim().replace(/\s+/g, ' ').slice(0, 60) : '';
+    if (!validPlayerId(playerId) || playerName.length < 2) return res.status(400).json({ error: 'Thông tin tài khoản không hợp lệ.' });
+    const exp = Number.isInteger(b.exp) && b.exp >= 0 ? b.exp : 0;
+    const totalExp = Number.isInteger(b.totalExp) && b.totalExp >= exp ? b.totalExp : exp;
+    const progress = { playerId, playerName, exp, totalExp, stats: b.stats && typeof b.stats === 'object' ? b.stats : {}, achievements: b.achievements && typeof b.achievements === 'object' ? b.achievements : {}, hiddenAchievements: Array.isArray(b.hiddenAchievements) ? b.hiddenAchievements.slice(0, 20) : [], daily: b.daily && typeof b.daily === 'object' ? b.daily : {}, updatedAt: new Date() };
+    const saved = await PlayerProgress.findOneAndUpdate({ playerId }, { $set: progress }, { upsert: true, new: true, setDefaultsOnInsert: true }).lean();
+    return res.status(201).json({ ok: true, progress: saved });
+  } catch (error) { return next(error); }
+});
+
+app.get('/api/exp/progress/:playerId', async (req, res, next) => {
+  try {
+    const playerId = String(req.params.playerId || '').trim();
+    if (!validPlayerId(playerId)) return res.status(400).json({ error: 'playerId không hợp lệ.' });
+    const progress = await PlayerProgress.findOne({ playerId }).lean();
+    return res.json({ progress: progress || null });
+  } catch (error) { return next(error); }
+});
+
+app.get('/api/exp', async (req, res, next) => {
+  try {
+    const limit = Math.min(Math.max(parseInt(req.query.limit, 10) || 20, 1), 100);
+    if (req.query.view !== 'leaderboard') return res.json({ progress: await PlayerProgress.find().sort({ exp: -1 }).limit(limit).lean() });
+    const leaderboard = await PlayerProgress.find({}, { _id: 0, playerId: 1, playerName: 1, exp: 1, totalExp: 1 }).sort({ exp: -1, playerName: 1 }).limit(limit).lean();
+    return res.json({ leaderboard: leaderboard.map(x => ({ ...x, level: levelForExp(x.exp) })) });
+  } catch (error) { return next(error); }
+});
+
+function levelForExp(exp) {
+  let level = 0, threshold = 0;
+  while (Number(exp) >= threshold + 100 + level * 50) { threshold += 100 + level * 50; level++; }
+  return level;
+}
 
 app.use((err, _req, res, _next) => {
   console.error(err.message);

@@ -16,6 +16,9 @@ Backend Express + Mongoose để lưu kết quả chơi từ `quiz-game.html` v�
 - `GET /api/results?limit=50` — danh sách kết quả theo điểm giảm dần (tối đa 100).
 - `GET /api/results/player/:playerId` — lịch sử của một ID (tối đa 100).
 - `GET /api/results?view=leaderboard&limit=20` — chế độ leaderboard của route results hiện có; gộp theo `playerId`, trả về tên gần nhất, điểm cao nhất và tổng số ván (tối đa 100 người chơi).
+- `POST /api/exp/progress` — lưu snapshot EXP, thống kê nhiệm vụ và thành tựu của tài khoản.
+- `GET /api/exp/progress/:playerId` — đọc tiến độ EXP của một tài khoản để khôi phục trên thiết bị khác.
+- `GET /api/exp?view=leaderboard&limit=20` — leaderboard EXP theo `exp`, kèm level.
 
 Game tự lưu vào localStorage trước; khi cấu hình URL API, nó gửi thêm bản sao lên server. Đặt `window.YTC_QUIZ_API_BASE_URL = 'https://<api-host>'` trước script game (không có dấu `/` cuối), hoặc cập nhật biến tương ứng trong HTML.
 
