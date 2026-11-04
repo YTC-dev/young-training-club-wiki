@@ -74,10 +74,14 @@
     while (exp >= threshold + 100 + level * 50) { threshold += 100 + level * 50; level++; }
     return { level, current: threshold, next: threshold + 100 + level * 50 };
   }
+  let syncTimer = null;
+  function getApiBaseUrl() {
+    return String(window.QUIZ_API_BASE_URL || window.YTC_QUIZ_API_BASE_URL || 'https://young-training-club-wiki.onrender.com').replace(/\/$/, '');
+  }
   function save(p) {
     if (typeof window.savePlayerDb === 'function') window.savePlayerDb();
     render();
-    sync(p);
+    sync(p, false);
   }
   function addExp(amount, reason, p) {
     const e = ensureExp(p || current());
@@ -127,7 +131,7 @@
     checkAchievements(p); save(p);
   }
   function finishRun(run) {
-    const p = current(), e = ensureExp(p); if (!e || !run || e._lastRecordId === run.recordId) return;
+    const p = current(), e = ensureExp(p); if (!e || !run || e._lastRecordId === run.recordId) return Promise.resolve(null);
     e._lastRecordId = run.recordId;
     const score = Math.max(0, Number(run.score) || 0), expert = run.mode === 'expert';
     let completion = expert ? 15 : 10;
@@ -142,17 +146,98 @@
     if (!expert && score >= 10000) e.stats.ytcLegendary++;
     if (expert && score >= 15000) e.stats.expertLegendary++;
     dailyEvent('score10k', score);
-    checkAchievements(p); save(p);
+    checkAchievements(p);
+    save(p);
+    return sync(p, true);
   }
-  function sync(p) {
-    if (!p || !p.id || !window.QUIZ_API_BASE_URL || !p.expData) return;
+  function sync(p, immediate = false) {
+    p = p || current();
+    const apiUrl = getApiBaseUrl();
+    if (!p || !p.id || !apiUrl || !p.expData) return Promise.resolve(null);
     const e = p.expData;
-    const payload = { playerId: p.id, playerName: p.name || 'Người chơi', exp: e.exp, totalExp: e.totalExp, stats: e.stats, achievements: e.achievements, hiddenAchievements: e.hiddenAchievements, daily: e.daily, updatedAt: isoNow() };
-    fetch(`${window.QUIZ_API_BASE_URL}/api/exp/progress`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload), keepalive: true }).catch(() => {});
+    const payload = {
+      playerId: p.id,
+      playerName: p.name || 'Người chơi',
+      exp: e.exp,
+      totalExp: e.totalExp,
+      stats: e.stats,
+      achievements: e.achievements,
+      hiddenAchievements: e.hiddenAchievements,
+      daily: e.daily,
+      updatedAt: isoNow()
+    };
+
+    const doFetch = () => {
+      return fetch(`${apiUrl}/api/exp/progress`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+        keepalive: true
+      })
+      .then(async r => {
+        if (!r.ok) {
+          const txt = await r.text().catch(() => '');
+          console.warn('Lỗi đồng bộ EXP:', r.status, txt);
+          return null;
+        }
+        return r.json();
+      })
+      .catch(err => {
+        console.warn('Không thể kết nối đồng bộ EXP:', err);
+        return null;
+      });
+    };
+
+    if (immediate) {
+      if (syncTimer) { clearTimeout(syncTimer); syncTimer = null; }
+      return doFetch();
+    }
+
+    if (syncTimer) clearTimeout(syncTimer);
+    return new Promise(resolve => {
+      syncTimer = setTimeout(async () => {
+        syncTimer = null;
+        const res = await doFetch();
+        resolve(res);
+      }, 1200);
+    });
   }
   async function syncFromCloud(p) {
-    if (!p || !window.QUIZ_API_BASE_URL) return;
-    try { const r = await fetch(`${window.QUIZ_API_BASE_URL}/api/exp/progress/${encodeURIComponent(p.id)}`, { cache: 'no-store' }); if (!r.ok) return; const data = await r.json(); if (!data.progress) return; const remote = data.progress; const local = ensureExp(p); if ((Number(remote.totalExp) || 0) > (Number(local.totalExp) || 0)) p.expData = { ...local, ...remote, stats: { ...STAT_DEFAULTS, ...(remote.stats || {}) } }; savePlayerDb(); render(); } catch (_) {}
+    p = p || current();
+    const apiUrl = getApiBaseUrl();
+    if (!p || !p.id || !apiUrl) return null;
+    try {
+      const r = await fetch(`${apiUrl}/api/exp/progress/${encodeURIComponent(p.id)}`, { cache: 'no-store' });
+      const local = ensureExp(p);
+      if (!r.ok) {
+        if (local && (local.exp > 0 || local.totalExp > 0)) {
+          return await sync(p, true);
+        }
+        return null;
+      }
+      const data = await r.json();
+      const remote = data && data.progress;
+      if (!remote) {
+        if (local && (local.exp > 0 || local.totalExp > 0)) {
+          return await sync(p, true);
+        }
+        return null;
+      }
+      const remoteTotal = Number(remote.totalExp) || 0;
+      const localTotal = Number(local.totalExp) || 0;
+      if (remoteTotal > localTotal) {
+        p.expData = { ...local, ...remote, stats: { ...STAT_DEFAULTS, ...(remote.stats || {}) } };
+        if (typeof window.savePlayerDb === 'function') window.savePlayerDb();
+        render();
+        return remote;
+      } else if (localTotal > remoteTotal) {
+        return await sync(p, true);
+      }
+      return remote;
+    } catch (err) {
+      console.warn('Lỗi syncFromCloud EXP:', err);
+      return null;
+    }
   }
   function render() {
     const p = current(), e = ensureExp(p); if (!e) return;
@@ -174,10 +259,41 @@
     if (list) list.innerHTML = ACHIEVEMENTS.map(a => `<li class="exp-achievement ${e.achievements[a.id] ? 'done' : ''}"><span>${e.achievements[a.id] ? '✓' : '○'} ${a.label}</span><b>${Math.min(Number(e.stats[a.stat] || 0), a.target).toLocaleString('vi-VN')}/${a.target.toLocaleString('vi-VN')}</b></li>`).join('');
   }
   async function loadLeaderboard() {
-    const list = document.getElementById('expLeaderboardList'), status = document.getElementById('expLeaderboardStatus'); if (!list || !window.QUIZ_API_BASE_URL) return;
+    const list = document.getElementById('expLeaderboardList'), status = document.getElementById('expLeaderboardStatus');
+    const apiUrl = getApiBaseUrl();
+    if (!list || !apiUrl) return;
+
+    // Đẩy EXP người chơi hiện tại lên máy chủ trước khi tải bảng xếp hạng
+    const p = current();
+    if (p && p.expData && (p.expData.exp > 0 || p.expData.totalExp > 0)) {
+      try {
+        await sync(p, true);
+      } catch (_) {}
+    }
+
     list.innerHTML = '<li class="record-empty">Đang tải leaderboard EXP…</li>';
-    try { const r = await fetch(`${window.QUIZ_API_BASE_URL}/api/exp?view=leaderboard&limit=20`, { cache: 'no-store' }); if (!r.ok) throw new Error(); const data = await r.json(); const rows = Array.isArray(data.leaderboard) ? data.leaderboard : []; list.innerHTML = rows.length ? rows.map(x => `<li><span>${window.escapeHtml ? window.escapeHtml(x.playerName || 'Người chơi') : String(x.playerName || 'Người chơi')}</span><span class="record-score">${Number(x.exp || 0).toLocaleString('vi-VN')} EXP · Lv.${Number(x.level || 0)}</span></li>`).join('') : '<li class="record-empty">Chưa có dữ liệu EXP online</li>'; if (status) status.textContent = rows.length ? `Top ${rows.length} người chơi theo EXP` : ''; } catch (_) { list.innerHTML = '<li class="record-empty">Chưa tải được leaderboard EXP.</li>'; if (status) status.textContent = 'Kiểm tra kết nối máy chủ rồi bấm Làm mới.'; }
+    try {
+      const r = await fetch(`${apiUrl}/api/exp?view=leaderboard&limit=20`, { cache: 'no-store' });
+      if (!r.ok) throw new Error(`HTTP ${r.status}`);
+      const data = await r.json();
+      const rows = Array.isArray(data.leaderboard) ? data.leaderboard : [];
+      list.innerHTML = rows.length ? rows.map(x => `<li><span>${window.escapeHtml ? window.escapeHtml(x.playerName || 'Người chơi') : String(x.playerName || 'Người chơi')}</span><span class="record-score">${Number(x.exp || 0).toLocaleString('vi-VN')} EXP · Lv.${Number(x.level || 0)}</span></li>`).join('') : '<li class="record-empty">Chưa có dữ liệu EXP online</li>';
+      if (status) status.textContent = rows.length ? `Top ${rows.length} người chơi theo EXP` : '';
+    } catch (err) {
+      console.warn('Không tải được leaderboard EXP:', err);
+      list.innerHTML = '<li class="record-empty">Chưa tải được leaderboard EXP.</li>';
+      if (status) status.textContent = 'Kiểm tra kết nối máy chủ rồi bấm Làm mới.';
+    }
   }
   window.YTC_EXP = { event, finishRun, ensureExp, render, sync, syncFromCloud, loadLeaderboard, levelFor, daily: DAILY, achievements: ACHIEVEMENTS };
-  window.addEventListener('DOMContentLoaded', () => { const p = current(); if (p) { ensureExp(p); event('login'); syncFromCloud(p); render(); } loadLeaderboard(); });
+  window.addEventListener('DOMContentLoaded', async () => {
+    const p = current();
+    if (p) {
+      ensureExp(p);
+      event('login');
+      await syncFromCloud(p);
+      render();
+    }
+    await loadLeaderboard();
+  });
 })();

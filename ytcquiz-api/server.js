@@ -19,7 +19,7 @@ app.use(cors({ origin(origin, callback) {
   return callback(new Error('Origin is not allowed by CORS'));
 } }));
 app.use(express.json({ limit: '16kb' }));
-app.use('/api/', rateLimit({ windowMs: 60 * 1000, limit: 60, standardHeaders: 'draft-7', legacyHeaders: false }));
+app.use('/api/', rateLimit({ windowMs: 60 * 1000, limit: 120, standardHeaders: 'draft-7', legacyHeaders: false }));
 
 app.get('/health', (_req, res) => res.json({ ok: true, database: mongoose.connection.readyState === 1 ? 'connected' : 'disconnected' }));
 
@@ -67,8 +67,17 @@ app.post('/api/results', async (req, res, next) => {
 app.get('/api/results', async (req, res, next) => {
   try {
     const limit = Math.min(Math.max(parseInt(req.query.limit, 10) || 50, 1), 100);
-    if (req.query.view === 'leaderboard' || req.query.view === 'expert-leaderboard') {
-      const match = req.query.view === 'expert-leaderboard' ? { mode: 'expert' } : {};
+    const view = String(req.query.view || '').trim();
+    if (['leaderboard', 'regular-leaderboard', 'expert-leaderboard', 'all-leaderboard'].includes(view)) {
+      let match = {};
+      if (view === 'expert-leaderboard' || req.query.mode === 'expert') {
+        match = { mode: 'expert' };
+      } else if (view === 'all-leaderboard' || req.query.mode === 'all') {
+        match = {};
+      } else {
+        // 'regular-leaderboard' hoặc 'leaderboard' mặc định chỉ gồm chế độ classic và vs
+        match = { mode: { $in: ['classic', 'vs'] } };
+      }
       const leaderboard = await GameResult.aggregate([
         { $match: match },
         { $sort: { playedAt: -1, _id: 1 } },
@@ -110,6 +119,12 @@ app.post('/api/exp/progress', async (req, res, next) => {
     if (!validPlayerId(playerId) || playerName.length < 2) return res.status(400).json({ error: 'Thông tin tài khoản không hợp lệ.' });
     const exp = Number.isInteger(b.exp) && b.exp >= 0 ? b.exp : 0;
     const totalExp = Number.isInteger(b.totalExp) && b.totalExp >= exp ? b.totalExp : exp;
+
+    const existing = await PlayerProgress.findOne({ playerId }).lean();
+    if (existing && Number(existing.totalExp || 0) > totalExp) {
+      return res.status(200).json({ ok: true, progress: existing });
+    }
+
     const progress = { playerId, playerName, exp, totalExp, stats: b.stats && typeof b.stats === 'object' ? b.stats : {}, achievements: b.achievements && typeof b.achievements === 'object' ? b.achievements : {}, hiddenAchievements: Array.isArray(b.hiddenAchievements) ? b.hiddenAchievements.slice(0, 20) : [], daily: b.daily && typeof b.daily === 'object' ? b.daily : {}, updatedAt: new Date() };
     const saved = await PlayerProgress.findOneAndUpdate({ playerId }, { $set: progress }, { upsert: true, new: true, setDefaultsOnInsert: true }).lean();
     return res.status(201).json({ ok: true, progress: saved });

@@ -1709,9 +1709,9 @@ html {
     <div class="records-grid">
       <div class="record-column"><h3>HIGHSCORE</h3><ol id="highscoreList" class="highscore-list"><li class="record-empty">Chưa có kỷ lục</li></ol></div>
       <div class="record-column"><h3>LỊCH SỬ CHƠI</h3><div id="historyList" class="history-list"><div class="record-empty">Chưa có lượt chơi</div></div></div>
-      <div class="record-column leaderboard-column">
-        <div class="leaderboard-heading"><h3>LEADERBOARD TOÀN GAME</h3><button class="leaderboard-refresh" type="button" onclick="loadLeaderboard()" aria-label="Làm mới bảng xếp hạng">LÀM MỚI</button></div>
-        <ol id="leaderboardList" class="leaderboard-list"><li class="record-empty">Đang tải bảng xếp hạng…</li></ol>
+      <div class="record-column leaderboard-column regular-leaderboard-column">
+        <div class="leaderboard-heading"><h3>LEADERBOARD REGULAR</h3><button class="leaderboard-refresh" type="button" onclick="loadLeaderboard()" aria-label="Làm mới leaderboard Regular">LÀM MỚI</button></div>
+        <ol id="leaderboardList" class="leaderboard-list"><li class="record-empty">Đang tải leaderboard Regular…</li></ol>
         <p id="leaderboardStatus" class="leaderboard-status" aria-live="polite"></p>
       </div>
       <div class="record-column leaderboard-column expert-leaderboard-column">
@@ -2199,8 +2199,12 @@ function closePlayerGate() { document.getElementById('playerGate').classList.add
 function finishLogin(p, status) {
   setCurrentPlayer(p);
   const expSync = window.YTC_EXP?.syncFromCloud(p);
-  if (expSync && typeof expSync.then === 'function') expSync.then(() => window.YTC_EXP?.event('login')).catch(() => window.YTC_EXP?.event('login'));
-  else window.YTC_EXP?.event('login');
+  if (expSync && typeof expSync.then === 'function') {
+    expSync.then(() => { window.YTC_EXP?.event('login'); window.YTC_EXP?.loadLeaderboard(); }).catch(() => { window.YTC_EXP?.event('login'); window.YTC_EXP?.loadLeaderboard(); });
+  } else {
+    window.YTC_EXP?.event('login');
+    window.YTC_EXP?.loadLeaderboard();
+  }
   closePlayerGate();
   document.getElementById('startScreen').classList.add('active');
   const text = status === 'restored' ? 'Đã vào lại — khôi phục ID, tên và kỷ lục của ' + (p.name || p.id) + '.'
@@ -2226,8 +2230,12 @@ async function syncPlayerFromCloud() {
       p.updatedAt = nowIso();
       savePlayerDb();
       refreshPlayerUI();
-      if (m) m.textContent = `Đồng bộ thành công! Hiện có ${p.results.length} kết quả.`;
     }
+    if (window.YTC_EXP) {
+      await window.YTC_EXP.syncFromCloud(p);
+      await window.YTC_EXP.loadLeaderboard();
+    }
+    if (m) m.textContent = `Đồng bộ thành công! Hiện có ${p.results.length} kết quả và đã cập nhật EXP.`;
   } catch (err) {
     if (m) m.textContent = 'Không thể đồng bộ từ máy chủ (vui lòng kiểm tra mạng).';
   }
@@ -3873,21 +3881,31 @@ async function loadLeaderboard() {
   const list = document.getElementById('leaderboardList');
   const status = document.getElementById('leaderboardStatus');
   if (!list) return;
-  list.innerHTML = '<li class="record-empty">Đang tải bảng xếp hạng…</li>';
+  list.innerHTML = '<li class="record-empty">Đang tải leaderboard Regular…</li>';
   if (status) status.textContent = '';
   try {
-    const response = await fetch(`${QUIZ_API_BASE_URL}/api/results?view=leaderboard&limit=20`, { cache:'no-store' });
-    if (!response.ok) throw new Error(`HTTP ${response.status}`);
-    const data = await response.json();
-    const entries = Array.isArray(data.leaderboard) ? data.leaderboard : [];
-    list.innerHTML = entries.length ? entries.map(item => `<li><span class="leaderboard-name" title="${escapeHtml(item.playerName || 'Người chơi')}">${escapeHtml(item.playerName || 'Người chơi')}</span><span class="record-score">${Number(item.maxScore || 0).toLocaleString('vi-VN')} điểm</span></li>`).join('') : '<li class="record-empty">Chưa có kết quả online</li>';
-    if (status) status.textContent = entries.length ? `Top ${entries.length} người chơi · gồm ${entries.reduce((sum, item) => sum + Number(item.totalGamesPlayed || 0), 0).toLocaleString('vi-VN')} ván đã ghi nhận` : 'Bảng xếp hạng sẽ hiện khi có kết quả được đồng bộ.';
+    let response = await fetch(`${QUIZ_API_BASE_URL}/api/results?view=regular-leaderboard&limit=20`, { cache:'no-store' });
+    let data;
+    if (response.ok) {
+      data = await response.json();
+    }
+    // Fallback nếu máy chủ API chưa triển khai view=regular-leaderboard
+    if (!data || !Array.isArray(data.leaderboard)) {
+      const fallbackResp = await fetch(`${QUIZ_API_BASE_URL}/api/results?view=leaderboard&mode=regular&limit=20`, { cache:'no-store' });
+      if (fallbackResp.ok) {
+        data = await fallbackResp.json();
+      }
+    }
+    const entries = (data && Array.isArray(data.leaderboard)) ? data.leaderboard : [];
+    list.innerHTML = entries.length ? entries.map(item => `<li><span class="leaderboard-name" title="${escapeHtml(item.playerName || 'Người chơi')}">${escapeHtml(item.playerName || 'Người chơi')}</span><span class="record-score">${Number(item.maxScore || 0).toLocaleString('vi-VN')} điểm</span></li>`).join('') : '<li class="record-empty">Chưa có kết quả Regular online</li>';
+    if (status) status.textContent = entries.length ? `Top ${entries.length} người chơi Regular (Classic & VS) · ${entries.reduce((sum, item) => sum + Number(item.totalGamesPlayed || 0), 0).toLocaleString('vi-VN')} ván` : 'Leaderboard Regular sẽ hiện khi có kết quả được đồng bộ.';
   } catch (error) {
-    console.warn('Không tải được leaderboard:', error);
-    list.innerHTML = '<li class="record-empty">Chưa tải được bảng xếp hạng.</li>';
+    console.warn('Không tải được leaderboard Regular:', error);
+    list.innerHTML = '<li class="record-empty">Chưa tải được leaderboard Regular.</li>';
     if (status) status.textContent = 'Kiểm tra kết nối máy chủ rồi bấm Làm mới.';
   }
 }
+const loadRegularLeaderboard = loadLeaderboard;
 async function loadExpertLeaderboard() {
   const list = document.getElementById('expertLeaderboardList');
   const status = document.getElementById('expertLeaderboardStatus');
@@ -3947,7 +3965,10 @@ function saveRunRecord() {
   const profile = currentPlayer();
   if (!profile) return;
   const record = { recordId: profile.id + '-' + Date.now() + '-' + Math.random().toString(36).slice(2,7), playerId: profile.id, playerName: profile.name || 'Người chơi', score: state.score, step: state.step, correct: state.correctCount, total: state.questions.length, mode: state.mode, botScore: state.mode === 'vs' ? state.vs.botScore : null, botCorrect: state.mode === 'vs' ? state.vs.botCorrect : null, stealCorrect: state.mode === 'vs' ? state.vs.stealCorrect : null, stealOpportunities: state.mode === 'vs' ? state.vs.stealOpportunities : null, botStealCorrect: state.mode === 'vs' ? state.vs.botStealCorrect : null, botStealOpportunities: state.mode === 'vs' ? state.vs.botStealOpportunities : null, reachedFinish: state.reachedFinish, companions: state.companions.slice(), botCompanion: state.mode === 'vs' ? state.vs.botCompanion : null, botCompanions: state.mode === 'vs' ? state.vs.botCompanions.slice() : [], penaltyCount: state.mode === 'expert' ? (state.penaltyAppliedCount || 0) : null, totalPenalty: state.mode === 'expert' ? (state.totalPenalty || 0) : null, boardSize: currentBoardSize(), playedAt: new Date().toISOString() };
-  if (window.YTC_EXP) window.YTC_EXP.finishRun({ ...record, playerWon: state.mode === 'vs' && state.score > state.vs.botScore });
+  let expPromise = null;
+  if (window.YTC_EXP) {
+    expPromise = window.YTC_EXP.finishRun({ ...record, playerWon: state.mode === 'vs' && state.score > state.vs.botScore });
+  }
   profile.results.push(record);
   trimResults(profile, MAX_RESULTS);
   profile.updatedAt = nowIso();
@@ -3962,12 +3983,13 @@ function saveRunRecord() {
   }
   if (saved && QUIZ_API_BASE_URL) {
     if (result) result.textContent += ' Đang đồng bộ lên máy chủ…';
-    fetch(`${QUIZ_API_BASE_URL}/api/results`, {
+    const resultPromise = fetch(`${QUIZ_API_BASE_URL}/api/results`, {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(record), keepalive: true
-    }).then(async response => {
-      if (!response.ok) throw new Error(`HTTP ${response.status}`);
-      if (result) result.textContent += ' Đã lưu online.';
+    });
+    Promise.allSettled([resultPromise, expPromise]).then(([resResult]) => {
+      const ok = resResult && resResult.status === 'fulfilled' && resResult.value && resResult.value.ok;
+      if (ok && result) result.textContent += ' Đã lưu online.';
       loadLeaderboard();
       loadExpertLeaderboard();
       window.YTC_EXP?.loadLeaderboard();
@@ -4126,6 +4148,7 @@ renderRecords();
 renderCompanionIntro();
 loadLeaderboard();
 loadExpertLeaderboard();
+window.YTC_EXP?.loadLeaderboard();
 </script>
 <script>
 /* ===== Visual overhaul helpers (chỉ trang trí, không thay đổi logic game) ===== */
