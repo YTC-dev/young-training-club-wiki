@@ -12,10 +12,11 @@ Backend Express + Mongoose để lưu kết quả chơi từ `quiz-game.html` v�
 
 ## API
 
-- `POST /api/results` — lưu lượt chơi; gửi object kết quả game. `recordId` là khóa idempotent.
+- `POST /api/results` — lưu lượt chơi Classic, Expert hoặc VS; gửi object kết quả game. `recordId` là khóa idempotent.
 - `GET /api/results?limit=50` — danh sách kết quả theo điểm giảm dần (tối đa 100).
 - `GET /api/results/player/:playerId` — lịch sử của một ID (tối đa 100).
 - `GET /api/results?view=leaderboard&limit=20` — chế độ leaderboard của route results hiện có; gộp theo `playerId`, trả về tên gần nhất, điểm cao nhất và tổng số ván (tối đa 100 người chơi).
+- `GET /api/results?view=expert-leaderboard&limit=20` — leaderboard chỉ gồm kết quả Expert, gộp theo tài khoản và xếp theo điểm cao nhất.
 - `POST /api/exp/progress` — lưu snapshot EXP, thống kê nhiệm vụ và thành tựu của tài khoản.
 - `GET /api/exp/progress/:playerId` — đọc tiến độ EXP của một tài khoản để khôi phục trên thiết bị khác.
 - `GET /api/exp?view=leaderboard&limit=20` — leaderboard EXP theo `exp`, kèm level.

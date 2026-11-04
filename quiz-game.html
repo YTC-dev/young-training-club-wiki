@@ -1714,6 +1714,11 @@ html {
         <ol id="leaderboardList" class="leaderboard-list"><li class="record-empty">Đang tải bảng xếp hạng…</li></ol>
         <p id="leaderboardStatus" class="leaderboard-status" aria-live="polite"></p>
       </div>
+      <div class="record-column leaderboard-column expert-leaderboard-column">
+        <div class="leaderboard-heading"><h3>LEADERBOARD EXPERT</h3><button class="leaderboard-refresh" type="button" onclick="loadExpertLeaderboard()" aria-label="Làm mới leaderboard Expert">LÀM MỚI</button></div>
+        <ol id="expertLeaderboardList" class="leaderboard-list"><li class="record-empty">Đang tải leaderboard Expert…</li></ol>
+        <p id="expertLeaderboardStatus" class="leaderboard-status" aria-live="polite"></p>
+      </div>
     </div>
     <div class="record-column exp-leaderboard-column"><div class="leaderboard-heading"><h3>LEADERBOARD EXP</h3><button class="leaderboard-refresh" type="button" onclick="YTC_EXP?.loadLeaderboard()">LÀM MỚI</button></div><ol id="expLeaderboardList" class="exp-leaderboard-list"><li class="record-empty">Đang tải leaderboard EXP…</li></ol><p id="expLeaderboardStatus" class="leaderboard-status" aria-live="polite"></p></div>
     <p class="records-message" id="recordsMessage" aria-live="polite"></p>
@@ -3883,6 +3888,25 @@ async function loadLeaderboard() {
     if (status) status.textContent = 'Kiểm tra kết nối máy chủ rồi bấm Làm mới.';
   }
 }
+async function loadExpertLeaderboard() {
+  const list = document.getElementById('expertLeaderboardList');
+  const status = document.getElementById('expertLeaderboardStatus');
+  if (!list) return;
+  list.innerHTML = '<li class="record-empty">Đang tải leaderboard Expert…</li>';
+  if (status) status.textContent = '';
+  try {
+    const response = await fetch(`${QUIZ_API_BASE_URL}/api/results?view=expert-leaderboard&limit=20`, { cache: 'no-store' });
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    const data = await response.json();
+    const entries = Array.isArray(data.leaderboard) ? data.leaderboard : [];
+    list.innerHTML = entries.length ? entries.map(item => `<li><span class="leaderboard-name" title="${escapeHtml(item.playerName || 'Người chơi')}">${escapeHtml(item.playerName || 'Người chơi')}</span><span class="record-score">${Number(item.maxScore || 0).toLocaleString('vi-VN')} điểm</span></li>`).join('') : '<li class="record-empty">Chưa có kết quả Expert online</li>';
+    if (status) status.textContent = entries.length ? `Top ${entries.length} người chơi Expert · ${entries.reduce((sum, item) => sum + Number(item.totalGamesPlayed || 0), 0).toLocaleString('vi-VN')} ván` : 'Leaderboard Expert sẽ hiện khi có kết quả được đồng bộ.';
+  } catch (error) {
+    console.warn('Không tải được leaderboard Expert:', error);
+    list.innerHTML = '<li class="record-empty">Chưa tải được leaderboard Expert.</li>';
+    if (status) status.textContent = 'Kiểm tra kết nối máy chủ rồi bấm Làm mới.';
+  }
+}
 function renderRecords() {
   const p = currentPlayer(), list = p ? p.results : [], name = p && p.name ? p.name : 'Người chơi';
   const highscore = rankResults(list).slice(0, 5);
@@ -3945,6 +3969,7 @@ function saveRunRecord() {
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
       if (result) result.textContent += ' Đã lưu online.';
       loadLeaderboard();
+      loadExpertLeaderboard();
       window.YTC_EXP?.loadLeaderboard();
     }).catch(error => {
       console.warn('Không đồng bộ được kết quả lên API:', error);
@@ -4100,6 +4125,7 @@ function launchConfetti() {
 renderRecords();
 renderCompanionIntro();
 loadLeaderboard();
+loadExpertLeaderboard();
 </script>
 <script>
 /* ===== Visual overhaul helpers (chỉ trang trí, không thay đổi logic game) ===== */

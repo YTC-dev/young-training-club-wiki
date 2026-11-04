@@ -36,8 +36,9 @@ app.post('/api/results', async (req, res, next) => {
     for (const key of ['score', 'step', 'correct', 'total']) {
       if (!Number.isInteger(b[key]) || b[key] < 0 || b[key] > 1000000) return res.status(400).json({ error: `${key} không hợp lệ.` });
     }
-    if (!['classic', 'vs'].includes(b.mode)) return res.status(400).json({ error: 'mode phải là classic hoặc vs.' });
-    if (b.step > 50 || b.correct > b.total || b.total > 500) return res.status(400).json({ error: 'Số liệu kết quả không hợp lệ.' });
+    if (!['classic', 'expert', 'vs'].includes(b.mode)) return res.status(400).json({ error: 'mode phải là classic, expert hoặc vs.' });
+    const maxStep = b.mode === 'expert' ? 70 : 50;
+    if (b.step > maxStep || b.correct > b.total || b.total > 500) return res.status(400).json({ error: 'Số liệu kết quả không hợp lệ.' });
 
     const record = {
       recordId,
@@ -66,8 +67,10 @@ app.post('/api/results', async (req, res, next) => {
 app.get('/api/results', async (req, res, next) => {
   try {
     const limit = Math.min(Math.max(parseInt(req.query.limit, 10) || 50, 1), 100);
-    if (req.query.view === 'leaderboard') {
+    if (req.query.view === 'leaderboard' || req.query.view === 'expert-leaderboard') {
+      const match = req.query.view === 'expert-leaderboard' ? { mode: 'expert' } : {};
       const leaderboard = await GameResult.aggregate([
+        { $match: match },
         { $sort: { playedAt: -1, _id: 1 } },
         { $group: {
           _id: '$playerId',
