@@ -138,9 +138,10 @@
     if (expert) { if (score > 15000) completion = 30; else if (score > 8000) completion = 25; else if (score > 3500) completion = 20; }
     else { if (score > 10000) completion = 25; else if (score > 5000) completion = 20; else if (score > 2000) completion = 15; }
     addExp(completion, expert ? 'Hoàn thành lượt Expert' : 'Hoàn thành lượt chơi', p);
-    if (run.reachedFinish) addExp(expert || run.mode === 'vs' ? 15 : 10, 'Về đích', p);
+    const reached = Boolean(run.reachedFinish || (run.mode === 'vs' && (Number(run.step) >= 50 || run.reachedFinish)) || (run.mode === 'classic' && Number(run.step) >= 50) || (run.mode === 'expert' && Number(run.step) >= 70));
+    if (reached) addExp(expert || run.mode === 'vs' ? 15 : 10, 'Về đích', p);
     if (run.mode === 'vs' && run.playerWon) addExp(10, 'Thắng VS Mode', p);
-    if (run.reachedFinish) e.stats[expert ? 'expertFinishes' : run.mode === 'vs' ? 'vsFinishes' : 'classicFinishes']++;
+    if (reached) e.stats[expert ? 'expertFinishes' : run.mode === 'vs' ? 'vsFinishes' : 'classicFinishes']++;
     if (run.mode === 'vs' && run.playerWon) e.stats.botWins++;
     e.stats.totalScore += score;
     if (!expert && score >= 10000) e.stats.ytcLegendary++;
@@ -149,6 +150,45 @@
     checkAchievements(p);
     save(p);
     return sync(p, true);
+  }
+  function reconcileStats(p) {
+    p = p || current();
+    if (!p || !p.results || !Array.isArray(p.results)) return;
+    const e = ensureExp(p);
+    if (!e) return;
+    let vsFinishes = 0, classicFinishes = 0, expertFinishes = 0, botWins = 0;
+    p.results.forEach(r => {
+      const step = Number(r.step) || 0;
+      if (r.mode === 'vs') {
+        if (r.reachedFinish || step >= 50) vsFinishes++;
+        if (r.playerWon || (Number(r.score) > Number(r.botScore))) botWins++;
+      } else if (r.mode === 'expert') {
+        if (r.reachedFinish || step >= 70) expertFinishes++;
+      } else {
+        if (r.reachedFinish || step >= 50) classicFinishes++;
+      }
+    });
+    let changed = false;
+    if (vsFinishes > (e.stats.vsFinishes || 0)) {
+      e.stats.vsFinishes = vsFinishes;
+      changed = true;
+    }
+    if (classicFinishes > (e.stats.classicFinishes || 0)) {
+      e.stats.classicFinishes = classicFinishes;
+      changed = true;
+    }
+    if (expertFinishes > (e.stats.expertFinishes || 0)) {
+      e.stats.expertFinishes = expertFinishes;
+      changed = true;
+    }
+    if (botWins > (e.stats.botWins || 0)) {
+      e.stats.botWins = botWins;
+      changed = true;
+    }
+    if (changed) {
+      checkAchievements(p);
+      if (typeof window.savePlayerDb === 'function') window.savePlayerDb();
+    }
   }
   function sync(p, immediate = false) {
     p = p || current();
@@ -241,6 +281,7 @@
   }
   function render() {
     const p = current(), e = ensureExp(p); if (!e) return;
+    reconcileStats(p);
     const l = levelFor(e.exp);
     const set = (id, value) => { const el = document.getElementById(id); if (el) el.textContent = value; };
     set('profileExp', `${e.exp.toLocaleString('vi-VN')} EXP`);
@@ -285,11 +326,12 @@
       if (status) status.textContent = 'Kiểm tra kết nối máy chủ rồi bấm Làm mới.';
     }
   }
-  window.YTC_EXP = { event, finishRun, ensureExp, render, sync, syncFromCloud, loadLeaderboard, levelFor, daily: DAILY, achievements: ACHIEVEMENTS };
+  window.YTC_EXP = { event, finishRun, ensureExp, render, sync, syncFromCloud, loadLeaderboard, reconcileStats, levelFor, daily: DAILY, achievements: ACHIEVEMENTS };
   window.addEventListener('DOMContentLoaded', async () => {
     const p = current();
     if (p) {
       ensureExp(p);
+      reconcileStats(p);
       event('login');
       await syncFromCloud(p);
       render();
