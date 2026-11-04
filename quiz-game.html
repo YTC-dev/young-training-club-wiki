@@ -1332,6 +1332,33 @@ body.name-gate-open { overflow: hidden; }
 }
 html, body { font-family: var(--font-body); background: var(--asphalt); background-attachment: scroll; }
 
+/* ---------- Scrollbar YTC ---------- */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: #22b7df #071a38;
+}
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #22b7df rgba(7,26,56,.82);
+}
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track {
+  background: linear-gradient(180deg, #071a38, #0b2852);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb {
+  min-height: 42px;
+  border: 2px solid #071a38;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #72e2ff, #168dbd 55%, #234e8a);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.2), 0 0 8px rgba(34,183,223,.25);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #fff0b2, #ffd05c 55%, #e39c22);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.38), 0 0 10px rgba(255,208,92,.42);
+}
+::-webkit-scrollbar-corner { background: #071a38; }
+
 /* Nền: ánh đèn đường đua, vạch tốc độ chéo và dải ca-rô dưới chân trang */
 .ambient {
   position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden;
@@ -1512,6 +1539,7 @@ html, body { font-family: var(--font-body); background: var(--asphalt); backgrou
   transition: transform .2s ease, box-shadow .2s ease;
 }
 .credits-trigger:hover { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(3,18,48,.38); }
+.game-is-active .credits-trigger { display: none; }
 .credits-trigger:focus-visible, .credits-close:focus-visible { outline: 3px solid #ffd05c; outline-offset: 3px; }
 .credits-trigger .ui-icon { color: #168dbd; }
 .credits-overlay {
@@ -2713,7 +2741,7 @@ function checkVSMilestone(fromStep,target){if(state.mode!=='vs'||!state.vs)retur
 function openVSSetup() { const grid=document.getElementById('vsCompanionChoices'); grid.innerHTML=''; window.vsSetupChoice=null; VS_COMPANIONS.forEach(c=>{const card=document.createElement('button'); card.type='button'; card.className='vs-companion-choice'; const image=COMPANION_IMAGES[c.id]; card.innerHTML=`${image?`<img src="${image}" alt="${c.name}" loading="lazy">`:''}<strong>${c.name}</strong><small>${c.ability}</small>`; card.onclick=()=>{window.vsSetupChoice=c.id; document.querySelectorAll('.vs-companion-choice').forEach(x=>x.classList.remove('selected')); card.classList.add('selected');}; grid.appendChild(card)}); document.getElementById('coinResult').textContent=''; document.getElementById('vsSetup').classList.add('show'); }
 function closeVSSetup(){document.getElementById('vsSetup').classList.remove('show');}
 function tossCoin(){ if(!window.vsSetupChoice){document.getElementById('coinResult').textContent='Hãy chọn người đồng hành trước.'; return;} const playerFirst=Math.random()<.5; document.getElementById('coinResult').textContent='Đồng xu: '+(playerFirst?'Bạn đi trước!':'Bot đi trước!'); setTimeout(()=>beginVSGame(playerFirst),900); }
-function beginVSGame(playerFirst){ if (!ensurePlayerName()) return; window.YTC_EXP?.event('mode'); closeVSSetup(); playSound('start'); showLoading('Đang chuẩn bị VS mode...'); setTimeout(()=>{resetState(); renderActionLog(); logAction(playerFirst?'Đồng xu: bạn đi trước':'Đồng xu: Bot đi trước','sys'); state.mode='vs'; state.vs.playerCompanion=window.vsSetupChoice; state.vs.botCompanion=VS_COMPANIONS[Math.floor(Math.random()*VS_COMPANIONS.length)].id; state.vs.botCompanions=[]; state.vs.playerTurn=playerFirst; state.sessionId=(window.__ytcSessionId||0)+1; window.__ytcSessionId=state.sessionId; state.questions=buildQuestionDeck(); document.getElementById('startScreen').classList.remove('active'); document.getElementById('gameScreen').classList.add('active'); buildBoard(); renderCompanions(); updateTopbar(); updateVSHUD(); loadQuestion(false); runStartCountdown(); hideLoading(); },720); }
+function beginVSGame(playerFirst){ if (!ensurePlayerName()) return; window.YTC_EXP?.event('mode'); closeVSSetup(); playSound('start'); showLoading('Đang chuẩn bị VS mode...'); setTimeout(()=>{resetState(); renderActionLog(); logAction(playerFirst?'Đồng xu: bạn đi trước':'Đồng xu: Bot đi trước','sys'); state.mode='vs'; state.vs.playerCompanion=window.vsSetupChoice; state.vs.botCompanion=VS_COMPANIONS[Math.floor(Math.random()*VS_COMPANIONS.length)].id; state.vs.botCompanions=[]; state.vs.playerTurn=playerFirst; state.sessionId=(window.__ytcSessionId||0)+1; window.__ytcSessionId=state.sessionId; state.questions=buildQuestionDeck(); document.getElementById('startScreen').classList.remove('active'); document.getElementById('gameScreen').classList.add('active'); document.body.classList.add('game-is-active'); buildBoard(); renderCompanions(); updateTopbar(); updateVSHUD(); loadQuestion(false); runStartCountdown(); hideLoading(); },720); }
 function startGame() {
   if (!ensurePlayerName()) return;
   if (selectedGameMode === 'expert') window.YTC_EXP?.event('mode');
@@ -2730,6 +2758,7 @@ function startGame() {
     state.questions = buildQuestionDeck(state.mode);
     document.getElementById('startScreen').classList.remove('active');
     document.getElementById('gameScreen').classList.add('active');
+    document.body.classList.add('game-is-active');
     buildBoard();
     renderCompanions();
     updateTopbar();
@@ -2830,6 +2859,7 @@ function restartGame() {
   hideLoading();
   document.getElementById('gameScreen').classList.remove('active');
   document.getElementById('startScreen').classList.add('active');
+  document.body.classList.remove('game-is-active');
 }
 
 /* ============================================================
