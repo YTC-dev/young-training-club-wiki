@@ -1202,6 +1202,12 @@ body.pause-open { overflow: hidden; }
 .player-name-input:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(255,210,74,.2); }
 .profile-btn, .profile-close { border: 1px solid rgba(214,239,255,.5); border-radius: 12px; padding: 11px 16px; color: #eaf6ff; background: rgba(255,255,255,.1); font-weight: 800; cursor: pointer; }
 .profile-btn:hover, .profile-close:hover { background: rgba(255,255,255,.18); border-color: rgba(255,255,255,.8); }
+.player-view-actions { display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin:0 auto 14px; }
+.exp-view-btn, .game-exp-chip { color:#172f55; background:linear-gradient(135deg,#ffe08a,#ffc94f); border-color:rgba(255,224,138,.8); }
+.exp-view-btn:hover, .game-exp-chip:hover { background:linear-gradient(135deg,#fff0b2,#ffd96d); }
+.game-exp-chip { white-space:nowrap; }
+.exp-card { width:min(100%,760px); }
+.exp-modal-actions { display:flex; justify-content:flex-end; margin-top:18px; }
 .player-id-note { display: block; margin-top: 8px; color: #ccecff; font-size: 12px; }
 .profile-modal { position: fixed; inset: 0; z-index: 520; display: none; align-items: center; justify-content: center; padding: 20px; background: rgba(5,16,36,.82); backdrop-filter: blur(10px); }
 .profile-modal.show { display: flex; }
@@ -1231,6 +1237,9 @@ body.pause-open { overflow: hidden; }
 .exp-summary-head strong { color:#ffd05c; font-size:20px; }
 .exp-summary-head span { color:#8fe7ff; font-weight:900; }
 .exp-next { margin-top:5px; color:#b9d5ef; font-size:11px; }
+.exp-progress { height: 10px; margin-top: 10px; overflow: hidden; border: 1px solid rgba(143,231,255,.28); border-radius: 999px; background: rgba(4,18,42,.62); box-shadow: inset 0 1px 3px rgba(0,0,0,.25); }
+.exp-progress-bar { width: 0%; height: 100%; border-radius: inherit; background: linear-gradient(90deg,#16c4e8,#ffd05c); box-shadow: 0 0 12px rgba(22,196,232,.5); transition: width .35s ease; }
+.exp-progress-label { margin-top: 5px; color: #8fe7ff; font-size: 10px; font-weight: 800; text-align: right; }
 .exp-achievement-list { display:grid; gap:6px; max-height:220px; overflow:auto; margin:10px 0 0; padding:0; list-style:none; }
 .exp-achievement { display:flex; justify-content:space-between; gap:10px; padding:8px 10px; border-radius:9px; color:#b9d5ef; background:rgba(255,255,255,.055); font-size:11px; }
 .exp-achievement b { color:#8fe7ff; white-space:nowrap; }
@@ -1613,7 +1622,7 @@ html, body { font-family: var(--font-body); background: var(--asphalt); backgrou
   <div class="start-logo">YTC • YOUNG TRAINING CLUB</div>
   <h1 class="start-title">QUIZ <span>RACE</span><br>ĐUA VỀ ĐÍCH</h1>
   <p class="start-slogan">"Ý tưởng lớn - Tài năng trẻ - Chung niềm tin"<br>Trả lời đúng — Tung xúc xắc — Tiến về vạch đích!</p>
-  <button class="profile-btn" type="button" onclick="openProfile()">XEM PROFILE NGƯỜI CHƠI</button>
+  <div class="player-view-actions"><button class="profile-btn" type="button" onclick="openProfile()">XEM HỒ SƠ NGƯỜI CHƠI</button><button class="profile-btn exp-view-btn" type="button" onclick="openExp()">XEM EXP NGƯỜI CHƠI</button></div>
   <div class="mode-switcher" role="group" aria-label="Chọn chế độ chơi"><button class="mode-btn active" id="classicModeBtn" type="button" aria-pressed="true" onclick="setGameMode('classic')">CLASSIC</button><button class="mode-btn" id="expertModeBtn" type="button" aria-pressed="false" onclick="setGameMode('expert')">EXPERT</button><button class="mode-btn" id="vsModeBtn" type="button" aria-pressed="false" onclick="setGameMode('vs')">VS MODE</button></div>
   <section class="vs-guide" aria-labelledby="vsGuideTitle">
     <h3 id="vsGuideTitle">HƯỚNG DẪN VS MODE</h3>
@@ -1697,7 +1706,7 @@ html, body { font-family: var(--font-body); background: var(--asphalt); backgrou
     <div class="topbar-logo"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 21V4m0 1h14l-3 4 3 4H5"/><path d="M9 5v4m4-4v4m-4 0v4m4-4v4"/></svg> YTC QUIZ RACE</div>
     <div class="topbar-actions">
       <button class="pause-btn" id="pauseBtn" type="button" onclick="togglePause()" aria-pressed="false" aria-keyshortcuts="P" disabled>Ⅱ TẠM DỪNG</button>
-      <button class="profile-btn game-player-chip" type="button" onclick="openProfile()" id="gameProfileButton" aria-label="Xem profile người chơi">◉ <span id="gamePlayerName">Người chơi</span></button>
+      <button class="profile-btn game-player-chip" type="button" onclick="openProfile()" id="gameProfileButton" aria-label="Xem hồ sơ người chơi">◉ <span id="gamePlayerName">Người chơi</span></button><button class="profile-btn game-exp-chip" type="button" onclick="openExp()" aria-label="Xem EXP người chơi">✦ EXP</button>
       <button class="home-link" type="button" onclick="restartGame()" aria-label="Chơi lại"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11a8 8 0 1 0 1 4"/><path d="M20 4v7h-7"/></svg> Chơi lại</button>
     </div>
     <div class="topbar-stats">
@@ -1807,7 +1816,9 @@ html, body { font-family: var(--font-body); background: var(--asphalt); backgrou
 </div>
 
 <!-- ====================== PLAYER PROFILE MODAL ====================== -->
-<div class="profile-modal" id="profileModal" role="dialog" aria-modal="true" aria-labelledby="profileTitle"><div class="profile-card"><h2 id="profileTitle">PROFILE NGƯỜI CHƠI</h2><p>ID, tên và kết quả của bạn được lưu trên thiết bị này. Hãy ghi nhớ ID để vào lại lần sau.</p><form class="profile-form" onsubmit="savePlayerProfileAndContinue(event)"><input id="profileNameInput" class="player-name-input" type="text" maxlength="40" autocomplete="name" placeholder="Tên người chơi" aria-label="Tên người chơi trong profile"><button class="profile-save" type="submit">LƯU TÊN</button></form><div class="profile-message" id="profileMessage" aria-live="polite"></div><section class="exp-summary" aria-labelledby="expSummaryTitle"><div class="exp-summary-head"><strong id="profileExp">0 EXP</strong><span id="profileLevel">Level 0</span></div><div class="exp-next" id="profileExpNext">100 EXP đến Level 1</div><div class="exp-next" id="profileAchievementSummary">0/12 nhiệm vụ</div><ul class="exp-achievement-list" id="expAchievementList"></ul></section><div class="profile-summary"><div class="profile-summary-item"><small>ID người chơi</small><strong id="profilePlayerId">—</strong></div><div class="profile-summary-item"><small>Tên người chơi</small><strong id="profilePlayerName">Chưa đặt tên</strong></div><div class="profile-summary-item"><small>Số lượt chơi</small><strong id="profilePlayCount">0</strong></div><div class="profile-summary-item"><small>Điểm cao nhất</small><strong id="profileBestScore">0</strong></div></div><div class="profile-id-actions"><button class="profile-btn" type="button" onclick="copyPlayerId()">SAO CHÉP ID</button><button class="profile-btn" type="button" onclick="syncPlayerFromCloud()">ĐỒNG BỘ MÁY CHỦ</button><button class="profile-btn" type="button" onclick="logoutPlayer()">ĐĂNG XUẤT</button></div><h3>KẾT QUẢ ĐÃ LƯU</h3><div class="profile-results" id="profileResults"><div class="record-empty">Chưa có kết quả nào.</div></div><button class="profile-results-toggle" id="profileResultsToggle" type="button" aria-controls="profileResults" aria-expanded="false" onclick="toggleProfileHistory()" hidden>XEM THÊM</button><div class="profile-actions"><button class="profile-close" type="button" onclick="closeProfile()">ĐÓNG</button><button class="profile-save" type="button" onclick="startFromProfile()">LƯU & BẮT ĐẦU</button></div></div></div>
+<div class="profile-modal" id="profileModal" role="dialog" aria-modal="true" aria-labelledby="profileTitle"><div class="profile-card"><h2 id="profileTitle">PROFILE NGƯỜI CHƠI</h2><p>ID, tên và kết quả của bạn được lưu trên thiết bị này. Hãy ghi nhớ ID để vào lại lần sau.</p><form class="profile-form" onsubmit="savePlayerProfileAndContinue(event)"><input id="profileNameInput" class="player-name-input" type="text" maxlength="40" autocomplete="name" placeholder="Tên người chơi" aria-label="Tên người chơi trong profile"><button class="profile-save" type="submit">LƯU TÊN</button></form><div class="profile-message" id="profileMessage" aria-live="polite"></div><div class="profile-summary"><div class="profile-summary-item"><small>ID người chơi</small><strong id="profilePlayerId">—</strong></div><div class="profile-summary-item"><small>Tên người chơi</small><strong id="profilePlayerName">Chưa đặt tên</strong></div><div class="profile-summary-item"><small>Số lượt chơi</small><strong id="profilePlayCount">0</strong></div><div class="profile-summary-item"><small>Điểm cao nhất</small><strong id="profileBestScore">0</strong></div></div><div class="profile-id-actions"><button class="profile-btn" type="button" onclick="copyPlayerId()">SAO CHÉP ID</button><button class="profile-btn" type="button" onclick="syncPlayerFromCloud()">ĐỒNG BỘ MÁY CHỦ</button><button class="profile-btn" type="button" onclick="logoutPlayer()">ĐĂNG XUẤT</button></div><h3>KẾT QUẢ ĐÃ LƯU</h3><div class="profile-results" id="profileResults"><div class="record-empty">Chưa có kết quả nào.</div></div><button class="profile-results-toggle" id="profileResultsToggle" type="button" aria-controls="profileResults" aria-expanded="false" onclick="toggleProfileHistory()" hidden>XEM THÊM</button><div class="profile-actions"><button class="profile-close" type="button" onclick="closeProfile()">ĐÓNG</button><button class="profile-save" type="button" onclick="startFromProfile()">LƯU & BẮT ĐẦU</button></div></div></div>
+
+<div class="profile-modal exp-modal" id="expModal" role="dialog" aria-modal="true" aria-labelledby="expTitle"><div class="profile-card exp-card"><h2 id="expTitle">EXP NGƯỜI CHƠI</h2><p>Tiến độ EXP, level, nhiệm vụ ngày và thành tựu của bạn.</p><section class="exp-summary" aria-labelledby="expSummaryTitle"><div class="exp-summary-head"><strong id="profileExp">0 EXP</strong><span id="profileLevel">Level 0</span></div><div class="exp-next" id="profileExpNext">100 EXP đến Level 1</div><div class="exp-progress" role="progressbar" aria-label="Tiến độ level EXP" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="exp-progress-bar" id="profileExpProgress"></div></div><div class="exp-progress-label" id="profileExpProgressLabel">0%</div><div class="exp-next" id="profileAchievementSummary">0/12 nhiệm vụ</div><ul class="exp-achievement-list" id="expAchievementList"></ul></section><div class="exp-modal-actions"><button class="profile-close" type="button" onclick="closeExp()">ĐÓNG</button></div></div></div>
 
 <!-- ====================== GAME OVER MODAL ====================== -->
 <div class="modal-overlay" id="gameOverModal">
@@ -2088,6 +2099,14 @@ function openProfile(o = {}) {
   setTimeout(() => document.getElementById('profileNameInput')?.focus(), 30);
 }
 function closeProfile() { document.getElementById('profileModal').classList.remove('show'); document.body.classList.remove('modal-open'); profileStartPending = false; }
+function openExp() {
+  refreshPlayerUI();
+  window.YTC_EXP?.render();
+  window.YTC_EXP?.loadLeaderboard();
+  document.getElementById('expModal').classList.add('show');
+  document.body.classList.add('modal-open');
+}
+function closeExp() { document.getElementById('expModal').classList.remove('show'); document.body.classList.remove('modal-open'); }
 function savePlayerName(name) {
   const p = currentPlayer(), n = cleanName(name);
   if (!p || n.length < 2 || hasInappropriateNameWord(n)) return false;

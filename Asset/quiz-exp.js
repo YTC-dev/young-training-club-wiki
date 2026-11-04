@@ -161,6 +161,13 @@
     set('profileExp', `${e.exp.toLocaleString('vi-VN')} EXP`);
     set('profileLevel', `Level ${l.level}`);
     set('profileExpNext', `${Math.max(0, l.next - e.exp).toLocaleString('vi-VN')} EXP đến Level ${l.level + 1}`);
+    const levelSpan = Math.max(1, l.next - l.current);
+    const progress = Math.min(100, Math.max(0, ((e.exp - l.current) / levelSpan) * 100));
+    const progressBar = document.getElementById('profileExpProgress');
+    const progressTrack = progressBar?.parentElement;
+    if (progressBar) progressBar.style.width = `${progress.toFixed(2)}%`;
+    if (progressTrack) progressTrack.setAttribute('aria-valuenow', String(Math.round(progress)));
+    set('profileExpProgressLabel', `${Math.round(progress)}% · ${Math.max(0, e.exp - l.current).toLocaleString('vi-VN')}/${levelSpan.toLocaleString('vi-VN')} EXP trong level`);
     const completed = Object.keys(e.achievements).length;
     set('profileAchievementSummary', `${completed}/${ACHIEVEMENTS.length} nhiệm vụ · ${e.hiddenAchievements.length ? 'Chờ admin xác minh thành tựu ẩn' : 'Chưa có thành tựu ẩn'}`);
     const list = document.getElementById('expAchievementList');
