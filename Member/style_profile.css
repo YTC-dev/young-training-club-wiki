@@ -605,6 +605,34 @@
       text-decoration: none;
     }
 
+    .profile-copy-icon { width: 18px; height: 18px; flex: 0 0 auto; filter: drop-shadow(0 1px 2px rgba(4, 0, 107, .22)); }
+
+    .profile-hero .profile-copy-btn {
+      appearance: none;
+      color: #fff;
+      background: linear-gradient(135deg, rgba(255,255,255,.28), rgba(126,214,255,.2));
+      border: 1px solid rgba(255,255,255,.58);
+      padding: 8px 16px;
+      border-radius: 999px;
+      font: inherit;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform .2s ease, box-shadow .2s ease, background .2s ease, border-color .2s ease;
+      position: relative;
+      z-index: 1;
+      box-shadow: 0 7px 18px rgba(4, 0, 107, .22), 0 0 0 3px rgba(126, 214, 255, .12);
+      text-shadow: 0 1px 2px rgba(4, 0, 107, .28);
+    }
+
+    .profile-hero .profile-copy-btn:hover,
+    .profile-hero .profile-copy-btn.is-copied {
+      background: linear-gradient(135deg, rgba(255,255,255,.42), rgba(126,214,255,.34));
+      border-color: rgba(255,255,255,.9);
+      color: #fff;
+      transform: translateY(-3px);
+      box-shadow: 0 11px 24px rgba(4, 0, 107, .3), 0 0 0 4px rgba(126, 214, 255, .2);
+    }
     .profile-hero .social-row a:hover {
       background: rgba(255,255,255,0.3);
       color: #fff;

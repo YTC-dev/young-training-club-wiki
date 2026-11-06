@@ -525,3 +525,48 @@ function initJadeAchievementDialog() {
 }
 
 initJadeAchievementDialog();
+// ===== COPY PROFILE LINK =====
+function initProfileLinkCopy() {
+  const profileHero = document.querySelector('.profile-hero');
+  if (!profileHero || profileHero.querySelector('.profile-copy-btn')) return;
+
+  const host = profileHero.querySelector('.social-row') || profileHero;
+  const button = document.createElement('button');
+  button.type = 'button';
+  button.className = 'profile-copy-btn';
+  button.setAttribute('aria-label', 'Sao chép liên kết hồ sơ thành viên');
+  button.innerHTML = '<svg class="profile-copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l2-2a5 5 0 0 0-7.07-7.07l-1.15 1.15"/><path d="M14 11a5 5 0 0 0-7.54-.54l-2 2a5 5 0 0 0 7.07 7.07l1.15-1.15"/></svg> Copy Profile Link';
+
+  button.addEventListener('click', async () => {
+    const original = button.innerHTML;
+    try {
+      const url = window.location.href;
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(url);
+      } else {
+        const area = document.createElement('textarea');
+        area.value = url;
+        area.setAttribute('readonly', '');
+        area.style.position = 'fixed';
+        area.style.opacity = '0';
+        document.body.appendChild(area);
+        area.select();
+        if (!document.execCommand('copy')) throw new Error('copy failed');
+        area.remove();
+      }
+      button.classList.add('is-copied');
+      button.textContent = 'Đã sao chép';
+      setTimeout(() => {
+        button.innerHTML = original;
+        button.classList.remove('is-copied');
+      }, 1800);
+    } catch (error) {
+      button.textContent = 'Không thể sao chép';
+      setTimeout(() => { button.innerHTML = original; }, 1800);
+    }
+  });
+
+  host.appendChild(button);
+}
+
+initProfileLinkCopy();
