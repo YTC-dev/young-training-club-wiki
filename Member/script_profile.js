@@ -530,7 +530,7 @@ function initProfileLinkCopy() {
   const profileHero = document.querySelector('.profile-hero');
   if (!profileHero || profileHero.querySelector('.profile-copy-btn')) return;
 
-  const host = profileHero.querySelector('.social-row') || profileHero;
+  const host = profileHero.querySelector('.social-row') || profileHero.querySelector('.profile-actions-row') || profileHero;
   const button = document.createElement('button');
   button.type = 'button';
   button.className = 'profile-copy-btn';
@@ -570,3 +570,69 @@ function initProfileLinkCopy() {
 }
 
 initProfileLinkCopy();
+
+// ===== BIRTHDAY CELEBRATION =====
+function initBirthdayCelebration() {
+  const birthdayRow = [...document.querySelectorAll('.info-row')].find(row => {
+    const label = row.querySelector('.label');
+    return label && label.textContent.trim().toLowerCase() === 'ngày sinh';
+  });
+  if (!birthdayRow) return;
+
+  const value = birthdayRow.querySelector('.value');
+  const match = value?.textContent.trim().match(/^(\d{1,2})[./-](\d{1,2})(?:[./-](\d{2,4}))?$/);
+  if (!match) return;
+
+  const day = Number(match[1]);
+  const month = Number(match[2]);
+  const rawYear = match[3] ? Number(match[3]) : null;
+  const year = rawYear && rawYear < 100 ? 2000 + rawYear : rawYear;
+  if (day < 1 || day > 31 || month < 1 || month > 12) return;
+
+  // Chuẩn hóa phần hiển thị về DD/MM/YYYY (hoặc DD/MM nếu không có năm)
+  if (value) {
+    value.textContent = year
+      ? `${String(day).padStart(2, '0')}/${String(month).padStart(2, '0')}/${year}`
+      : `${String(day).padStart(2, '0')}/${String(month).padStart(2, '0')}`;
+  }
+
+  const today = new Date();
+  const urlParams = new URLSearchParams(window.location.search);
+  const isPreview = urlParams.has('birthday') || window.location.hash === '#birthday';
+
+  if (!isPreview && (today.getDate() !== day || today.getMonth() + 1 !== month)) return;
+
+  const hero = document.querySelector('.profile-hero');
+  if (!hero || hero.querySelector('.birthday-celebration')) return;
+
+  document.body.classList.add('is-birthday');
+  const banner = document.createElement('div');
+  banner.className = 'birthday-celebration';
+  banner.setAttribute('role', 'status');
+  banner.setAttribute('aria-live', 'polite');
+  banner.innerHTML = `
+    <div class="birthday-celebration__confetti" aria-hidden="true">
+      <span></span><span></span><span></span><span></span><span></span><span></span>
+    </div>
+    <div class="birthday-celebration__icon" aria-hidden="true">
+      <img src="Image/birthday-cake.png" alt="Bánh sinh nhật" class="birthday-celebration__cake-img" width="56" height="54" loading="eager" decoding="async" />
+    </div>
+    <div class="birthday-celebration__copy">
+      <strong>Hôm nay là sinh nhật!</strong>
+      <span>Hãy gửi lời chúc tốt đẹp nhất nha!</span>
+    </div>
+  `;
+  hero.appendChild(banner);
+  playBirthdayBurst();
+}
+
+function playBirthdayBurst() {
+  const burst = document.createElement('div');
+  burst.className = 'birthday-burst';
+  burst.setAttribute('aria-hidden', 'true');
+  burst.innerHTML = Array.from({ length: 24 }, (_, index) => `<i style="--i:${index}"></i>`).join('');
+  document.body.appendChild(burst);
+  window.setTimeout(() => burst.remove(), 4200);
+}
+
+initBirthdayCelebration();
