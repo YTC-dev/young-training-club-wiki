@@ -653,45 +653,67 @@
       }
     }
 
-    /* ===== LOAD MORE BUTTON ===== */
+    /* ===== PAGINATION ===== */
     .is-hidden {
       display: none !important;
     }
 
-    .load-more-wrap {
+    .pagination-wrap {
       display: flex;
+      align-items: center;
       justify-content: center;
+      flex-wrap: wrap;
+      gap: 8px;
       padding: 28px 16px 20px;
     }
 
-    .load-more-btn {
+    .pagination-wrap--top {
+      padding-top: 0;
+      padding-bottom: 22px;
+    }
+
+    .pagination-btn {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      font-size: 0.96rem;
+      justify-content: center;
+      min-width: 42px;
+      height: 42px;
+      padding: 0 14px;
+      font-size: 0.9rem;
       font-weight: 700;
+      color: var(--blue-dark);
+      background: #ffffff;
+      border: 1.5px solid rgba(161, 227, 255, 0.75);
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: 0 3px 12px rgba(44, 59, 144, 0.07);
+      transition: all 0.2s ease;
+    }
+
+    .pagination-btn:hover:not(:disabled) {
+      color: var(--blue-accent);
+      border-color: var(--blue-accent);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(9, 131, 254, 0.18);
+    }
+
+    .pagination-btn.active {
       color: #ffffff;
       background: linear-gradient(135deg, #0983fe, #04006b);
-      border: none;
-      padding: 13px 32px;
-      border-radius: 30px;
-      cursor: pointer;
-      box-shadow: 0 6px 20px rgba(9, 131, 254, 0.28);
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      border-color: var(--blue-accent);
+      box-shadow: 0 5px 16px rgba(9, 131, 254, 0.28);
     }
 
-    .load-more-btn:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 10px 28px rgba(9, 131, 254, 0.4);
+    .pagination-btn:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+      box-shadow: none;
     }
 
-    .load-more-btn .arrow {
-      transition: transform 0.25s ease;
-      display: inline-block;
-    }
-
-    .load-more-btn.is-expanded .arrow {
-      transform: rotate(180deg);
+    .pagination-ellipsis {
+      color: var(--text-muted);
+      padding: 0 2px;
+      font-weight: 700;
     }
 
     /* Empty state */
@@ -753,6 +775,17 @@
         padding: 6px 14px;
         font-size: 0.82rem;
       }
+      .pagination-wrap {
+        gap: 6px;
+        padding-left: 8px;
+        padding-right: 8px;
+      }
+      .pagination-btn {
+        min-width: 38px;
+        height: 38px;
+        padding: 0 10px;
+        font-size: 0.84rem;
+      }
     }
   </style>
 </head>
@@ -789,6 +822,9 @@
 
     <!-- RESULTS STATUS -->
     <div class="results-status" id="resultsStatus"></div>
+
+    <!-- TOP PAGINATION -->
+    <div class="pagination-wrap pagination-wrap--top" id="pagination-top" aria-label="Phân trang tin tức phía trên"></div>
 
     <!-- EVENTS GRID -->
     <div class="events-grid" id="events-grid">
@@ -1902,13 +1938,8 @@
       <p style="font-size: 0.9rem; margin-top: 6px;">Hãy thử tìm kiếm với từ khóa khác hoặc chọn lại bộ lọc.</p>
     </div>
 
-    <!-- LOAD MORE BUTTON -->
-    <div class="load-more-wrap">
-      <button type="button" class="load-more-btn" id="load-more-btn" onclick="toggleEvents()">
-        <span id="load-more-text">Xem thêm hoạt động</span>
-        <span class="arrow">▼</span>
-      </button>
-    </div>
+    <!-- PAGINATION -->
+    <div class="pagination-wrap" id="pagination" aria-label="Phân trang tin tức"></div>
 
   </div>
 </section>
@@ -1920,9 +1951,10 @@
 
 <script src="Asset/script.js"></script>
 <script>
-  var VISIBLE_COUNT = 6;
+  var ITEMS_PER_PAGE = 9;
   var currentCategory = 'all';
-  var isExpanded = false;
+  var currentPage = 1;
+  var previousQuery = '';
 
   function getAllCards() {
     var grid = document.getElementById('events-grid');
@@ -1940,13 +1972,72 @@
       chipEl.classList.add('active');
     }
 
-    isExpanded = false;
+    currentPage = 1;
     filterEvents();
+  }
+
+  function changePage(page) {
+    currentPage = page;
+    filterEvents();
+    var grid = document.getElementById('events-grid');
+    if (grid) {
+      grid.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
+
+  function renderPagination(totalPages) {
+    var paginations = document.querySelectorAll('#pagination-top, #pagination');
+    if (!paginations.length) return;
+    paginations.forEach(function(pagination) {
+      pagination.innerHTML = '';
+    });
+    if (totalPages <= 1) {
+      paginations.forEach(function(pagination) {
+        pagination.style.display = 'none';
+      });
+      return;
+    }
+    paginations.forEach(function(pagination) {
+      pagination.style.display = 'flex';
+    });
+
+    function addButton(pagination, label, page, disabled, active, ariaLabel) {
+      var button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'pagination-btn' + (active ? ' active' : '');
+      button.textContent = label;
+      button.disabled = disabled;
+      if (ariaLabel) button.setAttribute('aria-label', ariaLabel);
+      if (active) button.setAttribute('aria-current', 'page');
+      if (!disabled && !active) button.addEventListener('click', function() { changePage(page); });
+      pagination.appendChild(button);
+    }
+
+    paginations.forEach(function(pagination) {
+      addButton(pagination, '‹ Trước', currentPage - 1, currentPage === 1, false, 'Trang trước');
+      for (var page = 1; page <= totalPages; page++) {
+        if (totalPages > 7 && page > 2 && page < totalPages - 1 && Math.abs(page - currentPage) > 1) {
+          if (!pagination.querySelector('.pagination-ellipsis')) {
+            var firstEllipsis = document.createElement('span');
+            firstEllipsis.className = 'pagination-ellipsis';
+            firstEllipsis.textContent = '…';
+            pagination.appendChild(firstEllipsis);
+          }
+          continue;
+        }
+        addButton(pagination, String(page), page, false, page === currentPage, 'Trang ' + page);
+      }
+      addButton(pagination, 'Sau ›', currentPage + 1, currentPage === totalPages, false, 'Trang sau');
+    });
   }
 
   function filterEvents() {
     var searchInput = document.getElementById('searchInput');
     var query = (searchInput ? searchInput.value : '').toLowerCase().trim();
+    if (query !== previousQuery) {
+      currentPage = 1;
+      previousQuery = query;
+    }
     var allCards = getAllCards();
     var matchingCards = [];
 
@@ -1968,61 +2059,36 @@
 
     // Update empty state
     var emptyState = document.getElementById('emptyState');
-    var loadMoreWrap = document.querySelector('.load-more-wrap');
     var resultsStatus = document.getElementById('resultsStatus');
 
     if (matchingCards.length === 0) {
       if (emptyState) emptyState.classList.add('active');
-      if (loadMoreWrap) loadMoreWrap.style.display = 'none';
+      renderPagination(0);
       if (resultsStatus) resultsStatus.textContent = '0 hoạt động';
       return;
     } else {
       if (emptyState) emptyState.classList.remove('active');
-      if (loadMoreWrap) loadMoreWrap.style.display = 'flex';
     }
 
-    // Apply pagination
-    var showAll = isExpanded || query !== '' || currentCategory !== 'all';
+    // Apply pagination: tối đa 9 tin trên mỗi trang.
+    var totalPages = Math.ceil(matchingCards.length / ITEMS_PER_PAGE);
+    if (currentPage > totalPages) currentPage = totalPages;
+    var startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+    var endIndex = startIndex + ITEMS_PER_PAGE;
     matchingCards.forEach(function(card, index) {
-      if (showAll || index < VISIBLE_COUNT) {
+      if (index >= startIndex && index < endIndex) {
         card.classList.remove('is-hidden');
       } else {
         card.classList.add('is-hidden');
       }
     });
 
-    // Update button & status
-    var btn = document.getElementById('load-more-btn');
-    var text = document.getElementById('load-more-text');
-
     if (resultsStatus) {
-      var visibleNow = showAll ? matchingCards.length : Math.min(VISIBLE_COUNT, matchingCards.length);
-      resultsStatus.textContent = 'Hiển thị ' + visibleNow + ' / ' + matchingCards.length + ' hoạt động';
+      var visibleStart = startIndex + 1;
+      var visibleEnd = Math.min(endIndex, matchingCards.length);
+      resultsStatus.textContent = 'Hiển thị ' + visibleStart + '–' + visibleEnd + ' / ' + matchingCards.length + ' hoạt động';
     }
-
-    if (btn) {
-      if (matchingCards.length <= VISIBLE_COUNT || query !== '' || currentCategory !== 'all') {
-        btn.style.display = 'none';
-      } else {
-        btn.style.display = 'inline-flex';
-        text.textContent = isExpanded ? 'Thu gọn' : 'Xem thêm hoạt động';
-        if (isExpanded) {
-          btn.classList.add('is-expanded');
-        } else {
-          btn.classList.remove('is-expanded');
-        }
-      }
-    }
-  }
-
-  function toggleEvents() {
-    isExpanded = !isExpanded;
-    var grid = document.getElementById('events-grid');
-    filterEvents();
-
-    if (!isExpanded && grid) {
-      grid.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
+    renderPagination(totalPages);
   }
 
   document.addEventListener('DOMContentLoaded', function() {

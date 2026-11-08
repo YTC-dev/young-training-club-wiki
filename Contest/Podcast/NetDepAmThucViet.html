@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Nét đẹp ẩm thực Việt - CLB Đào tạo Kỹ năng Trẻ</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Trang thông tin cuộc thi Nét đẹp ẩm thực Việt trong chuỗi hoạt động Chào đón Gen 12 của CLB Đào tạo Kỹ năng Trẻ.">
+  <link rel="stylesheet" href="../../Asset/style.css">
+  <link rel="stylesheet" href="../style_contest.css">
+  <link rel="icon" type="image/png" href="../../Image/YTC-Favicon.png">
+  <style>
+    .food-contest-page .hero {
+      background: linear-gradient(135deg, #064e3b 0%, #047857 48%, #f59e0b 150%);
+    }
+    .food-contest-page .hero h1 span { color: #fde68a; }
+    .food-contest-page .hero-meta-item strong { color: #fef3c7; }
+    .food-contest-page .section-alt { background: linear-gradient(180deg, #f0fdf4, #fff); }
+    .food-contest-page .info-card { border-top: 3px solid #10b981; }
+    .food-contest-page .info-card .icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 56px;
+      height: 56px;
+      margin: 0 auto 12px;
+      font-size: 2.5rem;
+      background: linear-gradient(135deg, #d1fae5, #fef3c7);
+      border-radius: 12px;
+    }
+    .food-contest-page .hero .ico,
+    .food-contest-page .info-card .ico,
+    .food-contest-page .timeline .ico,
+    .food-contest-page .prize-icon .ico,
+    .food-contest-page .team-block h4 .ico,
+    .food-contest-page .team-video-btn .ico { width: 1.15em; height: 1.15em; vertical-align: -.18em; }
+    .food-contest-page .team-video-btn .ico { color: #fff; fill: #fff; }
+    .food-contest-page .hero .ico { color: #fde68a; }
+    .food-contest-page .info-card .ico { color: #047857; width: 28px; height: 28px; }
+    .food-contest-page .prize-icon .ico { width: 42px; height: 42px; }
+    .food-contest-page .result-board { max-width: 1100px; margin: 0 auto; }
+    .food-contest-page .result-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; }
+    .food-contest-page .result-card { overflow: hidden; background: #fff; border: 1px solid rgba(161, 227, 255, .5); border-radius: 20px; box-shadow: 0 8px 24px rgba(44, 59, 144, .1); text-align: center; transition: transform .25s ease, box-shadow .25s ease; }
+    .food-contest-page .result-card:hover { transform: translateY(-6px); box-shadow: 0 16px 34px rgba(9, 131, 254, .16); }
+    .food-contest-page .result-card__rank { display: flex; align-items: center; justify-content: center; gap: 8px; min-height: 68px; padding: 14px 12px; color: #fff; font-size: 1.12rem; font-weight: 800; }
+    .food-contest-page .result-card__rank .ico { width: 1.1em; height: 1.1em; }
+    .food-contest-page .result-card__body { min-height: 82px; display: flex; align-items: center; justify-content: center; padding: 18px 16px; }
+    .food-contest-page .result-card__body strong { color: #172554; font-size: 1.05rem; line-height: 1.45; }
+    .food-contest-page .result-card.gold .result-card__rank { background: linear-gradient(135deg, #d99a00, #f59e0b 52%, #f59eaa); }
+    .food-contest-page .result-card.silver .result-card__rank { background: linear-gradient(135deg, #64748b, #94a3b8 52%, #cbd5e1); }
+    .food-contest-page .result-card.bronze .result-card__rank { background: linear-gradient(135deg, #a84e1a, #c56a31 52%, #d99b57); }
+    @media (max-width: 760px) { .food-contest-page .result-grid { grid-template-columns: 1fr; gap: 16px; max-width: 420px; margin: auto; } }
+    .food-contest-page .team-card-header { background: linear-gradient(135deg, #065f46, #059669); }
+    .food-contest-page .team-card { border-color: rgba(16, 185, 129, .28); }
+    .food-contest-page .team-slogan { color: #fef3c7; }
+    .food-contest-page .team-video-btn { background: linear-gradient(135deg, #059669, #d97706); }
+    .food-contest-page .tba { color: #b45309; font-style: italic; }
+    .food-contest-page .result-note {
+      max-width: 760px;
+      margin: 0 auto 26px;
+      padding: 14px 18px;
+      color: #92400e;
+      text-align: center;
+      background: #fffbeb;
+      border: 1px dashed rgba(217, 119, 6, .45);
+      border-radius: 12px;
+    }
+    .food-contest-page .rules-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .food-contest-page .rule-item {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      padding: 18px;
+      background: #fff;
+      border: 1px solid rgba(16, 185, 129, .2);
+      border-radius: 14px;
+      box-shadow: 0 5px 18px rgba(6, 78, 59, .06);
+    }
+    .food-contest-page .rule-number {
+      display: grid;
+      flex: 0 0 32px;
+      place-items: center;
+      width: 32px;
+      height: 32px;
+      color: #fff;
+      font-weight: 800;
+      background: linear-gradient(135deg, #059669, #d97706);
+      border-radius: 50%;
+    }
+    .food-contest-page .rule-item h3 { margin-bottom: 5px; color: #065f46; font-size: 1rem; }
+    .food-contest-page .rule-item p { margin: 0; color: var(--text-body); font-size: .92rem; line-height: 1.6; }
+    @media (max-width: 680px) {
+      .food-contest-page .rules-list { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body class="food-contest-page">
+  <div id="nav-placeholder"></div>
+
+  <section class="hero">
+    <div class="stars"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"/></svg> <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 20c4.5-1 7.5-4.5 8-10-4.5-.5-8 1.5-9.5 5.5"/><path d="M4 20c2-5 5-8 11-10"/></svg> <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"/></svg></div>
+    <span class="hero-badge">Chào đón Gen 12</span>
+    <h1>NÉT ĐẸP <span>ẨM THỰC VIỆT</span></h1>
+    <p class="hero-sub">Khi ảnh kể chuyện, thế giới bỗng trở nên sống động.</p>
+    <div class="hero-img-wrap">
+      <img src="Image/NetDepAmThucViet.jpg" alt="Cuộc thi Nét đẹp ẩm thực Việt">
+    </div>
+    <div class="hero-meta">
+      <div class="hero-meta-item">Gửi sản phẩm<strong>01/11 – 14/11/2023</strong></div>
+      <div class="hero-meta-item">Bình chọn online<strong>15/11 – 20/11/2023</strong></div>
+      <div class="hero-meta-item">Công bố kết quả<strong>21/11/2023</strong></div>
+    </div>
+  </section>
+
+  <section class="section fade-in">
+    <div class="container">
+      <div class="section-heading">
+        <span class="label">Về cuộc thi</span><br>
+        <h2>Gìn giữ hương vị Việt qua từng khung hình</h2>
+        <p>Cuộc thi nằm trong chuỗi hoạt động <strong>“Chào đón Gen 12”</strong> của CLB Đào tạo Kỹ năng Trẻ.</p>
+      </div>
+      <div class="info-grid">
+        <div class="info-card">
+          <div class="icon"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 20c4.5-1 7.5-4.5 8-10-4.5-.5-8 1.5-9.5 5.5"/><path d="M4 20c2-5 5-8 11-10"/></svg></div>
+          <h3>Lưu giữ giá trị truyền thống</h3>
+          <p>Gợi nhắc những nét đẹp ẩm thực Việt Nam và lưu giữ giá trị truyền thống trong nhịp sống hiện đại.</p>
+        </div>
+        <div class="info-card">
+          <div class="icon"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 11 18-5v12L3 14v-3Z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg></div>
+          <h3>Lan tỏa hoạt động CLB</h3>
+          <p>Đẩy mạnh công tác tuyên truyền về phong trào và hoạt động của CLB thông qua các nền tảng mạng xã hội.</p>
+        </div>
+        <div class="info-card">
+          <div class="icon"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m22 8-6 4 6 4V8Z"/><rect x="2" y="6" width="14" height="12" rx="2"/></svg></div>
+          <h3>Phát triển kỹ năng</h3>
+          <p>Bồi dưỡng tư duy hình ảnh, kỹ năng làm việc nhóm, sự sáng tạo và tính tự tin cho sinh viên.</p>
+        </div>
+        <div class="info-card">
+          <div class="icon"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+          <h3>Đối tượng dự thi</h3>
+          <p>Đoàn viên, hội viên, sinh viên đang học tập, sinh hoạt hoặc trong giai đoạn thử thách tại CLB.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-divider">
+
+  <section class="section fade-in section-alt">
+    <div class="container">
+      <div class="section-heading">
+        <span class="label">Thể lệ</span><br>
+        <h2>Câu chuyện ẩm thực của mỗi đội</h2>
+        <p>Mỗi nhóm ghi lại một món ăn đặc trưng của ẩm thực Việt bằng hình thức video, kèm những chia sẻ riêng về món ăn đó.</p>
+      </div>
+      <div class="rules-list">
+        <div class="rule-item"><span class="rule-number">1</span><div><h3>Sản phẩm dự thi</h3><p>Video giới thiệu hoặc kể câu chuyện về một món ăn đặc trưng của Việt Nam, do nhóm tự xây dựng.</p></div></div>
+        <div class="rule-item"><span class="rule-number">2</span><div><h3>Nội dung chia sẻ</h3><p>Mỗi video đi kèm những cảm nhận, câu chuyện hoặc góc nhìn riêng của thành viên trong nhóm.</p></div></div>
+        <div class="rule-item"><span class="rule-number">3</span><div><h3>Cách tính điểm</h3><p>Điểm được tính theo lượt tiếp cận và tương tác hợp lệ của bài viết, gồm lượt thích và chia sẻ.</p></div></div>
+        <div class="rule-item"><span class="rule-number">4</span><div><h3>Tương tác hợp lệ</h3><p>Chỉ tính tương tác từ người đã thích và theo dõi Fanpage. Ban tổ chức sử dụng phần mềm để tổng hợp điểm.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-divider">
+
+  <section class="section fade-in">
+    <div class="container">
+      <div class="section-heading">
+        <span class="label">Lịch trình</span><br>
+        <h2>Các mốc quan trọng</h2>
+        <p>Ba chặng chính để mỗi món ăn được kể lại bằng hình ảnh và cảm xúc.</p>
+      </div>
+      <div class="timeline">
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-content"><div class="date">01/11 – 14/11/2023</div><h3><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m22 8-6 4 6 4V8Z"/><rect x="2" y="6" width="14" height="12" rx="2"/></svg> Gửi sản phẩm dự thi</h3><p>Các nhóm hoàn thiện và gửi video cùng phần chia sẻ về món ăn Việt Nam đã lựa chọn.</p></div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-content"><div class="date">15/11 – 20/11/2023</div><h3><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-9 8.5 9.5 9.5 0 0 1-4-.9L3 21l1.9-4.7A8.5 8.5 0 1 1 21 11.5Z"/><path d="M8 12h.01M12 12h.01M16 12h.01"/></svg> Bình chọn online</h3><p>Khán giả tương tác với các bài dự thi trên Fanpage. Chỉ tính lượt tương tác hợp lệ.</p></div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-content"><div class="date">21/11/2023</div><h3><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6M18 9h1.5a2.5 2.5 0 0 0 0-5H18M4 22h16M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg> Công bố kết quả</h3><p>Vinh danh các nhóm có lượt tương tác hợp lệ cao nhất.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-divider">
+
+  <section class="section fade-in section-alt">
+    <div class="container">
+      <div class="section-heading">
+        <span class="label">Giải thưởng</span><br>
+        <h2>Cơ cấu giải thưởng</h2>
+        <p>Nhóm chiến thắng là nhóm có lượt tương tác hợp lệ nhiều nhất.</p>
+      </div>
+      <div class="prize-grid">
+        <div class="prize-card gold"><div class="prize-icon"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6M18 9h1.5a2.5 2.5 0 0 0 0-5H18M4 22h16M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg></div><h3>Giải nhất</h3><div class="prize-amount tba">(TBA)</div><p class="prize-desc">Ghi nhận nhóm có thành tích cao nhất.</p></div>
+        <div class="prize-card silver"><div class="prize-icon"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5.5"/><path d="M8.6 10.7 5.5 3h4.2L12 8l2.3-5h4.2l-3.1 7.7"/></svg></div><h3>Giải nhì</h3><div class="prize-amount tba">(TBA)</div><p class="prize-desc">Ghi nhận nhóm có lượt tương tác hợp lệ nổi bật.</p></div>
+        <div class="prize-card bronze"><div class="prize-icon"><svg class="ico" viewBox="0 0 24 24" fill="currentColor" stroke="none" aria-hidden="true"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg></div><h3>Giải ba</h3><div class="prize-amount tba">(TBA)</div><p class="prize-desc">Ghi nhận sự sáng tạo và tinh thần tham gia.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-divider">
+
+  <section class="section fade-in section-alt">
+    <div class="container result-board">
+      <div class="section-heading">
+        <span class="label">Kết quả</span><br>
+        <h2>Bảng vàng vinh danh</h2>
+        <p>Kết quả được cập nhật theo thông tin đã công bố trong trang tổng quan cuộc thi.</p>
+      </div>
+      <div class="result-grid">
+        <article class="result-card gold"><div class="result-card__rank"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6M18 9h1.5a2.5 2.5 0 0 0 0-5H18M4 22h16M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg> Giải nhất</div><div class="result-card__body"><strong>Nhóm: Hương sắc Việt Nam</strong></div></article>
+        <article class="result-card silver"><div class="result-card__rank">Giải nhì</div><div class="result-card__body"><strong>Nhóm: Tinh Hoa Sáng Tạo</strong></div></article>
+        <article class="result-card bronze"><div class="result-card__rank">Giải ba</div><div class="result-card__body"><strong>Nhóm: Hôm Nay Ăn Gì</strong></div></article>
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-divider">
+
+  <section class="section fade-in">
+    <div class="container">
+      <div class="section-heading">
+        <span class="label">Các đội tham gia</span><br>
+        <h2>Hương vị Việt qua lăng kính của sáu đội</h2>
+        <p>Nhấn vào nút xem sản phẩm để thưởng thức câu chuyện ẩm thực của từng nhóm.</p>
+      </div>
+      <div class="team-grid">
+        <div class="team-card"><div class="team-card-header"><h3>Nhóm 3 – Hương sắc Việt Nam</h3><div class="team-slogan">“Việt Nam nhất, phở bò chất” <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 20c4.5-1 7.5-4.5 8-10-4.5-.5-8 1.5-9.5 5.5"/><path d="M4 20c2-5 5-8 11-10"/></svg></div></div><div class="team-card-body"><div class="team-block"><h4><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m22 8-6 4 6 4V8Z"/><rect x="2" y="6" width="14" height="12" rx="2"/></svg> Sản phẩm dự thi</h4><a href="https://www.facebook.com/reel/222082897566348" class="team-video-btn" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 24 24" fill="currentColor" stroke="none" aria-hidden="true"><path d="m8 5 11 7-11 7V5Z"/></svg> Xem video</a></div></div></div>
+        <div class="team-card"><div class="team-card-header"><h3>Nhóm 2 – Food Two</h3><div class="team-slogan">“Một đôi đũa – gắp cả thế giới.”</div></div><div class="team-card-body"><div class="team-block"><h4><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m22 8-6 4 6 4V8Z"/><rect x="2" y="6" width="14" height="12" rx="2"/></svg> Sản phẩm dự thi</h4><a href="https://www.facebook.com/reel/979792183118707" class="team-video-btn" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 24 24" fill="currentColor" stroke="none" aria-hidden="true"><path d="m8 5 11 7-11 7V5Z"/></svg> Xem video</a></div></div></div>
+        <div class="team-card"><div class="team-card-header"><h3>Nhóm 1 – Hôm Nay Ăn Gì</h3><div class="team-slogan">“Ăn là mê – Chê không tính tiền.”</div></div><div class="team-card-body"><div class="team-block"><h4><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m22 8-6 4 6 4V8Z"/><rect x="2" y="6" width="14" height="12" rx="2"/></svg> Sản phẩm dự thi</h4><a href="https://www.facebook.com/reel/562059156107261" class="team-video-btn" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 24 24" fill="currentColor" stroke="none" aria-hidden="true"><path d="m8 5 11 7-11 7V5Z"/></svg> Xem video</a></div></div></div>
+        <div class="team-card"><div class="team-card-header"><h3>Nhóm 6 – Tinh Hoa Sáng Tạo</h3><div class="team-slogan">“Độc lập tự do, miếng nào to thì gắp.”</div></div><div class="team-card-body"><div class="team-block"><h4><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m22 8-6 4 6 4V8Z"/><rect x="2" y="6" width="14" height="12" rx="2"/></svg> Sản phẩm dự thi</h4><a href="https://www.facebook.com/reel/323269290450637" class="team-video-btn" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 24 24" fill="currentColor" stroke="none" aria-hidden="true"><path d="m8 5 11 7-11 7V5Z"/></svg> Xem video</a></div></div></div>
+        <div class="team-card"><div class="team-card-header"><h3>Nhóm 5 – Bún Chả yêu em</h3><div class="team-slogan">“Tinh hoa ẩm thực – con người Việt”</div></div><div class="team-card-body"><div class="team-block"><h4><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m22 8-6 4 6 4V8Z"/><rect x="2" y="6" width="14" height="12" rx="2"/></svg> Sản phẩm dự thi</h4><a href="https://www.facebook.com/share/v/1AC1o3UB2y/" class="team-video-btn" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 24 24" fill="currentColor" stroke="none" aria-hidden="true"><path d="m8 5 11 7-11 7V5Z"/></svg> Xem video</a></div></div></div>
+        <div class="team-card"><div class="team-card-header"><h3>Nhóm 4 – NO HOPE</h3><div class="team-slogan">“Nếu bạn không làm được, thì nhờ người khác làm.”</div></div><div class="team-card-body"><div class="team-block"><h4><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m22 8-6 4 6 4V8Z"/><rect x="2" y="6" width="14" height="12" rx="2"/></svg> Sản phẩm dự thi</h4><a href="https://www.facebook.com/share/v/18mLB3cfE9/" class="team-video-btn" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 24 24" fill="currentColor" stroke="none" aria-hidden="true"><path d="m8 5 11 7-11 7V5Z"/></svg> Xem video</a></div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section fade-in section-alt">
+    <div class="container">
+      <div class="result-note">Thông tin người phụ trách, thành viên từng nhóm và giá trị giải thưởng: <strong>(TBA)</strong> – sẽ được cập nhật bổ sung.</div>
+    </div>
+  </section>
+
+  <footer><div id="footer-placeholder"></div></footer>
+  <script src="../../Asset/script.js"></script>
+</body>
+</html>
+

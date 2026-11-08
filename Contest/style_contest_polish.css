@@ -1,0 +1,66 @@
+﻿/* Contest visual refresh — scoped to contest-polished pages only */
+body.contest-polished{--contest-ink:#18243b;--contest-accent:#b45309;--contest-accent-2:#f59e0b;--contest-tint:#fff7ed;--contest-glow:rgba(180,83,9,.2);color:var(--contest-ink)}
+body.contest-polished.theme-coral{--contest-accent:#be123c;--contest-accent-2:#fb7185;--contest-tint:#fff1f2;--contest-glow:rgba(190,18,60,.2)}
+body.contest-polished.theme-violet{--contest-accent:#6d28d9;--contest-accent-2:#c084fc;--contest-tint:#f5f3ff;--contest-glow:rgba(109,40,217,.2)}
+body.contest-polished.theme-rose{--contest-accent:#be185d;--contest-accent-2:#f472b6;--contest-tint:#fdf2f8;--contest-glow:rgba(190,24,93,.2)}
+body.contest-polished.theme-indigo{--contest-accent:#4338ca;--contest-accent-2:#818cf8;--contest-tint:#eef2ff;--contest-glow:rgba(67,56,202,.2)}
+body.contest-polished.theme-teal{--contest-accent:#0f766e;--contest-accent-2:#2dd4bf;--contest-tint:#f0fdfa;--contest-glow:rgba(15,118,110,.2)}
+body.contest-polished.theme-amber{--contest-accent:#b45309;--contest-accent-2:#fbbf24;--contest-tint:#fffbeb;--contest-glow:rgba(180,83,9,.2)}
+body.contest-polished .hero{isolation:isolate;padding:clamp(64px,8vw,104px) 22px 68px;background:radial-gradient(ellipse at 12% 5%,rgba(255,255,255,.18),transparent 34%),radial-gradient(ellipse at 88% 82%,var(--contest-glow),transparent 32%),linear-gradient(132deg,#17152d 0%,color-mix(in srgb,var(--contest-accent) 76%,#17152d) 52%,var(--contest-accent) 100%)}
+body.contest-polished .hero::before{opacity:.65}
+body.contest-polished .hero h1{letter-spacing:-.035em;text-wrap:balance}
+body.contest-polished .hero h1 span,body.contest-polished .hero-meta-item strong{color:var(--contest-accent-2)}
+body.contest-polished .hero-sub{max-width:680px;line-height:1.7}
+body.contest-polished .hero-img-wrap img{max-width:760px;border-radius:22px;border:1px solid rgba(255,255,255,.42);box-shadow:0 24px 70px rgba(0,0,0,.35),0 0 0 7px rgba(255,255,255,.06)}
+body.contest-polished .hero-meta{gap:14px;margin-top:26px}
+body.contest-polished .hero-meta-item{min-width:190px;border-radius:16px;backdrop-filter:blur(10px);background:rgba(255,255,255,.11)}
+body.contest-polished .section-heading .label{background:var(--contest-tint);color:var(--contest-accent);border:1px solid color-mix(in srgb,var(--contest-accent) 18%,transparent);letter-spacing:.12em;font-weight:800}
+body.contest-polished .section-heading h2{color:var(--contest-ink);letter-spacing:-.025em}
+body.contest-polished .section-heading p{line-height:1.75}
+body.contest-polished .section-alt{background:linear-gradient(180deg,var(--contest-tint),#fff 82%)}
+body.contest-polished .section-divider{opacity:.45}
+body.contest-polished .info-grid,body.contest-polished .team-grid,body.contest-polished .prize-grid{gap:22px}
+body.contest-polished .info-card,body.contest-polished .btc-card,body.contest-polished .prize-card,body.contest-polished .team-card,body.contest-polished .tl-content{border:1px solid color-mix(in srgb,var(--contest-accent) 14%,#fff);border-radius:18px;box-shadow:0 10px 30px rgba(23,35,59,.07)}
+body.contest-polished .info-card{border-top:4px solid var(--contest-accent);padding:30px 22px}
+body.contest-polished .info-card .icon{color:var(--contest-accent)}
+body.contest-polished .info-card h3,body.contest-polished .tl-content h3{color:var(--contest-ink)}
+body.contest-polished .timeline::before{background:linear-gradient(var(--contest-accent-2),var(--contest-accent))}
+body.contest-polished .tl-dot{background:var(--contest-accent);box-shadow:0 0 0 4px var(--contest-tint)}
+body.contest-polished .tl-content{transition:transform .22s ease,box-shadow .22s ease}
+body.contest-polished .tl-content:hover,body.contest-polished .info-card:hover,body.contest-polished .prize-card:hover,body.contest-polished .team-card:hover{transform:translateY(-5px);box-shadow:0 18px 42px rgba(23,35,59,.12)}
+body.contest-polished .tl-content .date{color:var(--contest-accent)}
+body.contest-polished .prize-card.special::before{background:linear-gradient(90deg,var(--contest-accent),var(--contest-accent-2))}
+body.contest-polished .prize-card.special h3{color:var(--contest-accent)}
+body.contest-polished .prize-card:not(.gold):not(.silver):not(.bronze) .prize-amount{background:linear-gradient(135deg,var(--contest-accent),var(--contest-accent-2));-webkit-background-clip:text}
+body.contest-polished .team-card{overflow:hidden}
+body.contest-polished .team-card-header{background:linear-gradient(130deg,color-mix(in srgb,var(--contest-accent) 88%,#17152d),var(--contest-accent))}
+body.contest-polished .team-video-btn,body.contest-polished .btn-hero{background:linear-gradient(130deg,var(--contest-accent),var(--contest-accent-2));box-shadow:0 8px 22px var(--contest-glow)}
+body.contest-polished a:focus-visible{outline:3px solid var(--contest-accent-2);outline-offset:3px}
+@media(max-width:700px){body.contest-polished .hero{padding:64px 16px 48px}body.contest-polished .hero-meta{display:grid;grid-template-columns:1fr;max-width:420px;margin:24px auto}body.contest-polished .hero-meta-item{min-width:0}body.contest-polished .info-grid,body.contest-polished .prize-grid,body.contest-polished .team-grid{gap:15px}}
+@media(prefers-reduced-motion:reduce){body.contest-polished *,body.contest-polished *::before,body.contest-polished *::after{scroll-behavior:auto!important;transition-duration:.01ms!important;animation-duration:.01ms!important}}
+
+body.contest-polished.theme-sky{--contest-accent:#0369a1;--contest-accent-2:#38bdf8;--contest-tint:#f0f9ff;--contest-glow:rgba(3,105,161,.2)}
+
+body.contest-polished.theme-blue{--contest-accent:#1d4ed8;--contest-accent-2:#93c5fd;--contest-tint:#eff6ff;--contest-glow:rgba(29,78,216,.22)}
+
+/* Center the SVG icon badge in each contest introduction card */
+body.contest-polished .info-card .icon {
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:56px;
+  height:56px;
+  margin:0 auto 14px;
+  border-radius:16px;
+  background:var(--contest-tint);
+}
+body.contest-polished .info-card .icon .ico {
+  display:block;
+  width:28px;
+  height:28px;
+}
+
+/* Explicitly tint each introduction SVG with its contest accent */
+body.contest-polished .info-card .icon .ico {
+  color:var(--contest-accent);
+}

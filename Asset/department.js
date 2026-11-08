@@ -26,14 +26,18 @@
     const source = image.currentSrc || image.src;
     const token = (updateLightbox.token || 0) + 1;
     updateLightbox.token = token;
+    const caption = item.querySelector(".department-gallery-card__caption")?.textContent.trim() || image.alt || "";
+
+    // Gán ảnh ngay khi mở lightbox; không chờ preload để tránh trường hợp
+    // preload bị chậm/lỗi khiến khung phóng to mở nhưng không có ảnh.
+    lightboxImage.src = source;
+    lightboxImage.alt = image.alt || "";
+    lightboxCaption.textContent = caption;
 
     const preload = new Image();
-    preload.onload = preload.onerror = () => {
+    preload.onload = () => {
       if (token !== updateLightbox.token) return;
       lightboxImage.src = source;
-      lightboxImage.alt = image.alt || "";
-      lightboxCaption.textContent =
-        item.querySelector(".department-gallery-card__caption")?.textContent.trim() || image.alt || "";
     };
     preload.src = source;
   };
