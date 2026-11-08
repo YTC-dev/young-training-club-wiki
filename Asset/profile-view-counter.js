@@ -2,28 +2,25 @@
   const counter = document.querySelector('[data-profile-view-counter]');
   if (!counter) return;
 
-  const profileId = counter.dataset.profileId || window.location.pathname;
-  const storageKey = 'ytc-profile-view-counts-v1';
+  const endpoint = counter.dataset.hitsEndpoint;
   const number = counter.querySelector('[data-profile-view-count]');
+  if (!endpoint || !number) return;
 
-  const readCounts = () => {
-    try {
-      const value = JSON.parse(localStorage.getItem(storageKey) || '{}');
-      return value && typeof value === 'object' ? value : {};
-    } catch (_) {
-      return {};
-    }
-  };
+  number.textContent = '…';
 
-  const format = value => new Intl.NumberFormat('vi-VN').format(value);
-  const counts = readCounts();
-  counts[profileId] = Math.max(0, Number(counts[profileId]) || 0) + 1;
-
-  try {
-    localStorage.setItem(storageKey, JSON.stringify(counts));
-  } catch (_) {
-    // Private browsing or blocked storage: still show this visit.
-  }
-
-  if (number) number.textContent = format(counts[profileId]);
+  fetch(endpoint, { mode: 'cors', cache: 'no-store' })
+    .then(response => {
+      if (!response.ok) throw new Error(`Hits API returned ${response.status}`);
+      return response.json();
+    })
+    .then(data => {
+      const total = Number(data.total_hits);
+      if (!Number.isFinite(total) || total < 0) throw new Error('Invalid Hits count');
+      number.textContent = new Intl.NumberFormat('vi-VN').format(total);
+      counter.classList.remove('is-unavailable');
+    })
+    .catch(() => {
+      number.textContent = '—';
+      counter.classList.add('is-unavailable');
+    });
 })();
