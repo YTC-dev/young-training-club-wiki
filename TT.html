@@ -110,7 +110,24 @@
     
   </div></main>
   <footer><div id="footer-placeholder"></div></footer>
-  <div class="department-lightbox" id="departmentLightbox"><div class="department-lightbox__inner"><button class="department-lightbox-close" type="button">×</button><button class="department-lightbox-nav department-lightbox-prev" type="button">←</button><img class="department-lightbox__image" src="" alt=""><p class="department-lightbox__caption"></p><button class="department-lightbox-nav department-lightbox-next" type="button">→</button></div></div>
+  <div class="lightbox-overlay department-lightbox" id="departmentLightbox" role="dialog" aria-modal="true" aria-label="Xem ảnh phóng to">
+    <div class="lightbox-topbar department-lightbox-topbar">
+      <span class="lightbox-counter department-lightbox-counter"></span>
+      <button class="lightbox-close department-lightbox-close" type="button" aria-label="Đóng">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <button class="lightbox-nav lightbox-prev department-lightbox-nav department-lightbox-prev" type="button" aria-label="Ảnh trước">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+    <figure class="lightbox-stage department-lightbox-stage department-lightbox__inner">
+      <img class="department-lightbox__image" id="lightboxImg" src="" alt="">
+      <figcaption class="lightbox-caption department-lightbox__caption" id="lightboxCaption"></figcaption>
+    </figure>
+    <button class="lightbox-nav lightbox-next department-lightbox-nav department-lightbox-next" type="button" aria-label="Ảnh tiếp">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
+  </div>
   <script src="Asset/script.js"></script>
   <script src="Asset/department.js"></script>
 </body>
