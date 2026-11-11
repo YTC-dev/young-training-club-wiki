@@ -213,7 +213,6 @@
     wrapper.addEventListener("pointerdown", (event) => {
       if (event.pointerType === "mouse" && event.button !== 0) return;
       drag = { pointerId: event.pointerId, startX: event.clientX, base: current * step, moved: false };
-      wrapper.setPointerCapture?.(event.pointerId);
     });
     window.addEventListener("pointermove", (event) => {
       if (!drag || event.pointerId !== drag.pointerId) return;
