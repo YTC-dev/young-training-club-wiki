@@ -3009,6 +3009,7 @@ footer {
 .global-search-result strong{display:block;color:#0757b2;font-size:.94rem}
 .global-search-result>span{display:block;margin-top:3px;color:#73849a;font-size:.76rem}
 .global-search-result p{margin:5px 0 0;color:#617087;font-size:.83rem;line-height:1.5}
+.global-search-highlight{padding:0 2px;border-radius:3px;background:#fff0a8;color:#725000;font-weight:800;box-shadow:0 0 0 1px rgba(240,190,55,.12)}
 .global-search-hint{margin-top:14px;padding-top:12px;border-top:1px solid #edf1f6;color:#8290a2;font-size:.76rem;text-align:right}
 @media(max-width:768px){.global-search-trigger{width:38px;height:38px;justify-content:center;padding:0;margin-left:auto;margin-right:8px}.global-search-trigger span,.global-search-trigger kbd{display:none}.global-search-panel{padding:17px}.global-search-result>span{float:none;display:block;margin-top:3px}}
 

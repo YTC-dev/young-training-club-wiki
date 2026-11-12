@@ -318,6 +318,39 @@ function initGlobalSearch() {
   const normalize = value => String(value || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/đ/g, "d").replace(/Đ/g, "D").toLowerCase();
   const loadIndex = () => indexPromise ||= fetch(`${BASE}/Asset/search-index.json`).then(r => { if (!r.ok) throw new Error(); return r.json(); });
   const esc = value => String(value).replace(/[&<>"']/g, c => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[c]));
+  const highlight = (value, terms) => {
+    const source = String(value || ""), starts = [], ends = [];
+    let normalizedText = "";
+    for (let offset = 0; offset < source.length;) {
+      const character = String.fromCodePoint(source.codePointAt(offset));
+      const next = offset + character.length, part = normalize(character);
+      normalizedText += part;
+      if (!part && /[\u0300-\u036f]/.test(character) && ends.length) ends[ends.length - 1] = next;
+      for (let i = 0; i < part.length; i++) { starts.push(offset); ends.push(next); }
+      offset = next;
+    }
+    const ranges = [];
+    terms.forEach(rawTerm => {
+      const term = normalize(rawTerm);
+      if (!term) return;
+      let at = 0;
+      while ((at = normalizedText.indexOf(term, at)) !== -1) {
+        ranges.push([starts[at], ends[at + term.length - 1]]);
+        at += term.length;
+      }
+    });
+    if (!ranges.length) return esc(source);
+    ranges.sort((a,b) => a[0]-b[0] || b[1]-a[1]);
+    const merged = [];
+    ranges.forEach(range => {
+      const last = merged[merged.length - 1];
+      if (last && range[0] <= last[1]) last[1] = Math.max(last[1], range[1]);
+      else merged.push(range.slice());
+    });
+    let html = "", cursor = 0;
+    merged.forEach(([start,end]) => { html += esc(source.slice(cursor,start)) + `<mark class="global-search-highlight">${esc(source.slice(start,end))}</mark>`; cursor = end; });
+    return html + esc(source.slice(cursor));
+  };
   function render(query) {
     const terms = normalize(query).trim().split(/\s+/).filter(Boolean);
     results.innerHTML = ""; activeResult = -1;
@@ -327,19 +360,19 @@ function initGlobalSearch() {
       const matched = pages.map(page => {
         const title = normalize(page.title), text = normalize(page.text);
         if (!terms.every(term => title.includes(term) || text.includes(term))) return null;
-        const score = terms.reduce((n, term) => n + (title.includes(term) ? 8 : 0) + (text.includes(term) ? 1 : 0), 0) + (page.type === "detail" ? 18 : 0);
+        const titleHits = terms.reduce((n, term) => n + (title.includes(term) ? 1 : 0), 0);
+        const score = terms.reduce((n, term) => n + (title.includes(term) ? 8 : 0) + (text.includes(term) ? 1 : 0), 0);
+        const priority = page.type === "detail" ? (titleHits ? 1 : 2) : (titleHits ? 0 : 3);
         const raw = page.text || page.title, norm = normalize(raw);
         const at = terms.reduce((best, term) => { const i = norm.indexOf(term); return i >= 0 ? Math.min(best, i) : best; }, raw.length);
         const start = Math.max(0, at - 55);
         const snippet = `${start ? "…" : ""}${raw.slice(start, start + 160).replace(/\s+/g, " ").trim()}${start + 160 < raw.length ? "…" : ""}`;
-        return { ...page, score, snippet };
+        return { ...page, priority, titleHits, score, snippet };
       }).filter(Boolean);
-      const detailedPages = new Set(matched.filter(page => page.type === "detail").map(page => page.url.split("#")[0]));
-      const matches = matched.filter(page => !(page.type === "overview" && detailedPages.has(page.url)))
-        .sort((a,b) => b.score-a.score || a.title.localeCompare(b.title,"vi")).slice(0,12);
+      const matches = matched.sort((a,b) => a.priority-b.priority || b.titleHits-a.titleHits || b.score-a.score || a.title.localeCompare(b.title,"vi")).slice(0,12);
       if (!matches.length) { status.textContent = `Không tìm thấy kết quả cho “${query.trim()}”.`; return; }
       status.textContent = `${matches.length} kết quả phù hợp${matches.length===12 ? " (hiển thị tối đa 12)" : ""}.`;
-      results.innerHTML = matches.map(p => `<a class="global-search-result" href="${esc(BASE + "/" + p.url)}"><strong>${esc(p.title)}</strong><span>${esc(p.section)}</span><p>${esc(p.snippet)}</p></a>`).join("");
+      results.innerHTML = matches.map(p => `<a class="global-search-result" href="${esc(BASE + "/" + p.url)}"><strong>${highlight(p.title, terms)}</strong><span>${esc(p.section)}</span><p>${highlight(p.snippet, terms)}</p></a>`).join("");
     }).catch(() => { status.textContent = "Chưa tải được dữ liệu tìm kiếm. Hãy mở website qua máy chủ web rồi thử lại."; });
   }
   const open = () => {
