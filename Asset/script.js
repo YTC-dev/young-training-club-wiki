@@ -351,6 +351,22 @@ function initGlobalSearch() {
     merged.forEach(([start,end]) => { html += esc(source.slice(cursor,start)) + `<mark class="global-search-highlight">${esc(source.slice(start,end))}</mark>`; cursor = end; });
     return html + esc(source.slice(cursor));
   };
+  const makeSnippet = (page, terms) => {
+    if (page.description) return String(page.description).replace(/\s+/g, " ").trim();
+    const raw = String(page.text || page.title || "").replace(/(?:↗\s*)?(?:xem chi tiết|xem profile|quay lại trang thành viên|quay lại trang ban)(?=$|[\s.,!?])/gi, " ").replace(/\s+/g, " ").trim();
+    const source = page.title ? raw.split(page.title).join(" ").replace(/\s+/g, " ").trim() : raw;
+    const candidates = source.split(/(?<=[.!?。！？])\s+|\s+[|•]\s+/).map(part => part.trim())
+      .filter(part => part.length >= 28 && !/^(quay lai|xem chi tiet|xem profile|tim hieu them|doc them|trang chu|dong)\b/i.test(normalize(part)));
+    if (!candidates.length) return raw.slice(0, 180);
+    const ranked = candidates.map((part, order) => {
+      const normalized = normalize(part);
+      const hits = terms.reduce((count, term) => count + (normalized.includes(term) ? 1 : 0), 0);
+      const phrase = terms.length > 1 && normalized.includes(terms.join(" ")) ? 1 : 0;
+      const lengthFit = Math.max(0, 120 - Math.abs(part.length - 120));
+      return { part, hits, phrase, lengthFit, order };
+    }).sort((a,b) => b.hits-a.hits || b.phrase-a.phrase || b.lengthFit-a.lengthFit || a.order-b.order)[0].part;
+    return ranked.length > 200 ? `${ranked.slice(0,197).trimEnd()}…` : ranked;
+  };
   function render(query) {
     const terms = normalize(query).trim().split(/\s+/).filter(Boolean);
     results.innerHTML = ""; activeResult = -1;
@@ -364,10 +380,7 @@ function initGlobalSearch() {
         const phraseHit = title.includes(terms.join(" "));
         const score = terms.reduce((n, term) => n + (title.includes(term) ? 8 : 0) + (text.includes(term) ? 1 : 0), 0);
         const priority = phraseHit ? 0 : (titleHits > 0 ? 1 : 2);
-        const raw = page.text || page.title, norm = normalize(raw);
-        const at = terms.reduce((best, term) => { const i = norm.indexOf(term); return i >= 0 ? Math.min(best, i) : best; }, raw.length);
-        const start = Math.max(0, at - 55);
-        const snippet = `${start ? "…" : ""}${raw.slice(start, start + 160).replace(/\s+/g, " ").trim()}${start + 160 < raw.length ? "…" : ""}`;
+        const snippet = makeSnippet(page, terms);
         return { ...page, priority, phraseHit, titleHits, score, snippet };
       }).filter(Boolean);
       const matches = matched.sort((a,b) => a.priority-b.priority || b.titleHits-a.titleHits || b.score-a.score || a.title.localeCompare(b.title,"vi")).slice(0,12);
