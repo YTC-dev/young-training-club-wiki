@@ -65,18 +65,10 @@ const navHTML = `
         </ul>
       </li>
       <li class="has-dropdown">
-        <a href="${BASE}/contest_event.html">Cuộc thi</a>
-        <button type="button" class="dropdown-toggle" aria-label="Mở menu Cuộc thi" aria-expanded="false"></button>
-        <ul class="dropdown">
-          <li><a href="${BASE}/contest_event.html#podcast-section">Podcast &amp; Video</a></li>
-          <li><a href="${BASE}/contest_event.html#mc-section">MC - Giọng nói</a></li>
-          <li><a href="${BASE}/contest_event.html#others-section">Các cuộc thi khác</a></li>
-        </ul>
-      </li>
-      <li class="has-dropdown">
       <a href="${BASE}/news.html">Hoạt động</a>
       <button type="button" class="dropdown-toggle" aria-label="Mở menu Hoạt động" aria-expanded="false"></button>
         <ul class="dropdown">
+          <li><a href="${BASE}/contest_event.html">Cuộc thi</a></li>
           <li><a href="${BASE}/GocVangVinhDanh.html">Góc vàng vinh danh</a></li>
         </ul>
       </li>
@@ -93,7 +85,13 @@ const navHTML = `
       </li>
       <li><a href="${BASE}/quiz-game.html" target="_blank" rel="noopener">Minigame</a></li>
       <li><a href="${BASE}/joinus.html"><b>Tham gia</b></a></li>
+      <li class="nav-search-mobile"><button class="global-search-menu-trigger" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-4-4"></path></svg><span>Tìm kiếm toàn trang</span></button></li>
     </ul>
+
+    <button class="global-search-trigger" type="button" aria-label="Tìm kiếm toàn trang" title="Tìm kiếm toàn trang">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-4-4"></path></svg>
+      <span>Tìm kiếm</span>
+    </button>
 
     <div class="hamburger">
       <span></span>
@@ -102,6 +100,15 @@ const navHTML = `
     </div>
 
   </div>
+  <dialog class="global-search-dialog" aria-label="Tìm kiếm toàn trang">
+    <div class="global-search-panel">
+      <div class="global-search-heading"><label for="global-search-input">Tìm kiếm trên YTC Wiki</label><button class="global-search-close" type="button" aria-label="Đóng tìm kiếm">×</button></div>
+      <div class="global-search-field"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-4-4"></path></svg><input id="global-search-input" type="search" placeholder="Tìm bài viết, sự kiện, thành viên..." autocomplete="off" aria-describedby="global-search-status"></div>
+      <p class="global-search-status" id="global-search-status" role="status">Nhập từ khóa để tìm trong toàn bộ website.</p>
+      <div class="global-search-results" id="global-search-results"></div>
+      <div class="global-search-hint">Dùng phím <kbd>↑</kbd> <kbd>↓</kbd> để di chuyển, <kbd>Enter</kbd> để mở, <kbd>Esc</kbd> để đóng</div>
+    </div>
+  </dialog>
 </nav>
 `;
 
@@ -227,6 +234,7 @@ const footerPlaceholder = document.getElementById("footer-placeholder");
 
 if (navPlaceholder) {
   navPlaceholder.innerHTML = navHTML;
+  initGlobalSearch();
 
   const hamburger = document.querySelector(".hamburger");
   const navLinks = document.querySelector(".nav-links");
@@ -298,6 +306,63 @@ if (footerPlaceholder) {
   initCopyEmail();
 }
 
+// ----- Global Search -----
+function initGlobalSearch() {
+  const trigger = document.querySelector(".global-search-trigger");
+  const dialog = document.querySelector(".global-search-dialog");
+  const input = document.getElementById("global-search-input");
+  const results = document.getElementById("global-search-results");
+  const status = document.getElementById("global-search-status");
+  if (!trigger || !dialog || !input || !results || !status) return;
+  let indexPromise, activeResult = -1;
+  const normalize = value => String(value || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/đ/g, "d").replace(/Đ/g, "D").toLowerCase();
+  const loadIndex = () => indexPromise ||= fetch(`${BASE}/Asset/search-index.json`).then(r => { if (!r.ok) throw new Error(); return r.json(); });
+  const esc = value => String(value).replace(/[&<>"']/g, c => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[c]));
+  function render(query) {
+    const terms = normalize(query).trim().split(/\s+/).filter(Boolean);
+    results.innerHTML = ""; activeResult = -1;
+    if (!terms.length) { status.textContent = "Nhập từ khóa để tìm trong toàn bộ website."; return; }
+    status.textContent = "Đang tìm kiếm...";
+    loadIndex().then(pages => {
+      const matched = pages.map(page => {
+        const title = normalize(page.title), text = normalize(page.text);
+        if (!terms.every(term => title.includes(term) || text.includes(term))) return null;
+        const score = terms.reduce((n, term) => n + (title.includes(term) ? 8 : 0) + (text.includes(term) ? 1 : 0), 0) + (page.type === "detail" ? 18 : 0);
+        const raw = page.text || page.title, norm = normalize(raw);
+        const at = terms.reduce((best, term) => { const i = norm.indexOf(term); return i >= 0 ? Math.min(best, i) : best; }, raw.length);
+        const start = Math.max(0, at - 55);
+        const snippet = `${start ? "…" : ""}${raw.slice(start, start + 160).replace(/\s+/g, " ").trim()}${start + 160 < raw.length ? "…" : ""}`;
+        return { ...page, score, snippet };
+      }).filter(Boolean);
+      const detailedPages = new Set(matched.filter(page => page.type === "detail").map(page => page.url.split("#")[0]));
+      const matches = matched.filter(page => !(page.type === "overview" && detailedPages.has(page.url)))
+        .sort((a,b) => b.score-a.score || a.title.localeCompare(b.title,"vi")).slice(0,12);
+      if (!matches.length) { status.textContent = `Không tìm thấy kết quả cho “${query.trim()}”.`; return; }
+      status.textContent = `${matches.length} kết quả phù hợp${matches.length===12 ? " (hiển thị tối đa 12)" : ""}.`;
+      results.innerHTML = matches.map(p => `<a class="global-search-result" href="${esc(BASE + "/" + p.url)}"><strong>${esc(p.title)}</strong><span>${esc(p.section)}</span><p>${esc(p.snippet)}</p></a>`).join("");
+    }).catch(() => { status.textContent = "Chưa tải được dữ liệu tìm kiếm. Hãy mở website qua máy chủ web rồi thử lại."; });
+  }
+  const open = () => {
+    document.getElementById("primary-navigation")?.classList.remove("active");
+    const burger = document.querySelector(".hamburger");
+    burger?.classList.remove("active");
+    burger?.setAttribute("aria-expanded", "false");
+    document.body.classList.remove("nav-open");
+    if (!dialog.open) dialog.showModal();
+    input.value = ""; render(""); requestAnimationFrame(() => input.focus());
+  };
+  document.querySelectorAll(".global-search-trigger, .global-search-menu-trigger").forEach(button => button.addEventListener("click", open));
+  dialog.querySelector(".global-search-close").addEventListener("click", () => dialog.close());
+  dialog.addEventListener("click", e => { if (e.target === dialog) dialog.close(); });
+  input.addEventListener("input", () => render(input.value));
+  document.addEventListener("keydown", e => {
+    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase()==="k") { e.preventDefault(); open(); }
+    if (!dialog.open || !["ArrowDown","ArrowUp","Enter"].includes(e.key)) return;
+    const links=[...results.querySelectorAll("a")]; if (!links.length) return;
+    if (e.key==="ArrowDown" || e.key==="ArrowUp") { e.preventDefault(); activeResult=(activeResult+(e.key==="ArrowDown"?1:-1)+links.length)%links.length; links.forEach((a,i)=>a.classList.toggle("is-active",i===activeResult)); links[activeResult].scrollIntoView({block:"nearest"}); }
+    else if (activeResult>=0) { e.preventDefault(); links[activeResult].click(); }
+  });
+}
 // ----- 4. Copy email (nút trong footer) -----
 function initCopyEmail() {
   const btn = document.querySelector(".copy-email-btn");
