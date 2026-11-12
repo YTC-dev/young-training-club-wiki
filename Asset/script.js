@@ -383,7 +383,14 @@ function initGlobalSearch() {
         const snippet = makeSnippet(page, terms);
         return { ...page, priority, phraseHit, titleHits, score, snippet };
       }).filter(Boolean);
-      const matches = matched.sort((a,b) => a.priority-b.priority || b.titleHits-a.titleHits || b.score-a.score || a.title.localeCompare(b.title,"vi")).slice(0,12);
+      const ranked = matched.sort((a,b) => a.priority-b.priority || b.titleHits-a.titleHits || b.score-a.score || a.title.localeCompare(b.title,"vi"));
+      const seenDestinations = new Set();
+      const matches = ranked.filter(page => {
+        const destination = page.url.toLowerCase();
+        if (seenDestinations.has(destination)) return false;
+        seenDestinations.add(destination);
+        return true;
+      }).slice(0,12);
       if (!matches.length) { status.textContent = `Không tìm thấy kết quả cho “${query.trim()}”.`; return; }
       status.textContent = `${matches.length} kết quả phù hợp${matches.length===12 ? " (hiển thị tối đa 12)" : ""}.`;
       results.innerHTML = matches.map(p => `<a class="global-search-result" href="${esc(BASE + "/" + p.url)}"><strong>${highlight(p.title, terms)}</strong><span>${esc(p.section)}</span><p>${highlight(p.snippet, terms)}</p></a>`).join("");
