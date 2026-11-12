@@ -361,13 +361,14 @@ function initGlobalSearch() {
         const title = normalize(page.title), text = normalize(page.text);
         if (!terms.every(term => title.includes(term) || text.includes(term))) return null;
         const titleHits = terms.reduce((n, term) => n + (title.includes(term) ? 1 : 0), 0);
+        const phraseHit = title.includes(terms.join(" "));
         const score = terms.reduce((n, term) => n + (title.includes(term) ? 8 : 0) + (text.includes(term) ? 1 : 0), 0);
-        const priority = page.type === "detail" ? (titleHits ? 1 : 2) : (titleHits ? 0 : 3);
+        const priority = phraseHit ? 0 : (titleHits > 0 ? 1 : 2);
         const raw = page.text || page.title, norm = normalize(raw);
         const at = terms.reduce((best, term) => { const i = norm.indexOf(term); return i >= 0 ? Math.min(best, i) : best; }, raw.length);
         const start = Math.max(0, at - 55);
         const snippet = `${start ? "…" : ""}${raw.slice(start, start + 160).replace(/\s+/g, " ").trim()}${start + 160 < raw.length ? "…" : ""}`;
-        return { ...page, priority, titleHits, score, snippet };
+        return { ...page, priority, phraseHit, titleHits, score, snippet };
       }).filter(Boolean);
       const matches = matched.sort((a,b) => a.priority-b.priority || b.titleHits-a.titleHits || b.score-a.score || a.title.localeCompare(b.title,"vi")).slice(0,12);
       if (!matches.length) { status.textContent = `Không tìm thấy kết quả cho “${query.trim()}”.`; return; }
