@@ -1002,28 +1002,50 @@
     }
 
     /* ==========================================
-       SLIDESHOW ẢNH GIỚI THIỆU (trượt ngang, tự chạy)
-       -> Muốn thêm ảnh: copy 1 thẻ .intro-slide và đổi src
+       SLIDESHOW ẢNH GIỚI THIỆU HIỆN ĐẠI (NÂNG CAO)
     ========================================== */
     .intro-slideshow {
       position: relative;
       width: 100%;
-      max-width: 650px;
-      margin: 0 auto;
+      max-width: 760px;
+      margin: 0 auto 28px;
       overflow: hidden;
-      border-radius: var(--radius-md);
-      box-shadow: var(--shadow-soft);
+      border-radius: var(--radius-lg, 18px);
+      background: #080f24;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.12), 0 2px 6px rgba(15, 23, 42, 0.04);
+      transition: box-shadow var(--transition-normal, 0.3s ease), transform var(--transition-normal, 0.3s ease), border-color var(--transition-normal, 0.3s ease);
+      touch-action: pan-y pinch-zoom;
+      outline: none;
     }
 
+    .intro-slideshow:hover,
+    .intro-slideshow:focus-within {
+      border-color: rgba(0, 0, 0, 0.15);
+      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.16), 0 4px 10px rgba(15, 23, 42, 0.06);
+    }
+
+    .intro-slideshow:focus-visible {
+      outline: 2px solid #64748b;
+      outline-offset: 3px;
+    }
+
+    /* Track trượt */
     .intro-slideshow-track {
       display: flex;
-      transition: transform 0.6s cubic-bezier(.4,0,.2,1);
+      width: 100%;
+      transition: transform 0.65s cubic-bezier(0.2, 0.8, 0.2, 1);
+      will-change: transform;
     }
 
+    /* Từng slide ảnh */
     .intro-slide {
+      position: relative;
       flex: 0 0 100%;
       width: 100%;
       aspect-ratio: 16 / 9;
+      overflow: hidden;
+      background: #080f24;
     }
 
     .intro-slide img {
@@ -1031,31 +1053,322 @@
       height: 100%;
       object-fit: cover;
       display: block;
+      transform: scale(1.001);
+      transition: transform 0.85s cubic-bezier(0.2, 0.8, 0.2, 1), filter 0.4s ease;
+      filter: saturate(1.04) contrast(1.03);
     }
 
-    .intro-slideshow-dots {
+    .intro-slideshow:hover .intro-slide img {
+      transform: scale(1.03);
+      filter: saturate(1.08) contrast(1.05) brightness(1.02);
+    }
+
+    /* Huy hiệu góc trái (Badge) */
+    .intro-slideshow-badge {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      z-index: 4;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 6px 13px;
+      border-radius: var(--radius-full, 9999px);
+      background: rgba(4, 0, 107, 0.52);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      color: #ffffff;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      pointer-events: none;
+    }
+
+    .intro-slideshow-badge-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #00d4ff;
+      animation: introBadgePulse 2s infinite ease-in-out;
+    }
+
+    @keyframes introBadgePulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.45; transform: scale(0.85); }
+    }
+
+    /* Đếm số ảnh góc phải */
+    .intro-slideshow-counter {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      z-index: 4;
+      padding: 4px 11px;
+      border-radius: var(--radius-full, 9999px);
+      background: rgba(15, 23, 42, 0.52);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      color: rgba(255, 255, 255, 0.95);
+      font-size: 0.76rem;
+      font-weight: 600;
+      font-variant-numeric: tabular-nums;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      pointer-events: none;
+    }
+
+    /* 2 Nút điều hướng Trước / Sau đặt ở dưới góc trái & phải */
+    .intro-slideshow-nav {
+      position: absolute;
+      bottom: 12px;
+      top: auto;
+      transform: none;
+      z-index: 5;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(15, 23, 42, 0.68);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      color: #ffffff;
       display: flex;
+      align-items: center;
       justify-content: center;
-      gap: 6px;
-      margin-top: 10px;
-      margin-bottom: 10px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      opacity: 0.92;
+      touch-action: manipulation;
+    }
+
+    .intro-slideshow-prev {
+      left: 14px;
+    }
+
+    .intro-slideshow-next {
+      right: 14px;
+    }
+
+    .intro-slideshow-nav:hover {
+      opacity: 1;
+      background: rgba(15, 23, 42, 0.9);
+      color: #38bdf8;
+      border-color: rgba(255, 255, 255, 0.45);
+      transform: scale(1.08);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35);
+    }
+
+    .intro-slideshow-nav:active {
+      transform: scale(0.94);
+    }
+
+    .intro-slideshow-nav:focus-visible {
+      outline: 2px solid #ffffff;
+      outline-offset: 2px;
+      opacity: 1;
+    }
+
+    /* Thanh chỉ báo chấm (Dots Glass Pill) */
+    .intro-slideshow-dots {
+      position: absolute;
+      bottom: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      margin: 0;
+      padding: 6px 12px;
+      border-radius: var(--radius-full, 9999px);
+      background: rgba(6, 12, 31, 0.65);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
     }
 
     .intro-slideshow-dot {
       width: 7px;
       height: 7px;
+      padding: 0;
       border-radius: 50%;
-      background: var(--light-soft);
-      border: 1px solid #c0c8dd;
+      background: rgba(255, 255, 255, 0.45);
+      border: none;
       cursor: pointer;
-      transition: var(--transition-fast);
+      transition: all 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+      touch-action: manipulation;
+    }
+
+    .intro-slideshow-dot:hover {
+      background: rgba(255, 255, 255, 0.85);
+      transform: scale(1.2);
     }
 
     .intro-slideshow-dot.active {
-      background: var(--blue-accent);
-      border-color: var(--blue-accent);
       width: 20px;
+      height: 7px;
       border-radius: 4px;
+      background: #ffffff;
+      box-shadow: none;
+    }
+
+    .intro-slideshow-dot:focus-visible {
+      outline: 2px solid #ffffff;
+      outline-offset: 2px;
+    }
+
+    /* Thanh tiến trình tự động chạy (Progress Bar) */
+    .intro-slideshow-progress {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 3px;
+      width: 0%;
+      background: #38bdf8;
+      box-shadow: none;
+      z-index: 6;
+      pointer-events: none;
+    }
+
+    .intro-slideshow-progress.running {
+      width: 100%;
+      transition: width 4s linear;
+    }
+
+    /* Tương thích màn hình nhỏ / Di động */
+    @media (max-width: 640px) {
+      .intro-slideshow {
+        margin-bottom: 20px;
+        border-radius: var(--radius-md, 14px);
+      }
+
+      .intro-slideshow-nav {
+        width: 32px;
+        height: 32px;
+        bottom: 10px;
+      }
+
+      .intro-slideshow-prev {
+        left: 8px;
+      }
+
+      .intro-slideshow-next {
+        right: 8px;
+      }
+
+      .intro-slideshow-badge {
+        top: 10px;
+        left: 10px;
+        padding: 4px 10px;
+        font-size: 0.72rem;
+      }
+
+      .intro-slideshow-counter {
+        top: 10px;
+        right: 10px;
+        padding: 3px 8px;
+        font-size: 0.7rem;
+      }
+
+      .intro-slideshow-dots {
+        bottom: 10px;
+        padding: 5px 10px;
+        gap: 5px;
+      }
+
+      .intro-slideshow-dot {
+        width: 6px;
+        height: 6px;
+      }
+
+      .intro-slideshow-dot.active {
+        width: 16px;
+        height: 6px;
+      }
+    }
+
+    /* Giảm tải hiệu ứng nếu người dùng cài đặt prefers-reduced-motion */
+    @media (prefers-reduced-motion: reduce) {
+      .intro-slideshow-track,
+      .intro-slide img,
+      .intro-slideshow-dot,
+      .intro-slideshow-progress {
+        transition: none !important;
+        animation: none !important;
+      }
+    }
+
+    .intro-slideshow-progress.running {
+      width: 100%;
+      transition: width 4s linear;
+    }
+
+    /* Tương thích màn hình nhỏ / Di động */
+    @media (max-width: 640px) {
+      .intro-slideshow {
+        margin-bottom: 20px;
+        border-radius: var(--radius-md, 14px);
+      }
+
+      .intro-slideshow-nav {
+        opacity: 0.85; /* Trên điện thoại luôn hiển thị để tiện chạm */
+        width: 34px;
+        height: 34px;
+      }
+
+      .intro-slideshow-prev {
+        left: 8px;
+      }
+
+      .intro-slideshow-next {
+        right: 8px;
+      }
+
+      .intro-slideshow-badge {
+        top: 10px;
+        left: 10px;
+        padding: 4px 10px;
+        font-size: 0.72rem;
+      }
+
+      .intro-slideshow-counter {
+        top: 10px;
+        right: 10px;
+        padding: 3px 8px;
+        font-size: 0.7rem;
+      }
+
+      .intro-slideshow-dots {
+        bottom: 10px;
+        padding: 5px 10px;
+        gap: 5px;
+      }
+
+      .intro-slideshow-dot {
+        width: 6px;
+        height: 6px;
+      }
+
+      .intro-slideshow-dot.active {
+        width: 16px;
+        height: 6px;
+      }
+    }
+
+    /* Giảm tải hiệu ứng nếu người dùng cài đặt prefers-reduced-motion */
+    @media (prefers-reduced-motion: reduce) {
+      .intro-slideshow-track,
+      .intro-slide img,
+      .intro-slideshow-dot,
+      .intro-slideshow-progress {
+        transition: none !important;
+        animation: none !important;
+      }
     }
 
     /* ==========================================
@@ -2482,15 +2795,15 @@
       <ul class="notice-list">
         <li class="notice-item">
           <span class="notice-tag">GÓC TIÊU ĐIỂM</span><br>
-          <b>🎀 [YTC] CHÍNH THỨC KHỞI ĐỘNG! BUỔI TRAINING ĐẦU TIÊN CỦA BAN MC - LỄ TÂN CÓ GÌ? 🎀</b>
+          <b>🎉 RECAP | YTC ĐỒNG HÀNH CÙNG CHƯƠNG TRÌNH CHÀO TÂN SINH VIÊN - THE NEXUS 2026 🎉</b>
         </li>
         <li class="notice-item">
           <span class="notice-tag">MỚI</span><br>
-          🌟RECAP | YTC ĐỒNG HÀNH CÙNG TALK SHOW “TƯƠNG LAI CÓ CẦN BẠN KHÔNG?”🌟
+          🎉 RECAP | TỰ HÀO 70 NĂM UNETI (1956 – 2026) – MỘT HÀNH TRÌNH, NGÀN DẤU ẤN 💙
         </li>
         <li class="notice-item">
           <span class="notice-tag">CLB</span><br>
-          🔥 CHÀO MỪNG NHỮNG GƯƠNG MẶT MỚI ĐẾN VỚI CLB ĐÀO TẠO KỸ NĂNG TRẺ! 🔥
+          🎀 [YTC] CHÍNH THỨC KHỞI ĐỘNG! BUỔI TRAINING ĐẦU TIÊN CỦA BAN MC - LỄ TÂN CÓ GÌ? 🎀
         </li>
       </ul>
     </div>
@@ -2528,36 +2841,56 @@
   <!-- GIỚI THIỆU -->
   <section class="container fade-in">
     <div class="card">
-      <div class="intro-slideshow" id="introSlideshow">
+      <div class="intro-slideshow" id="introSlideshow" role="region" aria-roledescription="carousel" aria-label="Hình ảnh hoạt động CLB YTC" tabindex="0">
+        <!-- Huy hiệu và bộ đếm ảnh -->
+        <div class="intro-slideshow-badge" aria-hidden="true">
+          <span class="intro-slideshow-badge-dot"></span>
+          <span>Khoảnh khắc YTC</span>
+        </div>
+        <div class="intro-slideshow-counter" id="introSlideCounter" aria-live="polite">1 / 6</div>
+
+        <!-- Nút điều hướng trước / sau -->
+        <button type="button" class="intro-slideshow-nav intro-slideshow-prev" id="introSlidePrev" aria-label="Xem ảnh trước">
+          <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        </button>
+        <button type="button" class="intro-slideshow-nav intro-slideshow-next" id="introSlideNext" aria-label="Xem ảnh kế tiếp">
+          <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"></polyline></svg>
+        </button>
+
         <div class="intro-slideshow-track" id="introSlideTrack">
 
-          <div class="intro-slide">
-            <img src="Image/VinhDanhSinhVienXuatSacNamHoc2025_2026.jpg" alt="YTC 2026">
+          <div class="intro-slide" role="group" aria-roledescription="slide" aria-label="1 trên 6">
+            <img src="Image/YTC_K20_THE_NEXUS.jpg" alt="YTC K20 The Nexus" loading="eager">
           </div>
 
-          <div class="intro-slide">
-            <img src="Image/YTC_Gen_15_1.jpg" alt="YTC 2026">
+          <div class="intro-slide" role="group" aria-roledescription="slide" aria-label="2 trên 6">
+            <img src="Image/VinhDanhSinhVienXuatSacNamHoc2025_2026.jpg" alt="Vinh danh Sinh viên Xuất sắc Năm học 2025 - 2026" loading="lazy">
           </div>
 
-          <div class="intro-slide">
-            <img src="Image/YTC_Da_ngoai_2026.jpg" alt="YTC 2026">
+          <div class="intro-slide" role="group" aria-roledescription="slide" aria-label="3 trên 6">
+            <img src="Image/YTC_Gen_15_1.jpg" alt="YTC Gen 15" loading="lazy">
           </div>
 
-          <div class="intro-slide">
-            <img src="Image/YTC_ChuyenTauThoiGian_1.jpg" alt="YTC 2026">
+          <div class="intro-slide" role="group" aria-roledescription="slide" aria-label="4 trên 6">
+            <img src="Image/YTC_Da_ngoai_2026.jpg" alt="YTC Dã ngoại 2026" loading="lazy">
           </div>
 
-          <div class="intro-slide">
-            <img src="Image/YTC_2026_1.jpg" alt="YTC 2026">
+          <div class="intro-slide" role="group" aria-roledescription="slide" aria-label="5 trên 6">
+            <img src="Image/YTC_ChuyenTauThoiGian_1.jpg" alt="YTC Chuyến tàu thời gian" loading="lazy">
           </div>
 
-          <div class="intro-slide">
-            <img src="Image/YTC_K19_The_Odyssey.jpg" alt="YTC 2026">
+          <div class="intro-slide" role="group" aria-roledescription="slide" aria-label="6 trên 6">
+            <img src="Image/YTC_2026_1.jpg" alt="YTC 2026" loading="lazy">
           </div>
 
           <!-- Thêm ảnh mới: copy đúng 1 khối div.intro-slide ở trên và đổi src, slideshow sẽ tự nhận và chạy -->
         </div>
-        <div class="intro-slideshow-dots" id="introSlideDots"></div>
+
+        <!-- Chấm chỉ báo trang kiểu viên thuốc kính -->
+        <div class="intro-slideshow-dots" id="introSlideDots" role="tablist" aria-label="Chọn ảnh trình chiếu"></div>
+
+        <!-- Thanh tiến trình tự động chạy -->
+        <div class="intro-slideshow-progress" id="introSlideProgress" aria-hidden="true"></div>
       </div>
       <p>
         <strong>CLB Đào Tạo Kỹ Năng Trẻ - Young Training Club (YTC)</strong> được thành lập ngày 23/04/2012 trực thuộc Đoàn TNCS Hồ Chí Minh của Trường Đại học Kinh tế - Kỹ thuật Công Nghiệp. <b>YTC</b> là nơi sinh viên có cơ hội học tập rèn luyện kỹ năng mềm, tư duy sáng tạo và khả năng làm việc nhóm thông qua các cuộc thi, hoạt động hỗ trợ và học hỏi thực tế.<br>
@@ -2734,6 +3067,17 @@
 <section class="events-grid events-grid-2">
 
   <article class="event-card fade-in">
+    <a class="event-card__media" href="https://www.facebook.com/share/p/1N6ie8p2L3/" target="_blank" rel="noopener">
+      <img src="Event/Image/DaiNhacHoiChaoTSV2026.jpg" alt="RECAP | YTC ĐỒNG HÀNH CÙNG CHƯƠNG TRÌNH CHÀO TÂN SINH VIÊN - THE NEXUS 2026" loading="lazy">
+    </a>
+    <div class="event-card__body">
+      <h3 class="event-card__title">🎉 RECAP | YTC ĐỒNG HÀNH CÙNG CHƯƠNG TRÌNH CHÀO TÂN SINH VIÊN - THE NEXUS 2026 🎉</h3>
+      <p class="event-card__meta"><b>Thời gian:</b> Ngày 16/11/2026</p>
+      <a class="event-card__link" href="https://www.facebook.com/share/p/1N6ie8p2L3/" target="_blank" rel="noopener">Xem tại đây</a>
+    </div>
+  </article>
+
+  <article class="event-card fade-in">
     <a class="event-card__media" href="https://www.facebook.com/share/p/1NEtTyWwfD/" target="_blank" rel="noopener">
       <img src="Event/Image/KyNiem70NamUNETI.jpg" alt="RECAP | TỰ HÀO 70 NĂM UNETI (1956 – 2026) – MỘT HÀNH TRÌNH, NGÀN DẤU ẤN" loading="lazy">
     </a>
@@ -2807,17 +3151,6 @@
       <h3 class="event-card__title">🌍 YTC ĐỒNG HÀNH CÙNG LỄ PHÁT ĐỘNG CUỘC THI TÌM HIỂU PHÁP LUẬT VỀ SỬ DỤNG NĂNG LƯỢNG TIẾT KIỆM VÀ HIỆU QUẢ NĂM 2026 🌟</h3>
       <p class="event-card__meta"><b>Thời gian:</b> Ngày 24/10/2026</p>
       <a class="event-card__link" href="https://www.facebook.com/share/p/1CHcbo6LZk/" target="_blank" rel="noopener">Xem tại đây</a>
-    </div>
-  </article>
-
-  <article class="event-card fade-in">
-    <a class="event-card__media" href="https://www.facebook.com/share/p/1dcTFYhKC5/" target="_blank" rel="noopener">
-      <img src="Event/Image/20_10_2026.jpg" alt="20/10 CÙNG YTC | LAN TỎA YÊU THƯƠNG, LƯU GIỮ KHOẢNH KHẮC" loading="lazy">
-    </a>
-    <div class="event-card__body">
-      <h3 class="event-card__title">💐 20/10 CÙNG YTC | LAN TỎA YÊU THƯƠNG, LƯU GIỮ KHOẢNH KHẮC 💐</h3>
-      <p class="event-card__meta"><b>Thời gian:</b> Ngày 22/10/2026</p>
-      <a class="event-card__link" href="https://www.facebook.com/share/p/1dcTFYhKC5/" target="_blank" rel="noopener">Xem tại đây</a>
     </div>
   </article>
 </section>
@@ -3158,40 +3491,162 @@
       }
     }
 
-    // ===== SLIDESHOW ẢNH GIỚI THIỆU (tự động trượt) =====
-    (function() {
+    // ===== SLIDESHOW ẢNH GIỚI THIỆU (tự động trượt, nâng cao) =====
+    (function initIntroSlideshow() {
       const wrapper = document.getElementById('introSlideshow');
       const track = document.getElementById('introSlideTrack');
       const dotsContainer = document.getElementById('introSlideDots');
+      const counter = document.getElementById('introSlideCounter');
+      const prevBtn = document.getElementById('introSlidePrev');
+      const nextBtn = document.getElementById('introSlideNext');
+      const progressBar = document.getElementById('introSlideProgress');
       if (!wrapper || !track) return;
 
       const slides = track.querySelectorAll('.intro-slide');
       const total = slides.length;
       let current = 0;
+      let introTimer = null;
 
-      // Chỉ có 1 ảnh -> không cần dots/tự chạy, chờ khi nào thêm ảnh mới sẽ tự kích hoạt
-      if (total <= 1) return;
+      function updateCounter() {
+        if (counter) {
+          counter.textContent = `${current + 1} / ${total}`;
+        }
+      }
+
+      function resetProgress() {
+        if (!progressBar) return;
+        progressBar.classList.remove('running');
+        void progressBar.offsetWidth; // Buộc reflow để animation kích hoạt lại mượt mà
+        progressBar.classList.add('running');
+      }
+
+      // Chỉ có 1 ảnh -> không cần dots/nút/tự chạy
+      if (total <= 1) {
+        if (dotsContainer) dotsContainer.style.display = 'none';
+        if (prevBtn) prevBtn.style.display = 'none';
+        if (nextBtn) nextBtn.style.display = 'none';
+        if (counter) counter.style.display = 'none';
+        if (progressBar) progressBar.style.display = 'none';
+        return;
+      }
+
+      updateCounter();
 
       const dots = [];
-      for (let i = 0; i < total; i++) {
-        const d = document.createElement('div');
-        d.className = 'intro-slideshow-dot' + (i === 0 ? ' active' : '');
-        d.addEventListener('click', () => goTo(i));
-        dotsContainer.appendChild(d);
-        dots.push(d);
+      if (dotsContainer) {
+        dotsContainer.innerHTML = '';
+        for (let i = 0; i < total; i++) {
+          const d = document.createElement('button');
+          d.type = 'button';
+          d.className = 'intro-slideshow-dot' + (i === 0 ? ' active' : '');
+          d.setAttribute('role', 'tab');
+          d.setAttribute('aria-label', `Chuyển tới ảnh ${i + 1}`);
+          d.setAttribute('aria-selected', i === 0 ? 'true' : 'false');
+          d.addEventListener('click', () => {
+            goTo(i);
+            restartTimer();
+          });
+          dotsContainer.appendChild(d);
+          dots.push(d);
+        }
       }
 
       function goTo(idx) {
         current = (idx + total) % total;
         track.style.transform = `translateX(-${current * 100}%)`;
-        dots.forEach((d, i) => d.classList.toggle('active', i === current));
+        dots.forEach((d, i) => {
+          const isActive = (i === current);
+          d.classList.toggle('active', isActive);
+          d.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        });
+        updateCounter();
+        resetProgress();
       }
 
-      let introTimer = setInterval(() => goTo(current + 1), 4000);
-      wrapper.addEventListener('mouseenter', () => clearInterval(introTimer));
-      wrapper.addEventListener('mouseleave', () => {
-        introTimer = setInterval(() => goTo(current + 1), 4000);
+      function startTimer() {
+        stopTimer();
+        resetProgress();
+        introTimer = setInterval(() => {
+          goTo(current + 1);
+        }, 4000);
+      }
+
+      function stopTimer() {
+        if (introTimer) {
+          clearInterval(introTimer);
+          introTimer = null;
+        }
+        if (progressBar) {
+          progressBar.classList.remove('running');
+        }
+      }
+
+      function restartTimer() {
+        startTimer();
+      }
+
+      startTimer();
+
+      // Nút điều hướng Trước / Sau
+      if (prevBtn) {
+        prevBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          goTo(current - 1);
+          restartTimer();
+        });
+      }
+
+      if (nextBtn) {
+        nextBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          goTo(current + 1);
+          restartTimer();
+        });
+      }
+
+      // Tạm dừng khi rê chuột hoặc focus
+      wrapper.addEventListener('mouseenter', stopTimer);
+      wrapper.addEventListener('mouseleave', startTimer);
+      wrapper.addEventListener('focusin', stopTimer);
+      wrapper.addEventListener('focusout', startTimer);
+
+      // Phím mũi tên sang trái/phải khi slideshow được focus
+      wrapper.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowLeft') {
+          e.preventDefault();
+          goTo(current - 1);
+          restartTimer();
+        } else if (e.key === 'ArrowRight') {
+          e.preventDefault();
+          goTo(current + 1);
+          restartTimer();
+        }
       });
+
+      // Hỗ trợ cử chỉ vuốt ngón tay trên di động
+      let touchStartX = 0;
+      let touchStartY = 0;
+      wrapper.addEventListener('touchstart', (e) => {
+        if (e.touches.length === 1) {
+          touchStartX = e.touches[0].clientX;
+          touchStartY = e.touches[0].clientY;
+        }
+      }, { passive: true });
+
+      wrapper.addEventListener('touchend', (e) => {
+        if (e.changedTouches.length === 1) {
+          const deltaX = e.changedTouches[0].clientX - touchStartX;
+          const deltaY = e.changedTouches[0].clientY - touchStartY;
+          if (Math.abs(deltaX) > 40 && Math.abs(deltaX) > Math.abs(deltaY)) {
+            if (deltaX < 0) {
+              goTo(current + 1);
+            } else {
+              goTo(current - 1);
+            }
+            restartTimer();
+          }
+        }
+      }, { passive: true });
     })();
 
     function openStarBox() {
