@@ -2,12 +2,14 @@
    HERO BANNER
 ========================= */
 .hero {
-  background: linear-gradient(135deg, #04006b 0%, #2c3b90 45%, #0983fe 100%);
+  background: linear-gradient(135deg, #03004a 0%, #081647 28%, #093284 58%, #0983fe 88%, #00d4ff 100%);
   color: #fff;
   text-align: center;
   padding: 70px 20px 60px;
   position: relative;
   overflow: hidden;
+  border-bottom: 1px solid rgba(0, 212, 255, 0.35);
+  box-shadow: 0 14px 44px rgba(4, 0, 107, 0.35), 0 0 32px rgba(0, 212, 255, 0.15);
 }
 
 .hero::before {
