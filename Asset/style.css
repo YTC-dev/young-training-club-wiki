@@ -3048,6 +3048,16 @@ footer {
   }
 }
 
+@media (min-width: 821px) {
+  .chairperson-page .department-hero__image {
+    width: auto;
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+    justify-self: center;
+  }
+}
+
 @media (max-width: 520px) {
   .chairperson-page .department-hero {
     padding: 26px 18px;
