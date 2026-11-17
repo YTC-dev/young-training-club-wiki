@@ -532,6 +532,40 @@ a:hover {
 }
 
 /* ==========================================
+   HEADER MARQUEE
+========================================== */
+.header--marquee {
+  width: 100%;
+  overflow: hidden;
+  background: rgba(254, 242, 242, 0.9);
+  border-bottom: 1px solid rgba(239, 68, 68, 0.25);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.header--marquee marquee {
+  color: #e60000 !important;
+  font-weight: 700;
+  display: block;
+  padding: 5px 0;
+}
+
+.header--marquee a,
+.header--marquee a:link,
+.header--marquee a:visited,
+.header--marquee a:active {
+  color: #e60000 !important;
+  text-decoration: none !important;
+  font-weight: 700;
+  transition: color 0.2s ease, text-decoration 0.2s ease;
+}
+
+.header--marquee a:hover {
+  color: #b91c1c !important;
+  text-decoration: underline !important;
+}
+
+/* ==========================================
    HERO / HEADER
 ========================================== */
 header {

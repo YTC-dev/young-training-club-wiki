@@ -11,6 +11,40 @@
 </head>
   <style>
     /* ==========================================
+       HEADER MARQUEE (FULL RED)
+    ========================================== */
+    .header--marquee {
+      width: 100%;
+      overflow: hidden;
+      background: rgba(254, 242, 242, 0.95);
+      border-bottom: 1.5px solid rgba(239, 68, 68, 0.35);
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .header--marquee marquee {
+      color: #e60000 !important;
+      font-weight: 700;
+      display: block;
+      padding: 5px 0;
+    }
+
+    .header--marquee a,
+    .header--marquee a:link,
+    .header--marquee a:visited,
+    .header--marquee a:active {
+      color: #e60000 !important;
+      text-decoration: none !important;
+      font-weight: 700;
+      transition: color 0.2s ease, text-decoration 0.2s ease;
+    }
+
+    .header--marquee a:hover {
+      color: #b91c1c !important;
+      text-decoration: underline !important;
+    }
+
+    /* ==========================================
        FLOATING BUTTON - NÚT TRÒN GÓC DƯỚI
     ========================================== */
     .floating-btn {
@@ -2762,9 +2796,12 @@
 <div id="nav-placeholder"></div>
 
     <div class="header--marquee">
-      <marquee scrollamount="8" direction="left" align="center" style="font-weight: bold; padding: 3px; color: red;">
-        🔑 [YTC] CHÀO MỪNG THÀNH VIÊN GEN 15.1 ĐẾN VỚI GIA ĐÌNH YTC!! 🚪✨&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🎉 CHÀO MỪNG TÂN SINH VIÊN UNETI K20 🎉&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🎉 CHÀO MỪNG 70 NĂM THÀNH LẬP TRƯỜNG ĐẠI HỌC KINH TẾ - KỸ THUẬT CÔNG NGHIỆP 🎉&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHÍNH THỨC RA MẮT BAN CHỦ NHIỆM & BAN CHUYÊN MÔN GEN 14 - NHỮNG NGƯỜI TIẾP LỬA YTC 
-</marquee>
+      <marquee scrollamount="8" direction="left" align="center" style="font-weight: bold; padding: 5px 0; color: #e60000;">
+        <a href="https://www.facebook.com/share/p/1JEtADLHPs/" target="_blank" style="color: #ff0000; text-decoration: none;">🔑 [YTC] CHÀO MỪNG THÀNH VIÊN GEN 15.1 ĐẾN VỚI GIA ĐÌNH YTC!! 🚪✨</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <a href="https://www.facebook.com/share/p/1P4MX4DRr6/" target="_blank" style="color: #ff0000; text-decoration: none;">🎉 CHÀO MỪNG TÂN SINH VIÊN UNETI K20 🎉</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <a href="https://www.facebook.com/share/p/18rcNGS4wh/" target="_blank" style="color: #ff0000; text-decoration: none;">🎉 CHÀO MỪNG 70 NĂM THÀNH LẬP TRƯỜNG ĐẠI HỌC KINH TẾ - KỸ THUẬT CÔNG NGHIỆP 🎉</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <a href="https://www.facebook.com/share/p/1J8zz4yDeK/" target="_blank" style="color: #ff0000; text-decoration: none;">CHÍNH THỨC RA MẮT BAN CHỦ NHIỆM & BAN CHUYÊN MÔN GEN 14 - NHỮNG NGƯỜI TIẾP LỬA YTC</a> 
+      </marquee>
     </div>
   <!-- HEADER -->
   <header class="hero">
