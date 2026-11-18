@@ -146,27 +146,18 @@
 
     .intro-showcase__img-box {
       width: 100%;
+      aspect-ratio: 16 / 9;
       background: linear-gradient(135deg, #04006b 0%, #0d2475 50%, #0983fe 100%);
       overflow: hidden;
       display: flex;
       justify-content: center;
       align-items: center;
-      max-height: 440px;
       position: relative;
-    }
-
-    .intro-showcase__img-box::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(180deg, transparent 65%, rgba(4, 0, 107, 0.35) 100%);
-      pointer-events: none;
     }
 
     .intro-showcase__img {
       width: 100%;
       height: 100%;
-      max-height: 440px;
       object-fit: cover;
       object-position: center;
       display: block;
@@ -282,7 +273,7 @@
     /* ===== ADMIN TEAM ===== */
     .admin-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(4, 1fr);
       gap: 24px;
       max-width: 1020px;
       margin: 0 auto;
@@ -1306,7 +1297,7 @@
     <div class="container fade-in">
       <div class="section-header">
         <h2 class="section-title">Đội ngũ Admin</h2>
-        <p class="section-desc">Những người trực tiếp quản trị, biên soạn và phát triển nội dung Wiki</p>
+        <p class="section-desc">Những người trực tiếp quản trị, biên soạn và phát triển nội dung Wiki<br>(Áp dụng từ ngày 19/11/2026)</p>
       </div>
 
       <div class="admin-grid">
@@ -1321,17 +1312,6 @@
           <span class="admin-card-action">Xem hồ sơ <svg class="ico" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></span>
         </a>
 
-        <a href="Member/TranVanQuang_DHTI18A1CL.html" class="admin-card fade-in">
-          <div class="admin-avatar-wrap">
-            <img src="Member/Profile/TranVanQuangDHTI18A1CL.jpg" alt="Trần Văn Quang">
-          </div>
-          <span class="admin-role-badge">Admin phó</span>
-          <h3 class="admin-name">Trần Văn Quang</h3>
-          <p class="admin-class">DHTI18A1CL</p>
-          <span class="admin-dept">Ban Truyền thông</span>
-          <span class="admin-card-action">Xem hồ sơ <svg class="ico" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></span>
-        </a>
-
         <a href="Member/NguyenHongThanh_DHMK18A1HN.html" class="admin-card fade-in">
           <div class="admin-avatar-wrap">
             <img src="Member/Profile/NguyenHongThanhDHMK18A1HN.jpg" alt="Nguyễn Hồng Thanh">
@@ -1340,6 +1320,28 @@
           <h3 class="admin-name">Nguyễn Hồng Thanh</h3>
           <p class="admin-class">DHMK18A1HN</p>
           <span class="admin-dept">Chủ Nhiệm CLB</span>
+          <span class="admin-card-action">Xem hồ sơ <svg class="ico" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </a>
+
+        <a href="Member/TranBienCuong_DHTI20A1HN.html" class="admin-card fade-in">
+          <div class="admin-avatar-wrap">
+            <img src="Member/Profile/TranBienCuongDHTI20A1HN.jpg" alt="Nguyễn Hồng Thanh">
+          </div>
+          <span class="admin-role-badge">Admin phó</span>
+          <h3 class="admin-name">Trần Biên Cương</h3>
+          <p class="admin-class">DHTI20A1HN</p>
+          <span class="admin-dept">Kỹ thuật - Vận hành</span>
+          <span class="admin-card-action">Xem hồ sơ <svg class="ico" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </a>
+
+        <a href="Member/VuXuanNhatMinh_DHMK18A1HN.html" class="admin-card fade-in">
+          <div class="admin-avatar-wrap">
+            <img src="Member/Profile/VuXuanNhatMinhDHMK18A1HN.jpg" alt="Nguyễn Hồng Thanh">
+          </div>
+          <span class="admin-role-badge">Admin phó</span>
+          <h3 class="admin-name">Vũ Xuân Nhật Minh</h3>
+          <p class="admin-class">DHMK18A1HN</p>
+          <span class="admin-dept">Truyền thông</span>
           <span class="admin-card-action">Xem hồ sơ <svg class="ico" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></span>
         </a>
       </div>
