@@ -153,11 +153,22 @@
 
     .welcome-showcase h2 {
       position: relative;
-      font-size: 2rem;
-      line-height: 1.35;
-      margin-bottom: 10px;
+      display: block;
+      width: 100%;
+      padding: 0;
+      background: none;
+      -webkit-background-clip: initial;
+      -webkit-text-fill-color: #ffffff;
+      font-size: 2.15rem;
+      line-height: 1.28;
+      letter-spacing: 0;
+      margin: 0 0 14px;
       color: #ffffff;
       text-shadow: 0 0 24px rgba(126, 214, 255, 0.45);
+    }
+
+    .welcome-showcase h2::after {
+      content: none;
     }
 
     .welcome-showcase h2 b {
