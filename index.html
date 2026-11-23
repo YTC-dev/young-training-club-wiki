@@ -1551,10 +1551,28 @@
 
     #starBox h2 {
       color: #ffe27a;
-      margin-bottom: 20px;
-      font-size: 2rem;
+      display: block;
+      margin: 0 0 24px;
+      padding: 0 44px 16px;
+      font-size: clamp(1.15rem, 3.2vw, 1.8rem);
+      line-height: 1.35;
+      letter-spacing: 0.01em;
       text-align: center;
-      text-shadow: 0 0 20px rgba(255, 226, 122, 0.5);
+      text-shadow: 0 2px 12px rgba(255, 226, 122, 0.28);
+      background: none;
+      -webkit-text-fill-color: currentColor;
+    }
+
+    #starBox h2::after {
+      width: 68px;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, #ffe27a, transparent);
+      box-shadow: 0 2px 10px rgba(255, 226, 122, 0.3);
+    }
+
+    #starBox h2:hover::after {
+      width: 68px;
+      box-shadow: 0 2px 10px rgba(255, 226, 122, 0.3);
     }
 
     #starBox h3 {
@@ -1633,7 +1651,7 @@
         padding: 25px 20px;
         max-height: 90vh;
       }
-      #starBox h2 { font-size: 1.5rem; }
+      #starBox h2 { font-size: 1.35rem; padding-right: 34px; padding-left: 34px; }
       #starBox h3 { font-size: 1.2rem; }
       .star-floating-btn {
         width: 60px;
@@ -1787,7 +1805,7 @@
 
     /* Nhãn nhỏ "ghim" trên viền khung */
     .welcome-announcement::before {
-      content: "★ Vinh danh ★";
+      content: "★ Kỷ niệm 70 năm & The Nexus 2026 ★";
       position: absolute;
       top: 0;
       left: 50%;
@@ -2760,31 +2778,30 @@
   <div class="welcome-close" onclick="closeWelcomeScreen()" title="Đóng (ESC)"></div>
 
   <div class="welcome-eyebrow">Young Training Club - CLB ĐÀO TẠO KỸ NĂNG TRẺ</div>
-<p class="welcome-tagline">Góc Vàng Vinh Danh Sinh viên UNETI năm học 2025–2026</p>
+<p class="welcome-tagline">LỄ KỶ NIỆM 70 NĂM THÀNH LẬP TRƯỜNG VÀ ĐẠI NHẠC HỘI THE NEXUS 2026</p>
 
   <div class="welcome-announcement" aria-live="polite">
-  <div class="welcome-announcement-title">Tôn vinh những thành viên YTC có thành tích xuất sắc, được UNETI ghi nhận trong năm học 2025–2026.</div>
+  <div class="welcome-announcement-title">Khắc ghi hành trình 70 năm UNETI và đồng hành cùng đại nhạc hội chào tân sinh viên THE NEXUS 2026.</div>
   </div>
 
 <div class="welcome-media honor-student-gallery">
   <figure>
-    <img src="Event/VinhDanh/NguyenHongThanhDHMK18A1HN.jpg" alt="Nguyễn Hồng Thanh, sinh viên UNETI được vinh danh" class="welcome-poster">
-    <figcaption>Nguyễn Hồng Thanh</figcaption>
+    <img src="Event/Image/KyNiem70NamUNETI.jpg" alt="Lễ kỷ niệm 70 năm thành lập trường" class="welcome-poster">
+    <figcaption>Lễ kỷ niệm 70 năm UNETI</figcaption>
   </figure>
   <figure>
-    <img src="Event/VinhDanh/LeHuyenDoanTrangDHLQ18A3HN.jpg" alt="Lê Huyền Đoan Trang, sinh viên UNETI được vinh danh" class="welcome-poster">
-    <figcaption>Lê Huyền Đoan Trang</figcaption>
-  </figure>
-  <figure>
-    <img src="Event/VinhDanh/NguyenThanhLanDHLQ17A1HN.jpg" alt="Nguyễn Thanh Lan, sinh viên UNETI được vinh danh" class="welcome-poster">
-    <figcaption>Nguyễn Thanh Lan</figcaption>
+    <img src="Event/Image/DaiNhacHoiChaoTSV2026.jpg" alt="Đại nhạc hội THE NEXUS 2026" class="welcome-poster">
+    <figcaption>THE NEXUS 2026</figcaption>
   </figure>
 </div>
 
 <div class="welcome-actions">
-  <a href="GocVangVinhDanh.html" class="btn welcome-btn-secondary">
-    <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="#FFD700" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12v18l-6-4-6 4V3Z"/></svg> Xem trang vinh danh
-    </a>
+  <a href="https://www.facebook.com/share/p/1NEtTyWwfD/" target="_blank" rel="noopener noreferrer" class="btn welcome-btn-primary">
+    Bài đăng lễ kỷ niệm 70 năm
+  </a>
+  <a href="https://www.facebook.com/share/p/1N6ie8p2L3/" target="_blank" rel="noopener noreferrer" class="btn welcome-btn-secondary">
+    Bài đăng THE NEXUS 2026
+  </a>
   </div>
 
   <label class="welcome-check">
@@ -3433,7 +3450,7 @@
       <div id="starBox" onclick="event.stopPropagation()">
         <div class="close-btn" onclick="closeStarBox()"></div>
 
-        <h2>⭐ GƯƠNG MẶT SINH VIÊN TIÊU BIỂU UNETI ⭐</h2>
+        <h2>✦ GƯƠNG MẶT SINH VIÊN TIÊU BIỂU UNETI ✦</h2>
 
           <div class="student-item">
             <img src="Image/VinhDanh_LeChiMinhThong.jpg">
