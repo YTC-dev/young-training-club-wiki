@@ -589,20 +589,77 @@
     .profile-hero .social-row {
       display: flex;
       justify-content: center;
-      gap: 12px;
-      margin-top: 16px;
+      align-items: center;
+      gap: 10px;
+      margin-top: 18px;
       flex-wrap: wrap;
     }
 
     .profile-hero .social-row a {
-      color: rgba(255,255,255,0.85);
-      background: rgba(255,255,255,0.15);
-      border: 1px solid rgba(255,255,255,0.3);
-      padding: 6px 14px;
-      border-radius: var(--radius-sm);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      min-height: 42px;
+      padding: 8px 16px;
+      border: 1px solid rgba(255,255,255,.38);
+      border-radius: 999px;
+      color: #fff;
+      background: linear-gradient(135deg, rgba(255,255,255,.2), rgba(255,255,255,.1));
+      box-shadow: 0 5px 16px rgba(4,0,107,.18), inset 0 1px 0 rgba(255,255,255,.2);
+      backdrop-filter: blur(10px);
       font-size: 13px;
-      transition: var(--transition-fast);
+      font-weight: 700;
+      letter-spacing: .01em;
       text-decoration: none;
+      transition: transform .2s ease, box-shadow .2s ease, background .2s ease, border-color .2s ease;
+    }
+
+    .profile-hero .social-row a::before {
+      display: grid;
+      width: 25px;
+      height: 25px;
+      flex: 0 0 25px;
+      place-items: center;
+      border-radius: 50%;
+      background: rgba(255,255,255,.95);
+      color: #1877f2;
+      font-family: Arial, sans-serif;
+      font-size: 17px;
+      font-weight: 800;
+      line-height: 1;
+      content: "f";
+    }
+
+    .profile-hero .social-row a[href*="tiktok.com"]::before {
+      background: #111827;
+      color: #fff;
+      font-size: 16px;
+      text-shadow: -1px 0 #25f4ee, 1px 0 #fe2c55;
+      content: "♪";
+    }
+
+    .profile-hero .social-row a:hover {
+      transform: translateY(-3px);
+      border-color: rgba(255,255,255,.78);
+      background: linear-gradient(135deg, rgba(255,255,255,.32), rgba(126,214,255,.2));
+      box-shadow: 0 10px 24px rgba(4,0,107,.28), inset 0 1px 0 rgba(255,255,255,.28);
+      color: #fff;
+    }
+
+    .profile-hero .social-row a:focus-visible {
+      outline: 3px solid #fff;
+      outline-offset: 3px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .profile-hero .social-row a {
+        transition: none;
+      }
+
+      .profile-hero .social-row a:hover {
+        transform: none;
+      }
     }
 
     .profile-copy-icon { width: 18px; height: 18px; flex: 0 0 auto; filter: drop-shadow(0 1px 2px rgba(4, 0, 107, .22)); }
@@ -610,7 +667,7 @@
     .profile-hero .profile-copy-btn {
       appearance: none;
       color: #fff;
-      background: linear-gradient(135deg, rgba(255,255,255,.28), rgba(126,214,255,.2));
+      background: linear-gradient(135deg, rgba(29, 44, 255, 0.28), rgba(126, 182, 255, 0.2));
       border: 1px solid rgba(255,255,255,.58);
       padding: 8px 16px;
       border-radius: 999px;
@@ -627,17 +684,12 @@
 
     .profile-hero .profile-copy-btn:hover,
     .profile-hero .profile-copy-btn.is-copied {
-      background: linear-gradient(135deg, rgba(255,255,255,.42), rgba(126,214,255,.34));
+      background: linear-gradient(135deg, rgba(0, 17, 255, 0.768), rgba(21, 122, 255, 0.703));
       border-color: rgba(255,255,255,.9);
       color: #fff;
       transform: translateY(-3px);
       box-shadow: 0 11px 24px rgba(4, 0, 107, .3), 0 0 0 4px rgba(126, 214, 255, .2);
     }
-    .profile-hero .social-row a:hover {
-      background: rgba(255,255,255,0.3);
-      color: #fff;
-    }
-
     /* ===== PROFILE BODY ===== */
     .profile-body {
       margin-top: -40px;

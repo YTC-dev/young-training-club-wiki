@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Review YTC 2026 - Những khoảnh khắc đáng nhớ</title>
+  <meta name="description" content="Cùng nhìn lại những khoảnh khắc, hoạt động và dấu ấn nổi bật của YTC trong năm 2026.">
+  <meta property="og:title" content="Review YTC 2026 - Những khoảnh khắc đáng nhớ">
+  <meta property="og:description" content="Một hành trình của niềm vui, sự gắn kết và những dấu ấn không thể quên.">
+  <meta property="og:image" content="https://ytc-dev.github.io/young-training-club-wiki/Image/YTC_ChuyenTauThoiGian_1.jpg">
+  <link rel="stylesheet" href="Asset/style.css">
+  <link rel="icon" type="image/png" href="Image/YTC-Favicon.png">
+  <style>
+    :root {
+      --review-navy: #07164a;
+      --review-blue: #0b6ee8;
+      --review-cyan: #55dff5;
+      --review-cream: #f7fbff;
+      --review-coral: #ff8a8a;
+    }
+
+    body { padding-top: 90px; }
+
+    .review-hero {
+      min-height: 620px;
+      display: grid;
+      align-items: end;
+      position: relative;
+      overflow: hidden;
+      color: #fff;
+      text-align: left;
+      background: #07164a;
+    }
+
+    .review-hero__image,
+    .review-hero__shade {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .review-hero__image {
+      object-fit: cover;
+      object-position: center 48%;
+      filter: saturate(.92) contrast(1.08);
+      transform: scale(1.02);
+    }
+
+    .review-hero__shade {
+      background:
+        linear-gradient(180deg, rgba(3, 10, 49, .12) 10%, rgba(3, 10, 49, .2) 42%, rgba(3, 10, 49, .96) 100%),
+        linear-gradient(90deg, rgba(3, 10, 49, .84) 0%, transparent 68%);
+    }
+
+    .review-hero__content {
+      position: relative;
+      z-index: 2;
+      width: min(1180px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: 0 0 72px;
+    }
+
+    .review-kicker,
+    .story-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      font-size: .76rem;
+      font-weight: 800;
+      color: #c9f7ff;
+    }
+
+    .review-kicker::before,
+    .story-label::before {
+      content: "";
+      width: 38px;
+      height: 2px;
+      background: var(--review-cyan);
+    }
+
+    .review-hero h1 {
+      max-width: 850px;
+      margin: 18px 0 14px;
+      font-size: clamp(3.7rem, 9vw, 8.2rem);
+      line-height: .86;
+      letter-spacing: -.075em;
+      color: #fff;
+      background: none;
+      -webkit-text-fill-color: #fff;
+      animation: none;
+      filter: none;
+    }
+
+    .review-hero h1 em {
+      display: block;
+      font-style: normal;
+      color: var(--review-cyan);
+      letter-spacing: -.09em;
+    }
+
+    .review-hero__lead {
+      max-width: 620px;
+      margin: 0;
+      color: #dbeeff;
+      font-size: clamp(1rem, 2vw, 1.22rem);
+      line-height: 1.75;
+      text-shadow: 0 2px 12px rgba(0,0,0,.4);
+    }
+
+    .review-scroll {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 28px;
+      color: #fff;
+      text-decoration: none;
+      font-size: .82rem;
+      font-weight: 800;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .review-scroll span {
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(255,255,255,.55);
+      border-radius: 50%;
+      transition: .25s ease;
+    }
+
+    .review-scroll:hover span { background: #fff; color: var(--review-navy); }
+
+    .review-main {
+      background: var(--review-cream);
+      overflow: hidden;
+    }
+
+    .review-intro {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 92px 20px 72px;
+      display: grid;
+      grid-template-columns: 1fr 1.15fr;
+      gap: 72px;
+      align-items: start;
+      text-align: left;
+    }
+
+    .review-intro h2 {
+      display: block;
+      margin: 12px 0 0;
+      text-align: left;
+      font-size: clamp(2.4rem, 5vw, 4.7rem);
+      line-height: 1;
+      letter-spacing: -.055em;
+      color: #04006b !important;
+      -webkit-text-fill-color: #04006b !important;
+      background: none;
+      font-weight: 900;
+      opacity: 1;
+      text-shadow: 0 1px 0 rgba(4, 0, 107, .08);
+    }
+
+    .review-intro h2::after { display: none; }
+
+    .review-intro .story-label {
+      color: #07164a;
+      font-size: .82rem;
+      letter-spacing: 3px;
+      opacity: 1;
+    }
+
+    .review-intro .story-label::before {
+      background: #0983fe;
+    }
+
+    .review-intro__copy {
+      padding-top: 24px;
+      color: #41526d;
+      font-size: 1.08rem;
+      line-height: 1.9;
+    }
+
+    .review-intro__copy strong { color: var(--review-navy); }
+
+    .story-strip {
+      background: var(--review-navy);
+      color: #fff;
+      padding: 88px 20px;
+    }
+
+    .story-strip__inner {
+      max-width: 1180px;
+      margin: 0 auto;
+    }
+
+    .story-strip__head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 30px;
+      margin-bottom: 38px;
+      text-align: left;
+    }
+
+    .story-strip h2 {
+      margin: 10px 0 0;
+      color: #fff;
+      -webkit-text-fill-color: #fff;
+      font-size: clamp(2.2rem, 4vw, 4rem);
+      text-align: left;
+    }
+
+    .story-strip h2::after { display: none; }
+
+    .story-counter {
+      color: #80cfff;
+      font-size: 1.1rem;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .memory-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      grid-auto-rows: 96px;
+      gap: 16px;
+    }
+
+    .memory-card {
+      position: relative;
+      border: 0;
+      border-radius: 18px;
+      overflow: hidden;
+      background: #10245e;
+      cursor: zoom-in;
+      text-align: left;
+      color: #fff;
+      box-shadow: 0 18px 44px rgba(0,0,0,.18);
+    }
+
+    .memory-card:nth-child(1) { grid-column: span 7; grid-row: span 5; }
+    .memory-card:nth-child(2) { grid-column: span 5; grid-row: span 3; }
+    .memory-card:nth-child(3) { grid-column: span 5; grid-row: span 2; }
+    .memory-card:nth-child(4) { grid-column: span 4; grid-row: span 4; }
+    .memory-card:nth-child(5) { grid-column: span 8; grid-row: span 4; }
+
+    .memory-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .7s cubic-bezier(.16,1,.3,1), filter .35s ease;
+    }
+
+    .memory-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 38%, rgba(4,12,54,.88) 100%);
+    }
+
+    .memory-card:hover img { transform: scale(1.045); filter: saturate(1.12); }
+
+    .memory-card__text {
+      position: absolute;
+      z-index: 2;
+      left: 24px;
+      right: 24px;
+      bottom: 20px;
+    }
+
+    .memory-card__number {
+      color: var(--review-cyan);
+      font-size: .72rem;
+      font-weight: 900;
+      letter-spacing: 2px;
+    }
+
+    .memory-card h3 {
+      margin: 5px 0 0;
+      color: #fff;
+      font-size: clamp(1.05rem, 2vw, 1.55rem);
+      line-height: 1.25;
+    }
+
+    .chapter {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 86px 20px;
+    }
+
+    .chapter > h2 {
+      color: var(--review-navy);
+      -webkit-text-fill-color: var(--review-navy);
+      font-weight: 900;
+      text-shadow: none;
+    }
+
+    .chapter > .story-label {
+      color: #07164a;
+      font-size: .82rem;
+      letter-spacing: 3px;
+      opacity: 1;
+    }
+
+    .chapter > .story-label::before {
+      background: #0983fe;
+    }
+
+    .chapter-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      margin-top: 34px;
+    }
+
+    .chapter-card {
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-template-rows: 260px 1fr;
+      min-height: 0;
+      border: 1px solid rgba(9,131,254,.16);
+      border-radius: 20px;
+      overflow: hidden;
+      background: #fff;
+      box-shadow: 0 14px 38px rgba(4,0,107,.08);
+      text-align: left;
+      transition: .35s cubic-bezier(.16,1,.3,1);
+    }
+
+    .chapter-card:hover { transform: translateY(-6px); box-shadow: 0 22px 50px rgba(9,131,254,.16); }
+
+    .chapter-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    .chapter-card__body {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 26px;
+    }
+
+    .chapter-card__tag {
+      color: #0983fe;
+      font-size: .72rem;
+      font-weight: 900;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+
+    .chapter-card h3 {
+      margin: 8px 0 10px;
+      color: var(--review-navy);
+      line-height: 1.25;
+      font-size: 1.28rem;
+    }
+
+    .chapter-card p {
+      color: #64748b;
+      line-height: 1.65;
+      font-size: .92rem;
+    }
+
+    .review-outlook {
+      max-width: 1180px;
+      margin: 0 auto 96px;
+      padding: 68px 55px;
+      border-radius: 26px;
+      background: linear-gradient(135deg, #0983fe, #080b65);
+      color: #fff;
+      text-align: left;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .review-outlook::after {
+      content: "2027";
+      position: absolute;
+      right: -10px;
+      bottom: -42px;
+      font-size: 11rem;
+      line-height: 1;
+      font-weight: 900;
+      color: rgba(255,255,255,.055);
+      letter-spacing: -.08em;
+    }
+
+    .review-outlook h2 {
+      color: #fff;
+      -webkit-text-fill-color: #fff;
+      margin: 8px 0 12px;
+      text-align: left;
+      font-size: clamp(2.2rem, 5vw, 4.2rem);
+    }
+
+    .review-outlook h2::after { display: none; }
+
+    .review-outlook p {
+      max-width: 680px;
+      color: #d7efff;
+      font-size: 1.05rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    .lightbox {
+      position: fixed;
+      z-index: 10000;
+      inset: 0;
+      display: none;
+      place-items: center;
+      padding: 40px;
+      background: rgba(2,7,35,.94);
+      backdrop-filter: blur(12px);
+    }
+
+    .lightbox.is-open { display: grid; }
+    .lightbox img {
+      max-width: min(1100px, 92vw);
+      max-height: 82vh;
+      border-radius: 12px;
+      box-shadow: 0 24px 80px rgba(0,0,0,.5);
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 24px;
+      right: 24px;
+      width: 44px;
+      height: 44px;
+      border: 1px solid rgba(255,255,255,.5);
+      border-radius: 50%;
+      background: rgba(255,255,255,.08);
+      color: #fff;
+      cursor: pointer;
+      font-size: 1.5rem;
+    }
+
+    @media (max-width: 900px) {
+      .review-hero { min-height: 580px; }
+      .review-intro { grid-template-columns: 1fr; gap: 22px; padding-top: 72px; }
+      .memory-grid { grid-auto-rows: 82px; }
+      .memory-card:nth-child(1) { grid-column: span 12; }
+      .memory-card:nth-child(2),
+      .memory-card:nth-child(3),
+      .memory-card:nth-child(4),
+      .memory-card:nth-child(5) { grid-column: span 6; grid-row: span 3; }
+      .chapter-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 620px) {
+      body { padding-top: 76px; }
+      .review-hero { min-height: 540px; }
+      .review-hero__content { width: calc(100% - 32px); padding-bottom: 44px; }
+      .review-hero h1 { font-size: clamp(3.2rem, 18vw, 5.2rem); }
+      .review-intro { padding: 58px 16px; }
+      .story-strip { padding: 64px 16px; }
+      .story-strip__head { align-items: start; }
+      .memory-grid { display: grid; grid-auto-rows: auto; grid-template-columns: 1fr; }
+      .memory-card,
+      .memory-card:nth-child(n) { grid-column: 1; grid-row: auto; height: 280px; }
+      .memory-card:first-child { height: 360px; }
+      .chapter { padding: 64px 16px; }
+      .chapter-card { grid-template-columns: 1fr; grid-template-rows: 220px auto; }
+      .chapter-card img { height: 220px; }
+      .review-outlook { margin: 0 16px 72px; padding: 44px 28px; }
+      .review-outlook::after { font-size: 7rem; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * { scroll-behavior: auto !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <div id="nav-placeholder"></div>
+
+  <header class="review-hero">
+    <img class="review-hero__image" src="Image/YTC_ChuyenTauThoiGian_1.jpg" alt="Khoảnh khắc sinh nhật 14 tuổi YTC">
+    <div class="review-hero__shade"></div>
+    <div class="review-hero__content">
+      <div class="review-kicker">Một năm – Một hành trình</div>
+      <h1>Review <em>YTC 2026</em></h1>
+      <p class="review-hero__lead">Những nụ cười, lần chạy show đầu tiên, giọt mồ hôi sau mỗi buổi tập và tất cả khoảnh khắc đáng nhớ đã tạo nên một năm YTC thật trọn vẹn.</p>
+      <a class="review-scroll" href="#review-story"><span>↓</span> Xem lại hành trình</a>
+    </div>
+  </header>
+
+  <main class="review-main" id="review-story">
+    <section class="review-intro">
+      <div>
+        <span class="story-label">Our story</span>
+        <h2>Những ký ức<br>đáng nhớ nhất.</h2>
+      </div>
+      <div class="review-intro__copy">
+        <p>Năm 2026 là hành trình YTC tiếp tục <strong>lớn lên cùng nhau</strong>. Từ những buổi sinh hoạt CLB, training chuyên môn đến việc đồng hành tại các sự kiện của nhà trường, mỗi khoảnh khắc đều góp phần định hình một YTC năng động, giàu nhiệt huyết và gắn bó.</p>
+      </div>
+    </section>
+
+    <section class="story-strip">
+      <div class="story-strip__inner">
+        <div class="story-strip__head">
+          <div>
+            <span class="story-label">Best moments</span>
+            <h2>Khoảnh khắc trong tim</h2>
+          </div>
+          <div class="story-counter">2026 · 05 MEMORIES</div>
+        </div>
+
+        <div class="memory-grid">
+          <button class="memory-card" type="button" data-full="Image/YTC_ChuyenTauThoiGian_1.jpg" aria-label="Phóng to ảnh sinh nhật YTC">
+            <img src="Image/YTC_ChuyenTauThoiGian_1.jpg" alt="Sinh nhật 14 tuổi YTC - Chuyến tàu thời gian" loading="lazy">
+            <span class="memory-card__text"><span class="memory-card__number">01 · MILESTONE</span><h3>Chuyến tàu thời gian - Trạm tri ân</h3></span>
+          </button>
+          <button class="memory-card" type="button" data-full="Image/YTC_Da_ngoai_2026.jpg" aria-label="Phóng to ảnh dã ngoại YTC">
+            <img src="Image/YTC_Da_ngoai_2026.jpg" alt="Buổi dã ngoại gắn kết YTC 2026" loading="lazy">
+            <span class="memory-card__text"><span class="memory-card__number">02 · CONNECTION</span><h3>Một buổi dã ngoại đầy nắng</h3></span>
+          </button>
+          <button class="memory-card" type="button" data-full="Image/YTC_K20_THE_NEXUS.jpg" aria-label="Phóng to ảnh UNETI 70 NĂM & THE NEXUS">
+            <img src="Image/YTC_K20_THE_NEXUS.jpg" alt="UNETI 70 NĂM & THE NEXUS" loading="lazy">
+            <span class="memory-card__text"><span class="memory-card__number">03 · MISSION</span><h3>UNETI 70 NĂM & THE NEXUS</h3></span>
+          </button>
+          <button class="memory-card" type="button" data-full="Image/MC_2026_1.jpg" aria-label="Phóng to ảnh MC YTC">
+            <img src="Image/MC_2026_1.jpg" alt="Đội hình MC YTC năm 2026" loading="lazy">
+            <span class="memory-card__text"><span class="memory-card__number">04 · STAGE</span><h3>Những giọng nói rực rỡ</h3></span>
+          </button>
+          <button class="memory-card" type="button" data-full="Image/VinhDanhSinhVienXuatSacNamHoc2025_2026.jpg" aria-label="Phóng to ảnh vinh danh sinh viên xuất sắc">
+            <img src="Image/VinhDanhSinhVienXuatSacNamHoc2025_2026.jpg" alt="Vinh danh sinh viên xuất sắc năm học 2025-2026" loading="lazy">
+            <span class="memory-card__text"><span class="memory-card__number">05 · PRIDE</span><h3>Vinh danh sinh viên xuất sắc</h3></span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section class="chapter">
+      <span class="story-label">More than moments</span>
+      <h2>Chúng mình đã đi cùng nhau</h2>
+      <div class="chapter-grid">
+        <article class="chapter-card">
+          <img src="Image/LT_2026_13.jpg" alt="Hoạt động lễ tân YTC 2026" loading="lazy">
+          <div class="chapter-card__body">
+            <span class="chapter-card__tag">Sự kiện · Lễ tân</span>
+            <h3>Tỉ mỉ trong từng chi tiết</h3>
+            <p>Những nụ cười đầu tiên và sự chuẩn bị kỹ càng ở từng khâu đón tiếp.</p>
+          </div>
+        </article>
+        <article class="chapter-card">
+          <img src="Image/NSHC_2026_8.jpg" alt="Nhân sự hậu cần YTC 2026" loading="lazy">
+          <div class="chapter-card__body">
+            <span class="chapter-card__tag">Hậu trường · Nhân sự</span>
+            <h3>Thầm lặng để sự kiện tròn trịa</h3>
+            <p>Cùng nhau băng băng từ khâu chuẩn bị đến khoảnh khắc chương trình bắt đầu.</p>
+          </div>
+        </article>
+        <article class="chapter-card">
+          <img src="Image/YTC_2026_1.jpg" alt="Đội ngũ YTC 2026" loading="lazy">
+          <div class="chapter-card__body">
+            <span class="chapter-card__tag">Teamwork · YTC</span>
+            <h3>Một tập thể, một nhịp</h3>
+            <p>Tiếp tục kết nối năng lượng trẻ và tinh thần chủ động trong từng hoạt động.</p>
+          </div>
+        </article>
+        <article class="chapter-card">
+          <img src="Image/YTC_Gen_15_1.jpg" alt="Vinh danh sinh viên xuất sắc năm học 2025-2026" loading="lazy">
+          <div class="chapter-card__body">
+            <span class="chapter-card__tag">Thành tích · Vinh danh</span>
+            <h3>Nỗ lực được xứng đáng ghi nhận</h3>
+            <p>Đón nhận những thành quả trong học tập, rèn luyện và đóng góp cộng đồng.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="review-outlook">
+      <span class="story-label">Next chapter</span>
+      <h2>Cảm ơn 2026.<br>Xin chào những hành trình mới.</h2>
+      <p>YTC sẽ tiếp tục là nơi để tuổi trẻ được thử thách, được bày tỏ và cùng nhau tạo ra những ký ức thật ý nghĩa.</p>
+    </section>
+  </main>
+
+  <div class="lightbox" id="review-lightbox" role="dialog" aria-modal="true" aria-label="Xem ảnh lớn">
+    <button class="lightbox-close" type="button" aria-label="Đóng ảnh">×</button>
+    <img src="" alt="">
+  </div>
+
+  <footer><div id="footer-placeholder"></div></footer>
+
+  <script src="Asset/script.js"></script>
+  <script>
+    const lightbox = document.getElementById('review-lightbox');
+    const lightboxImage = lightbox.querySelector('img');
+    const closeLightbox = () => {
+      lightbox.classList.remove('is-open');
+      lightboxImage.src = '';
+      document.documentElement.classList.remove('no-scroll');
+    };
+
+    document.querySelectorAll('.memory-card').forEach(card => {
+      card.addEventListener('click', () => {
+        const img = card.querySelector('img');
+        lightboxImage.src = card.dataset.full;
+        lightboxImage.alt = img.alt;
+        lightbox.classList.add('is-open');
+        document.documentElement.classList.add('no-scroll');
+      });
+    });
+
+    lightbox.querySelector('.lightbox-close').addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', event => {
+      if (event.target === lightbox) closeLightbox();
+    });
+    document.addEventListener('keydown', event => {
+      if (event.key === 'Escape') closeLightbox();
+    });
+  </script>
+</body>
+</html>

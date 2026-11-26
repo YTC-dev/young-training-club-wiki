@@ -70,6 +70,7 @@ const navHTML = `
         <ul class="dropdown">
           <li><a href="${BASE}/contest_event.html">Cuộc thi</a></li>
           <li><a href="${BASE}/GocVangVinhDanh.html">Góc vàng vinh danh</a></li>
+          <li><a href="${BASE}/ReviewYTC2026.html">Review YTC 2026</a></li>
         </ul>
       </li>
       <li class="has-dropdown">
