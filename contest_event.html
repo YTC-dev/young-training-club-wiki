@@ -575,6 +575,89 @@
       display: none;
     }
 
+    .participant-dialog-trigger {
+      padding: 7px 12px;
+      border: 1px solid rgba(9, 131, 254, 0.28);
+      border-radius: 999px;
+      background: #ffffff;
+      color: var(--blue-accent);
+      font: inherit;
+      font-size: 0.8rem;
+      font-weight: 800;
+      cursor: pointer;
+      transition: background 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+    }
+
+    .participant-dialog-trigger:hover,
+    .participant-dialog-trigger:focus-visible {
+      background: #eff8ff;
+      box-shadow: 0 4px 12px rgba(9, 131, 254, 0.14);
+      transform: translateY(-1px);
+      outline: none;
+    }
+
+    .participants-dialog {
+      position: fixed;
+      inset: 50% auto auto 50%;
+      margin: 0;
+      transform: translate(-50%, -50%);
+      width: min(680px, calc(100% - 32px));
+      max-height: min(80vh, 700px);
+      padding: 22px;
+      border: 1px solid rgba(161, 227, 255, 0.7);
+      border-radius: 20px;
+      background: #ffffff;
+      color: var(--text-main);
+      box-shadow: 0 24px 70px rgba(15, 23, 42, 0.28);
+    }
+
+    .participants-dialog::backdrop {
+      background: rgba(15, 23, 42, 0.58);
+      backdrop-filter: blur(3px);
+    }
+
+    .participants-dialog__header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    .participants-dialog__title {
+      margin: 0;
+      color: var(--blue-dark);
+      font-size: 1.15rem;
+    }
+
+    .participants-dialog__close {
+      display: inline-grid;
+      width: 36px;
+      height: 36px;
+      place-items: center;
+      border: 1px solid #dbeafe;
+      border-radius: 50%;
+      background: #f8fafc;
+      color: #475569;
+      font-size: 1.4rem;
+      cursor: pointer;
+    }
+
+    .participants-dialog__close:hover,
+    .participants-dialog__close:focus-visible {
+      border-color: #93c5fd;
+      background: #eff6ff;
+      color: var(--blue-dark);
+      outline: none;
+    }
+
+    .participants-dialog .entry-grid {
+      max-height: 58vh;
+      margin: 0;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+
     /* Participant Entry List for General Contests */
     .entry-section-label {
       font-size: 0.82rem;
@@ -857,6 +940,7 @@
 <nav class="page-cross-nav" aria-label="Điều hướng nhanh giữa Cuộc thi và Hoạt động">
   <a class="page-cross-nav__link is-current" href="contest_event.html" aria-current="page">Cuộc thi</a>
   <a class="page-cross-nav__link" href="news.html">Hoạt động</a>
+  <a class="page-cross-nav__link" href="ReviewYTC2026.html">Review YTC 2026</a>
 </nav>
 
   <!-- MAIN CONTENT CONTAINER -->
@@ -926,26 +1010,7 @@
               </div>
             </div>
 
-            <div class="podium-wrap">
-              <div class="podium-title"><svg class="ico ico-trophy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg> Bảng vàng vinh danh</div>
-              <div class="podium">
-                <div class="podium-step silver">
-                  <span class="rank-label">Giải nhì</span>
-                  <span class="medal"><svg class="ico ico-silver" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5.5"/><path d="M8.6 10.7 5.5 3h4.2L12 8l2.3-5h4.2l-3.1 7.7"/></svg></span>
-                  <span class="winner-name">Nhóm OneTeam</span>
-                </div>
-                <div class="podium-step gold">
-                  <span class="rank-label">Giải nhất</span>
-                  <span class="medal"><svg class="ico ico-gold" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5.5"/><path d="M8.6 10.7 5.5 3h4.2L12 8l2.3-5h4.2l-3.1 7.7"/></svg></span>
-                  <span class="winner-name">Nhóm Donald Trump</span>
-                </div>
-                <div class="podium-step bronze">
-                  <span class="rank-label">Giải ba</span>
-                  <span class="medal"><svg class="ico ico-bronze" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5.5"/><path d="M8.6 10.7 5.5 3h4.2L12 8l2.3-5h4.2l-3.1 7.7"/></svg></span>
-                  <span class="winner-name">Nhóm ShineOn</span>
-                </div>
-              </div>
-            </div>
+
 
             <div class="result-card-footer">
               <a href="Contest/Podcast/OneTake.html" class="result-link">Xem series tại đây →</a>
@@ -968,29 +1033,7 @@
               </div>
             </div>
 
-            <div class="podium-wrap">
-              <div class="podium-title"><svg class="ico ico-trophy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg> Bảng vàng vinh danh</div>
-              <div class="podium">
-                <div class="podium-step silver">
-                  <span class="rank-label">Giải nhì</span>
-                  <span class="medal"><svg class="ico ico-silver" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5.5"/><path d="M8.6 10.7 5.5 3h4.2L12 8l2.3-5h4.2l-3.1 7.7"/></svg></span>
-                  <span class="winner-name">Nhóm The Light</span>
-                  <span class="winner-name">Nhóm Ẩm thực trùng sinh</span>
-                </div>
-                <div class="podium-step gold">
-                  <span class="rank-label">Giải nhất</span>
-                  <span class="medal"><svg class="ico ico-gold" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5.5"/><path d="M8.6 10.7 5.5 3h4.2L12 8l2.3-5h4.2l-3.1 7.7"/></svg></span>
-                  <span class="winner-name">Nhóm Good Vibes Tribe</span>
-                </div>
-                <div class="podium-step bronze">
-                  <span class="rank-label">Giải ba</span>
-                  <span class="medal"><svg class="ico ico-bronze" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5.5"/><path d="M8.6 10.7 5.5 3h4.2L12 8l2.3-5h4.2l-3.1 7.7"/></svg></span>
-                  <span class="winner-name">Nhóm INFINITY</span>
-                  <span class="winner-name">Nhóm Dreamten</span>
-                  <span class="winner-name">Nhóm THE LAST VICTORY HUNTERS</span>
-                </div>
-              </div>
-            </div>
+
 
             <div class="result-card-footer">
               <a href="Contest/Podcast/RewriteDestiny.html" class="result-link">Xem series tại đây →</a>
@@ -1013,26 +1056,7 @@
               </div>
             </div>
 
-            <div class="podium-wrap">
-              <div class="podium-title"><svg class="ico ico-trophy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg> Bảng vàng vinh danh</div>
-              <div class="podium">
-                <div class="podium-step silver">
-                  <span class="rank-label">Giải nhì</span>
-                  <span class="medal"><svg class="ico ico-silver" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5.5"/><path d="M8.6 10.7 5.5 3h4.2L12 8l2.3-5h4.2l-3.1 7.7"/></svg></span>
-                  <span class="winner-name">Nhóm Biệt Đội Xanh</span>
-                </div>
-                <div class="podium-step gold">
-                  <span class="rank-label">Giải nhất</span>
-                  <span class="medal"><svg class="ico ico-gold" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5.5"/><path d="M8.6 10.7 5.5 3h4.2L12 8l2.3-5h4.2l-3.1 7.7"/></svg></span>
-                  <span class="winner-name">Nhóm Together We Rise</span>
-                </div>
-                <div class="podium-step bronze">
-                  <span class="rank-label">Giải ba</span>
-                  <span class="medal"><svg class="ico ico-bronze" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5.5"/><path d="M8.6 10.7 5.5 3h4.2L12 8l2.3-5h4.2l-3.1 7.7"/></svg></span>
-                  <span class="winner-name">Nhóm Crew 1718</span>
-                </div>
-              </div>
-            </div>
+
 
             <div class="result-card-footer">
               <a href="Contest/Podcast/VoiceYourMind.html" class="result-link">Xem series tại đây →</a>
@@ -1055,27 +1079,7 @@
               </div>
             </div>
 
-            <div class="podium-wrap">
-              <div class="podium-title"><svg class="ico ico-trophy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg> Bảng vàng vinh danh</div>
-              <div class="podium">
-                <div class="podium-step silver">
-                  <span class="rank-label">Giải nhì</span>
-                  <span class="medal"><svg class="ico ico-silver" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5.5"/><path d="M8.6 10.7 5.5 3h4.2L12 8l2.3-5h4.2l-3.1 7.7"/></svg></span>
-                  <span class="winner-name">Nhóm Hơn Thua</span>
-                </div>
-                <div class="podium-step gold">
-                  <span class="rank-label">Giải nhất</span>
-                  <span class="medal"><svg class="ico ico-gold" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5.5"/><path d="M8.6 10.7 5.5 3h4.2L12 8l2.3-5h4.2l-3.1 7.7"/></svg></span>
-                  <span class="winner-name">Nhóm THE INNOVATORS</span>
-                </div>
-                <div class="podium-step bronze">
-                  <span class="rank-label">Giải ba</span>
-                  <span class="medal"><svg class="ico ico-bronze" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5.5"/><path d="M8.6 10.7 5.5 3h4.2L12 8l2.3-5h4.2l-3.1 7.7"/></svg></span>
-                  <span class="winner-name">Nhóm 8 Musketeers</span>
-                </div>
-              </div>
-              <div class="special-award-pill"><svg class="ico ico-heart" viewBox="0 0 24 24" fill="currentColor" stroke="none" aria-hidden="true"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg> Yêu thích nhất: Nhóm Bom Nổ Chậm</div>
-            </div>
+
 
             <div class="result-card-footer">
               <a href="Contest/Podcast/YTCPodcastChallenge.html" class="result-link">Xem series tại đây →</a>
@@ -1098,26 +1102,7 @@
               </div>
             </div>
 
-            <div class="podium-wrap">
-              <div class="podium-title"><svg class="ico ico-trophy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg> Bảng vàng vinh danh</div>
-              <div class="podium">
-                <div class="podium-step silver">
-                  <span class="rank-label">Giải nhì</span>
-                  <span class="medal"><svg class="ico ico-silver" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5.5"/><path d="M8.6 10.7 5.5 3h4.2L12 8l2.3-5h4.2l-3.1 7.7"/></svg></span>
-                  <span class="winner-name">Nhóm Sao Sáng</span>
-                </div>
-                <div class="podium-step gold">
-                  <span class="rank-label">Giải nhất</span>
-                  <span class="medal"><svg class="ico ico-gold" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5.5"/><path d="M8.6 10.7 5.5 3h4.2L12 8l2.3-5h4.2l-3.1 7.7"/></svg></span>
-                  <span class="winner-name">Nhóm Bá Đạo Bậc Nhất</span>
-                </div>
-                <div class="podium-step bronze">
-                  <span class="rank-label">Giải ba</span>
-                  <span class="medal"><svg class="ico ico-bronze" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5.5"/><path d="M8.6 10.7 5.5 3h4.2L12 8l2.3-5h4.2l-3.1 7.7"/></svg></span>
-                  <span class="winner-name">Nhóm THE ONE</span>
-                </div>
-              </div>
-            </div>
+
 
             <div class="result-card-footer">
               <a href="Contest/Podcast/SuyNghiTrongToi.html" class="result-link">Xem series tại đây →</a>
@@ -1140,26 +1125,7 @@
               </div>
             </div>
 
-            <div class="podium-wrap">
-              <div class="podium-title"><svg class="ico ico-trophy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg> Bảng vàng vinh danh</div>
-              <div class="podium">
-                <div class="podium-step silver">
-                  <span class="rank-label">Giải nhì</span>
-                  <span class="medal"><svg class="ico ico-silver" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5.5"/><path d="M8.6 10.7 5.5 3h4.2L12 8l2.3-5h4.2l-3.1 7.7"/></svg></span>
-                  <span class="winner-name">Nhóm Tinh hoa sáng tạo</span>
-                </div>
-                <div class="podium-step gold">
-                  <span class="rank-label">Giải nhất</span>
-                  <span class="medal"><svg class="ico ico-gold" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5.5"/><path d="M8.6 10.7 5.5 3h4.2L12 8l2.3-5h4.2l-3.1 7.7"/></svg></span>
-                  <span class="winner-name">Nhóm Hương sắc Việt Nam</span>
-                </div>
-                <div class="podium-step bronze">
-                  <span class="rank-label">Giải ba</span>
-                  <span class="medal"><svg class="ico ico-bronze" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5.5"/><path d="M8.6 10.7 5.5 3h4.2L12 8l2.3-5h4.2l-3.1 7.7"/></svg></span>
-                  <span class="winner-name">Nhóm Hôm nay ăn gì?</span>
-                </div>
-              </div>
-            </div>
+
 
             <div class="result-card-footer">
               <a href="Contest/Podcast/NetDepAmThucViet.html" class="result-link">Xem chi tiết cuộc thi →</a>
@@ -1197,32 +1163,7 @@
               </div>
             </div>
 
-            <div class="podium-wrap">
-              <div class="podium-title"><svg class="ico ico-trophy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg> Bảng vàng chung cuộc</div>
-              <div class="podium">
-                <div class="podium-step silver">
-                  <span class="rank-label">Á quân 1</span>
-                  <span class="medal"><svg class="ico ico-silver" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5.5"/><path d="M8.6 10.7 5.5 3h4.2L12 8l2.3-5h4.2l-3.1 7.7"/></svg></span>
-                  <span class="winner-name">Nguyễn Thị Thanh Hoa</span>
-                  <span class="winner-meta">SBD: 11</span>
-                </div>
-                <div class="podium-step gold">
-                  <span class="rank-label">Quán quân</span>
-                  <span class="medal"><svg class="ico ico-crown" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 7 4.5 3L12 4l4.5 6L21 7l-2 11H5Z"/><path d="M5.5 21h13"/></svg></span>
-                  <span class="winner-name">Tô Thu Trang</span>
-                  <span class="winner-meta">SBD: 13</span>
-                </div>
-                <div class="podium-step bronze">
-                  <span class="rank-label">Á quân 2</span>
-                  <span class="medal"><svg class="ico ico-bronze" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5.5"/><path d="M8.6 10.7 5.5 3h4.2L12 8l2.3-5h4.2l-3.1 7.7"/></svg></span>
-                  <span class="winner-name">Nguyễn Ngọc Như Quỳnh</span>
-                  <span class="winner-meta">SBD: 54</span>
-                  <span class="winner-name">Nguyễn Minh Ánh</span>
-                  <span class="winner-meta">SBD: 02</span>
-                </div>
-              </div>
-              <div class="special-award-pill"><svg class="ico ico-heart" viewBox="0 0 24 24" fill="currentColor" stroke="none" aria-hidden="true"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg> Thí sinh được yêu thích nhất: Ngô Hạnh Nguyên (SBD: 31)</div>
-            </div>
+
 
             <div class="result-card-footer">
               <a href="Contest/RisingVoice2025/RisingVoice2025.html" class="result-link">Xem chi tiết hành trình Rising Voice 2025 →</a>
@@ -1258,9 +1199,27 @@
                 <span class="result-meta-pill"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> Tháng 11/2026</span>
               </div>
             </div>
-            <div class="entry-section-label"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> Thành viên YTC góp mặt</div>
-            <button type="button" class="member-toggle" aria-expanded="false" aria-controls="members-khoanh-khac-tri-an-2026">Xem thành viên <span class="member-toggle__count">8</span><span class="member-toggle__chevron" aria-hidden="true">▾</span></button>
-            <div class="entry-grid member-list is-collapsed" id="members-khoanh-khac-tri-an-2026">
+            <div class="entry-section-label"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> Thành viên góp mặt</div>
+            <div class="entry-grid">
+              <div class="entry-card">
+                <div class="entry-top">
+                  <a class="entry-name" href="Member/NguyenHoaiAnh_DHMK18A2HN.html" target="_blank" rel="noopener noreferrer"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> Nguyễn Hoài Anh</a>
+                  <span class="entry-class">DHMK18A2HN</span>
+                </div>
+                <p class="entry-title"><span class="title-label">Thể loại:</span> Video</p>
+                <div class="entry-bottom-row">
+                  <span class="entry-status stage-final"><svg class="ico ico-gold" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5.5"/><path d="M8.6 10.7 5.5 3h4.2L12 8l2.3-5h4.2l-3.1 7.7"/></svg> Giải nhất</span>
+                  <a href="https://www.facebook.com/share/v/1CjLo6vHpF/" target="_blank" rel="noopener noreferrer" class="entry-inline-link">Xem tác phẩm →</a>
+                </div>
+              </div>
+            </div>
+            <button type="button" class="participant-dialog-trigger" data-dialog-target="members-khoanh-khac-tri-an-2026" aria-haspopup="dialog">Xem 7 thành viên còn lại</button>
+            <dialog class="participants-dialog" id="members-khoanh-khac-tri-an-2026" aria-labelledby="members-khoanh-khac-tri-an-2026-title">
+              <div class="participants-dialog__header">
+                <h3 class="participants-dialog__title" id="members-khoanh-khac-tri-an-2026-title">7 thành viên góp mặt</h3>
+                <button type="button" class="participants-dialog__close" aria-label="Đóng danh sách thành viên">×</button>
+              </div>
+              <div class="entry-grid">
               <div class="entry-card">
                 <div class="entry-top">
                   <span class="entry-name"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> Nguyễn Anh Thư</span>
@@ -1338,18 +1297,8 @@
                   <a href="https://www.facebook.com/share/19fGGUkrPF/" target="_blank" rel="noopener noreferrer" class="entry-inline-link">Xem tác phẩm →</a>
                 </div>
               </div>
-              <div class="entry-card">
-                <div class="entry-top">
-                  <a class="entry-name" href="Member/NguyenHoaiAnh_DHMK18A2HN.html" target="_blank"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> Nguyễn Hoài Anh</a>
-                  <span class="entry-class">DHMK18A2HN</span>
-                </div>
-                <p class="entry-title"><span class="title-label">Thể loại:</span> Video</p>
-                <div class="entry-bottom-row">
-                  <span class="entry-status stage-final"><svg class="ico ico-gold" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="15" r="5.5"/><path d="M8.6 10.7 5.5 3h4.2L12 8l2.3-5h4.2l-3.1 7.7"/></svg> Giải nhất</span>
-                  <a href="https://www.facebook.com/share/v/1CjLo6vHpF/" target="_blank" rel="noopener noreferrer" class="entry-inline-link">Xem tác phẩm →</a>
-                </div>
               </div>
-            </div>
+            </dialog>
             <div class="result-card-footer">
               <span class="result-meta-pill"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" x2="21" y1="22" y2="22"/><line x1="6" x2="6" y1="18" y2="11"/><line x1="10" x2="10" y1="18" y2="11"/><line x1="14" x2="14" y1="18" y2="11"/><line x1="18" x2="18" y1="18" y2="11"/><polygon points="12 2 20 7 4 7"/></svg> Hoạt động ý nghĩa</span>
             </div>
@@ -1779,6 +1728,16 @@
           toggle.setAttribute("aria-expanded", String(!isExpanded));
           toggle.firstChild.textContent = isExpanded ? "Xem thành viên " : "Ẩn thành viên ";
           list?.classList.toggle("is-collapsed", isExpanded);
+        });
+      });
+
+      document.querySelectorAll(".participant-dialog-trigger").forEach(trigger => {
+        const dialog = document.getElementById(trigger.getAttribute("data-dialog-target"));
+        const closeButton = dialog.querySelector(".participants-dialog__close");
+        trigger.addEventListener("click", () => dialog.showModal());
+        closeButton.addEventListener("click", () => dialog.close());
+        dialog.addEventListener("click", event => {
+          if (event.target === dialog) dialog.close();
         });
       });
 
