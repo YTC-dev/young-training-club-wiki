@@ -34,6 +34,8 @@ const ICON_PATHS = {
   mail: '<rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>',
   globe: '<circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/>',
   clipboard: '<rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>',
+  gamepad: '<path d="M6 12h4m-2-2v4"/><circle cx="15" cy="12" r="1"/><circle cx="18" cy="10" r="1"/><rect width="20" height="14" x="2" y="5" rx="2"/>',
+  planet: '<circle cx="12" cy="12" r="8"/><ellipse cx="12" cy="12" rx="12" ry="4.5" transform="rotate(-25 12 12)"/>',
   check: '<path d="M20 6 9 17l-5-5"/>'
 };
 
@@ -139,9 +141,10 @@ const footerHTML = `
           <li><a href="${BASE}/about.html">${icon("sparkles")} Về chúng tôi</a></li>
           <li><a href="${BASE}/contest_event.html">${icon("trophy")} Cuộc thi & Sự kiện</a></li>
           <li><a href="${BASE}/news.html">${icon("newspaper")} Nhật ký hoạt động</a></li>
+          <li><a href="${BASE}/ReviewYTC2026.html">${icon("planet")} Review YTC 2026</a></li>
           <li><a href="${BASE}/member.html">${icon("users")} Thành viên</a></li>
           <li><a href="${BASE}/joinus.html" class="footer-highlight-link">${icon("rocket")} Thành viên Gen 15.1</a></li>
-          <li><a href="${BASE}/quiz-game.html" target="_blank" rel="noopener">${icon("sparkles")} Minigame</a></li>
+          <li><a href="${BASE}/quiz-game.html" target="_blank" rel="noopener">${icon("gamepad")} Minigame</a></li>
         </ul>
       </div>
 
