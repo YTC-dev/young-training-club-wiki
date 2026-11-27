@@ -616,27 +616,17 @@
     }
 
     .profile-hero .social-row a::before {
-      display: grid;
+      display: block;
       width: 25px;
       height: 25px;
       flex: 0 0 25px;
-      place-items: center;
       border-radius: 50%;
-      background: rgba(255,255,255,.95);
-      color: #1877f2;
-      font-family: Arial, sans-serif;
-      font-size: 17px;
-      font-weight: 800;
-      line-height: 1;
-      content: "f";
+      background: transparent url("../Image/Facebook.png") center / contain no-repeat;
+      content: "";
     }
 
     .profile-hero .social-row a[href*="tiktok.com"]::before {
-      background: #111827;
-      color: #fff;
-      font-size: 16px;
-      text-shadow: -1px 0 #25f4ee, 1px 0 #fe2c55;
-      content: "♪";
+      background-image: url("../Image/Tiktok.png");
     }
 
     .profile-hero .social-row a:hover {
